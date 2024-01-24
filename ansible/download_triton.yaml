@@ -1,0 +1,23 @@
+---
+- name: Download and distribute file to worker nodes
+  hosts: LoudJetsons
+
+  tasks:
+    # Download the file to the Ansible control node
+    - name: Download file
+      local_action: 
+        get_url:
+          url: https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
+          dest: /tmp/tritonserver2.19.0-jetpack4.6.1.tgz
+
+    # Copy the downloaded file to all worker nodes
+    - name: Copy file to worker nodes
+      copy:
+        src: /tmp/tritonserver2.19.0-jetpack4.6.1.tgz
+        dest: ~/tritonserver2.19.0-jetpack4.6.1.tgz
+
+    - name: Unarchive a file that is already on the remote machine
+      ansible.builtin.unarchive:
+      src: ~/tritonserver2.19.0-jetpack4.6.1.tgz
+      dest: ~/tritonserver
+      remote_src: yes

@@ -1,0 +1,7 @@
+---
+- name: Start the Trtiton Server
+  hosts: LoudJetsons
+
+  tasks: 
+    - name: Sending the command
+      ansible.builtin.shell: tritonserver --model-repository=/opt/tritonserver/model_repo --backend-directory=/opt/tritonserver/backends --backend-config=tensorflow,version=2

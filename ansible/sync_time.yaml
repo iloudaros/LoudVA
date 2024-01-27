@@ -1,3 +1,5 @@
+---
+
 - name: Synchronize time with control node
   hosts: LoudJetsons
   

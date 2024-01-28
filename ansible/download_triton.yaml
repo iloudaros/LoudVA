@@ -23,7 +23,7 @@
         state: directory
     
     # Unarchive
-    - name: Unarchive a file that is already on the remote machine
+    - name: Unarchive tritonserver2.19.0-jetpack4.6.1.tgz
       ansible.builtin.unarchive:
         src: ~/tritonserver2.19.0-jetpack4.6.1.tgz
         dest: ~/tritonserver

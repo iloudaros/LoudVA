@@ -2,3 +2,5 @@
 .DS_Store
 scripts/makefile
 .environment
+model_repository/densenet_onnx/1/model.onnx
+model_repository/inception_graphdef/1/model.graphdef

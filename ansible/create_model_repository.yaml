@@ -13,9 +13,8 @@
       become: yes
 
     # Download model repository in the tritonserver directory
-    - name: Download model repository
+    - name: Fetching Models
       ansible.builtin.script: ../scripts/fetch_models.sh
       args:
-        creates: /home/iloudaros/tritonserver/model_repository/inception_graphdef/1
         chdir: /home/iloudaros/tritonserver
       become: yes

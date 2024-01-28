@@ -9,6 +9,7 @@ apt-get install -y --no-install-recommends \
     automake \
     build-essential \
     git \
+    cmake \
     libb64-dev \
     libre2-dev \
     libssl-dev \
@@ -17,6 +18,7 @@ apt-get install -y --no-install-recommends \
     rapidjson-dev \
     patchelf \
     pkg-config \
+    libcurl4-openssl-dev \
     libopenblas-dev \
     libarchive-dev \
     zlib1g-dev \
@@ -24,7 +26,7 @@ apt-get install -y --no-install-recommends \
     python3-pip \
     python3-dev
 
-
+:'
 echo ______PyTorch Dependencies______
 apt-get -y install autoconf \
             bc \
@@ -50,3 +52,5 @@ pip3 install --upgrade grpcio-tools numpy==1.19.4 future attrdict
 pip3 install --upgrade six requests flake8 flatbuffers pillow
 
 #######################################
+
+'

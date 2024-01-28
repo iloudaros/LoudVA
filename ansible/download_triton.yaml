@@ -1,6 +1,8 @@
 ---
 - name: Download and distribute file to worker nodes
   hosts: LoudJetsons
+  args:
+    creates: ~/tritonserver
 
   tasks:
     # Download the file to the Ansible control node
@@ -8,12 +10,12 @@
       delegate_to: localhost
       get_url:
         url: https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
-        dest: /tmp/tritonserver2.19.0-jetpack4.6.1.tgz
+        dest: ~/tritonserver2.19.0-jetpack4.6.1.tgz
 
     # Copy the downloaded file to all worker nodes
     - name: Copy file to worker nodes
       copy:
-        src: /tmp/tritonserver2.19.0-jetpack4.6.1.tgz
+        src: ~/tritonserver2.19.0-jetpack4.6.1.tgz
         dest: ~/tritonserver2.19.0-jetpack4.6.1.tgz
 
     # Create a folder to extract the tgz
@@ -34,3 +36,11 @@
       ansible.builtin.file:
         path: ~/tritonserver2.19.0-jetpack4.6.1.tgz
         state: absent 
+
+    # Download model repository in the tritonserver directory
+    - name: Download model repository
+      ansible.builtin.script: "../scripts/fetch_models.sh"
+      args:
+        chdir: ~/tritonserver
+        creates: ~/tritonserver/model_repository
+      become: yes

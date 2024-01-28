@@ -4,4 +4,4 @@
 
   tasks: 
     - name: Sending the command
-      ansible.builtin.shell: tritonserver --model-repository=/opt/tritonserver/model_repo --backend-directory=/opt/tritonserver/backends --backend-config=tensorflow,version=2
+      ansible.builtin.shell: cd ~/tritonserver/ && ./bin/tritonserver --model-repository=./model_repository --backend-directory=./backends --backend-config=tensorflow,version=2

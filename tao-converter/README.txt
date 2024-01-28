@@ -18,4 +18,4 @@ This document captures simple instructions to run the TAO converter.
 Sample usage:
 
 
-        ./tao-converter -h
+        ./tao-converter -h 

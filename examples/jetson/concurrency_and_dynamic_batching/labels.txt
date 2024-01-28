@@ -1,4 +1,0 @@
-person
-bag
-face
-

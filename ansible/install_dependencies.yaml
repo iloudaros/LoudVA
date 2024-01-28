@@ -3,15 +3,23 @@
   hosts: LoudJetsons
 
   tasks:
-    - name: Install Triton dependencies
+
+    - name: Run the shell script
       ansible.builtin.script: ../scripts/install_dependencies.sh
       args:
         creates: /ansible/flags/triton_dependencies_installed.flag
       become: yes
-      rescue: 
-        msg: Some errors found while installing dependencies. Please check the logs.
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /ansible/flags
+        state: directory
+        mode: '0755'
+      become: yes
 
     - name: Leave a flag file
       ansible.builtin.file:
         path: /ansible/flags/triton_dependencies_installed.flag
         state: touch
+      become: yes
+

@@ -1,8 +1,6 @@
 ---
 - name: Download and distribute file to worker nodes
   hosts: LoudJetsons
-  args:
-    creates: ~/tritonserver
 
   tasks:
     # Download the file to the Ansible control node
@@ -37,10 +35,3 @@
         path: ~/tritonserver2.19.0-jetpack4.6.1.tgz
         state: absent 
 
-    # Download model repository in the tritonserver directory
-    - name: Download model repository
-      ansible.builtin.script: "../scripts/fetch_models.sh"
-      args:
-        chdir: ~/tritonserver
-        creates: ~/tritonserver/model_repository
-      become: yes

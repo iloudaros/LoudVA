@@ -1,7 +1,7 @@
 ---
-- name: Start the Trtiton Server
+- name: Start the Trtiton Server #not working 
   hosts: LoudJetsons
 
   tasks: 
     - name: Sending the command
-      ansible.builtin.shell: cd ~/tritonserver/ && ./bin/tritonserver --model-repository=./model_repository --backend-directory=./backends --backend-config=tensorflow,version=2
+      ansible.builtin.shell: cd /home/iloudaros/tritonserver/ && ./bin/tritonserver --model-repository=./model_repository --backend-directory=./backends --backend-config=tensorflow,version=2

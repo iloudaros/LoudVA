@@ -18,11 +18,11 @@ install_dependecies:
 	@echo "____Installing Dependencies on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/install_dependencies.yaml
 
-create_model_dir:
+create_model_repository:
 	@echo "____Creating Model Directory on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/create_model_dir.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/create_model_repository.yaml
 
-initialise_Jetsons: sync_time install_dependecies download_triton 
+initialise_Jetsons: sync_time install_dependecies download_triton create_model_repository
 
 
 client_setup: 

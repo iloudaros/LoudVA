@@ -4,7 +4,7 @@
 
   tasks:
     - name: Install Triton dependencies
-      ansible.builtin.script: "../scripts/install_dependencies.sh"
+      ansible.builtin.script: ../scripts/install_dependencies.sh
       args:
         creates: /ansible/flags/triton_dependencies_installed.flag
       become: yes

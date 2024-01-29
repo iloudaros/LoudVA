@@ -3,6 +3,6 @@
   hosts: LoudJetsons
 
   tasks: 
-    - name: Sending the command
+    - name: Sending The command to the Jetsons
       ansible.builtin.shell: cd /home/iloudaros/tritonserver/ && sudo ./bin/tritonserver --model-repository=./model_repository --backend-directory=./backends --backend-config=tensorflow,version=2
       become: yes

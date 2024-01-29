@@ -33,8 +33,8 @@ client_setup:
         python3 \
         python3-pip \
         python3-dev
-	pip3 install --upgrade wheel setuptools cython
-	pip3 install --upgrade grpcio-tools numpy==1.19.4 future attrdict
+	pip3 install --upgrade wheel setuptools cython testresources
+	pip3 install --upgrade grpcio-tools numpy future attrdict
 	cd ~
 	mkdir ~/tritonserver
 	tar zxvf ~/tritonserver2.19.0-jetpack4.6.1.tgz -C ~/tritonserver

@@ -7,14 +7,14 @@
     - name: Download file
       delegate_to: localhost
       get_url:
-        url: https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
-        dest: ~/tritonserver2.19.0-jetpack4.6.1.tgz
+        url: https://github.com/triton-inference-server/server/releases/download/v2.16.0/tritonserver2.16.0-jetpack4.6.tgz #https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
+        dest: ~/tritonserver.tgz
 
     # Copy the downloaded file to all worker nodes
     - name: Copy file to worker nodes
       copy:
-        src: ~/tritonserver2.19.0-jetpack4.6.1.tgz
-        dest: ~/tritonserver2.19.0-jetpack4.6.1.tgz
+        src: ~/tritonserver.tgz
+        dest: ~/tritonserver.tgz
 
     # Create a folder to extract the tgz
     - name: Creates directory
@@ -23,15 +23,15 @@
         state: directory
     
     # Unarchive
-    - name: Unarchive tritonserver2.19.0-jetpack4.6.1.tgz
+    - name: Unarchive tritonserver.tgz
       ansible.builtin.unarchive:
-        src: ~/tritonserver2.19.0-jetpack4.6.1.tgz
+        src: ~/tritonserver.tgz
         dest: ~/tritonserver
         remote_src: yes
 
     # Delete the tgz file after extracting
     - name: Delete tgz file
       ansible.builtin.file:
-        path: ~/tritonserver2.19.0-jetpack4.6.1.tgz
+        path: ~/tritonserver.tgz
         state: absent 
 

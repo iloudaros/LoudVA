@@ -34,12 +34,21 @@ client_setup:
         python3-pip \
         python3-dev
 	pip3 install --upgrade wheel setuptools cython testresources
-	pip3 install --upgrade grpcio-tools numpy future attrdict
-	cd ~
+	pip3 install --upgrade grpcio-tools numpy future attrdict pillow image
+	pip install protobuf==3.20.
 	mkdir ~/tritonserver
-	tar zxvf ~/tritonserver2.19.0-jetpack4.6.1.tgz -C ~/tritonserver
-	python3 -m pip install --upgrade clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+	tar zxvf ~/tritonserver.tgz -C ~/tritonserver
+	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.16.0-py3-none-any.whl[all]
 
+# python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+
+
+system_check: 
+	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP
+	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP
+	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP
+
+		
 
 setup_system: initialise_Jetsons client_setup
 

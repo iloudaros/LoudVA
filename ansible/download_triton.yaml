@@ -7,7 +7,7 @@
     - name: Download file
       delegate_to: localhost
       get_url:
-        url: https://github.com/triton-inference-server/server/releases/download/v2.16.0/tritonserver2.16.0-jetpack4.6.tgz #https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
+        url: https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
         dest: ~/tritonserver.tgz
 
     # Copy the downloaded file to all worker nodes

@@ -1,5 +1,5 @@
 ---
-- name: Download and distribute file to worker nodes
+- name: Delete Triton From the System
   hosts: LoudJetsons
 
   tasks:
@@ -9,4 +9,5 @@
       ansible.builtin.file:
         path: ~/tritonserver
         state: absent 
+      become: yes
 

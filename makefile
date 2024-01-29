@@ -38,9 +38,7 @@ client_setup:
 	pip install protobuf==3.20.
 	mkdir ~/tritonserver
 	tar zxvf ~/tritonserver.tgz -C ~/tritonserver
-	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.16.0-py3-none-any.whl[all]
-
-# python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
 
 
 system_check: 
@@ -61,3 +59,9 @@ start_triton:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml
 
 
+clean:
+	@echo "____Removing Triton from the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/delete_triton.yaml
+	@echo "____Removing Triton from LoudGateway____"
+	rm -r ~/tritonserver*
+	

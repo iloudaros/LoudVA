@@ -8,7 +8,7 @@
     # Copy Model Repository to all worker nodes
     - name: Sending Initial Model Repository to Jetsons
       copy:
-        src: /home/iloudaros/Loud_VA/model_repository
+        src: /home/iloudaros/LoudVA/model_repository
         dest: /home/iloudaros/tritonserver/
       become: yes
 

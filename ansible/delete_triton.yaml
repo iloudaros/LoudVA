@@ -1,0 +1,12 @@
+---
+- name: Download and distribute file to worker nodes
+  hosts: LoudJetsons
+
+  tasks:
+    
+    # Delete the tgz file after extracting
+    - name: Delete triton directory
+      ansible.builtin.file:
+        path: ~/tritonserver
+        state: absent 
+

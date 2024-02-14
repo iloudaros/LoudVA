@@ -1,0 +1,18 @@
+---
+- name: Installing TAO Toolkit
+  hosts: LoudJetsons
+
+  tasks: 
+
+
+    # Copy the TAO Toolkit to the Jetsons
+    - name: Copying TAO Toolkit
+      copy:
+        src: /home/louduser/LoudVA/tao-converter
+        dest: /home/iloudaros/
+      become: yes
+
+    # Setup the TAO Toolkit
+    - name: Fetching Models
+      ansible.builtin.script: ../scripts/tao_setup.sh
+      become: yes

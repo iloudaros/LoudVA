@@ -44,7 +44,11 @@ client_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
 	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver.tgz	
 
-setup_system: initialise_Jetsons client_setup
+install_tao:
+	@echo "____Installing TAO on The Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/install_tao.yaml
+
+setup_system: initialise_Jetsons install_tao client_setup
 
 
 check_system: 

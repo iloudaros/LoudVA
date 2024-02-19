@@ -75,8 +75,8 @@ measure_time:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
 
 measure_power:
-	sudo tegrastats --start --logfile ~/measurement.log && ./perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
-	
+	sudo tegrastats --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
+	bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
 ################################################
 
 

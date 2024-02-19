@@ -1,0 +1,8 @@
+---
+- name: Start the Trtiton Server with GPU Metrics enabled
+  hosts: LoudJetsons
+
+  tasks: 
+    - name: Sending The command to the Jetsons
+      ansible.builtin.shell: cd /home/iloudaros/tritonserver/ && sudo ./bin/tritonserver --allow-gpu-metrics true --model-repository=./model_repository --backend-directory=./backends --backend-config=tensorflow,version=2
+      become: yes

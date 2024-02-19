@@ -60,6 +60,8 @@ check_system:
 
 
 
+
+################ Quick Access ##################
 start_triton:
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml
@@ -68,6 +70,25 @@ start_triton_gpumetrics:
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
 
+
+measure_time:
+	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
+
+measure_power:
+	sudo tegrastats --start --logfile ~/measurement.log && ./perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
+	
+################################################
+
+
+
+
+
+
+
+
+
+
+################################################
 clean:
 	@echo "____Removing Triton from the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/delete_triton.yaml

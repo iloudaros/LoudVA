@@ -27,4 +27,7 @@ apt-get install -y --no-install-recommends \
     python3-dev
 
 
+######## Utilities that we need #########
 sudo apt install screen
+sudo apt install strace
+sudo pip3 install -U jetson-stats

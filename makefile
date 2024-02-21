@@ -6,7 +6,9 @@ ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${P
 
 
 ###### System Iniitialization and Setup #######
-sync_time:
+# To be run on LoudGateway
+################################################
+sync_time: 
 	@echo "____Setting Correct Time and Date on Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/sync_time.yaml
 
@@ -23,7 +25,6 @@ create_model_repository:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/create_model_repository.yaml
 
 initialise_Jetsons: sync_time install_dependecies download_triton create_model_repository
-
 
 client_setup: 
 	@echo "____Setting up Triton Client on LoudGateway____"
@@ -51,7 +52,6 @@ install_tao:
 
 setup_system: initialise_Jetsons install_tao client_setup
 
-
 check_system: 
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP 
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP 
@@ -63,6 +63,7 @@ check_system:
 
 
 ################ Quick Access ##################
+# To be run on LoudGateway
 start_triton:
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml
@@ -72,24 +73,25 @@ start_triton_gpumetrics:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
 
 
+# To be run on Jetsons
 measure_time:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
 
 measure_power:
 	sudo tegrastats --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
 	bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
+
+
+# To be run on the client
+check_api:
+	curl 127.0.0.1:5000
 ################################################
 
 
 
 
 
-
-
-
-
-
-################################################
+################## Clean Up ####################
 clean:
 	@echo "____Removing Triton from the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/delete_triton.yaml

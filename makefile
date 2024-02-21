@@ -36,6 +36,7 @@ client_setup:
 	pip3 install --upgrade wheel setuptools cython testresources
 	pip3 install --upgrade grpcio-tools numpy future attrdict pillow image
 	pip install protobuf==3.20
+	pip3 install flask
 	mkdir ~/tritonserver
 	tar zxvf ~/tritonserver.tgz -C ~/tritonserver
 	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]

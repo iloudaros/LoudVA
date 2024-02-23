@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
+import subprocess
+import os
 
 app = Flask(__name__)
+UPLOAD_FOLDER = '/home/louduser/incoming'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def home():
@@ -27,8 +31,18 @@ def create_user():
     return jsonify(data), 201   
 
 
+@app.route('/classify/<model>/<classes>/<scaling>', methods=['POST'])
+def classify_image(model, classes, scaling):
+    file = request.files['file']
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    p = subprocess.run([f"python3 image_client.py -m {model} -c {classes} -s {scaling} ~/incoming --url 192.168.0.120:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
+    return p.stdout, 200
 
-
+@app.route('/now')
+def now():
+    p = subprocess.run(["date"],shell=True, capture_output=True, text=True) 
+    print("Result \n"+p.stdout)
+    return p.stdout, 200
 
 if __name__ == '__main__':
     app.run(debug=True)

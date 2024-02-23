@@ -57,6 +57,9 @@ check_system:
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP 
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP 
 
+start_LoudVA:
+	@echo "____Starting LoudVA____"
+	python3 ~/LoudVA/LoudVA/LoudVA.py
 ################################################
 
 
@@ -78,13 +81,14 @@ measure_time:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
 
 measure_power:
-	sudo tegrastats --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
-	bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
+	@sudo tegrastats --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
+	@bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
+	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
 
 
 # To be run on the client
 check_api:
-	curl 127.0.0.1:5000
+	@curl 127.0.0.1:5000
 ################################################
 
 

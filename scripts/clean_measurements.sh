@@ -16,6 +16,11 @@ if [ ! -f "$input_file" ]; then
   exit 1
 fi
 
+# Delete the output file if it exists
+if [ -f "$output_file" ]; then
+  rm "$output_file"
+fi
+
 # Open the input and output files
 while IFS= read -r line; do
   # Extract the number following "POM_5V_IN" using grep and sed

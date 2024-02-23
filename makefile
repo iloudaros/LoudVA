@@ -53,8 +53,8 @@ install_tao:
 setup_system: initialise_Jetsons install_tao client_setup
 
 check_system: 
-	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP 
-	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP 
+	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP &
+	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP &
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP 
 
 start_LoudVA:
@@ -79,6 +79,9 @@ start_triton_gpumetrics:
 # To be run on Jetsons
 measure_time:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
+
+measure_time_csv:
+	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 -f measurements/performance_measurements.csv
 
 measure_power:
 	@sudo tegrastats --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop

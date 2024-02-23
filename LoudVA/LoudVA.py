@@ -6,6 +6,27 @@ app = Flask(__name__)
 UPLOAD_FOLDER = '/home/louduser/incoming'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+
+# Queue for Jetson
+queue = []
+
+turn = 0 
+
+def get_turn(turn):
+    turn
+    turn = turn + 1
+    if turn ==3:
+        turn = 0
+    return turn
+###################
+
+
+
+
+
+
+# Routes
 @app.route('/')
 def home():
     return "Welcome to LoudVA!"
@@ -33,9 +54,13 @@ def create_user():
 
 @app.route('/classify/<model>/<classes>/<scaling>', methods=['POST'])
 def classify_image(model, classes, scaling):
+    global turn
     file = request.files['file']
+    print("Request to LoudJetson"+str(turn)+f" with model {model}, classes {classes}, scaling {scaling}. Filname: {file.filename}")
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-    p = subprocess.run([f"python3 image_client.py -m {model} -c {classes} -s {scaling} ~/incoming --url 192.168.0.120:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
+    p = subprocess.run([f"python3 ~/LoudVA/LoudVA/image_client.py -m {model} -c {classes} -s {scaling} ~/incoming/{file.filename} --url 192.168.0.12{str(turn)}:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
+    turn = get_turn(turn)
+    print("Result \n"+p.stdout)
     return p.stdout, 200
 
 @app.route('/now')
@@ -44,5 +69,11 @@ def now():
     print("Result \n"+p.stdout)
     return p.stdout, 200
 
+
+
+
+
+
+# Run Server
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,3 +8,4 @@ model_repository/inception_graphdef/1/model.graphdef
 LoudVA/playground.ipynb
 LoudVA/test.py
 LoudVA/__pycache__/*
+measurements/*

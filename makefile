@@ -90,8 +90,10 @@ measure_time_csv:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 -f measurements/performance_measurements.csv
 
 measure_power:
-	@sudo tegrastats --interval 500 --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
-	@bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
+	@> ~/LoudVA/measurements/measurement.log
+	@sudo tegrastats --interval 2000 --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:3 && sudo tegrastats --stop
+	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
+	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean.log
 	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
 
 

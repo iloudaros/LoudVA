@@ -5,7 +5,7 @@ ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${P
 .PHONY: sync_time download_triton initialise_Jetsons setup_system start_triton
 
 
-###### System Iniitialization and Setup #######
+###### System Initialization and Setup #######
 # To be run on LoudGateway
 ################################################
 sync_time: 
@@ -57,9 +57,15 @@ check_system:
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP &
 	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP 
 
-start_LoudVA:
+start_LoudVA_server:
 	@echo "____Starting LoudVA____"
-	python3 ~/LoudVA/LoudVA/LoudVA.py
+	python3 ~/LoudVA/LoudVA/LoudVA.py 
+
+start_LoudVA: start_triton start_LoudVA_server
+
+stop_triton:
+	@echo "____Stopping Triton on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
 ################################################
 
 
@@ -76,7 +82,7 @@ start_triton_gpumetrics:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
 
 
-# To be run on Jetsons
+# To be run on the Jetsons
 measure_time:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
 
@@ -84,7 +90,7 @@ measure_time_csv:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 -f measurements/performance_measurements.csv
 
 measure_power:
-	@sudo tegrastats --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
+	@sudo tegrastats --interval 500 --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 && sudo tegrastats --stop
 	@bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
 	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
 

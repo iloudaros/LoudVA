@@ -60,6 +60,7 @@ def classify_image(model, classes, scaling):
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     p = subprocess.run([f"python3 ~/LoudVA/LoudVA/image_client.py -m {model} -c {classes} -s {scaling} ~/incoming/{file.filename} --url 192.168.0.12{str(turn)}:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
     turn = get_turn(turn)
+    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     print("Result \n"+p.stdout)
     return p.stdout, 200
 

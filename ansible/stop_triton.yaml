@@ -1,8 +1,14 @@
 ---
-- name: Start the Trtiton Server 
+- name: Stop the Trtiton Server 
   hosts: LoudJetsons
 
   tasks: 
     - name: Sending The command to the Jetsons
       ansible.builtin.shell: pkill tritonserver
+      become: yes
+
+    - name: Delete triton flag
+      ansible.builtin.file:
+        path: /ansible/flags/triton.flag
+        state: absent 
       become: yes

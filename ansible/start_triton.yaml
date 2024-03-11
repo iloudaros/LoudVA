@@ -1,8 +1,16 @@
 ---
 - name: Start the Trtiton Server 
   hosts: LoudJetsons
+  become: yes
 
   tasks: 
-    - name: Sending The command to the Jetsons
-      ansible.builtin.shell: cd /home/iloudaros/tritonserver/ && sudo ./bin/tritonserver  --model-repository=./model_repository --backend-directory=./backends --backend-config=tensorflow,version=2
-      become: yes
+    - name: Run the shell script
+      ansible.builtin.script: ../scripts/start_triton.sh
+      args:
+        creates: /ansible/flags/triton_running.flag
+
+    - name: Leave a flag file
+      ansible.builtin.file:
+        path: /ansible/flags/triton_running.flag
+        state: touch
+      

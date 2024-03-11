@@ -83,19 +83,34 @@ start_triton_gpumetrics:
 
 
 # To be run on the Jetsons
-measure_time:
-	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6
+measure_performance:
+	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:10 
 
 measure_time_csv:
 	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 -f measurements/performance_measurements.csv
 
+MEASUREMENT_INTER = 500 #in ms
 measure_power:
 	@> ~/LoudVA/measurements/measurement.log
-	@sudo tegrastats --interval 2000 --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:3 && sudo tegrastats --stop
+	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:3 && sudo tegrastats --stop
 	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
 	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean.log
 	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
 
+measure_idle_power:
+	@> ~/LoudVA/measurements/measurement.log
+	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/measurement.log && sleep 10 && sudo tegrastats --stop
+	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
+	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean.log
+	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
+
+GPU_FREQ = 76800000 # .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
+change_gpu_freq:
+	sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
+	sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
+
+3D_scaling:
+	sudo sh -c 'echo 1 > /sys/devices/57000000.gpu/enable_3d_scaling'
 
 # To be run on the client
 check_api:

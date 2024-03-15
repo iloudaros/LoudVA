@@ -52,20 +52,6 @@ install_tao:
 
 setup_system: initialise_Jetsons install_tao client_setup
 
-check_system: 
-	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP &
-	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP &
-	python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP 
-
-start_LoudVA_server:
-	@echo "____Starting LoudVA____"
-	python3 ~/LoudVA/LoudVA/LoudVA.py 
-
-start_LoudVA: start_triton start_LoudVA_server
-
-stop_triton:
-	@echo "____Stopping Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
 ################################################
 
 
@@ -81,28 +67,51 @@ start_triton_gpumetrics:
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
 
+check_system: start_triton
+	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0✅") &
+	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
+	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
+
+stop_triton:
+	@echo "____Stopping Triton on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
+
+start_LoudVA_server:
+	@echo "____Starting LoudVA____"
+	python3 ~/LoudVA/LoudVA/LoudVA.py 
+
+start_LoudVA: start_triton start_LoudVA_server
+
+performance_profiling: #start_triton check_system
+	@echo "____Beginning The performance profiling____"
+	@echo "(This will take a while)"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml
+
 
 # To be run on the Jetsons
+CONCURRENCY_LIMIT = 10
 measure_performance:
-	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:10 
+	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT}
 
-measure_time_csv:
-	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:6 -f measurements/performance_measurements.csv
+measure_performance_csv:
+	~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} -f measurements/performance_measurements.csv
+
 
 MEASUREMENT_INTER = 500 #in ms
 measure_power:
 	@> ~/LoudVA/measurements/measurement.log
-	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/measurement.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:3 && sudo tegrastats --stop
-	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
-	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean.log
-	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
+	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/power_measurement_${MEASUREMENT_INTER}.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:3 && sudo tegrastats --stop
+	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/power_measurement_${MEASUREMENT_INTER}.log ~/LoudVA/measurements/clean_power_measurement_${MEASUREMENT_INTER}.log
+	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean_power_measurement_${MEASUREMENT_INTER}.log
+	@echo "Check ~/LoudVA/measurements/clean_power_measurement_${MEASUREMENT_INTER}.log for the power measurements"
 
 measure_idle_power:
 	@> ~/LoudVA/measurements/measurement.log
-	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/measurement.log && sleep 10 && sudo tegrastats --stop
-	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/measurement.log ~/LoudVA/measurements/clean.log
-	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean.log
-	@echo "Check ~/LoudVA/measurements/clean.log for the power measurements"
+	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/idle_power_measurement_${MEASUREMENT_INTER}.log && sleep 10 && sudo tegrastats --stop
+	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/power_measurement_${MEASUREMENT_INTER}.log ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTER}.log
+	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTER}.log
+	@echo "Check ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTER}.log for the power measurements"
+
 
 GPU_FREQ = 76800000 # .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
 change_gpu_freq:

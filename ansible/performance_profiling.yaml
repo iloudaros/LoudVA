@@ -1,0 +1,9 @@
+---
+- name: Start the Trtiton Server 
+  hosts: LoudJetsons
+  become: yes
+
+  tasks: 
+    - name: Run the script
+      ansible.builtin.script: ../tests/Test_Performance.py
+

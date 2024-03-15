@@ -52,13 +52,13 @@ def create_user():
     return jsonify(data), 201   
 
 
-@app.route('/classify/<model>/<classes>/<scaling>', methods=['POST'])
-def classify_image(model, classes, scaling):
+@app.route('/classify/<model>/<classes>/<scaling>/<batch_size>', methods=['POST'])
+def classify_image(model, classes, scaling, batch_size):
     global turn
     file = request.files['file']
     print("Request to LoudJetson"+str(turn)+f" with model {model}, classes {classes}, scaling {scaling}. Filname: {file.filename}")
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-    p = subprocess.run([f"python3 ~/LoudVA/LoudVA/image_client.py -m {model} -c {classes} -s {scaling} ~/incoming/{file.filename} --url 192.168.0.12{str(turn)}:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
+    p = subprocess.run([f"python3 ~/LoudVA/LoudVA/image_client.py -m {model} -b {batch_size} -c {classes} -s {scaling} ~/incoming/{file.filename} --url 192.168.0.12{str(turn)}:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
     turn = get_turn(turn)
     os.remove(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     print("Result \n"+p.stdout)

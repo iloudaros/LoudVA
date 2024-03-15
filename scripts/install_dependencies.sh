@@ -28,6 +28,14 @@ apt-get install -y --no-install-recommends \
 
 
 ######## Utilities that we need #########
+echo ______Utilities______
 sudo apt install screen
 sudo apt install strace
 sudo pip3 install -U jetson-stats
+
+
+
+####### The LoudVA repo ########
+echo ______LoudVA______
+cd /home/iloudaros
+git clone https://github.com/iloudaros/LoudVA.git

@@ -5,6 +5,8 @@
   tasks: 
     - name: Sending The command to the Jetsons
       ansible.builtin.shell: pkill tritonserver
+      args:
+        removes: /ansible/flags/triton_running.flag
       become: yes
 
     - name: Delete triton flag

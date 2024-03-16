@@ -1,5 +1,5 @@
 ---
-- name: Stop the Trtiton Server 
+- name: Stop the Triton Server 
   hosts: LoudJetsons
 
   tasks: 

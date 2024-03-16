@@ -56,6 +56,10 @@ update_workers:
 	@echo "____Updating the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/update_workers.yaml
 
+clone_LoudVA:
+	@echo "____Cloning LoudVA to the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "cd ~ && git clone https://github.com/iloudaros/LoudVA" -u iloudaros --become
+
 delete_LoudVA:
 	@echo "____Deleting LoudVA from the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm -r ~/LoudVA" -u iloudaros --become

@@ -61,7 +61,7 @@ setup_system: initialise_Jetsons install_tao client_setup
 # To be run on LoudGateway
 start_triton:
 	@echo "____Starting Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
 
 start_triton_gpumetrics:
 	@echo "____Starting Triton on the Jetsons____"
@@ -86,6 +86,10 @@ performance_profiling: #start_triton check_system
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml
+
+reboot_workers:
+	@echo "____Rebooting the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become
 
 
 # To be run on the Jetsons

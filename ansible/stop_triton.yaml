@@ -11,6 +11,6 @@
 
     - name: Delete triton flag
       ansible.builtin.file:
-        path: /ansible/flags/triton.flag
+        path: /ansible/flags/triton_running.flag
         state: absent 
       become: yes

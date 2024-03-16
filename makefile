@@ -52,44 +52,28 @@ install_tao:
 
 setup_system: initialise_Jetsons install_tao client_setup
 
+update_workers:
+	@echo "____Updating the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/update_workers.yaml
+
+delete_LoudVA:
+	@echo "____Deleting LoudVA from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm -r ~/LoudVA" -u iloudaros --become
 ################################################
 
 
 
-
-################ Quick Access ##################
+############### Tests and Checks ###############
 # To be run on LoudGateway
-start_triton:
-	@echo "____Starting Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
-
-start_triton_gpumetrics:
-	@echo "____Starting Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
-
 check_system: start_triton
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
 
-stop_triton:
-	@echo "____Stopping Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
-
-start_LoudVA_server:
-	@echo "____Starting LoudVA____"
-	python3 ~/LoudVA/LoudVA/LoudVA.py 
-
-start_LoudVA: start_triton start_LoudVA_server
-
 performance_profiling: #start_triton check_system
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml
-
-reboot_workers:
-	@echo "____Rebooting the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become
 
 
 # To be run on the Jetsons
@@ -115,8 +99,36 @@ measure_idle_power:
 	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/power_measurement_${MEASUREMENT_INTER}.log ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTER}.log
 	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTER}.log
 	@echo "Check ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTER}.log for the power measurements"
+################################################
 
 
+
+################ Quick Access ##################
+# To be run on LoudGateway
+start_triton:
+	@echo "____Starting Triton on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
+
+start_triton_gpumetrics:
+	@echo "____Starting Triton on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
+
+stop_triton:
+	@echo "____Stopping Triton on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
+
+start_LoudVA_server:
+	@echo "____Starting LoudVA____"
+	python3 ~/LoudVA/LoudVA/LoudVA.py 
+
+start_LoudVA: start_triton start_LoudVA_server
+
+reboot_workers:
+	@echo "____Rebooting the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become
+
+
+# To be run on the Jetsons
 GPU_FREQ = 76800000 # .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
 change_gpu_freq:
 	sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
@@ -135,7 +147,7 @@ check_api:
 
 
 ################## Clean Up ####################
-clean:
+clean: delete_LoudVA
 	@echo "____Removing Triton from the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/delete_triton.yaml
 	@echo "____Removing Triton from LoudGateway____"

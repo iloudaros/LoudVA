@@ -7,7 +7,6 @@
 # (To be run on the Jetsons via the performance_profiling ansible playbook.)
 
 import os
-import matplotlib.pyplot as plt
 import ihelper as i
 
 #### Power modes
@@ -24,7 +23,7 @@ for mode in power_modes:
 
     # Rename the results according to the power mode
     print("Renaming the results")
-    os.system('mv ~/LoudVA/measurements/performance_measurements.csv ~/LoudVA/performance_measurements_mode_' + str(mode) + '.csv')
+    os.system('mv ~/LoudVA/measurements/performance_measurements.csv ~/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
 
 
 #### GPU Clock Speeds

@@ -1,0 +1,12 @@
+---
+- name: Update Worker Nodes
+  hosts: LoudJetsons
+
+  tasks: 
+
+
+    # Git pull the LoudVA repository
+    - name: Pulling the latest version of the LoudVA repository
+      ansible.builtin.command: git pull
+      args:
+        chdir: ~/LoudVA

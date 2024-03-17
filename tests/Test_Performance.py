@@ -10,7 +10,7 @@ import os
 import ihelper as i
 
 #### Power modes
-power_modes = [0, 1]
+power_modes = [0]
 
 for mode in power_modes:
     # Set power mode
@@ -28,7 +28,7 @@ for mode in power_modes:
 
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson Nano
-gpu_freqs = [844800000, 921600000] #[76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000,
+gpu_freqs = [ 921600000] #[76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000,
 
 
 # Measure the performance of the system for each frequency using the perf_analyzer tool

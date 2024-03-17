@@ -77,16 +77,17 @@ check_system: start_triton
 performance_profiling: #start_triton check_system update_workers
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml 
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "python3 /home/iloudaros/LoudVA/tests/Test_Performance.py" -vvvv
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/gather_performance_logs.yaml 
 
 
 # To be run on the Jetsons
 CONCURRENCY_LIMIT = 2
 measure_performance:
-	home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT}
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT}
 
 measure_performance_csv:
-	home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} -f measurements/performance_measurements.csv
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} -f measurements/performance_measurements.csv
 
 
 MEASUREMENT_INTER = 500 #in ms

@@ -43,7 +43,7 @@ for freq in gpu_freqs:
 
     # Rename the results according to the frequency
     print("Renaming the results")
-    os.system('mv ~/LoudVA/measurements/performance_measurements.csv ~/LoudVA/performance_measurements_freq_' + str(freq) + '.csv')
+    os.system('mv ~/LoudVA/measurements/performance_measurements.csv ~/LoudVA/measurements/performance_measurements_freq_' + str(freq) + '.csv')
 
 
 

@@ -35,7 +35,7 @@ gpu_freqs = [844800000, 921600000] #[76800000, 153600000, 230400000, 307200000, 
 for freq in gpu_freqs:
     # Modify the makefile to change the gpu frequency
     print(f"Setting GPU frequency to {freq}")
-    i.modify_gpu_freq('~/LoudVA/makefile', freq)
+    i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', freq)
 
     # Run the performance measurement from the makefile
     print("Running performance test")

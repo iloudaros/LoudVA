@@ -1,0 +1,27 @@
+---
+- name: Update Worker Nodes
+  hosts: LoudJetsons
+
+  tasks: 
+
+
+    # Git pull the LoudVA repository
+    - name: Clone the latest version of the LoudVA repository
+      ansible.builtin.command: git clone https://github.com/iloudaros/LoudVA
+      args:
+        chdir: /home/iloudaros
+        creates: /home/iloudaros/LoudVA
+
+    # Git pull the LoudVA repository
+    - name: Pulling the latest version of the LoudVA repository
+      ansible.builtin.command: git pull
+      args:
+        chdir: /home/iloudaros/LoudVA
+
+    # Sending the environment 
+    - name: Sending the environment to the worker nodes
+      copy:
+        src: /home/louduser/LoudVA/.environment
+        dest: /home/iloudaros/LoudVA/.environment
+      become: yes
+

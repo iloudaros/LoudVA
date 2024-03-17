@@ -9,4 +9,4 @@
     - name: Pulling the latest version of the LoudVA repository
       ansible.builtin.command: git pull
       args:
-        chdir: ~/LoudVA
+        chdir: /home/iloudaros/LoudVA

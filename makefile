@@ -58,11 +58,11 @@ update_workers:
 
 clone_LoudVA:
 	@echo "____Cloning LoudVA to the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "cd ~ && git clone https://github.com/iloudaros/LoudVA" -u iloudaros --become
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/clone_LoudVA.yaml
 
 delete_LoudVA:
 	@echo "____Deleting LoudVA from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm -r ~/LoudVA" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm -r /home/iloudaros/LoudVA" -u iloudaros --become
 ################################################
 
 
@@ -74,7 +74,7 @@ check_system: start_triton
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
 
-performance_profiling: #start_triton check_system
+performance_profiling: start_triton check_system update_workers
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml

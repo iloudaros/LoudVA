@@ -19,11 +19,11 @@ for mode in power_modes:
 
     # Run the performance test
     print("Running performance test")
-    os.system('cd ~/LoudVA && make measure_performance_csv')
+    os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
 
     # Rename the results according to the power mode
     print("Renaming the results")
-    os.system('mv ~/LoudVA/measurements/performance_measurements.csv ~/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
+    os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
 
 
 #### GPU Clock Speeds
@@ -39,11 +39,11 @@ for freq in gpu_freqs:
 
     # Run the performance measurement from the makefile
     print("Running performance test")
-    os.system('cd ~/LoudVA && make measure_performance_csv')
+    os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
 
     # Rename the results according to the frequency
     print("Renaming the results")
-    os.system('mv ~/LoudVA/measurements/performance_measurements.csv ~/LoudVA/measurements/performance_measurements_freq_' + str(freq) + '.csv')
+    os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_freq_' + str(freq) + '.csv')
 
 
 

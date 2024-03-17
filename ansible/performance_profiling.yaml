@@ -1,19 +1,12 @@
 ---
-- name: Start the Trtiton Server 
+- name: Performance Test
   hosts: LoudJetsons
   become: yes
 
   tasks: 
     - name: Run the Test
-      delegate_to: LoudJetson0
-      ansible.builtin.command: python3 /home/iloudaros/LoudVA/tests/Test_Performance.py
-      
-    - name : Copy the log files from remote to local
-      delegate_to: LoudJetson0
-      shell: (cd /home/iloudaros/LoudVA/measurements; find . -maxdepth 1 -type f) | cut -d'/' -f2
-      register: files_to_copy
+      ansible.builtin.shell: python3 Test_Performance.py >> logggg.txt
+      args: 
+        chdir: /home/iloudaros/LoudVA/tests
 
-    - fetch: src=/home/iloudaros/LoudVA/measurements/{{ item }} dest=~/LoudVA/measurements
-      delegate_to: LoudJetson0
-      with_items: "{{ files_to_copy.stdout_lines }}"
 

@@ -29,6 +29,6 @@ def modify_gpu_freq(filename, freq):
     file.writelines(modified_lines)
 
   # Change the GPU frequency using the makefile
-  os.system('cd ~/LoudVA && make change_gpu_freq')
+  os.system('cd /home/iloudaros/LoudVA && make change_gpu_freq')
 
 

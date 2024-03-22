@@ -5,7 +5,7 @@
   tasks: 
 
 
-    # Git pull the LoudVA repository
+    # Git clone the LoudVA repository
     - name: Clone the latest version of the LoudVA repository
       ansible.builtin.command: git clone https://github.com/iloudaros/LoudVA
       args:

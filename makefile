@@ -52,6 +52,7 @@ install_tao:
 
 setup_system: initialise_Jetsons install_tao client_setup
 
+# To be run on the Jetsons
 update_workers:
 	@echo "____Updating the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/update_workers.yaml
@@ -74,14 +75,14 @@ check_system: start_triton
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
 
-performance_profiling: #start_triton check_system update_workers
+performance_profiling: start_triton check_system update_workers
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros -vvv
 
 
 # To be run on the Jetsons
-CONCURRENCY_LIMIT = 1
+CONCURRENCY_LIMIT = 10
 measure_performance:
 	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT}
 

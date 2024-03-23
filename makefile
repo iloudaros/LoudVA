@@ -119,6 +119,7 @@ measure_idle_power:
 # To be run on LoudGateway
 start_triton: sync_time
 	@echo "____Starting Triton on the Jetsons____"
+	@sleep 1
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
 	@echo "Loading..."
 	@sleep 15

@@ -166,6 +166,9 @@ change_gpu_freq:
 	@sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
 	@sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
 
+current_gpu_freq:
+	@cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/cur_freq
+
 3D_scaling:
 	sudo sh -c 'echo 1 > /sys/devices/57000000.gpu/enable_3d_scaling'
 

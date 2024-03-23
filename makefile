@@ -122,7 +122,7 @@ start_triton: sync_time
 	@sleep 1
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
 	@echo "Loading..."
-	@sleep 15
+	@sleep 20
 	@make is_triton_running 
 
 start_triton_gpumetrics:
@@ -154,8 +154,8 @@ remove_triton_running_flag:
 # To be run on the Jetsons
 GPU_FREQ = 76800000 # .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
 change_gpu_freq:
-	sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
-	sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
+	@sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
+	@sudo sh -c 'echo ${GPU_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
 
 3D_scaling:
 	sudo sh -c 'echo 1 > /sys/devices/57000000.gpu/enable_3d_scaling'

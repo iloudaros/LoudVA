@@ -23,5 +23,4 @@
       copy:
         src: /home/louduser/LoudVA/.environment
         dest: /home/iloudaros/LoudVA/.environment
-      become: yes
 

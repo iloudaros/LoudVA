@@ -52,7 +52,6 @@ install_tao:
 
 setup_system: initialise_Jetsons install_tao client_setup
 
-# To be run on the Jetsons
 update_workers:
 	@echo "____Updating the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/update_workers.yaml
@@ -85,12 +84,12 @@ performance_profiling: start_triton check_system #update_workers
 
 
 # To be run on the Jetsons
-CONCURRENCY_LIMIT = 10
+CONCURRENCY_LIMIT = 13
 measure_performance:
 	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT}
 
 measure_performance_csv:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} -f measurements/performance_measurements.csv
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} --measurement-interval 10000 -f measurements/performance_measurements.csv
 
 
 MEASUREMENT_INTER = 500 #in ms

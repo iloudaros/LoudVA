@@ -10,7 +10,7 @@ import os
 import ihelper as i
 
 #### Power modes
-power_modes = [1]#[0,1]
+power_modes = []#[0,1]
 
 for mode in power_modes:
     # Set power mode
@@ -49,7 +49,7 @@ for freq in gpu_freqs:
 
     # Modify the makefile to change the MEASUREMENT_INTERVAL 
     if freq == 76800000:
-        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 20000)
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 25000)
     elif freq == 384000000:
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
     elif freq == 691200000:

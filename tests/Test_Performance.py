@@ -63,6 +63,7 @@ for freq in gpu_freqs:
 
 # Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling
 print(f"Setting GPU frequency to 76800000 and reenabling 3d-scaling")
-i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', 76800000)
 i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
-os.system('cd /home/iloudaros/LoudVA && make 3D_scaling')
+i.modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MIN_FREQ', '=', 76800000)
+i.modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MAX_FREQ', '=', 921600000)
+os.system('jetson_clocks --restore /home/iloudaros/LoudVA/power_management/l4t_dfs.conf')

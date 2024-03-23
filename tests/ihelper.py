@@ -15,7 +15,7 @@ def modify_gpu_freq(filename, freq):
   # Modify line with GPU_FREQ declaration
   modified_lines = []
   for line in lines:
-    if line.startswith("GPU_FREQ = "):
+    if line.startswith("GPU_MIN_FREQ = ") or line.startswith("GPU_MAX_FREQ = "):
       # Extract the beginning part of the line
       start_of_line = line.split("=")[0]
       # Combine with freq to set the value

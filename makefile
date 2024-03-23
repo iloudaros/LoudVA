@@ -73,7 +73,7 @@ delete_tmp_flags:
 
 ############### Tests and Checks ###############
 # To be run on LoudGateway
-check_system: start_triton
+check_system: is_triton_running
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
@@ -81,7 +81,7 @@ check_system: start_triton
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml
 
-performance_profiling: start_triton check_system #update_workers
+performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros 
@@ -117,9 +117,12 @@ measure_idle_power:
 
 ################ Quick Access ##################
 # To be run on LoudGateway
-start_triton:
+start_triton: sync_time
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
+	@echo "Loading..."
+	@sleep 15
+	@make is_triton_running 
 
 start_triton_gpumetrics:
 	@echo "____Starting Triton on the Jetsons____"
@@ -138,7 +141,10 @@ start_LoudVA: start_triton start_LoudVA_server
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
 	@sleep 1
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become &
+	@echo "Rebooting..."
+	@sleep 30
+	@echo "Jetsons Rebooted"
 
 remove_triton_running_flag:
 	@echo "____Removing the triton running flag____"

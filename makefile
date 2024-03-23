@@ -90,12 +90,20 @@ performance_profiling: update_workers is_triton_running
 # To be run on the Jetsons
 CONCURRENCY_FLOOR = 1
 CONCURRENCY_LIMIT = 13
+
+MEASUREMENT_MODE = time_windows #time_windows or count_windows
+
+## used with time_windows with option --measurement-interval
 MEASUREMENT_INTERVAL = 5000
+
+## used with count_windows with option --measurement-request-count
+MEASUREMENT_COUNT = 50
+
 measure_performance:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT}
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} 
 
 measure_performance_csv:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-interval ${MEASUREMENT_INTERVAL} -f measurements/performance_measurements.csv
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance_measurements.csv
 
 
 MEASUREMENT_INTERVAL2 = 500 #in ms

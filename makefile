@@ -63,6 +63,10 @@ clone_LoudVA:
 delete_LoudVA:
 	@echo "____Deleting LoudVA from the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm -r /home/iloudaros/LoudVA" -u iloudaros --become
+
+delete_tmp_flags:
+	@echo "____Deleting Flags from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm /tmp/ansible/flags/triton_running.flag" -u iloudaros --become
 ################################################
 
 
@@ -74,8 +78,8 @@ check_system: start_triton
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
 
-triton_running:
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/triton_running.yaml
+is_triton_running:
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml
 
 performance_profiling: start_triton check_system #update_workers
 	@echo "____Beginning The performance profiling____"

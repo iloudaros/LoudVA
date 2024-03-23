@@ -48,7 +48,7 @@ for freq in gpu_freqs:
     i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', freq)
 
     # Modify the makefile to change the MEASUREMENT_INTERVAL 
-    i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', (921600000//freq)*5000)
+    i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', (921600000//freq)*5000+5000)
 
     # Run the performance measurement from the makefile
     print("Running performance test")

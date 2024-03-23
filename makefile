@@ -75,10 +75,13 @@ check_system: start_triton
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
 	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
 
-performance_profiling: start_triton check_system update_workers
+triton_running:
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/triton_running.yaml
+
+performance_profiling: start_triton check_system #update_workers
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros -vvv
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros 
 
 
 # To be run on the Jetsons
@@ -128,10 +131,14 @@ start_LoudVA_server:
 
 start_LoudVA: start_triton start_LoudVA_server
 
-reboot_workers:
+reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
+	@sleep 1
 	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become
 
+remove_triton_running_flag:
+	@echo "____Removing the triton running flag____"
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm /ansible/flags/triton_running.flag" -u iloudaros --become
 
 # To be run on the Jetsons
 GPU_FREQ = 76800000 # .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
@@ -141,6 +148,9 @@ change_gpu_freq:
 
 3D_scaling:
 	sudo sh -c 'echo 1 > /sys/devices/57000000.gpu/enable_3d_scaling'
+
+available_frequencies:
+	cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies
 
 # To be run on the client
 check_api:

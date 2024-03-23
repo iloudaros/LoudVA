@@ -10,12 +10,18 @@ import os
 import ihelper as i
 
 #### Power modes
-power_modes = [0]#,1]
+power_modes = [0,1]
 
 for mode in power_modes:
     # Set power mode
     print(f"Setting power mode to {mode}")
     os.system(f"sudo nvpmodel -m {mode}")
+
+    # Modify the makefile to change the MEASUREMENT_INTERVAL 
+    if mode == 1:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
+    else:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 
     # Run the performance test
     print("Running performance test")
@@ -36,9 +42,18 @@ gpu_freqs = [76800000]#, 153600000, 230400000, 307200000, 384000000, 460800000, 
 
 # Measure the performance of the system for each frequency using the perf_analyzer tool
 for freq in gpu_freqs:
+
     # Modify the makefile to change the gpu frequency
     print(f"Setting GPU frequency to {freq}")
     i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', freq)
+
+    # Modify the makefile to change the MEASUREMENT_INTERVAL 
+    if freq == 76800000:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 20000)
+    elif freq == 384000000:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
+    elif freq == 691200000:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 
     # Run the performance measurement from the makefile
     print("Running performance test")
@@ -49,7 +64,10 @@ for freq in gpu_freqs:
     os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_freq_' + str(freq) + '.csv')
 
 
-# Return the Makefile GPU frequency to the default value and reenable the 3d-scaling
+
+
+# Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling
 print(f"Setting GPU frequency to 76800000 and reenabling 3d-scaling")
 i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', 76800000)
+i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 os.system('cd /home/iloudaros/LoudVA && make 3D_scaling')

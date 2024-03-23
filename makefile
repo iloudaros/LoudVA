@@ -89,14 +89,15 @@ performance_profiling: start_triton check_system #update_workers
 
 # To be run on the Jetsons
 CONCURRENCY_LIMIT = 13
+MEASUREMENT_INTERVAL = 5000
 measure_performance:
 	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT}
 
 measure_performance_csv:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} --measurement-interval 25000 -f measurements/performance_measurements.csv
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:${CONCURRENCY_LIMIT} --measurement-interval ${MEASUREMENT_INTERVAL} -f measurements/performance_measurements.csv
 
 
-MEASUREMENT_INTER = 500 #in ms
+MEASUREMENT_INTERVAL2 = 500 #in ms
 measure_power:
 	@> ~/LoudVA/measurements/measurement.log
 	@sudo tegrastats --interval ${MEASUREMENT_INTER} --start --logfile ~/LoudVA/measurements/power_measurement_${MEASUREMENT_INTER}.log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range 1:3 && sudo tegrastats --stop

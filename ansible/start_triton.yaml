@@ -8,10 +8,15 @@
     - name: Run the shell script
       ansible.builtin.script: ../scripts/start_triton.sh
       args:
-        creates: /ansible/flags/triton_running.flag
+        creates: /tmp/ansible/flags/triton_running.flag
 
-    - name: Leave a flag file
+    - name: Create the flags directory
       ansible.builtin.file:
-        path: /ansible/flags/triton_running.flag
+        path: /tmp/ansible/flags
+        state: directory
+      
+    - name: Create the triton_running flag 
+      ansible.builtin.file:
+        path: /tmp/ansible/flags/triton_running.flag
         state: touch
       

@@ -7,11 +7,12 @@
     - name: Sending The command to the Jetsons
       ansible.builtin.shell: pkill tritonserver
       args:
-        removes: /ansible/flags/triton_running.flag
+        removes: /tmp/ansible/flags/triton_running.flag
       become: yes
+      ignore_errors: yes
 
     - name: Delete triton flag
       ansible.builtin.file:
-        path: /ansible/flags/triton_running.flag
+        path: /tmp/ansible/flags/triton_running.flag
         state: absent 
       become: yes

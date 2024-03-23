@@ -1,6 +1,7 @@
 ---
 - name: Start the Trtiton Server 
   hosts: LoudJetsons
+  gather_facts: no
   become: yes
 
   tasks: 

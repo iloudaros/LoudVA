@@ -1,5 +1,6 @@
 ---
 - name: Stop the Triton Server 
+  gather_facts: no
   hosts: LoudJetsons
 
   tasks: 

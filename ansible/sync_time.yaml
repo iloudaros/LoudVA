@@ -1,6 +1,7 @@
 ---
 
 - name: Synchronize time with control node
+  gather_facts: no  
   hosts: LoudJetsons
   
   
@@ -10,12 +11,6 @@
       local_action: command date +%F
       register: control_node_date
       
-    # See the date 
-    - name: Print date
-      delegate_to: localhost
-      ansible.builtin.debug:
-        var: control_node_date.stdout_lines
-
     # Set the date on all worker nodes to the date of the control node
     - name: Set date on worker nodes
       shell: 'date +%F -s {{control_node_date.stdout}}'
@@ -26,12 +21,6 @@
       local_action: command date +%T
       register: control_node_time
       
-    # See the time 
-    - name: Print time
-      delegate_to: localhost
-      ansible.builtin.debug:
-        var: control_node_time.stdout_lines
-
     # Set the time on all worker nodes to the time of the control node
     - name: Set time on worker nodes
       shell: 'date +%T -s {{control_node_time.stdout}}'

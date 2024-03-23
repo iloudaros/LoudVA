@@ -10,30 +10,30 @@ import os
 import ihelper as i
 
 #### Power modes
-power_modes = []#[0,1]
+# power_modes = [0,1]
 
-for mode in power_modes:
-    # Set power mode
-    print(f"Setting power mode to {mode}")
-    os.system(f"sudo nvpmodel -m {mode}")
+# for mode in power_modes:
+#     # Set power mode
+#     print(f"Setting power mode to {mode}")
+#     os.system(f"sudo nvpmodel -m {mode}")
 
-    # Modify the makefile to change the MEASUREMENT_INTERVAL 
-    if mode == 1:
-        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
-    else:
-        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
+#     # Modify the makefile to change the MEASUREMENT_INTERVAL 
+#     if mode == 1:
+#         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
+#     else:
+#         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 
-    # Run the performance test
-    print("Running performance test")
-    os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
+#     # Run the performance test
+#     print("Running performance test")
+#     os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
 
-    # Rename the results according to the power mode
-    print("Renaming the results")
-    os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
+#     # Rename the results according to the power mode
+#     print("Renaming the results")
+#     os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
 
-# Return to the default power mode
-print(f"Setting power mode to 0")
-os.system(f"sudo nvpmodel -m 0")
+# # Return to the default power mode
+# print(f"Setting power mode to 0")
+# os.system(f"sudo nvpmodel -m 0")
 
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson Nano

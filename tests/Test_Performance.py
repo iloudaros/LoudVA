@@ -49,7 +49,7 @@ for freq in gpu_freqs:
 
     # Modify the makefile to change the MEASUREMENT_INTERVAL 
     if freq == 76800000:
-        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 25000)
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 30000)
     elif freq == 384000000:
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
     elif freq == 691200000:

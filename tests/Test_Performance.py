@@ -10,10 +10,8 @@ import os
 import ihelper as i
 import sys
 
-sys.stdout = open('/home/iloudaros/LoudVA/measurements/Performance.log', 'w+')
-
 #### Power modes
-power_modes = [0,1]
+power_modes = [1] #[0,1]
 
 for mode in power_modes:
     # Set power mode

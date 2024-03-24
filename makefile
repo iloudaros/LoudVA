@@ -144,7 +144,7 @@ stop_triton:
 
 start_LoudVA_server:
 	@echo "____Starting LoudVA____"
-	python3 ~/LoudVA/LoudVA/LoudVA.py 
+	@python3 ~/LoudVA/LoudVA/LoudVA.py 
 
 start_LoudVA: start_triton start_LoudVA_server
 
@@ -155,6 +155,8 @@ reboot_workers: stop_triton
 	@echo "Rebooting..."
 	@sleep 30
 	@echo "Jetsons Rebooted"
+	@sleep 5
+	@make start_triton
 
 remove_triton_running_flag:
 	@echo "____Removing the triton running flag____"

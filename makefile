@@ -91,7 +91,7 @@ performance_profiling: update_workers is_triton_running
 CONCURRENCY_FLOOR = 1
 CONCURRENCY_LIMIT = 13
 
-MEASUREMENT_MODE = time_windows #time_windows or count_windows
+MEASUREMENT_MODE = count_windows #time_windows or count_windows
 
 ## used with time_windows with option --measurement-interval
 MEASUREMENT_INTERVAL = 5000

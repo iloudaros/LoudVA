@@ -8,6 +8,6 @@
 
     # Git pull the LoudVA repository
     - name: Pulling the latest version of the LoudVA repository
-      ansible.builtin.command: git pull
+      ansible.builtin.shell: git fetch && git reset --hard HEAD && git pull
       args:
         chdir: /home/iloudaros/LoudVA

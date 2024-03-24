@@ -14,7 +14,7 @@ power_modes = [0,1]
 
 for mode in power_modes:
     # Set power mode
-    print(f"Setting power mode to {mode}")
+    print(f"---Setting power mode to {mode}---")
     os.system(f"sudo nvpmodel -m {mode}")
 
     # Modify the makefile to change the MEASUREMENT_INTERVAL 
@@ -33,7 +33,7 @@ for mode in power_modes:
 
 ### 
 # Return to the default power mode
-print(f"Setting power mode to 0")
+print(f"---Setting power mode to 0---")
 os.system(f"sudo nvpmodel -m 0")
 ###
 
@@ -46,7 +46,7 @@ gpu_freqs = [307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 7
 for freq in gpu_freqs:
 
     # Modify the makefile to change the gpu frequency
-    print(f"Setting GPU frequency to {freq}")
+    print(f"---Setting GPU frequency to {freq}---")
     os.system('sleep 5')
     i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', freq)
 

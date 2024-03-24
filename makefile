@@ -186,6 +186,12 @@ current_gpu_freq:
 available_frequencies:
 	cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies
 
+edit_nvpmodel:
+	sudo nano /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
+
+cat_nvpmodel:
+	cat /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
+
 # To be run on the client
 check_api:
 	@curl 127.0.0.1:5000

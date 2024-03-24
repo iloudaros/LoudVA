@@ -10,30 +10,32 @@ import os
 import ihelper as i
 
 #### Power modes
-# power_modes = [0,1]
+power_modes = [0,1]
 
-# for mode in power_modes:
-#     # Set power mode
-#     print(f"Setting power mode to {mode}")
-#     os.system(f"sudo nvpmodel -m {mode}")
+for mode in power_modes:
+    # Set power mode
+    print(f"Setting power mode to {mode}")
+    os.system(f"sudo nvpmodel -m {mode}")
 
-#     # Modify the makefile to change the MEASUREMENT_INTERVAL 
-#     if mode == 1:
-#         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
-#     else:
-#         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
+    # Modify the makefile to change the MEASUREMENT_INTERVAL 
+    if mode == 1:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
+    else:
+        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 
-#     # Run the performance test
-#     print("Running performance test")
-#     os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
+    # Run the performance test
+    print("Running performance test")
+    os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
 
-#     # Rename the results according to the power mode
-#     print("Renaming the results")
-#     os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
+    # Rename the results according to the power mode
+    print("Renaming the results")
+    os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
 
-# # Return to the default power mode
-# print(f"Setting power mode to 0")
-# os.system(f"sudo nvpmodel -m 0")
+### 
+# Return to the default power mode
+print(f"Setting power mode to 0")
+os.system(f"sudo nvpmodel -m 0")
+###
 
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson Nano
@@ -45,6 +47,7 @@ for freq in gpu_freqs:
 
     # Modify the makefile to change the gpu frequency
     print(f"Setting GPU frequency to {freq}")
+    os.system('sleep 5')
     i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', freq)
 
     # Modify the makefile to change the MEASUREMENT_INTERVAL 
@@ -64,8 +67,9 @@ for freq in gpu_freqs:
 
 
 # Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling
-print(f"Setting GPU frequency to 76800000 and reenabling 3d-scaling")
+print(f"Returning to the default values")
 i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 i.modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MIN_FREQ', '=', 76800000)
 i.modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MAX_FREQ', '=', 921600000)
 os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/l4t_dfs.conf')
+os.system('sudo nvpmodel -m 0')

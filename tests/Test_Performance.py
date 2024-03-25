@@ -8,7 +8,6 @@
 
 import os
 import ihelper as i
-import sys
 
 #### Power modes
 power_modes = [0] #[0,1]

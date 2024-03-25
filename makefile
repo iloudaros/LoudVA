@@ -88,8 +88,8 @@ performance_profiling: update_workers is_triton_running
 
 
 # To be run on the Jetsons
-CONCURRENCY_FLOOR = 11
-CONCURRENCY_LIMIT = 13
+CONCURRENCY_FLOOR = 1
+CONCURRENCY_LIMIT = 2
 
 MEASUREMENT_MODE = count_windows #time_windows or count_windows
 
@@ -171,8 +171,8 @@ default_power_mode:
 GPU_MIN_FREQ = 76800000 
 GPU_MAX_FREQ = 921600000
 change_gpu_freq:
-	@sudo sh -c 'echo ${GPU_MIN_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
-	@sudo sh -c 'echo ${GPU_MAX_FREQ} > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
+	@sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
+	@sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
 
 current_gpu_freq:
 	echo "Current GPU Frequency"

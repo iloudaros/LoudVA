@@ -49,7 +49,7 @@ def modify_gpu_freq(freq):
       min_file.write(str(freq))
     with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq', 'w') as max_file:
       max_file.write(str(freq))
-    print(f"GPU frequency set to {freq}Hz (if supported by hardware).")
+    print(f"GPU frequency set to {freq}Hz.")
   except OSError as e:
     print(f"Error setting GPU frequency: {e}")
 

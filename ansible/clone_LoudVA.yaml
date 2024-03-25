@@ -1,6 +1,7 @@
 ---
 - name: Update Worker Nodes
   hosts: LoudJetsons
+  gather_facts: no
 
   tasks: 
 

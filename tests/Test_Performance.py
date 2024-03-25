@@ -49,7 +49,7 @@ for freq in gpu_freqs:
     # Modify the makefile to change the gpu frequency
     print(f"---Setting GPU frequency to {freq}---")
     os.system('sleep 5')
-    i.modify_gpu_freq('/home/iloudaros/LoudVA/makefile', freq)
+    i.modify_gpu_freq(freq)
 
     # Modify the makefile to change the MEASUREMENT_INTERVAL (not needed because we changed the mode to count_windows for more info read the makefile)
     # new_interval = (921600000//freq)*5000+1000

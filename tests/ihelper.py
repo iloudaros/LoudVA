@@ -1,36 +1,45 @@
 import os
 
-def modify_gpu_freq(filename, freq):
-  """
-  Modifies the GPU_FREQ value in a file to freq.
+# def modify_gpu_freq(filename, freq):
+#   """
+#   Modifies the GPU_FREQ value in a file to freq.
 
-  Args:
-    filename: The path to the makefile.
-    freq: The frequency to set the GPU to.
-  """
-  # Open the file in read mode
-  with open(filename, "r") as file:
-    lines = file.readlines()
+#   Args:
+#     filename: The path to the makefile.
+#     freq: The frequency to set the GPU to.
+#   """
+#   # Open the file in read mode
+#   with open(filename, "r") as file:
+#     lines = file.readlines()
 
-  # Modify line with GPU_FREQ declaration
-  modified_lines = []
-  for line in lines:
-    if line.startswith("GPU_MIN_FREQ = ") or line.startswith("GPU_MAX_FREQ = "):
-      # Extract the beginning part of the line
-      start_of_line = line.split("=")[0]
-      # Combine with freq to set the value
-      modified_line = start_of_line + '= '  + str(freq) + '\n'
-    else:
-      modified_line = line
+#   # Modify line with GPU_FREQ declaration
+#   modified_lines = []
+#   for line in lines:
+#     if line.startswith("GPU_MIN_FREQ = ") or line.startswith("GPU_MAX_FREQ = "):
+#       # Extract the beginning part of the line
+#       start_of_line = line.split("=")[0]
+#       # Combine with freq to set the value
+#       modified_line = start_of_line + '= '  + str(freq) + '\n'
+#     else:
+#       modified_line = line
 
-    modified_lines.append(modified_line)
+#     modified_lines.append(modified_line)
 
-  # Open the file again in write mode (overwrites existing content)
-  with open(filename, "w") as file:
-    file.writelines(modified_lines)
+#   # Open the file again in write mode (overwrites existing content)
+#   with open(filename, "w") as file:
+#     file.writelines(modified_lines)
 
-  # Change the GPU frequency using the makefile
-  os.system('cd /home/iloudaros/LoudVA && make change_gpu_freq')
+#   # Change the GPU frequency using the makefile
+#   os.system('cd /home/iloudaros/LoudVA && make change_gpu_freq')
+
+def modify_gpu_freq(freq):
+
+  #change the GPU frequency by writing in the min and max freq files
+  with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq', 'w') as file:
+    file.write(str(freq))
+  
+  with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq', 'w') as file:
+    file.write(str(freq))
 
 
 def modify_max_batch_size(config_file, size):

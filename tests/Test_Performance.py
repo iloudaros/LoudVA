@@ -1,6 +1,6 @@
 ### Performance Test ###
 # 
-# We use this notebook to test the effect of the power mode (or GPU clk speed) of the Jetson on the performance of the triton server, with the dynamic batching feature enabled.
+# We use this script to test the effect of the power mode (or GPU clk speed) of the Jetson on the performance of the triton server, with the dynamic batching feature enabled.
 # - We will use the `perf_analyzer` tool to measure the throughput of the server with different power modes.
 # - We will use the `nvpmodel` tool to change the power mode of the Jetson.
 # 
@@ -39,7 +39,7 @@ os.system(f"sudo nvpmodel -m 0")
 
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson Nano
-gpu_freqs = [844800000, 921600000] #[76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
+gpu_freqs = [76800000, 153600000] #[76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
 
 
 # Measure the performance of the system for each frequency using the perf_analyzer tool

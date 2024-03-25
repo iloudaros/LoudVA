@@ -47,6 +47,8 @@ for freq in gpu_freqs:
 
     # Modify the makefile to change the gpu frequency
     print(f"---Setting GPU frequency to {freq}---")
+    os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/l4t_dfs.conf')
+    os.system(f"sudo nvpmodel -m 0")
     os.system('sleep 5')
     i.modify_gpu_freq(freq)
 

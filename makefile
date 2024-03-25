@@ -88,7 +88,7 @@ performance_profiling: update_workers is_triton_running
 
 
 # To be run on the Jetsons
-CONCURRENCY_FLOOR = 12
+CONCURRENCY_FLOOR = 1
 CONCURRENCY_LIMIT = 13
 
 MEASUREMENT_MODE = count_windows #time_windows or count_windows

@@ -34,12 +34,24 @@ import os
 
 def modify_gpu_freq(freq):
 
-  #change the GPU frequency by writing in the min and max freq files
-  with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq', 'w') as file:
-    file.write(str(freq))
-  
-  with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq', 'w') as file:
-    file.write(str(freq))
+  # Read available frequencies
+  with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies', 'r') as file:
+    available_freqs = [int(f) for f in file.read().split()]
+
+  # Check if freq is within valid range
+  if freq not in available_freqs:
+    print(f"Error: Frequency {freq}Hz not supported. Valid options: {available_freqs}")
+    return
+
+  # Attempt to write the frequency to min and max files (with sudo)
+  try:
+    with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq', 'w') as min_file:
+      min_file.write(str(freq))
+    with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq', 'w') as max_file:
+      max_file.write(str(freq))
+    print(f"GPU frequency set to {freq}Hz (if supported by hardware).")
+  except OSError as e:
+    print(f"Error setting GPU frequency: {e}")
 
 
 def modify_max_batch_size(config_file, size):

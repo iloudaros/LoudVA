@@ -166,6 +166,7 @@ default_power_mode:
 	@echo "____Setting the Jetsons to Default Power Mode____"
 	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "nvpmodel -m 0" -u iloudaros --become
 
+
 # To be run on the Jetsons
 # .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
 GPU_MIN_FREQ = 76800000 
@@ -210,4 +211,8 @@ clean: delete_LoudVA
 	@echo "____Removing Triton from LoudGateway____"
 	rm -r ~/tritonserver*
 	rm -r ~/LoudVA/measurements/*
-	
+
+delete_measurements:
+	@echo "Deleting..."
+	@rm -r ~/LoudVA/measurements/*
+	@touch ~/LoudVA/measurements/.gitkeep

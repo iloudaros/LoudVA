@@ -85,7 +85,7 @@ performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros 
-
+	@curl -d "Performance Profiling complete" ${NOTIFICATION_URL}
 
 # To be run on the Jetsons
 CONCURRENCY_FLOOR = 1

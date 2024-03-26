@@ -116,7 +116,7 @@ measure_power:
 measure_idle_power:
 	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile ~/LoudVA/measurements/idle_tegra_log_${MEASUREMENT_INTERVAL2} && sleep 10 && sudo tegrastats --stop
 	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/idle_tegra_log_${MEASUREMENT_INTERVAL2} ~/LoudVA/measurements/idle_power_measurement_${MEASUREMENT_INTERVAL2}
-	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/clean_idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/idle_power_measurement_${MEASUREMENT_INTERVAL2}
 	@echo "Check ~/LoudVA/measurements/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
 ################################################
 

@@ -32,7 +32,7 @@ for mode in power_modes:
 
     # Rename the results according to the power mode
     print("Renaming the results")
-    os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_mode_' + str(mode) + '.csv')
+    os.system('mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_' + str(mode) + '.csv')
 
 ### 
 # Return to the default power mode
@@ -67,7 +67,7 @@ for freq in gpu_freqs:
 
     # Rename the results according to the frequency
     print("Renaming the results")
-    os.system('mv /home/iloudaros/LoudVA/measurements/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance_measurements_freq_' + str(freq) + '.csv')
+    os.system('mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_' + str(freq) + '.csv')
 
 
 

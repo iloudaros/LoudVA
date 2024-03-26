@@ -7,6 +7,4 @@ model_repository/inception_graphdef/1/model.graphdef
 .vscode/settings.json
 LoudVA/playground.ipynb
 LoudVA/test.py
-measurements/power/*
-measurements/performance/*
 */__pycache__/*

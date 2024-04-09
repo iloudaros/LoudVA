@@ -2,7 +2,7 @@
 
 - name: Synchronize time with control node
   gather_facts: no  
-  hosts: LoudJetsons
+  hosts: Workers
   
   
   tasks:
@@ -25,3 +25,12 @@
     - name: Set time on worker nodes
       shell: 'date +%T -s {{control_node_time.stdout}}'
       become: yes
+
+    # Print the time on all worker nodes
+    - name: Print time on worker nodes
+      shell: date
+      become: yes
+      register: worker_time
+      
+    - debug:
+        var: worker_time.stdout

@@ -1,6 +1,6 @@
 ---
 - name: Create Model Repository
-  hosts: LoudJetsons
+  hosts: Workers
 
   tasks: 
 

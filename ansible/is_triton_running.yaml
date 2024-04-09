@@ -1,25 +1,27 @@
 ---
 - name: Is the Triton server running?
-  hosts: LoudJetsons
+  hosts: Workers
   gather_facts: no
   become: yes
 
-  tasks: 
-    - name: Check if there is a process named tritonserver running
-      ansible.builtin.shell: ps -A | grep tritonserver
-      register : tritonserver_process
-      ignore_errors: true
+  tasks:
+    - name: Check if the tritonserver is running
+      block: 
+        - name: Check if there is a process named tritonserver running
+          ansible.builtin.shell: ps -A | grep tritonserver
+          register : tritonserver_process
+          ignore_errors: true
 
-    - debug:
-        var: tritonserver_process.stdout_lines
+        - debug:
+            var: tritonserver_process.stdout_lines
 
-    - name: Check if there is a flag file indicating that tritonserver is running
-      ansible.builtin.shell: ls
-      args:
-        chdir: /tmp/ansible/flags
-      register: tritonserver_flag
-      become: yes
+        - name: Check if there is a flag file indicating that tritonserver is running
+          ansible.builtin.shell: ls
+          args:
+            chdir: /tmp/ansible/flags
+          register: tritonserver_flag
+          become: yes
 
-    - debug:
-        var: tritonserver_flag.stdout_lines
+        - debug:
+            var: tritonserver_flag.stdout_lines
       

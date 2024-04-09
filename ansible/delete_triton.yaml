@@ -1,6 +1,6 @@
 ---
 - name: Delete Triton From the System
-  hosts: LoudJetsons
+  hosts: Workers
 
   tasks:
     

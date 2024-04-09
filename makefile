@@ -28,6 +28,7 @@ initialise_Jetsons: sync_time install_dependecies download_triton create_model_r
 
 client_setup: 
 	@echo "____Setting up Triton Client on LoudGateway____"
+	#### Install Triton Client Dependencies ####
 	sudo apt-get install -y --no-install-recommends \
         curl \
         pkg-config \
@@ -35,22 +36,35 @@ client_setup:
         python3-pip \
         python3-dev
 	pip3 install --upgrade wheel setuptools cython testresources
-	pip3 install --upgrade grpcio-tools numpy future attrdict pillow image
+	pip3 install --upgrade grpcio-tools numpy future attrdict pillow 
+	pip3 install --upgrade image six requests flake8
 	pip install protobuf==3.20
 	pip3 install flask
-	mkdir ~/tritonserver
-	tar zxvf ~/tritonserver.tgz -C ~/tritonserver
+
+
+	#### Create directories for for each version of Triton client ####
+	mkdir ~/tritonserver2_19
+	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
+	mkdir ~/tritonserver2_44
+	tar zxvf ~/tritonserver2_44.tgz -C ~/tritonserver2_44
+	
+	#### Run python wheels for each version of Triton client ####
+	
 	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+	python3 -m pip install --upgrade clients/python/tritonclient-2.44.0-py3-none-manylinux2014_aarch64.whl[all]
 
 client_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
-	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver.tgz	
+	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver2_19.tgz	
+	wget https://github.com/triton-inference-server/server/releases/download/v2.44.0/tritonserver2.44.0-igpu.tgz
+	mv tritonserver2.44.0-igpu.tgz ~/tritonserver2_44.tgz
 
 install_tao:
 	@echo "____Installing TAO on The Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/install_tao.yaml
 
 setup_system: initialise_Jetsons install_tao client_setup
+	@echo "✅ : System Setup Complete"
 
 update_workers:
 	@echo "____Updating the Jetsons____"
@@ -66,7 +80,11 @@ delete_LoudVA:
 
 delete_tmp_flags:
 	@echo "____Deleting Flags from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm /tmp/ansible/flags/triton_running.flag" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm ansible/flags/triton_running.flag" -u iloudaros --become
+
+print_flags:
+	@echo "____Printing Flags from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "ls /ansible/flags" -u iloudaros --become
 ################################################
 
 
@@ -149,7 +167,7 @@ start_LoudVA: start_triton start_LoudVA_server
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
 	@sleep 1
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become &
+	@ansible ${ANSIBLE_OPTS} Workers -a "reboot" -u iloudaros --become &
 	@echo "Rebooting..."
 	@sleep 30
 	@echo "Jetsons Rebooted"

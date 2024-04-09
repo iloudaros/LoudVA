@@ -1,37 +1,78 @@
 ---
 - name: Download and distribute file to worker nodes
-  hosts: LoudJetsons
+  hosts: Workers
 
   tasks:
-    # Download the file to the Ansible control node
-    - name: Download file
+    - name: Download Release 2.19
       delegate_to: localhost
       get_url:
         url: https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
-        dest: ~/tritonserver.tgz
+        dest: ~/tritonserver2_19.tgz       
+      async: 1000
+      poll: 0
+      register: download
 
-    # Copy the downloaded file to all worker nodes
-    - name: Copy file to worker nodes
+    - name: Download Release 2.44
+      delegate_to: localhost
+      get_url:
+        url: https://github.com/triton-inference-server/server/releases/download/v2.44.0/tritonserver2.44.0-igpu.tgz
+        dest: ~/tritonserver2_44.tgz
+
+    - name: Check on an async download of Release 2.19
+      delegate_to: localhost
+      async_status:
+        jid: "{{ download.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 100
+      delay: 5
+        
+    - name: Copy Release 2.19 to the LoudJetsons
       copy:
-        src: ~/tritonserver.tgz
+        src: ~/tritonserver2_19.tgz
         dest: ~/tritonserver.tgz
+      when: inventory_hostname in groups['LoudJetsons']
+      register: copy
 
-    # Create a folder to extract the tgz
-    - name: Creates directory
+    - name: Copy Release 2.44 to AGX and NX
+      copy:
+        src: ~/tritonserver2_44.tgz
+        dest: /mnt/sd_card/tritonserver.tgz
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+      become: yes
+
+    - name: Creates directory on LoudJetsons
       ansible.builtin.file:
         path: ~/tritonserver
         state: directory
+      when: inventory_hostname in groups['LoudJetsons']
+
+    - name: Creates directory on AGX and NX
+      ansible.builtin.file:
+        path: /mnt/sd_card/tritonserver
+        state: directory
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+      become: yes
     
-    # Unarchive
-    - name: Unarchive tritonserver.tgz
+    - name: Unarchive tritonserver.tgz on LoudJetsons 
       ansible.builtin.unarchive:
         src: ~/tritonserver.tgz
         dest: ~/tritonserver
         remote_src: yes
+      when: inventory_hostname in groups['LoudJetsons']
 
-    # Delete the tgz file after extracting
-    - name: Delete tgz file
+    - name: Unarchive tritonserver.tgz on AGX and NX 
+      ansible.builtin.unarchive:
+        src: /mnt/sd_card/tritonserver.tgz
+        dest: /mnt/sd_card/tritonserver
+        remote_src: yes
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+      become: yes
+
+    - name: Delete tgz file on AGX and NX 
       ansible.builtin.file:
-        path: ~/tritonserver.tgz
+        path: /mnt/sd_card/tritonserver.tgz
         state: absent 
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+      become: yes
 

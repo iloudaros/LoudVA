@@ -12,28 +12,20 @@ maximum_concurrency = 3
 
 #### Power modes
 # The supported power modes for the Jetson Nano
-power_modes = [1] 
+power_modes = [0] 
 
 # Measure the performance of the system for each power mode using the perf_analyzer tool
 for mode in power_modes:
 
-
     # Set power mode
     print(f"---Setting power mode to {mode}---")
     os.system(f"sudo nvpmodel -m {mode}")
-
-    # Modify the makefile to change the MEASUREMENT_INTERVAL in case we are using the time_windows mode
-    # if mode == 1:
-    #     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 10000)
-    # else:
-    #     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 
     # For each concurrency level, run the performance test
     for conc in range(1, maximum_concurrency+1):
         print(f"---Setting concurrency to {conc}---")
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
-        
 
         # Start the tegrastats tool to monitor the power consumption
         print("Starting tegrastats")
@@ -50,6 +42,14 @@ for mode in power_modes:
         # Rename the results according to the power mode
         print("Renaming the results")
         os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
+    
+    # combine the results of the different concurrencies
+    print("Combining the results")
+    os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}_conc')
+
+    # clean the power measurements
+    print("Cleaning the power measurements")
+    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/ && ~/LoudVA/scripts/clean_measurements.sh tegra_log_mode_{mode}_conc_{conc}.csv power_measurement_mode_{mode}_conc_{conc}.csv && bash /home/iloudaros/LoudVA/scripts/mean_median.sh power_measurement_mode_{mode}_conc_{conc}.csv')
 
 
 ### 
@@ -74,11 +74,6 @@ for freq in gpu_freqs:
     os.system('sleep 5')
     i.modify_gpu_freq(freq)
 
-    # Modify the makefile to change the MEASUREMENT_INTERVAL (not needed because we changed the mode to count_windows for more info read the makefile)
-    # new_interval = (921600000//freq)*5000+1000
-    # print(f"Setting MEASUREMENT_INTERVAL to {new_interval}")
-    # i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', new_interval)
-
     # For each concurrency level, run the performance test
     for conc in range(1, maximum_concurrency+1):
         print(f"---Setting concurrency to {conc}---")
@@ -101,6 +96,15 @@ for freq in gpu_freqs:
         # Rename the results according to the power mode
         print("Renaming the results")
         os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}_conc_{conc}.csv')
+    
+    # combine the results of the different concurrencies
+    print("Combining the results")
+    os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_freq_{freq}_conc')
+
+    # clean the power measurements
+    print("Cleaning the power measurements")
+    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/ && ~/LoudVA/scripts/clean_measurements.sh tegra_log_freq_{freq}_conc_{conc}.csv power_measurement_freq_{freq}_conc_{conc}.csv && bash /home/iloudaros/LoudVA/scripts/mean_median.sh power_measurement_freq_{freq}_conc_{conc}.csv')
+
 
 
 # Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling

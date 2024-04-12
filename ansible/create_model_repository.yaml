@@ -14,7 +14,7 @@
 
     # Download model repository in the tritonserver directory
     - name: Fetching Models
-      ansible.builtin.script: ../scripts/fetch_models.sh
+      ansible.builtin.script: ../scripts/setup/fetch_models.sh
       args:
         chdir: /home/iloudaros/tritonserver
       become: yes

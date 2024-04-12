@@ -13,7 +13,7 @@ maximum_concurrency = 3
 
 #### Power modes
 # The supported power modes for the Jetson Nano
-power_modes = [0] 
+power_modes = [0,1] 
 
 # Measure the performance of the system for each power mode using the perf_analyzer tool
 for mode in power_modes:
@@ -51,7 +51,7 @@ os.system(f"sudo nvpmodel -m 0")
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson Nano
 #[76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
-gpu_freqs = [ 921600000]  
+gpu_freqs = [ 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
 
 
 # Measure the performance of the system for each frequency using the perf_analyzer tool

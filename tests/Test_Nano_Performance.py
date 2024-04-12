@@ -28,25 +28,19 @@ for mode in power_modes:
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
 
-        # Start the tegrastats tool to monitor the power consumption
-        print("Starting tegrastats")
-        os.system(f'sudo tegrastats --interval 500 --start --logfile ~/LoudVA/measurements/power/tegra_log_mode_{mode}_conc_{conc}.csv')   
-
         # Run the performance test
         print("Running performance test")
-        os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
-        
-        # Stop the tegrastats tool
-        print("Stopping tegrastats")
-        os.system('sudo tegrastats --stop')
+        os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
         # Rename the results according to the power mode
         print("Renaming the results")
         os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
+        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats.txt /home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
     
     # combine the results of the different concurrencies
     print("Combining the results")
     os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}_conc')
+    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}_conc')
 
     # clean the power measurements
     print("Cleaning the power measurements")
@@ -82,25 +76,19 @@ for freq in gpu_freqs:
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
         
 
-        # Start the tegrastats tool to monitor the power consumption
-        print("Starting tegrastats")
-        os.system(f'sudo tegrastats --interval 500 --start --logfile ~/LoudVA/measurements/power/tegra_log_freq_{freq}_conc_{conc}.csv')   
-
-        # Run the performance test
+       # Run the performance test
         print("Running performance test")
-        os.system('cd /home/iloudaros/LoudVA && make measure_performance_csv')
-        
-        # Stop the tegrastats tool
-        print("Stopping tegrastats")
-        os.system('sudo tegrastats --stop')
+        os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
-        # Rename the results according to the power mode
+        # Rename the results according to the freq
         print("Renaming the results")
         os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}_conc_{conc}.csv')
+        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats.txt /home/iloudaros/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}_conc_{conc}.csv')
     
     # combine the results of the different concurrencies
     print("Combining the results")
     os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_freq_{freq}_conc')
+    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_freq_{freq}_conc')
 
     # clean the power measurements
     print("Cleaning the power measurements")

@@ -7,8 +7,6 @@
   tasks: 
 
     - name: Profiling --> Jetson Nano
-      debug:
-        msg: "Profiling --> Jetson Nano"
       delegate_to: LoudJetson0
       run_once: true
       ignore_errors: yes

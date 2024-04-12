@@ -35,7 +35,7 @@ for mode in power_modes:
         # Rename the results according to the power mode
         print("Renaming the results")
         os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
-        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats.txt /home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
+        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
     
     # combine the results of the different concurrencies
     print("Combining the results")
@@ -83,7 +83,7 @@ for freq in gpu_freqs:
         # Rename the results according to the freq
         print("Renaming the results")
         os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}_conc_{conc}.csv')
-        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats.txt /home/iloudaros/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}_conc_{conc}.csv')
+        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}_conc_{conc}.csv')
     
     # combine the results of the different concurrencies
     print("Combining the results")

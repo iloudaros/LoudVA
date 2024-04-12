@@ -12,7 +12,7 @@ maximum_concurrency = 3
 
 #### Power modes
 # The supported power modes for the Jetson Nano
-power_modes = [0,1] 
+power_modes = [1] 
 
 # Measure the performance of the system for each power mode using the perf_analyzer tool
 for mode in power_modes:

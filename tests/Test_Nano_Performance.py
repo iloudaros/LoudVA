@@ -8,6 +8,7 @@
 
 import os
 import ihelper as i
+maximum_concurrency = 3 
 
 #### Power modes
 # The supported power modes for the Jetson Nano
@@ -28,7 +29,7 @@ for mode in power_modes:
     #     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
 
     # For each concurrency level, run the performance test
-    for conc in range(1, 13):
+    for conc in range(1, maximum_concurrency+1):
         print(f"---Setting concurrency to {conc}---")
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
@@ -79,7 +80,7 @@ for freq in gpu_freqs:
     # i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', new_interval)
 
     # For each concurrency level, run the performance test
-    for conc in range(1, 13):
+    for conc in range(1, maximum_concurrency+1):
         print(f"---Setting concurrency to {conc}---")
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)

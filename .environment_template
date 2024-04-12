@@ -1,1 +1,2 @@
 PASS = [password for the users]
+NOTIFICATION_URL = [url for the notification]

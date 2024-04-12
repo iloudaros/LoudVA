@@ -42,11 +42,6 @@ for mode in power_modes:
     os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}_conc')
     os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}_conc')
 
-    # clean the power measurements
-    print("Cleaning the power measurements")
-    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/ && ~/LoudVA/scripts/clean_measurements.sh tegra_log_mode_{mode}_conc_{conc}.csv power_measurement_mode_{mode}_conc_{conc}.csv && bash /home/iloudaros/LoudVA/scripts/mean_median.sh power_measurement_mode_{mode}_conc_{conc}.csv')
-
-
 ### 
 # Return to the default power mode
 print(f"---Setting power mode to 0---")
@@ -89,11 +84,6 @@ for freq in gpu_freqs:
     print("Combining the results")
     os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_freq_{freq}_conc')
     os.system(f'cd /home/iloudaros/LoudVA/measurements/power/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_freq_{freq}_conc')
-
-    # clean the power measurements
-    print("Cleaning the power measurements")
-    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/ && ~/LoudVA/scripts/clean_measurements.sh tegra_log_freq_{freq}_conc_{conc}.csv power_measurement_freq_{freq}_conc_{conc}.csv && bash /home/iloudaros/LoudVA/scripts/mean_median.sh power_measurement_freq_{freq}_conc_{conc}.csv')
-
 
 
 # Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling

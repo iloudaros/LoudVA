@@ -12,14 +12,17 @@
       ignore_errors: yes
       block:
         - name: Run the Python script for the performance measurements
-          shell: sudo python3 -u /home/iloudaros/LoudVA/tests/Test_Nano_Performance.py > /home/iloudaros/LoudVA/measurements/Performance.log 2>&1
+          shell: sudo python3 -u /home/iloudaros/LoudVA/tests/Test_Nano_Performance.py > /home/iloudaros/LoudVA/measurements/log 2>&1
 
-        - name : Copy the log files from remote to local
-          shell: (cd /home/iloudaros/LoudVA/measurements; find . -maxdepth 5 -type f) | cut -d'/' -f2
-          register: files_to_copy
+        - name: Find files in remote directory recursively
+          shell: find /home/iloudaros/LoudVA/measurements -type f
+          register: files_to_fetch
 
-        - fetch: src=/home/iloudaros/LoudVA/measurements/{{ item }} dest=~/LoudVA/measurements
-          with_items: "{{ files_to_copy.stdout_lines }}"
+        - name: Fetch each file individually
+          fetch:
+            src: "{{ item.path }}"
+            dest: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/{{ item.path.split('/')[-1] }}
+          loop: "{{ files_to_fetch.stdout_lines }}"
 
     - name: Profiling --> Jetson Xavier NX
       delegate_to: xavier-nx-00

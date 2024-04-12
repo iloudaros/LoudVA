@@ -9,7 +9,7 @@
 
 import os
 import ihelper as i
-maximum_concurrency = 3
+maximum_concurrency = 13
 
 #### Power modes
 # The supported power modes for the Jetson Nano

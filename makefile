@@ -6,7 +6,13 @@ ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${P
 
 
 test:
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/test.yaml
+	@curl \
+		-d "Performance Profiling complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
+
+	# @ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/test.yaml
 
 
 ###### System Initialization and Setup #######
@@ -111,7 +117,12 @@ performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros 
-	@curl -d "Performance Profiling complete" ${NOTIFICATION_URL}
+	@curl \
+		-d "Performance Profiling complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \\
+		${NOTIFICATION_URL}
+
 
 # To be run on the Jetsons
 CONCURRENCY_FLOOR = 1

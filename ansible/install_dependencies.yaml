@@ -1,6 +1,6 @@
 ---
 - name: Install Triton dependencies
-  hosts: LoudJetsons
+  hosts: Workers
 
   tasks:
 

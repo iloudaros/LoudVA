@@ -5,12 +5,20 @@ ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${P
 .PHONY: sync_time download_triton initialise_Jetsons setup_system start_triton
 
 
+test:
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/test.yaml
+
+
 ###### System Initialization and Setup #######
 # To be run on LoudGateway
 ################################################
 sync_time: 
 	@echo "____Setting Correct Time and Date on Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/sync_time.yaml
+
+print_time:
+	@echo "____What time is it?____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "date" -u iloudaros
 
 download_triton:
 	@echo "____Downloading and Sending triton to the Jetsons____"
@@ -51,7 +59,7 @@ client_setup:
 	#### Run python wheels for each version of Triton client ####
 	
 	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
-	python3 -m pip install --upgrade clients/python/tritonclient-2.44.0-py3-none-manylinux2014_aarch64.whl[all]
+	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.44.0-py3-none-manylinux2014_aarch64.whl[all]
 
 client_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
@@ -167,7 +175,7 @@ start_LoudVA: start_triton start_LoudVA_server
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
 	@sleep 1
-	@ansible ${ANSIBLE_OPTS} Workers -a "reboot" -u iloudaros --become &
+	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become &
 	@echo "Rebooting..."
 	@sleep 30
 	@echo "Jetsons Rebooted"

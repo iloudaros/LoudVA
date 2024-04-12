@@ -76,3 +76,13 @@
       when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
       become: yes
 
+    - name: Create symlink on AGX and NX
+      ansible.builtin.file:
+        src: /mnt/sd_card/tritonserver/tritonserver
+        dest: /home/iloudaros/tritonserver
+        state: link
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+      become: yes
+
+    
+

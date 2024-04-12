@@ -32,3 +32,6 @@ for file in $(ls -1 "${base_name}_"*.csv | sort -n); do
 done
 
 echo "Combined CSV file created: ${base_name}.csv"
+
+# Delete the original files
+rm "${base_name}_"*.csv

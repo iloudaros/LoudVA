@@ -33,15 +33,13 @@
           delegate_to: localhost
           run_once: true
           unarchive:
-            src: /home/louduser/LoudVA/measurements.tgz/LoudJetson0/home/iloudaros/LoudVA/measurements.tgz
+            src: /home/louduser/LoudVA/measurements/LoudJetson0/home/iloudaros/LoudVA/measurements.tgz
             dest: /home/louduser/LoudVA/measurements/LoudJetson0
 
         - name: Remove the archive Locally
           delegate_to: localhost
           run_once: true
-          file:
-            path: /home/louduser/LoudVA/measurements.tgz
-            state: absent
+          shell: rm -r /home/louduser/LoudVA/measurements/LoudJetson0/home
 
     - name: Profiling --> Jetson Xavier NX
       delegate_to: xavier-nx-00

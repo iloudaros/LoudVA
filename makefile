@@ -226,7 +226,7 @@ cat_nvpmodel:
 	cat /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
 
 watch_log:
-	watch -n 1 cat /home/iloudaros/measurements/Performance.log
+	watch -n 1 cat /home/iloudaros/LoudVA/measurements/log
 
 # To be run on the client
 check_api:

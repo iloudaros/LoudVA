@@ -11,5 +11,6 @@ LoudVA/test.py
 measurements/performance/freqs/*
 measurements/performance/modes/*
 measurements/power/*
+measurements/*
 ansible/test.yaml
 measurements/LoudJetson0/home/iloudaros/LoudVA/measurements/Performance.log

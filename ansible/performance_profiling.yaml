@@ -14,15 +14,34 @@
         - name: Run the Python script for the performance measurements
           shell: sudo python3 -u /home/iloudaros/LoudVA/tests/Test_Nano_Performance.py > /home/iloudaros/LoudVA/measurements/log 2>&1
 
-        - name: Find files in remote directory recursively
-          shell: find /home/iloudaros/LoudVA/measurements -type f
-          register: files_to_fetch
+        - name: Compress measurements
+          community.general.archive:
+            path: /home/iloudaros/LoudVA/measurements
+            dest: /home/iloudaros/LoudVA/measurements.tgz
 
-        - name: Fetch each file individually
+        - name: Fetch the archive 
           fetch:
-            src: "{{ item.path }}"
-            dest: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/{{ item.path.split('/')[-1] }}
-          loop: "{{ files_to_fetch.stdout_lines }}"
+            src: /home/iloudaros/LoudVA/measurements.tgz
+            dest: /home/louduser/LoudVA/measurements
+
+        - name: Remove the archive
+          file:
+            path: /home/iloudaros/LoudVA/measurements.tgz
+            state: absent
+
+        - name: Unarchive Locally
+          delegate_to: localhost
+          run_once: true
+          unarchive:
+            src: /home/louduser/LoudVA/measurements.tgz/LoudJetson0/home/iloudaros/LoudVA/measurements.tgz
+            dest: /home/louduser/LoudVA/measurements/LoudJetson0
+
+        - name: Remove the archive Locally
+          delegate_to: localhost
+          run_once: true
+          file:
+            path: /home/louduser/LoudVA/measurements.tgz
+            state: absent
 
     - name: Profiling --> Jetson Xavier NX
       delegate_to: xavier-nx-00

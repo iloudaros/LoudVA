@@ -11,3 +11,4 @@ LoudVA/test.py
 measurements/performance/freqs/*
 measurements/performance/modes/*
 measurements/power/*
+ansible/test.yaml

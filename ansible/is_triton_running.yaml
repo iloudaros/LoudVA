@@ -6,7 +6,7 @@
 
   tasks:
     - name: Check if the tritonserver is running
-      block: 
+      block:
         - name: Check if there is a process named tritonserver running
           ansible.builtin.shell: ps -A | grep tritonserver
           register : tritonserver_process

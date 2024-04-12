@@ -3,7 +3,7 @@
   hosts: Workers
   gather_facts: no
   become: yes
-
+  
   tasks: 
 
     - name: Profiling --> Jetson Nano

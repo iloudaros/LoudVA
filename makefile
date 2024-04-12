@@ -146,7 +146,7 @@ measure_idle_power:
 	@echo "Check ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
 
 measure_performance_and_power:
-	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile ~/LoudVA/measurements/power/tegra_log && ~/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv && sudo tegrastats --stop
+	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile ~/LoudVA/measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv && sudo tegrastats --stop
 	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/power/tegra_log ~/LoudVA/measurements/power/power_measurement
 	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/power/power_measurement
 	@echo "Check ~/LoudVA/measurements/power/power_measurement_stats.txt for the power measurements"

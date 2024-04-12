@@ -1,3 +1,4 @@
+#!/usr/bin/python -u
 ### Performance Test ###
 # 
 # We use this script to test the effect of the power mode (or GPU clk speed) of the Jetson on the performance of the triton server, with the dynamic batching feature enabled.

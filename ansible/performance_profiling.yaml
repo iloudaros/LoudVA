@@ -12,7 +12,7 @@
       ignore_errors: yes
       block:
         - name: Run the Python script for the performance measurements
-          shell: sudo python3 /home/iloudaros/LoudVA/tests/Test_Nano_Performance.py > /home/iloudaros/LoudVA/measurements/Performance.log
+          shell: sudo python3 /home/iloudaros/LoudVA/tests/Test_Nano_Performance.py > /home/iloudaros/LoudVA/measurements/Performance.log 2>&1
 
         - name : Copy the log files from remote to local
           shell: (cd /home/iloudaros/LoudVA/measurements; find . -maxdepth 1 -type f) | cut -d'/' -f2

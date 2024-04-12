@@ -38,3 +38,8 @@ fi
 # Print the results
 echo "Mean: $mean"
 echo "Median: $median"
+
+# Add the results to a new file
+echo "Mean: $mean" > "${filename}_stats.txt"
+echo "Median: $median" >> "${filename}_stats.txt"
+

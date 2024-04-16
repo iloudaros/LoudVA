@@ -120,7 +120,7 @@ performance_profiling: update_workers is_triton_running
 	@curl \
 		-d "Performance Profiling complete" \
 		-H "Title: LoudVA" \
-		-H "Tags: white_check_mark" \\
+		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
 

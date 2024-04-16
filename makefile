@@ -78,7 +78,11 @@ install_tao:
 	@echo "____Installing TAO on The Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/install_tao.yaml
 
-setup_system: initialise_Jetsons install_tao client_setup
+set_environment:
+	@echo "____Setting Environment Variables on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/set_environment.yaml
+
+setup_system: initialise_Jetsons install_tao set_environment client_setup
 	@echo "✅ : System Setup Complete"
 
 update_workers:
@@ -100,6 +104,8 @@ delete_tmp_flags:
 print_flags:
 	@echo "____Printing Flags from the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} Workers -a "ls /ansible/flags" -u iloudaros --become
+
+
 ################################################
 
 
@@ -231,7 +237,9 @@ change_gpu_freq:
 	fi
 
 current_gpu_freq:
-	echo "Current GPU Frequency"
+	@echo "Model: ${model}"
+
+	@echo "Current GPU Frequency"
 	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
 		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/cur_freq; \
 	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
@@ -242,7 +250,8 @@ current_gpu_freq:
 		echo "This is not a Jetson"; \
 	fi
 
-	echo "Upper Boundary"
+	
+	@echo "Upper Boundary"
 	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
 		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq; \
 	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
@@ -253,7 +262,7 @@ current_gpu_freq:
 		echo "This is not a Jetson"; \
 	fi
 	
-	echo "Lower Boundary"
+	@echo "Lower Boundary"
 	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
 		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq; \
 	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \

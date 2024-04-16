@@ -1,6 +1,7 @@
 include .environment #for our credentials, making it easy to reuse and add to .gitignore
 ANSIBLE_DIRECTORY = ./ansible
 ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
+model=$(cat /proc/device-tree/model)
 
 .PHONY: sync_time download_triton initialise_Jetsons setup_system start_triton
 
@@ -103,6 +104,8 @@ print_flags:
 
 
 
+
+
 ############### Tests and Checks ###############
 # To be run on LoudGateway
 check_system: is_triton_running
@@ -165,6 +168,8 @@ measure_performance_and_power:
 
 
 
+
+
 ################ Quick Access ##################
 # To be run on LoudGateway
 start_triton: sync_time
@@ -209,29 +214,73 @@ default_power_mode:
 
 
 # To be run on the Jetsons
-# .76800000 153600000 230400000 .307200000 384000000 460800000 .537600000 614400000 691200000 .768000000 844800000 .921600000
 GPU_MIN_FREQ = 76800000 
 GPU_MAX_FREQ = 921600000
 change_gpu_freq:
-	@sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'
-	@sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'
+	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
+		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'; \
+		sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'; \
+	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
+		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq'; \
+		sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq'; \
+	elif [ "${model}" = "Jetson-AGX" ]; then \
+		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq'; \
+		sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq'; \
+	else \
+		echo "This is not a Jetson"; \
+	fi
 
 current_gpu_freq:
 	echo "Current GPU Frequency"
-	@cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/cur_freq
+	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
+		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/cur_freq; \
+	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/cur_freq; \
+	elif [ "${model}" = "Jetson-AGX" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/cur_freq; \
+	else \
+		echo "This is not a Jetson"; \
+	fi
+
 	echo "Upper Boundary"
-	@cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq
+	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
+		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq; \
+	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq; \
+	elif [ "${model}" = "Jetson-AGX" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq; \
+	else \
+		echo "This is not a Jetson"; \
+	fi
+	
 	echo "Lower Boundary"
-	@cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq
+	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
+		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq; \
+	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq; \
+	elif [ "${model}" = "Jetson-AGX" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq; \
+	else \
+		echo "This is not a Jetson"; \
+	fi
 
 3D_scaling:
 	sudo sh -c 'echo 1 > /sys/devices/57000000.gpu/enable_3d_scaling'
 
 available_frequencies:
-	cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies
+	@echo "Model: ${model}"
+	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
+		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies; \
+	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/available_frequencies; \
+	elif [ "${model}" = "Jetson-AGX" ]; then \
+		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/available_frequencies; \
+	else \
+		echo "This is not a Jetson"; \
+	fi
 
 edit_nvpmodel:
-	sudo nano /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
+	sudo code /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
 
 cat_nvpmodel:
 	cat /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf

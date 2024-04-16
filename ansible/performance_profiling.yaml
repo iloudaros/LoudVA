@@ -1,61 +1,34 @@
 ---
 - name: Performance Profiling
-  hosts: Workers
+  hosts: LoudJetson0, agx-xavier-00, xavier-nx-00
   gather_facts: no
   become: yes
 
   tasks: 
+    - name: Run the Python script for the performance measurements
+      shell: sudo python3 -u /home/iloudaros/LoudVA/tests/{{ performance_test }} > /home/iloudaros/LoudVA/measurements/log 2>&1
 
-    - name: Profiling --> Jetson Nano
-      delegate_to: LoudJetson0
-      run_once: true
-      ignore_errors: yes
-      block:
-        - name: Run the Python script for the performance measurements
-          shell: sudo python3 -u /home/iloudaros/LoudVA/tests/Test_Nano_Performance.py > /home/iloudaros/LoudVA/measurements/log 2>&1
+    - name: Compress measurements
+      community.general.archive:
+        path: /home/iloudaros/LoudVA/measurements
+        dest: /home/iloudaros/LoudVA/measurements.tgz
 
-        - name: Compress measurements
-          community.general.archive:
-            path: /home/iloudaros/LoudVA/measurements
-            dest: /home/iloudaros/LoudVA/measurements.tgz
+    - name: Fetch the archive 
+      fetch:
+        src: /home/iloudaros/LoudVA/measurements.tgz
+        dest: /home/louduser/LoudVA/measurements
 
-        - name: Fetch the archive 
-          fetch:
-            src: /home/iloudaros/LoudVA/measurements.tgz
-            dest: /home/louduser/LoudVA/measurements
+    - name: Remove the archive
+      file:
+        path: /home/iloudaros/LoudVA/measurements.tgz
+        state: absent
 
-        - name: Remove the archive
-          file:
-            path: /home/iloudaros/LoudVA/measurements.tgz
-            state: absent
+    - name: Unarchive Locally
+      delegate_to: localhost
+      unarchive:
+        src: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home/iloudaros/LoudVA/measurements.tgz
+        dest: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}
 
-        - name: Unarchive Locally
-          delegate_to: localhost
-          run_once: true
-          unarchive:
-            src: /home/louduser/LoudVA/measurements/LoudJetson0/home/iloudaros/LoudVA/measurements.tgz
-            dest: /home/louduser/LoudVA/measurements/LoudJetson0
-
-        - name: Remove the archive Locally
-          delegate_to: localhost
-          run_once: true
-          shell: rm -r /home/louduser/LoudVA/measurements/LoudJetson0/home
-
-    - name: Profiling --> Jetson Xavier NX
-      delegate_to: xavier-nx-00
-      run_once: true
-      ignore_errors: yes
-      block:
-        - debug:
-            msg: "Running the Python script for the performance measurements on Jetson Xavier NX"
-
-    - name: Profiling --> Jetson Xavier AGX
-      delegate_to: agx-xavier-00 
-      run_once: true
-      ignore_errors: yes
-      block:
-        - debug:
-            msg: "Running the Python script for the performance measurements on Jetson Xavier AGX"
-
-      
-      
+    - name: Remove the archive Locally
+      delegate_to: localhost
+      shell: rm -r /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home

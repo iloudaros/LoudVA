@@ -1,7 +1,8 @@
 include .environment #for our credentials, making it easy to reuse and add to .gitignore
 ANSIBLE_DIRECTORY = ./ansible
 ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
-model=$(cat /proc/device-tree/model)
+model=$(shell tr -d '\0' < /proc/device-tree/model)
+
 
 .PHONY: sync_time download_triton initialise_Jetsons setup_system start_triton
 
@@ -218,6 +219,9 @@ default_power_mode:
 	@echo "____Setting the Jetsons to Default Power Mode____"
 	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "nvpmodel -m 0" -u iloudaros --become
 
+send_makefile:
+	@echo "____Sending Makefile to the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} NX -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
 
 # To be run on the Jetsons
 GPU_MIN_FREQ = 76800000 
@@ -238,7 +242,6 @@ change_gpu_freq:
 
 current_gpu_freq:
 	@echo "Model: ${model}"
-
 	@echo "Current GPU Frequency"
 	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
 		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/cur_freq; \

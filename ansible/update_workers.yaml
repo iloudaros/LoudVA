@@ -1,6 +1,6 @@
 ---
 - name: Update Worker Nodes
-  hosts: NX
+  hosts: Workers
   gather_facts: no
   become: yes 
 

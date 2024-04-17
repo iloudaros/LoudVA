@@ -1,13 +1,34 @@
 ---
-- name: Delete Triton From the System
+- name: Delete Triton From the Workers
   hosts: Workers
 
   tasks:
     
-    # Delete the tgz file after extracting
-    - name: Delete triton directory
+    - name: Delete triton directory on the LoudJetsons
       ansible.builtin.file:
-        path: ~/tritonserver
+        path: home/iloudaros/tritonserver
         state: absent 
       become: yes
+      when: inventory_hostname in groups['LoudJetsons']
+
+    - name: Delete triton directory on AGX and NX
+      ansible.builtin.file:
+        path: /mnt/sd_card/tritonserver
+        state: absent 
+      become: yes
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+
+    - name: Delete symlink on AGX and NX
+      ansible.builtin.file:
+        path: /home/iloudaros/tritonserver
+        state: absent 
+      become: yes
+      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+
+    - name: Delete flag file
+      ansible.builtin.file:
+        path: /ansible/flags/triton_installed.flag
+        state: absent
+      become: yes
+
 

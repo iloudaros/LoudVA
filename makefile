@@ -4,17 +4,11 @@ ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${P
 model=$(shell tr -d '\0' < /proc/device-tree/model)
 
 
-.PHONY: sync_time download_triton initialise_Jetsons setup_system start_triton
+.PHONY: sync_time download_triton initialise_Jetsons system_setup start_triton
 
 
 test:
-	@curl \
-		-d "Performance Profiling complete" \
-		-H "Title: LoudVA" \
-		-H "Tags: white_check_mark" \
-		${NOTIFICATION_URL}
-
-	# @ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/test.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/test.yaml
 
 
 ###### System Initialization and Setup #######
@@ -30,7 +24,7 @@ print_time:
 
 download_triton:
 	@echo "____Downloading and Sending triton to the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/download_triton.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/download_triton.yaml -u iloudaros
 
 install_dependecies:
 	@echo "____Installing Dependencies on the Jetsons____"
@@ -40,7 +34,11 @@ create_model_repository:
 	@echo "____Creating Model Directory on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/create_model_repository.yaml
 
-initialise_Jetsons: sync_time install_dependecies download_triton create_model_repository
+clone_LoudVA:
+	@echo "____Cloning LoudVA to the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/clone_LoudVA.yaml
+
+initialise_Jetsons: sync_time install_dependecies download_triton clone_LoudVA create_model_repository
 
 client_setup: 
 	@echo "____Setting up Triton Client on LoudGateway____"
@@ -83,24 +81,12 @@ set_environment:
 	@echo "____Setting Environment Variables on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/set_environment.yaml
 
-setup_system: initialise_Jetsons install_tao set_environment client_setup
+system_setup: initialise_Jetsons install_tao set_environment client_setup
 	@echo "✅ : System Setup Complete"
 
 update_workers:
 	@echo "____Updating the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/update_workers.yaml
-
-clone_LoudVA:
-	@echo "____Cloning LoudVA to the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/clone_LoudVA.yaml
-
-delete_LoudVA:
-	@echo "____Deleting LoudVA from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm -r /home/iloudaros/LoudVA" -u iloudaros --become
-
-delete_tmp_flags:
-	@echo "____Deleting Flags from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm ansible/flags/triton_running.flag" -u iloudaros --become
 
 print_flags:
 	@echo "____Printing Flags from the Jetsons____"
@@ -310,13 +296,22 @@ check_api:
 
 
 ################## Clean Up ####################
-clean: delete_LoudVA
+delete_LoudVA:
+	@echo "____Deleting LoudVA from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "rm -r /home/iloudaros/LoudVA" -u iloudaros --become
+
+delete_triton:
 	@echo "____Removing Triton from the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/delete_triton.yaml
-	@echo "____Removing Triton from LoudGateway____"
-	rm -r ~/tritonserver*
-	rm -r ~/LoudVA/measurements/*
 
+delete_flags:
+	@echo "____Deleting Flags from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "rm ansible/flags/triton_running.flag" -u iloudaros --become
+
+clean: delete_LoudVA delete_triton 
+	@echo "✅ : Clean Up Complete"
+
+	
 delete_measurements:
 	@echo "Deleting..."
 	@rm -r ~/LoudVA/measurements/*

@@ -1,7 +1,7 @@
 ---
 - name: Stop the Triton Server 
   gather_facts: no
-  hosts: LoudJetsons
+  hosts: Workers
 
   tasks: 
     - name: Sending The command to the Jetsons

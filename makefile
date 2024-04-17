@@ -165,13 +165,9 @@ measure_performance_and_power:
 
 ################ Quick Access ##################
 # To be run on LoudGateway
-start_triton: sync_time
+start_triton: 
 	@echo "____Starting Triton on the Jetsons____"
-	@sleep 1
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
-	@echo "Loading..."
-	@sleep 20
-	@make is_triton_running 
 
 start_triton_gpumetrics:
 	@echo "____Starting Triton on the Jetsons____"
@@ -189,12 +185,8 @@ start_LoudVA: start_triton start_LoudVA_server
 
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
-	@sleep 1
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "reboot" -u iloudaros --become &
-	@echo "Rebooting..."
-	@sleep 30
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/reboot.yaml
 	@echo "Jetsons Rebooted"
-	@sleep 5
 	@make start_triton
 
 remove_triton_running_flag:

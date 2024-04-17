@@ -1,22 +1,37 @@
 ---
-- name: Start the Trtiton Server 
-  hosts: LoudJetsons
+- name: Start the Triton Server 
+  hosts: Workers
   gather_facts: no
   become: yes
 
   tasks: 
-    - name: Run the shell script
-      ansible.builtin.script: ../scripts/start_triton.sh
-      args:
-        creates: /tmp/ansible/flags/triton_running.flag
-
-    - name: Create the flags directory
-      ansible.builtin.file:
-        path: /tmp/ansible/flags
-        state: directory
-      
-    - name: Create the triton_running flag 
-      ansible.builtin.file:
+    - name: Check if the triton server is already running
+      ansible.builtin.stat:
         path: /tmp/ansible/flags/triton_running.flag
-        state: touch
-      
+      register: triton_running
+
+    - name: Start Triton
+      block:
+        - name: Run the shell script
+          ansible.builtin.script: ../scripts/start_triton.sh
+          args:
+            creates: /tmp/ansible/flags/triton_running.flag
+
+        - name: Create the flags directory
+          ansible.builtin.file:
+            path: /tmp/ansible/flags
+            state: directory
+          
+        - name: Create the triton_running flag 
+          ansible.builtin.file:
+            path: /tmp/ansible/flags/triton_running.flag
+            state: touch
+      when: not triton_running.stat.exists
+
+    - name: Wait for Triton to start
+      wait_for:
+        port: 8000
+        delay: 10
+        timeout: 60
+        state: present
+          

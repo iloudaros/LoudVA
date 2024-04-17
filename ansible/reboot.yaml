@@ -1,0 +1,17 @@
+---
+# An ansible playbook that reboots all the workers and then waits for them to come back online
+- name: Reboot the Workers
+  hosts: Workers
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Starting the Reboot
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+        test_command: uptime
+
+    - name: Make sure the connection is up before continuing
+      wait_for_connection:
+        timeout: 300
+        delay: 10

@@ -1,0 +1,21 @@
+---
+- name: Print the contents of the flags directory
+  hosts: Workers
+  gather_facts: no
+  become: yes
+
+  tasks:
+    # Print the contents of the flags directory
+    - name: Permanent Flags under /ansible/flags
+      ansible.builtin.shell: ls /ansible/flags
+      register: permanent_flags
+      
+    - debug:
+        var: permanent_flags.stdout_lines
+
+    - name: Temporary Flags under /tmp/ansible/flags  
+      ansible.builtin.shell: ls /tmp/ansible/flags
+      register: temporary_flags
+      
+    - debug:
+        var: temporary_flags.stdout_lines

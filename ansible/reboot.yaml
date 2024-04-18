@@ -6,7 +6,7 @@
   become: yes
 
   tasks:
-    - name: Starting the Reboot
+    - name: Rebooting
       ansible.builtin.reboot:
         reboot_timeout: 300
         test_command: uptime
@@ -14,4 +14,3 @@
     - name: Make sure the connection is up before continuing
       wait_for_connection:
         timeout: 300
-        delay: 10

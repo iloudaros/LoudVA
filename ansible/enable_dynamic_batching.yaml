@@ -1,0 +1,24 @@
+---
+- name: Add dynamic_batching configuration
+  hosts: Workers
+  become: true  
+  gather_facts: false
+
+  tasks:
+
+  - name: Check the existence of the dynamic_batching settings
+    shell: grep -q "dynamic_batching" /home/iloudaros/tritonserver/model_repository/inception_graphdef/config.pbtxt
+    register: dynamic_batching
+    ignore_errors: yes
+
+  - name: Append dynamic_batching settings
+    lineinfile:
+      path: /home/iloudaros/tritonserver/model_repository/inception_graphdef/config.pbtxt
+      create: no
+      line: "dynamic_batching {\n    max_queue_delay_microseconds: 100\n  }"
+      state: present
+    when: dynamic_batching.rc != 0
+
+
+  - ansible.builtin.debug:
+      var: dynamic_batching

@@ -81,7 +81,12 @@ set_environment:
 	@echo "____Setting Environment Variables on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/set_environment.yaml
 
+enable_dynamic_batching:
+	@echo "____Enabling Dynamic Batching on the Jetsons____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/enable_dynamic_batching.yaml
+
 system_setup: initialise_Jetsons set_environment client_setup
+
 	@echo "✅ : System Setup Complete"
 
 update_workers:
@@ -191,7 +196,7 @@ reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/reboot.yaml
 	@echo "Jetsons Rebooted"
-	@make start_triton
+	@make sync_time
 
 remove_triton_running_flag:
 	@echo "____Removing the triton running flag____"

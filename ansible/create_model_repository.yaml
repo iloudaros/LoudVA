@@ -1,9 +1,14 @@
 ---
 - name: Create Model Repository
   hosts: Workers
+  gather_facts: no
 
   tasks: 
 
+    - name: Check the flags 
+      stat:
+        path: /ansible/flags/model_repository_installed.flag
+      register: flag
 
     # Copy Model Repository to all worker nodes
     - name: Sending Initial Model Repository to Jetsons
@@ -11,10 +16,18 @@
         src: /home/louduser/LoudVA/model_repository
         dest: /home/iloudaros/tritonserver/
       become: yes
+      when : not flag.stat.exists
 
     # Download model repository in the tritonserver directory
     - name: Fetching Models
       ansible.builtin.script: ../scripts/setup/fetch_models.sh
       args:
         chdir: /home/iloudaros/tritonserver
+      become: yes
+      when : not flag.stat.exists
+
+    - name: Create flag file
+      ansible.builtin.file:
+        path: /ansible/flags/model_repository_installed.flag
+        state: touch
       become: yes

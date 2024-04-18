@@ -6,7 +6,7 @@
     
     - name: Delete triton directory on the LoudJetsons
       ansible.builtin.file:
-        path: home/iloudaros/tritonserver
+        path: /home/iloudaros/tritonserver
         state: absent 
       become: yes
       when: inventory_hostname in groups['LoudJetsons']

@@ -57,21 +57,21 @@ client_setup:
 
 
 	#### Create directories for for each version of Triton client ####
-	mkdir ~/tritonserver2_19
+	mkdir -p ~/tritonserver2_19
 	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
-	mkdir ~/tritonserver2_44
-	tar zxvf ~/tritonserver2_44.tgz -C ~/tritonserver2_44
+	mkdir -p ~/tritonserver2_34
+	tar zxvf ~/tritonserver2_34.tgz -C ~/tritonserver2_34
 	
 	#### Run python wheels for each version of Triton client ####
 	
-	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
-	python3 -m pip install --upgrade ~/tritonserver/clients/python/tritonclient-2.44.0-py3-none-manylinux2014_aarch64.whl[all]
+	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
 client_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
 	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver2_19.tgz	
-	wget https://github.com/triton-inference-server/server/releases/download/v2.44.0/tritonserver2.44.0-igpu.tgz
-	mv tritonserver2.44.0-igpu.tgz ~/tritonserver2_44.tgz
+	wget https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
+	mv tritonserver2.34.0-jetpack5.1.tgz ~/tritonserver2_34.tgz
 
 install_tao:
 	@echo "____Installing TAO on The Jetsons____"
@@ -81,7 +81,7 @@ set_environment:
 	@echo "____Setting Environment Variables on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/set_environment.yaml
 
-system_setup: initialise_Jetsons install_tao set_environment client_setup
+system_setup: initialise_Jetsons set_environment client_setup
 	@echo "✅ : System Setup Complete"
 
 update_workers:
@@ -102,9 +102,10 @@ print_flags:
 ############### Tests and Checks ###############
 # To be run on LoudGateway
 check_system: is_triton_running
-	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0✅") &
-	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
-	@(python3 ~/tritonserver/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0✅") &
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1✅") &
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2✅")
+
 
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml

@@ -14,6 +14,7 @@
       block:
         - name: Download Release 2.19
           delegate_to: localhost
+          run_once: yes
           get_url:
             url: https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
             dest: ~/tritonserver2_19.tgz       
@@ -21,11 +22,12 @@
           poll: 0
           register: download
 
-        - name: Download Release 2.44
+        - name: Download Release 2.34
           delegate_to: localhost
+          run_once: yes
           get_url:
-            url: https://github.com/triton-inference-server/server/releases/download/v2.44.0/tritonserver2.44.0-igpu.tgz
-            dest: ~/tritonserver2_44.tgz
+            url: https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
+            dest: ~/tritonserver2_34.tgz
 
         - name: Check on an async download of Release 2.19
           delegate_to: localhost
@@ -43,9 +45,9 @@
           when: inventory_hostname in groups['LoudJetsons']
           register: copy
 
-        - name: Copy Release 2.44 to AGX and NX
+        - name: Copy Release 2.34 to AGX and NX
           copy:
-            src: ~/tritonserver2_44.tgz
+            src: ~/tritonserver2_34.tgz
             dest: /mnt/sd_card/tritonserver.tgz
           when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
           become: yes

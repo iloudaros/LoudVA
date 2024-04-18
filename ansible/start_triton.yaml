@@ -32,6 +32,6 @@
       wait_for:
         port: 8000
         delay: 10
-        timeout: 60
+        timeout: 100
         state: present
           

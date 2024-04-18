@@ -35,4 +35,4 @@ done
 echo "Combined CSV file created: ${base_name}.csv"
 
 # Delete the original files
-rm "${base_name}_"*.csv
+# rm "${base_name}_"*.csv

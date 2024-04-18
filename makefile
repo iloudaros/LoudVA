@@ -196,10 +196,6 @@ reboot_workers: stop_triton
 	@echo "Jetsons Rebooted"
 	@make sync_time
 
-remove_triton_running_flag:
-	@echo "____Removing the triton running flag____"
-	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "rm /ansible/flags/triton_running.flag" -u iloudaros --become
-
 default_power_mode:
 	@echo "____Setting the Jetsons to Default Power Mode____"
 	@ansible ${ANSIBLE_OPTS} LoudJetsons -a "nvpmodel -m 0" -u iloudaros --become

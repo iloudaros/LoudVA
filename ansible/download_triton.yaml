@@ -101,6 +101,14 @@
           when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
           become: yes
 
+        - name: Create symlink for the client on AGX and NX
+          ansible.builtin.file:
+            src: /mnt/sd_card/tritonserver/clients
+            dest: /home/iloudaros/tritonserver/clients
+            state: link
+          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+          become: yes
+
       when: not flag.stat.exists
 
     - name: Leave a flag file

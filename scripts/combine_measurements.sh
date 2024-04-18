@@ -12,16 +12,17 @@ combined_file=${2:-"${base_name}.csv"}
 
 # Initialize the output file with the first file's content
 first_file=$(ls -1 "${base_name}_"*.csv | head -n 1)
-if [ -z "$first_file" ]; then
+if [ -z "${first_file}" ]; then
   echo "Error: No CSV files found with the base name '${base_name}'"
   exit 1
 fi
 
 # Copy the first file's content to the output file
-cp "$first_file" "$combined_file"
+cp "${first_file}" "${combined_file}"
 
-# Delete the last line of the output file
-sed -i '$ d' "$combined_file"
+# Delete the last line of the combined file to avoid duplicates
+sed -i '$ d' "${combined_file}"
+
 
 # Loop through remaining files (sorted numerically)
 for file in $(ls -1 "${base_name}_"*.csv | sort -V); do
@@ -32,7 +33,7 @@ for file in $(ls -1 "${base_name}_"*.csv | sort -V); do
   echo "$last_line" >> "$combined_file"
 done
 
-echo "Combined CSV file created: ${base_name}.csv"
+echo "Combined CSV file created: ${combined_file}"
 
 # Delete the original files
-# rm "${base_name}_"*.csv
+rm "${base_name}_"*.csv

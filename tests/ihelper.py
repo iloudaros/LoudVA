@@ -17,12 +17,13 @@ def modify_gpu_freq(freq):
   if model == "NVIDIA Jetson Nano Developer Kit":
     path = '/sys/devices/57000000.gpu/devfreq/57000000.gpu'
 
-  elif model == "NVIDIA Jetson Xavier NX Developer Kit":
+  if model == "NVIDIA Jetson Xavier NX Developer Kit":
     path = '/sys/devices/17000000.gv11b/devfreq/17000000.gv11b'
 
-  elif model == "Jetson-AGX":
+  if model == "Jetson-AGX":
     path = '/sys/devices/17000000.gv11b/devfreq/17000000.gv11b'
 
+  print(f"Model: {model}")
 
   # Read available frequencies
   with open(f'{path}/available_frequencies', 'r') as file:

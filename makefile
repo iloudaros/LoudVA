@@ -281,6 +281,11 @@ cat_nvpmodel:
 watch_log:
 	watch -n 1 cat /home/iloudaros/LoudVA/measurements/log
 
+jetpack_version:
+	sudo apt-cache show nvidia-jetpack
+	echo "Remember to check the linux version from https://docs.nvidia.com/jetson/archives/index.html"
+
+
 # To be run on the client
 check_api:
 	@curl 127.0.0.1:5000
@@ -301,7 +306,7 @@ delete_triton:
 
 delete_flags:
 	@echo "____Deleting Flags from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} Workers -a "rm ansible/flags/triton_running.flag" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -a "rm /tmp/ansible/flags/triton_running.flag" -u iloudaros --become
 
 clean: delete_LoudVA delete_triton 
 	@echo "✅ : Clean Up Complete"

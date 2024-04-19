@@ -9,11 +9,11 @@
 
 import os
 import ihelper as i
-maximum_concurrency = 13
+maximum_concurrency = 23
 
 #### Power modes
 # The supported power modes for the Jetson Xavier NX
-power_modes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+power_modes = [0, 8]
 
 # Measure the performance of the system for each power mode using the perf_analyzer tool
 for mode in power_modes:
@@ -53,7 +53,7 @@ i.return_to_defaults("nx")
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson Xavier NX
 #[114750000 204000000 306000000 408000000 510000000 599250000 701250000 752250000 803250000 854250000 905250000 956250000 1007250000 1058250000 1109250000] 
-gpu_freqs = [ 114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 701250000, 752250000, 803250000, 854250000, 905250000, 956250000, 1007250000, 1058250000, 1109250000] 
+gpu_freqs = [ 114750000, 1109250000] 
 
 
 # Measure the performance of the system for each frequency using the perf_analyzer tool

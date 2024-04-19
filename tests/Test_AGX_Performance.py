@@ -13,7 +13,7 @@ maximum_concurrency = 128
 
 #### Power modes
 # The supported power modes for the Jetson AGX Xavier
-power_modes = [0, 1, 2, 3, 4, 5, 6, 7] 
+power_modes = [0, 7] 
 
 # Measure the performance of the system for each power mode using the perf_analyzer tool
 for mode in power_modes:
@@ -53,7 +53,7 @@ i.return_to_defaults("agx")
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson AGX Xavier
 #[114750000 204000000 306000000 408000000 510000000 599250000 701250000 752250000 803250000 854250000 905250000 956250000 1007250000 1058250000 1109250000] 
-gpu_freqs = [ 114750000, 216750000, 318750000, 420750000, 522750000, 624750000, 675750000, 828750000, 905250000, 1032750000, 1198500000, 1236750000, 1338750000, 1377000000] 
+gpu_freqs = [ 114750000, 1377000000] 
 
 
 # Measure the performance of the system for each frequency using the perf_analyzer tool

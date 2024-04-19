@@ -9,7 +9,7 @@
 
 import os
 import ihelper as i
-maximum_concurrency = 13
+maximum_concurrency = 20
 
 #### Power modes
 # The supported power modes for the Jetson AGX Xavier
@@ -92,9 +92,4 @@ for freq in gpu_freqs:
 
 
 # Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling
-print(f"Returning to the default values")
-i.modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
-i.modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MIN_FREQ', '=', 76800000)
-i.modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MAX_FREQ', '=', 921600000)
-os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/l4t_dfs.conf')
-os.system('sudo nvpmodel -m 0')
+i.return_to_defaults("agx")

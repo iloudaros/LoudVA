@@ -47,8 +47,7 @@ for mode in power_modes:
 
 ### 
 # Return to the default power mode
-print(f"---Setting power mode to 8---")
-os.system(f"sudo nvpmodel -m 8")
+i.return_to_defaults("nx")
 ###
 
 #### GPU Clock Speeds
@@ -62,8 +61,7 @@ for freq in gpu_freqs:
 
     # Modify the makefile to change the gpu frequency
     print(f"---Setting GPU frequency to {freq}---")
-    os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/l4t_dfs.conf')
-    os.system(f"sudo nvpmodel -m 0")
+    i.return_to_defaults("nx")
     os.system('sleep 5')
     i.modify_gpu_freq(freq)
 
@@ -93,4 +91,4 @@ for freq in gpu_freqs:
 
 
 # Return the Makefile GPU frequency and MEASUREMENT_INTERVAl to the default value, reenable the 3d-scaling
-i.,return_to_defaults("nx")
+i.return_to_defaults("nx")

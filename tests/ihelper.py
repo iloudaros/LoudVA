@@ -92,39 +92,23 @@ def modify_variable(config_file, variable, seperator, value):
 
 
 def return_to_defaults(model):
+  
+  print(f"Returning to the default values")
 
   # For the Jetson Nano
   if model == "nano":
-    print(f"Returning to the default values")
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MIN_FREQ', '=', 76800000)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MAX_FREQ', '=', 921600000)
     os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/Nano/l4t_dfs.conf')
     os.system('sudo nvpmodel -m 0')
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', 1)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', 13)
 
   # For the Jetson Xavier NX
   elif model == "nx":
-    print(f"Returning to the default values")
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MIN_FREQ', '=', 76800000)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MAX_FREQ', '=', 921600000)
     os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/NX/jetsonclocks_conf.txt')
     os.system('sudo nvpmodel -m 8')
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', 1)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', 20)
 
   # For the Jetson Xavier AGX
   elif model == "agx":
-    print(f"Returning to the default values")
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'MEASUREMENT_INTERVAL', '=', 5000)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MIN_FREQ', '=', 76800000)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'GPU_MAX_FREQ', '=', 921600000)
     os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/AGX/jetsonclocks_conf.txt')
     os.system('sudo nvpmodel -m 0')
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', 1)
-    modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', 20)
 
   else:
     print(f"Model {model} not supported./n Supported models: nano, nx, agx")

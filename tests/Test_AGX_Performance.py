@@ -9,7 +9,7 @@
 
 import os
 import ihelper as i
-maximum_concurrency = 20
+maximum_concurrency = 128
 
 #### Power modes
 # The supported power modes for the Jetson AGX Xavier
@@ -47,12 +47,12 @@ for mode in power_modes:
 
 ### 
 # Return to the default power mode
-print(f"---Setting power mode to 0---")
-os.system(f"sudo nvpmodel -m 0")
+i.return_to_defaults("agx")
 ###
 
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson AGX Xavier
+#[114750000 204000000 306000000 408000000 510000000 599250000 701250000 752250000 803250000 854250000 905250000 956250000 1007250000 1058250000 1109250000] 
 gpu_freqs = [ 114750000, 216750000, 318750000, 420750000, 522750000, 624750000, 675750000, 828750000, 905250000, 1032750000, 1198500000, 1236750000, 1338750000, 1377000000] 
 
 
@@ -61,8 +61,7 @@ for freq in gpu_freqs:
 
     # Modify the makefile to change the gpu frequency
     print(f"---Setting GPU frequency to {freq}---")
-    os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/l4t_dfs.conf')
-    os.system(f"sudo nvpmodel -m 0")
+    i.return_to_defaults("agx")
     os.system('sleep 5')
     i.modify_gpu_freq(freq)
 

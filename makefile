@@ -1,6 +1,6 @@
 include .environment #for our credentials, making it easy to reuse and add to .gitignore
 ANSIBLE_DIRECTORY = ./ansible
-ANSIBLE_OPTS = -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
+ANSIBLE_OPTS = -f 10 -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
 model=$(shell tr -d '\0' < /proc/device-tree/model)
 
 
@@ -137,10 +137,10 @@ MEASUREMENT_MODE = count_windows #time_windows or count_windows
 MEASUREMENT_INTERVAL = 5000
 
 ## used with count_windows with option --measurement-request-count
-MEASUREMENT_COUNT = 100
+MEASUREMENT_COUNT = 10000
 
 measure_performance:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} 
+	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} --measurement-request-count${MEASUREMENT_COUNT}
 
 measure_performance_csv:
 	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv

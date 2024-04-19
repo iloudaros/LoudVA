@@ -9,7 +9,7 @@ def modify_gpu_freq(freq):
   """
 
   # Get the model name 
-  model = os.popen("tr -d '\0' < /proc/device-tree/model").read().replace('\0', '').strip()
+  model = os.popen("make model").read().strip()
 
   # Define the location of the GPU frequency files for each model
   if model == "NVIDIA Jetson Nano Developer Kit":

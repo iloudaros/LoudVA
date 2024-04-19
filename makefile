@@ -205,6 +205,10 @@ send_makefile:
 	@ansible ${ANSIBLE_OPTS} NX -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
 
 # To be run on the Jetsons
+
+model:
+	@echo ${model}
+
 GPU_MIN_FREQ = 76800000 
 GPU_MAX_FREQ = 921600000
 change_gpu_freq:

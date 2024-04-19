@@ -172,7 +172,7 @@ measure_performance_and_power:
 
 ################ Quick Access ##################
 # To be run on LoudGateway
-start_triton: 
+start_triton: configure_triton
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
 

@@ -81,9 +81,9 @@ set_environment:
 	@echo "____Setting Environment Variables on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/set_environment.yaml
 
-enable_dynamic_batching:
+configure_triton:
 	@echo "____Enabling Dynamic Batching on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/enable_dynamic_batching.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/configure_triton.yaml
 
 system_setup: initialise_Jetsons set_environment client_setup
 
@@ -129,7 +129,7 @@ performance_profiling: update_workers is_triton_running
 
 # To be run on the Jetsons
 CONCURRENCY_FLOOR = 1
-CONCURRENCY_LIMIT = 13
+CONCURRENCY_LIMIT = 20
 
 MEASUREMENT_MODE = count_windows #time_windows or count_windows
 
@@ -137,7 +137,7 @@ MEASUREMENT_MODE = count_windows #time_windows or count_windows
 MEASUREMENT_INTERVAL = 5000
 
 ## used with count_windows with option --measurement-request-count
-MEASUREMENT_COUNT = 50
+MEASUREMENT_COUNT = 100
 
 measure_performance:
 	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} 

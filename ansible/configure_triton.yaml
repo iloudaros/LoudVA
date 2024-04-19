@@ -1,5 +1,5 @@
 ---
-- name: Add dynamic_batching configuration
+- name: Configure Triton
   hosts: Workers
   become: true  
   gather_facts: false
@@ -19,6 +19,10 @@
       state: present
     when: dynamic_batching.rc != 0
 
-
-  - ansible.builtin.debug:
-      var: dynamic_batching
+  - name: Set maximum batch size
+    lineinfile:
+      path: /home/iloudaros/tritonserver/model_repository/inception_graphdef/config.pbtxt
+      search_string: "max_batch_size"
+      create: no
+      line: "max_batch_size: {{ max_batch_size }}"
+      state: present

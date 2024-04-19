@@ -7,6 +7,7 @@
   tasks: 
     - name: Run the Python script for the performance measurements
       shell: sudo python3 -u /home/iloudaros/LoudVA/tests/{{ performance_test }} > /home/iloudaros/LoudVA/measurements/log 2>&1
+      ignore_errors: yes
 
     - name: Compress measurements
       community.general.archive:

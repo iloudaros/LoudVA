@@ -13,45 +13,47 @@ i.return_to_defaults("agx")
 
 minimum_concurrency = 126
 maximum_concurrency = 128
+check_modes = 0
 
 #### Power modes
-# The supported power modes for the Jetson AGX Xavier
-power_modes = [0, 7] 
+if (check_modes==1):
+    # The supported power modes for the Jetson AGX Xavier
+    power_modes = [0, 7] 
 
-# Measure the performance of the system for each power mode using the perf_analyzer tool
-for mode in power_modes:
+    # Measure the performance of the system for each power mode using the perf_analyzer tool
+    for mode in power_modes:
 
-    # Set power mode
-    print(f"---Setting power mode to {mode}---")
-    os.system(f"sudo nvpmodel -m {mode}")
+        # Set power mode
+        print(f"---Setting power mode to {mode}---")
+        os.system(f"sudo nvpmodel -m {mode}")
 
-    # For each concurrency level, run the performance test
-    for conc in range(minimum_concurrency, maximum_concurrency+1):
-        print(f"---Setting concurrency to {conc}---")
-        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
-        i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
+        # For each concurrency level, run the performance test
+        for conc in range(minimum_concurrency, maximum_concurrency+1):
+            print(f"---Setting concurrency to {conc}---")
+            i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
+            i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
 
-        # Run the performance test
-        print("Running performance test")
-        os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
+            # Run the performance test
+            print("Running performance test")
+            os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
-        # Rename the results according to the power mode
-        print("Renaming the results")
-        os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
-        os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
+            # Rename the results according to the power mode
+            print("Renaming the results")
+            os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
+            os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
 
-        # Empty the log of tegra_stats
-        os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
-    
-    # combine the results of the different concurrencies
-    print("Combining the results")
-    os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}')
-    os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}')
+            # Empty the log of tegra_stats
+            os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+        
+        # combine the results of the different concurrencies
+        print("Combining the results")
+        os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}')
+        os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}')
 
-### 
-# Return to the default power mode
-i.return_to_defaults("agx")
-###
+    ### 
+    # Return to the default power mode
+    i.return_to_defaults("agx")
+    ###
 
 #### GPU Clock Speeds
 # These are the supported frequencies for the GPU on the Jetson AGX Xavier

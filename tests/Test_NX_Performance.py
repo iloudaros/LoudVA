@@ -9,6 +9,9 @@
 
 import os
 import ihelper as i
+i.return_to_defaults("nx")
+
+minimum_concurrency = 19
 maximum_concurrency = 23
 
 #### Power modes
@@ -23,7 +26,7 @@ for mode in power_modes:
     os.system(f"sudo nvpmodel -m {mode}")
 
     # For each concurrency level, run the performance test
-    for conc in range(1, maximum_concurrency+1):
+    for conc in range(minimum_concurrency, maximum_concurrency+1):
         print(f"---Setting concurrency to {conc}---")
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
@@ -66,7 +69,7 @@ for freq in gpu_freqs:
     i.modify_gpu_freq(freq)
 
     # For each concurrency level, run the performance test
-    for conc in range(1, maximum_concurrency+1):
+    for conc in range(minimum_concurrency, maximum_concurrency+1):
         print(f"---Setting concurrency to {conc}---")
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
         i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)

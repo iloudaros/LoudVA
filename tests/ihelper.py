@@ -8,8 +8,24 @@ def modify_gpu_freq(freq):
     freq: The new GPU frequency in Hz.
   """
 
+  # Get the model name from /proc/device-tree/model
+  with open('/proc/device-tree/model', 'r') as file:
+    model = file.read().strip()
+
+
+  # Define the location of the GPU frequency files for each model
+  if model == "NVIDIA Jetson Nano Developer Kit":
+    path = '/sys/devices/57000000.gpu/devfreq/57000000.gpu'
+
+  elif model == "NVIDIA Jetson Xavier NX Developer Kit":
+    path = '/sys/devices/17000000.gv11b/devfreq/17000000.gv11b'
+
+  elif model == "Jetson-AGX":
+    path = '/sys/devices/17000000.gv11b/devfreq/17000000.gv11b'
+
+
   # Read available frequencies
-  with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies', 'r') as file:
+  with open(f'{path}/available_frequencies', 'r') as file:
     available_freqs = [int(f) for f in file.read().split()]
 
   # Check if freq is within valid range
@@ -19,9 +35,9 @@ def modify_gpu_freq(freq):
 
   # Attempt to write the frequency to min and max files (with sudo)
   try:
-    with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq', 'w') as min_file:
+    with open(f'{path}/min_freq', 'w') as min_file:
       min_file.write(str(freq))
-    with open('/sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq', 'w') as max_file:
+    with open(f'{path}/max_freq', 'w') as max_file:
       max_file.write(str(freq))
     print(f"GPU frequency set to {freq}Hz.")
   except OSError as e:

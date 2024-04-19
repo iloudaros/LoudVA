@@ -8,24 +8,18 @@ def modify_gpu_freq(freq):
     freq: The new GPU frequency in Hz.
   """
 
-  # Get the model name from /proc/device-tree/model
-  with open('/proc/device-tree/model', 'r') as file:
-    model = file.read().strip()
-
+  # Get the model name 
+  model = os.popen("tr -d '\0' < /proc/device-tree/model").read().strip()
 
   # Define the location of the GPU frequency files for each model
   if model == "NVIDIA Jetson Nano Developer Kit":
     path = '/sys/devices/57000000.gpu/devfreq/57000000.gpu'
-
   elif model == "NVIDIA Jetson Xavier NX Developer Kit":
     path = '/sys/devices/17000000.gv11b/devfreq/17000000.gv11b'
-
   elif model == "Jetson-AGX":
     path = '/sys/devices/17000000.gv11b/devfreq/17000000.gv11b'
-  
   else:
     print('Model not supported')
-
 
   print(f"Model: {model}")
 

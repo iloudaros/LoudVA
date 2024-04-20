@@ -11,8 +11,8 @@ import os
 import ihelper as i
 i.return_to_defaults("nano")
 
-minimum_concurrency = 11
-maximum_concurrency = 15
+minimum_concurrency = 9
+maximum_concurrency = 11
 check_modes = 0
 
 #### Power modes

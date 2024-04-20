@@ -11,8 +11,8 @@ import os
 import ihelper as i
 i.return_to_defaults("nx")
 
-minimum_concurrency = 19
-maximum_concurrency = 23
+minimum_concurrency = 15
+maximum_concurrency = 18
 check_modes = 0
 
 #### Power modes

@@ -12,7 +12,7 @@ import ihelper as i
 i.return_to_defaults("agx")
 
 minimum_concurrency = 60
-maximum_concurrency = 64
+maximum_concurrency = 63
 check_modes = 0
 
 #### Power modes

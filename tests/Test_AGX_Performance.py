@@ -11,14 +11,14 @@ import os
 import ihelper as i
 i.return_to_defaults("agx")
 
-minimum_concurrency = 60
-maximum_concurrency = 63
+minimum_concurrency = 1
+maximum_concurrency = 64
 check_modes = 0
 
 #### Power modes
 if (check_modes==1):
     # The supported power modes for the Jetson AGX Xavier
-    power_modes = [0, 7] 
+    power_modes = [0, 1, 2, 3, 4, 5, 6, 7] 
 
     # Measure the performance of the system for each power mode using the perf_analyzer tool
     for mode in power_modes:

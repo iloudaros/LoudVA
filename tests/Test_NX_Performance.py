@@ -11,14 +11,14 @@ import os
 import ihelper as i
 i.return_to_defaults("nx")
 
-minimum_concurrency = 15
+minimum_concurrency = 1
 maximum_concurrency = 18
 check_modes = 0
 
 #### Power modes
 if (check_modes==1):
     # The supported power modes for the Jetson Xavier NX
-    power_modes = [0, 8]
+    power_modes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
     # Measure the performance of the system for each power mode using the perf_analyzer tool
     for mode in power_modes:

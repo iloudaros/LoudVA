@@ -137,7 +137,7 @@ MEASUREMENT_MODE = count_windows #time_windows or count_windows
 MEASUREMENT_INTERVAL = 5000
 
 ## used with count_windows with option --measurement-request-count
-MEASUREMENT_COUNT = 5000
+MEASUREMENT_COUNT = 10000
 
 measure_performance:
 	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} --measurement-request-count${MEASUREMENT_COUNT}

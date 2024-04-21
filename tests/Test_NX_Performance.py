@@ -40,6 +40,12 @@ if (check_modes==1):
                     print("Running performance test")
                     os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
+                    # Open the log file and check if there are any errors 
+                    with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
+                        lines = file.readlines()
+                        if "Error" or "Failed" in lines[-5:]:
+                            raise Exception("Error in the log file")
+
                     # Rename the results according to the power mode
                     print("Renaming the results")
                     os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
@@ -48,7 +54,7 @@ if (check_modes==1):
                     # Empty the log of tegra_stats
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 except:
-                    print("An error occured. Retrying...")
+                    print("🔄 An error occured. Retrying...")
                 else:
                     break
         
@@ -86,11 +92,16 @@ if(check_freqs==1):
                     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
                     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
                     
-
                     # Run the performance test
                     print("Running performance test")
                     os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
+                    # Open the log file and check if there are any errors 
+                    with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
+                        lines = file.readlines()
+                        if "Error" or "Failed" in lines[-5:]:
+                            raise Exception("Error in the log file")
+                        
                     # Rename the results according to the freq
                     print("Renaming the results")
                     os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}_conc_{conc}.csv')
@@ -99,7 +110,7 @@ if(check_freqs==1):
                     # Empty the log of tegra_stats
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 except:
-                    print("An error occured. Retrying...")
+                    print("🔄 An error occured. Retrying...")
                 else:
                     break
         

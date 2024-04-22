@@ -43,8 +43,10 @@ if (check_modes==1):
                     # Open the log file and check if there are any errors 
                     with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
                         lines = file.readlines()
-                        if "Error" or "Failed" in lines[-5:]:
-                            raise Exception("Error in the log file")
+                        for line in lines[-5:]:
+                            if "Error" in line or "Failed" in line:
+                                print('Error in the log file, exception raised')
+                                raise Exception("Error in the log file")
 
                     # Rename the results according to the power mode
                     print("Renaming the results")
@@ -103,8 +105,10 @@ if(check_freqs==1):
                     # Open the log file and check if there are any errors 
                     with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
                         lines = file.readlines()
-                        if "Error" or "Failed" in lines[-5:]:
-                            raise Exception("Error in the log file")
+                        for line in lines[-5:]:
+                            if "Error" in line or "Failed" in line:
+                                print('Error in the log file, exception raised')
+                                raise Exception("Error in the log file")
                         
                     # Rename the results according to the freq
                     print("Renaming the results")

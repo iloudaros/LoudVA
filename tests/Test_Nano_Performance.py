@@ -58,6 +58,9 @@ if (check_modes==1):
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 except Exception as e:                    
                     print(f"🔄 An error occured:{e} Retrying...")
+                    # stop tegrastats and empty the tegra_log
+                    os.system('sudo pkill tegrastats')
+                    os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 else: 
                     break
                 finally:   
@@ -124,6 +127,9 @@ if (check_freqs==1):
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 except Exception as e:                    
                     print(f"🔄 An error occured:{e} Retrying...")
+                    # stop tegrastats and empty the tegra_log
+                    os.system('sudo pkill tegrastats')
+                    os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 else:
                     break
                 finally:   

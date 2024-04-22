@@ -54,10 +54,14 @@ if (check_modes==1):
 
                     # Empty the log of tegra_stats
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
-                except:
-                    print("🔄 An error occured. Retrying...")
+                except Exception as e:                    
+                    print(f"🔄 An error occured:{e} Retrying...")
                 else: 
                     break
+                finally:   
+                    # close the log file 
+                    file.close()
+
 
 
 
@@ -105,6 +109,7 @@ if (check_freqs==1):
                     with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
                         lines = file.readlines()
                         if "Error" or "Failed" in lines[-5:]:
+                            print('Error in the log file, exception raised')
                             raise Exception("Error in the log file")
 
                     # Rename the results according to the freq
@@ -114,10 +119,14 @@ if (check_freqs==1):
 
                     # Empty the log of tegra_stats
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
-                except:
-                    print("🔄 An error occured. Retrying...")
+                except Exception as e:                    
+                    print(f"🔄 An error occured:{e} Retrying...")
                 else:
                     break
+                finally:   
+                    # close the log file 
+                    file.close()
+
 
         # combine the results of the different concurrencies
         print("Combining the results")

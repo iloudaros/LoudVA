@@ -53,10 +53,14 @@ if (check_modes==1):
 
                     # Empty the log of tegra_stats
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
-                except:
-                    print("🔄 An error occured. Retrying...")
+                except Exception as e:                    
+                    print(f"🔄 An error occured:{e} Retrying...")
                 else:
                     break
+                finally:   
+                    # close the log file 
+                    file.close()
+
         
         # combine the results of the different concurrencies
         print("Combining the results")
@@ -109,10 +113,14 @@ if(check_freqs==1):
 
                     # Empty the log of tegra_stats
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
-                except:
-                    print("🔄 An error occured. Retrying...")
+                except Exception as e:                    
+                    print(f"🔄 An error occured:{e} Retrying...")
                 else:
                     break
+                finally:   
+                    # close the log file 
+                    file.close()
+
         
         # combine the results of the different concurrencies
         print("Combining the results")

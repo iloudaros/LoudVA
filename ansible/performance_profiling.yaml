@@ -8,28 +8,35 @@
     - name: Run the Python script for the performance measurements
       shell: sudo python3 -u /home/iloudaros/LoudVA/tests/{{ performance_test }} > /home/iloudaros/LoudVA/measurements/log 2>&1
       ignore_errors: yes
+      tags: profiling
+
 
     - name: Compress measurements
       community.general.archive:
         path: /home/iloudaros/LoudVA/measurements
         dest: /home/iloudaros/LoudVA/measurements.tgz
+      tags: measurement_collection
 
     - name: Fetch the archive 
       fetch:
         src: /home/iloudaros/LoudVA/measurements.tgz
         dest: /home/louduser/LoudVA/measurements
+      tags: measurement_collection
 
     - name: Remove the archive
       file:
         path: /home/iloudaros/LoudVA/measurements.tgz
         state: absent
+      tags: measurement_collection
 
     - name: Unarchive Locally
       delegate_to: localhost
       unarchive:
         src: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home/iloudaros/LoudVA/measurements.tgz
         dest: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}
+      tags: measurement_collection
 
     - name: Remove the archive Locally
       delegate_to: localhost
       shell: rm -r /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home
+      tags: measurement_collection

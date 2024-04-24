@@ -17,7 +17,7 @@ check_modes = 0
 check_freqs = 1
 
 #### Power modes
-if (check_modes==1):
+if (check_modes):
     # The supported power modes for the Jetson Nano
     power_modes = [0,1] 
 
@@ -88,7 +88,7 @@ if (check_modes==1):
     ###
 
 #### GPU Clock Speeds
-if (check_freqs==1):
+if (check_freqs):
     # These are the supported frequencies for the GPU on the Jetson Nano
     #[76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
     gpu_freqs = [ 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 

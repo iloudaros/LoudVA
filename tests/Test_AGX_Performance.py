@@ -17,7 +17,7 @@ check_modes = 0
 check_freqs = 1
 
 #### Power modes
-if (check_modes==1):
+if (check_modes):
     # The supported power modes for the Jetson AGX Xavier
     power_modes = [0, 1, 2, 3, 4, 5, 6, 7] 
 
@@ -85,7 +85,7 @@ if (check_modes==1):
     ###
 
 #### GPU Clock Speeds
-if(check_freqs==1):
+if(check_freqs):
     # These are the supported frequencies for the GPU on the Jetson AGX Xavier
     #[114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 701250000, 752250000, 803250000, 854250000, 905250000, 956250000, 1007250000, 1058250000, 1109250000] 
     gpu_freqs = [ 114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 701250000, 752250000, 803250000, 854250000, 905250000, 956250000, 1007250000, 1058250000, 1109250000] 

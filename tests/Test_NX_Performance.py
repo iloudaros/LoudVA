@@ -30,7 +30,10 @@ if (check_modes==1):
 
         # For each concurrency level, run the performance test
         for conc in range(minimum_concurrency, maximum_concurrency+1):
+            counter=0
+
             while True:
+                counter+=1
                 try:
                     print(f"---Setting concurrency to {conc}---")
                     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
@@ -95,7 +98,10 @@ if(check_freqs==1):
 
         # For each concurrency level, run the performance test
         for conc in range(minimum_concurrency, maximum_concurrency+1):
+            counter=0
+
             while True:
+                counter+=1
                 try:
                     print(f"---Setting concurrency to {conc}---")
                     i.modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)

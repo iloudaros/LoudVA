@@ -8,8 +8,7 @@ model=$(shell tr -d '\0' < /proc/device-tree/model)
 
 
 test:
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/test.yaml
-
+	mkdir -p ~/LoudVA/measurements/performance/$(shell date +'%Y-%m-%d_%H-%M-%S')
 
 ###### System Initialization and Setup #######
 # To be run on LoudGateway
@@ -119,7 +118,8 @@ is_triton_running:
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros 
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros --tags "measurement_collection"
+	@echo "✅ : Performance Profiling Complete"
 	@curl \
 		-d "Performance Profiling complete" \
 		-H "Title: LoudVA" \

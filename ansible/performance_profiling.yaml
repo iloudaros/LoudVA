@@ -40,3 +40,9 @@
       delegate_to: localhost
       shell: rm -r /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home
       tags: measurement_collection
+
+    - name: Run the script on the local machine to organise the measurements
+      delegate_to: localhost
+      run_once: yes
+      shell: sudo bash /home/louduser/LoudVA/scripts/organise_measurements.sh
+      tags: measurement_collection

@@ -31,7 +31,7 @@ if (check_modes==1):
         # For each concurrency level, run the performance test
         for conc in range(minimum_concurrency, maximum_concurrency+1):
             counter=0
-            
+
             while True:
                 counter+=1
                 try:
@@ -65,7 +65,7 @@ if (check_modes==1):
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
 
                     if counter>5:
-                        print("❌ Too many retries, skipping this frequency")
+                        print("❌ Too many retries, skipping...")
                         break
                 else: 
                     break

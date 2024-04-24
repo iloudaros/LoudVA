@@ -63,6 +63,9 @@ if (check_modes==1):
                     # stop tegrastats and empty the tegra_log
                     os.system('sudo pkill tegrastats')
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+                    if counter>5:
+                        print("❌ Too many retries, skipping...")
+                        break
                 else:
                     break
                 finally:   
@@ -131,6 +134,10 @@ if(check_freqs==1):
                     # stop tegrastats and empty the tegra_log
                     os.system('sudo pkill tegrastats')
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+
+                    if counter>5:
+                        print("❌ Too many retries, skipping...")
+                        break
                 else:
                     break
                 finally:   

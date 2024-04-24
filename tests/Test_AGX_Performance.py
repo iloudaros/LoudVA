@@ -64,7 +64,7 @@ if (check_modes):
                     os.system('sudo pkill tegrastats')
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
 
-                    if counter>5:
+                    if counter>10:
                         print("❌ Too many retries, skipping...")
                         break
                 else:
@@ -135,7 +135,7 @@ if(check_freqs):
                     os.system('sudo pkill tegrastats')
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
 
-                    if counter>5:
+                    if counter>10:
                         print("❌ Too many retries, skipping...")
                         break
                 else:

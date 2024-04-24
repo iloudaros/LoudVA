@@ -11,10 +11,17 @@ import os
 import ihelper as i
 i.return_to_defaults("nano")
 
+# This is a dictionary where we will store frequencies and modes that needed retries and the number of retries
+retried_modes = {}
+retried_freqs = {}
+
+# Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 13
 check_modes = 0
 check_freqs = 1
+timeout_enabled = 0
+retries_allowed = 10
 
 #### Power modes
 if (check_modes):
@@ -60,11 +67,19 @@ if (check_modes):
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 except Exception as e:                    
                     print(f"🔄 An error occured:{e} Retrying...")
+                    
                     # stop tegrastats and empty the tegra_log
                     os.system('sudo pkill tegrastats')
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
 
-                    if counter>10:
+                    # Add  conc and mode to the retried dictionary
+                    key = (mode, conc)
+                    if key in retried_modes:
+                        retried_modes[key]+=1
+                    else:
+                        retried_modes[key]=1
+                
+                    if counter>retries_allowed and timeout_enabled:
                         print("❌ Too many retries, skipping...")
                         break
                 else: 
@@ -135,10 +150,19 @@ if (check_freqs):
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                 except Exception as e:                    
                     print(f"🔄 An error occured:{e} Retrying...")
+                    
                     # stop tegrastats and empty the tegra_log
                     os.system('sudo pkill tegrastats')
                     os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
-                    if counter>10:
+                    
+                    # Add  conc and freq to the retried dictionary
+                    key = (freq, conc)
+                    if key in retried_freqs:
+                        retried_freqs[key]+=1
+                    else:
+                        retried_freqs[key]=1
+                
+                    if counter>retries_allowed and timeout_enabled:
                         print("❌ Too many retries, skipping...")
                         break
                 else:
@@ -155,4 +179,13 @@ if (check_freqs):
 
 i.return_to_defaults("nano")
 
+# Export the retried modes and frequencies to a file if they are not empty
+if retried_modes:
+    with open('/home/iloudaros/LoudVA/measurements/retried_modes.txt', 'w') as file:
+        for key in sorted(retried_modes.keys()):
+                file.write(str(key) + ' ' + str(retried_modes[key]) + '\n')
 
+if retried_freqs:
+    with open('/home/iloudaros/LoudVA/measurements/retried_freqs.txt', 'w') as file:
+        for key in sorted(retried_freqs.keys()):
+                file.write(str(key) + ' ' + str(retried_freqs[key]) + '\n')

@@ -20,8 +20,8 @@ minimum_concurrency = 65
 maximum_concurrency = 128
 check_modes = 0
 check_freqs = 1
-timeout_enabled = 0
-retries_allowed = 10
+timeout_enabled = 1
+retries_allowed = 100
 
 #### Power modes
 if (check_modes):

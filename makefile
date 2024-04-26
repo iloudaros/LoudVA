@@ -1,6 +1,6 @@
 include .environment #for our credentials, making it easy to reuse and add to .gitignore
 ANSIBLE_DIRECTORY = ./ansible
-ANSIBLE_OPTS = -f 10 -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
+ANSIBLE_OPTS = -f 6 -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
 model=$(shell tr -d '\0' < /proc/device-tree/model)
 
 
@@ -160,7 +160,7 @@ measure_idle_power:
 	@echo "Check ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
 
 measure_performance_and_power:
-	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile /home/iloudaros/LoudVA/measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv && sudo tegrastats --stop
+	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile /home/iloudaros/LoudVA/measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer --collect-metrics --verbose-csv -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv && sudo tegrastats --stop
 	@sudo bash /home/iloudaros/LoudVA/scripts/clean_measurements.sh /home/iloudaros/LoudVA/measurements/power/tegra_log /home/iloudaros/LoudVA/measurements/power/power_measurement
 	@bash /home/iloudaros/LoudVA/scripts/mean_median.sh /home/iloudaros/LoudVA/measurements/power/power_measurement
 	@echo "Check /home/iloudaros/LoudVA/measurements/power/power_measurement_stats for the power measurements"
@@ -202,7 +202,7 @@ default_power_mode:
 
 send_makefile:
 	@echo "____Sending Makefile to the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} NX -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
 
 # To be run on the Jetsons
 

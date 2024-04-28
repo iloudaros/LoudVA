@@ -18,7 +18,7 @@ retried_freqs = {}
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 18
-check_modes = 0
+check_modes = 1
 check_freqs = 1
 timeout_enabled = 1
 retries_allowed = 100

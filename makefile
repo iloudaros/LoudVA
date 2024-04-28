@@ -118,7 +118,7 @@ is_triton_running:
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros 
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros --tags measurement_collection
 	@echo "✅ : Performance Profiling Complete"
 	@curl \
 		-d "Performance Profiling complete" \

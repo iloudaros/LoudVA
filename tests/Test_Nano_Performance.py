@@ -11,8 +11,6 @@ import os
 import ihelper as i
 i.return_to_defaults("nano")
 
-
-
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 13

@@ -150,6 +150,21 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
               while True:
                   counter+=1
+
+                  # If the measurement comes back unstable, raise the stability threshold
+                  if counter in range(1, 31):
+                     threshold = 10
+                     print(f"Stability Percentage is set to {threshold}%")
+                     modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  elif counter in range(31, 41):
+                      threshold = 12
+                      print(f"Stability Percentage is set to {threshold}%")
+                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  else:
+                      threshold = 15
+                      print(f"Stability Percentage is set to {threshold}%")
+                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                     
                   try:
                       print(f"---Setting concurrency to {conc}---")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
@@ -188,7 +203,7 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                       else:
                           retried_modes[key]=1
                   
-                      if counter>retries_allowed and timeout_enabled:
+                      if counter>=retries_allowed and timeout_enabled:
                           print("❌ Too many retries, skipping...")
                           break
                   else: 
@@ -229,6 +244,21 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
               while True:
                   counter+=1
+
+                  # If the measurement comes back unstable, raise the stability threshold
+                  if counter in range(1, 31):
+                     threshold = 10
+                     print(f"Stability Percentage is set to {threshold}%")
+                     modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  elif counter in range(31, 41):
+                      threshold = 12
+                      print(f"Stability Percentage is set to {threshold}%")
+                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  else:
+                      threshold = 15
+                      print(f"Stability Percentage is set to {threshold}%")
+                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+
                   try:
                       print(f"---Setting concurrency to {conc}---")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
@@ -267,7 +297,7 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                       else:
                           retried_freqs[key]=1
                   
-                      if counter>retries_allowed and timeout_enabled:
+                      if counter>=retries_allowed and timeout_enabled:
                           print("❌ Too many retries, skipping...")
                           break
                   else:

@@ -11,10 +11,6 @@ import os
 import ihelper as i
 i.return_to_defaults("nx")
 
-# This is a dictionary where we will store frequencies and modes that needed retries and the number of retries
-retried_modes = {}
-retried_freqs = {}
-
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 18

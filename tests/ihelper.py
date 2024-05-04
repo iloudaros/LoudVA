@@ -152,21 +152,26 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                   counter+=1
 
                   # If the measurement comes back unstable, raise the stability threshold
-                  if counter in range(1, 31):
+                  if counter in range(1, 21):
                      threshold = 10
                      print(f"Stability Percentage is set to {threshold}%")
                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  elif counter in range(31, 41):
+                  elif counter in range(21, 31):
                       threshold = 12
                       print(f"Stability Percentage is set to {threshold}%")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  else:
+                  elif counter in range(31, 41):
                       threshold = 15
                       print(f"Stability Percentage is set to {threshold}%")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  else:
+                      threshold = 20
+                      print(f"Stability Percentage is set to {threshold}%")
+                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
                      
+                  # Run the performance test
                   try:
-                      print(f"---Setting concurrency to {conc}---")
+                      print(f"---Testing Mode:{mode} and Concurrency:{conc} ---")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
 
@@ -246,21 +251,26 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                   counter+=1
 
                   # If the measurement comes back unstable, raise the stability threshold
-                  if counter in range(1, 31):
+                  if counter in range(1, 21):
                      threshold = 10
                      print(f"Stability Percentage is set to {threshold}%")
                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  elif counter in range(31, 41):
+                  elif counter in range(21, 31):
                       threshold = 12
                       print(f"Stability Percentage is set to {threshold}%")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  else:
+                  elif counter in range(31, 41):
                       threshold = 15
                       print(f"Stability Percentage is set to {threshold}%")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  else:
+                      threshold = 20
+                      print(f"Stability Percentage is set to {threshold}%")
+                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
 
+                  # Run the performance test
                   try:
-                      print(f"---Setting concurrency to {conc}---")
+                      print(f"---Testing Freq:{freq} and Concurrency:{conc} ---")
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
                       modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
                       
@@ -284,7 +294,7 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                       # Empty the log of tegra_stats
                       os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                   except Exception as e:                    
-                      print(f"🔄 An error occured:{e} Retrying...")
+                      print(f"🔄 An error occured:{e.__str__} Retrying...")
                       
                       # stop tegrastats and empty the tegra_log
                       os.system('sudo pkill tegrastats')

@@ -7,7 +7,6 @@
 # 
 # (To be run on the Jetsons via the performance_profiling ansible playbook.)
 
-import os
 import ihelper as i
 i.return_to_defaults("nx")
 

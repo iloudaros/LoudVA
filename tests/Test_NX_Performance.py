@@ -13,7 +13,7 @@ i.return_to_defaults("nx")
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 18
-check_modes = 1
+check_modes = 0
 check_freqs = 1
 timeout_enabled = 1
 retries_allowed = 100
@@ -28,8 +28,8 @@ gpu_freqs = [ 114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 
 # Create the system profile
 i.profiling(check_modes = check_modes,
             check_freqs = check_freqs,
-            power_modes = [0,8],
-            gpu_freqs = [114750000, 1109250000],
+            power_modes = power_modes,
+            gpu_freqs = gpu_freqs,
             minimum_concurrency = minimum_concurrency,
             maximum_concurrency = maximum_concurrency,
             timeout_enabled = timeout_enabled,

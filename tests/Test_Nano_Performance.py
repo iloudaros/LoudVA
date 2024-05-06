@@ -13,7 +13,7 @@ i.return_to_defaults("nano")
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 13
-check_modes = 1
+check_modes = 0
 check_freqs = 1
 timeout_enabled = 1
 retries_allowed = 100
@@ -28,8 +28,8 @@ gpu_freqs = [ 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 
 # Create the system profile
 i.profiling(check_modes = check_modes,
             check_freqs = check_freqs,
-            power_modes = [0,1],
-            gpu_freqs = [153600000, 921600000],
+            power_modes = power_modes,
+            gpu_freqs = gpu_freqs,
             minimum_concurrency = minimum_concurrency,
             maximum_concurrency = maximum_concurrency,
             timeout_enabled = timeout_enabled,

@@ -13,7 +13,7 @@ i.return_to_defaults("agx")
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 128
-check_modes = 1
+check_modes = 0
 check_freqs = 1
 timeout_enabled = 1
 retries_allowed = 100
@@ -28,8 +28,8 @@ gpu_freqs = [ 114750000, 216750000, 318750000, 420750000, 522750000, 624750000, 
 # Create the system profile
 i.profiling(check_modes = check_modes,
             check_freqs = check_freqs,
-            power_modes = [0,7],
-            gpu_freqs = [114750000, 1377000000],
+            power_modes = power_modes,
+            gpu_freqs = gpu_freqs,
             minimum_concurrency = minimum_concurrency,
             maximum_concurrency = maximum_concurrency,
             timeout_enabled = timeout_enabled,

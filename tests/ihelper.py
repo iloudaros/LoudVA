@@ -129,6 +129,22 @@ def return_to_defaults(model):
     print(f"Model {model} not supported./n Supported models: nano, nx, agx")
 
 
+def choose_threshold(counter):
+  """
+  Sets the stability threshold based on the number of tries.
+
+  Args:
+    counter: The number of tries.
+  """
+  if counter in range(1, 21):     threshold = 10 ; distrust = 0
+  elif counter in range(21, 31):  threshold = 12 ; distrust = 1
+  elif counter in range(31, 41):  threshold = 15 ; distrust = 2
+  elif counter in range(41, 51):  threshold = 17 ; distrust = 3
+  else:                           threshold = 20 ; distrust = 4
+
+  return threshold, distrust
+
+
 def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency, timeout_enabled, retries_allowed, power_modes, gpu_freqs, board):
 
   # This is a dictionary where we will store frequencies and modes that needed retries and the number of retries
@@ -150,24 +166,10 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
               while True:
                   counter+=1
+                  threshold, distrust = choose_threshold(counter)
 
-                  # If the measurement comes back unstable, raise the stability threshold
-                  if counter in range(1, 21):
-                     threshold = 10
-                     print(f"Stability Percentage is set to {threshold}%")
-                     modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  elif counter in range(21, 31):
-                      threshold = 12
-                      print(f"Stability Percentage is set to {threshold}%")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  elif counter in range(31, 41):
-                      threshold = 15
-                      print(f"Stability Percentage is set to {threshold}%")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  else:
-                      threshold = 20
-                      print(f"Stability Percentage is set to {threshold}%")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  print(f"Stability Percentage is set to {threshold}%")
+                  modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
                      
                   # Run the performance test
                   try:
@@ -201,12 +203,13 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                       os.system('sudo pkill tegrastats')
                       os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
 
-                      # Add  conc and mode to the retried dictionary
+                      # Add conc and mode to the retried dictionary
                       key = (mode, conc)
                       if key in retried_modes:
-                          retried_modes[key]+=1
+                          retried_modes[key][0] += 1
+                          retried_modes[key][1] = distrust
                       else:
-                          retried_modes[key]=1
+                          retried_modes[key] = [1, distrust]
                   
                       if counter>=retries_allowed and timeout_enabled:
                           print("❌ Too many retries, skipping...")
@@ -218,18 +221,19 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                       file.close()
 
 
-
-
-          
           # combine the results of the different concurrencies
           print("Combining the results")
           os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}')
           os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}')
 
+
+
       ### 
       # Return to the default power mode
       return_to_defaults(board)
       ###
+
+
 
   #### GPU Clock Speeds
   if (check_freqs):
@@ -249,24 +253,10 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
               while True:
                   counter+=1
+                  threshold , distrust = choose_threshold(counter)
 
-                  # If the measurement comes back unstable, raise the stability threshold
-                  if counter in range(1, 21):
-                     threshold = 10
-                     print(f"Stability Percentage is set to {threshold}%")
-                     modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  elif counter in range(21, 31):
-                      threshold = 12
-                      print(f"Stability Percentage is set to {threshold}%")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  elif counter in range(31, 41):
-                      threshold = 15
-                      print(f"Stability Percentage is set to {threshold}%")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
-                  else:
-                      threshold = 20
-                      print(f"Stability Percentage is set to {threshold}%")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  print(f"Stability Percentage is set to {threshold}%")
+                  modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
 
                   # Run the performance test
                   try:
@@ -300,12 +290,13 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                       os.system('sudo pkill tegrastats')
                       os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
                       
-                      # Add  conc and freq to the retried dictionary
+                      # Add conc and freq to the retried dictionary
                       key = (freq, conc)
                       if key in retried_freqs:
-                          retried_freqs[key]+=1
+                          retried_freqs[key][0] += 1
+                          retried_freqs[key][1] = distrust
                       else:
-                          retried_freqs[key]=1
+                          retried_freqs[key] = [1, distrust]
                   
                       if counter>=retries_allowed and timeout_enabled:
                           print("❌ Too many retries, skipping...")
@@ -328,9 +319,9 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
   if retried_modes:
       with open('/home/iloudaros/LoudVA/measurements/retried_modes.txt', 'w') as file:
           for key in sorted(retried_modes.keys()):
-                  file.write(str(key) + ' ' + str(retried_modes[key]) + '\n')
+                  file.write(str(key) + ' ' + str(retried_modes[key][0]) + ' ' + '!'*retried_modes[key][1] + '\n')
 
   if retried_freqs:
       with open('/home/iloudaros/LoudVA/measurements/retried_freqs.txt', 'w') as file:
           for key in sorted(retried_freqs.keys()):
-                  file.write(str(key) + ' ' + str(retried_freqs[key]) + '\n')
+                  file.write(str(key) + ' ' + str(retried_freqs[key][0]) + ' ' + '!'*retried_freqs[key][1] + '\n')

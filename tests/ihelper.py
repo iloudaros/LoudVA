@@ -213,6 +213,7 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                   
                       if counter>=retries_allowed and timeout_enabled:
                           print("❌ Too many retries, skipping...")
+                          retried_modes[key][1] = 20
                           break
                   else: 
                       break
@@ -253,7 +254,7 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
               while True:
                   counter+=1
-                  threshold , distrust = choose_threshold(counter)
+                  threshold, distrust = choose_threshold(counter)
 
                   print(f"Stability Percentage is set to {threshold}%")
                   modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
@@ -300,6 +301,7 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                   
                       if counter>=retries_allowed and timeout_enabled:
                           print("❌ Too many retries, skipping...")
+                          retried_modes[key][1] = 20
                           break
                   else:
                       break

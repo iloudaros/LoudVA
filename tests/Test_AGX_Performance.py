@@ -13,8 +13,8 @@ i.return_to_defaults("agx")
 # Test parameters
 minimum_concurrency = 1
 maximum_concurrency = 128
-check_modes = 0
-check_freqs = 1
+check_modes = 1
+check_freqs = 0
 timeout_enabled = 1
 retries_allowed = 100
 

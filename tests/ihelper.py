@@ -43,6 +43,7 @@ def modify_gpu_freq(freq):
     print(f"Error setting GPU frequency: {e}")
 
 
+
 def modify_max_batch_size(config_file, size):
   """
   Modifies the max_batch_size value in model config file.
@@ -71,6 +72,7 @@ def modify_max_batch_size(config_file, size):
   # Open the file again in write mode (overwrites existing content)
   with open(config_file, "w") as file:
     file.writelines(modified_lines)
+
 
 
 def modify_variable(config_file, variable, seperator, value):
@@ -106,6 +108,29 @@ def modify_variable(config_file, variable, seperator, value):
 
 
 
+def read_variable(file, variable, seperator):
+  """
+  Reads the value of a variable in a file.
+
+  Args:
+    file: The path to the config file.
+    variable: The name of the variable to read.
+  """
+  # Open the file in read mode
+  with open(file, "r") as file:
+    lines = file.readlines()
+
+  # Find the line with the variable
+  for line in lines:
+    if line.startswith(f"{variable} "):
+      value = line.split(seperator)[1]
+      # Remove any leading or trailing whitespace and also remove any comments
+      return value.split("#")[0].strip()
+    
+  return None
+
+
+
 def return_to_defaults(model):
   
   print(f"Returning to the default values")
@@ -129,6 +154,7 @@ def return_to_defaults(model):
     print(f"Model {model} not supported./n Supported models: nano, nx, agx")
 
 
+
 def choose_threshold(counter):
   """
   Sets the stability threshold based on the number of tries.
@@ -143,6 +169,11 @@ def choose_threshold(counter):
   else:                           threshold = 20 ; distrust = 4
 
   return threshold, distrust
+
+
+def calculate_energy(power_file, performance_file):
+  pass
+
 
 
 def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency, timeout_enabled, retries_allowed, power_modes, gpu_freqs, board):

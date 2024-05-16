@@ -10,8 +10,9 @@ LoudVA/test.py
 */__pycache__/*
 measurements/performance/freqs/*
 measurements/performance/modes/*
-measurements/power/*
-measurements/*
+measurements/power/freqs/*
+measurements/power/modes/*
+measurements/archive/*
 ansible/test.yaml
 measurements/LoudJetson0/home/iloudaros/LoudVA/measurements/Performance.log
 tests/hide/

@@ -1,4 +1,5 @@
 import os
+import csv
 
 def modify_gpu_freq(freq):
   """
@@ -171,8 +172,36 @@ def choose_threshold(counter):
   return threshold, distrust
 
 
-def calculate_energy(power_file, performance_file):
-  pass
+def calculate_energy(power_file, performance_file, energy_file):
+    """
+    Calculates the energy consumption based on the power and performance files.
+
+    Args:
+        power_file: The path to the power file.
+        performance_file: The path to the performance file.
+        energy_file: The path to the energy file.
+    """
+    # Open the files
+    with open(power_file, 'r') as power, open(performance_file, 'r') as performance, open(energy_file, 'w') as energy:
+        # Read the power_file and strip the values
+        power_lines = power.readlines()
+        power = [x.split(':')[1].strip() for x in power_lines]
+        power = [float(x)*10**-3 for x in power]
+
+        # Read the performance_file and strip the values
+        performance_lines = csv.reader(performance, delimiter=',')
+        performance = list(performance_lines)  
+    
+        latency = [int(x[4])+int(x[5])+int(x[6])+int(x[7]) for x in performance[1:]]
+        latency = [int(x)*10**-6 for x in latency]
+
+        # Write the header
+        energy.write('Concurrency, Mean Power (W), Avg Latency (s), Energy (J)\n')
+
+        # Calculate the energy
+        for i in range(0, len(power_lines)):
+            energy.write(f'{i+1},{power[i]},{latency[i]},{float(power[i])*float(latency[i])}\n')
+  
 
 
 
@@ -257,6 +286,10 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
           print("Combining the results")
           os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}')
           os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}')
+
+          # calculate the energy consumption
+          print("Calculating the energy consumption")
+          calculate_energy(f'/home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}.csv', f'/home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}.csv', f'/home/iloudaros/LoudVA/measurements/energy/modes/energy_measurement_stats_mode_{mode}.csv')
 
 
 
@@ -345,6 +378,10 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
           print("Combining the results")
           os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_freq_{freq}')
           os.system(f'cd /home/iloudaros/LoudVA/measurements/power/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_freq_{freq}')
+
+          # calculate the energy consumption
+          print("Calculating the energy consumption")
+          calculate_energy(f'/home/iloudaros/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}.csv', f'/home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}.csv', f'/home/iloudaros/LoudVA/measurements/energy/freqs/energy_measurement_stats_freq_{freq}.csv')
 
   return_to_defaults(board)
 

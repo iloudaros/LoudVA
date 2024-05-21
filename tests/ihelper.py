@@ -181,6 +181,9 @@ def calculate_energy(power_file, performance_file, energy_file):
         performance_file: The path to the performance file.
         energy_file: The path to the energy file.
     """
+    # Print a message with the names of the files
+    print(f"Calculating energy consumption based on {power_file} and {performance_file}")
+
     # Open the files
     with open(power_file, 'r') as power, open(performance_file, 'r') as performance, open(energy_file, 'w') as energy:
         # Read the power_file and strip the values
@@ -201,6 +204,8 @@ def calculate_energy(power_file, performance_file, energy_file):
         # Calculate the energy
         for i in range(0, len(power_lines)):
             energy.write(f'{i+1},{power[i]},{latency[i]},{float(power[i])*float(latency[i])}\n')
+        
+        print(f"Energy consumption calculated and saved to {energy_file}")
   
 
 

@@ -4,7 +4,8 @@ import os
 
 def plot(folder_path, row_number, row_name, title):
   # Get filenames sorted by the highest integer in their names (descending order)
-  filenames = sorted(os.listdir(folder_path), reverse=True)
+  filenames = os.listdir(folder_path)
+  filenames = sorted(filenames, key=lambda x : int(x.split("_")[-1].split(".")[0]) if x.endswith('.csv') else 0, reverse=True)
 
   colors = plt.colormaps['tab20c']
   plt.figure(figsize=(13, 8))  # Adjust width and height as needed

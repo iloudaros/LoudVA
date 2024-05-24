@@ -197,13 +197,14 @@ def calculate_energy(power_file, performance_file, energy_file):
     
         latency = [int(x[4])+int(x[5])+int(x[6])+int(x[7]) for x in performance[1:]]
         latency = [int(x)*10**-6 for x in latency]
+        throughput = [float(x[1]) for x in performance[1:]]
 
         # Write the header
-        energy.write('Concurrency, Mean Power (W), Avg Latency (s), Energy (J)\n')
+        energy.write('Concurrency, Mean Power (W), Avg Latency (s), Throughput (Inference/sec), Energy (J)\n')
 
         # Calculate the energy
         for i in range(0, len(power_lines)):
-            energy.write(f'{i+1},{power[i]},{latency[i]},{float(power[i])*float(latency[i])}\n')
+            energy.write(f'{i+1},{power[i]},{latency[i]},{throughput[i]},{float(power[i])*float(latency[i])}\n')
         
         print(f"Energy consumption calculated and saved to {energy_file}")
 

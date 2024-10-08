@@ -1,24 +1,23 @@
 from flask import Flask, request, jsonify
 import subprocess
 import os
+import LoudScheduling
+import DeviceData
 
 app = Flask(__name__)
 UPLOAD_FOLDER = '/home/louduser/incoming'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
-# Queue for Jetson
+# Initialisation
 queue = []
-
 turn = 0 
 
-def get_turn(turn):
-    turn
+def get_turn():
+    global turn
     turn = turn + 1
-    if turn ==3:
+    if turn == 6:
         turn = 0
-    return turn
 ###################
 
 
@@ -56,10 +55,11 @@ def create_user():
 def classify_image(model, classes, scaling, batch_size):
     global turn
     file = request.files['file']
-    print("Request to LoudJetson"+str(turn)+f" with model {model}, classes {classes}, scaling {scaling}. Filname: {file.filename}")
+    print("Request to " + DeviceData.devices[turn].name + f" with model {model}, classes {classes}, scaling {scaling}. Filname: {file.filename}")
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-    p = subprocess.run([f"python3 ~/LoudVA/LoudVA/image_client.py -m {model} -b {batch_size} -c {classes} -s {scaling} ~/incoming/{file.filename} --url 192.168.0.12{str(turn)}:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
-    turn = get_turn(turn)
+    p = subprocess.run([f"python3 ~/LoudVA/LoudVA/image_client.py -m {model} -b {batch_size} -c {classes} -s {scaling} ~/incoming/{file.filename} --url {DeviceData.devices[turn].ip}:8000 --protocol HTTP "],shell=True, capture_output=True, text=True) 
+    get_turn()
+    print(turn)
     os.remove(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     print("Result \n"+p.stdout)
     return p.stdout, 200

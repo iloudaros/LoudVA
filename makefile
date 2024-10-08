@@ -7,7 +7,7 @@ model=$(shell tr -d '\0' < /proc/device-tree/model)
 .PHONY: sync_time download_triton initialise_Jetsons system_setup start_triton
 
 
-test:
+playground:
 	mkdir -p ~/LoudVA/measurements/performance/$(shell date +'%Y-%m-%d_%H-%M-%S')
 
 ###### System Initialization and Setup #######
@@ -104,6 +104,13 @@ print_flags:
 
 ############### Tests and Checks ###############
 # To be run on LoudGateway
+
+# ping the Jetsons
+ping_workers:
+	@echo "____Pinging the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} all -m ping
+
+
 check_triton: is_triton_running
 	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0:✅") &
 	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1:✅") &
@@ -182,10 +189,11 @@ stop_triton:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
 
 start_LoudVA_server:
-	@echo "____Starting LoudVA____"
-	@python3 ~/LoudVA/LoudVA/LoudVA.py 
+	@echo "____Starting LoudVA server____"
+	@cd ~/LoudVA/LoudVA && gunicorn -w 4 'LoudVA:app'
 
 start_LoudVA: start_triton start_LoudVA_server
+	@echo "LoudVA Started"
 
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"

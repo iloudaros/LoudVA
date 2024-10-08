@@ -29,6 +29,11 @@ class Device:
     def set_batch_size(self, size):
         self.current_batch_size = size
 
+
+
+
+
+
 # Function to read the CSV file and convert it to a dictionary
 def csv_to_dict(file_path):
     # Initialize an empty dictionary to store the results
@@ -60,6 +65,9 @@ def csv_to_dict(file_path):
 
 
 
+
+
+
 # Collect dictionary data from the CSV files
 agx_path = '/home/louduser/LoudVA/measurements/archive/Representative/agx-xavier-00/measurements/agx-xavier-00_filtered_freqs.csv'
 nx_path = '/home/louduser/LoudVA/measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv'
@@ -77,7 +85,7 @@ nx_freqs = [ 114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 7
 
 # Define the devices
 devices = [
-    Device('agx-xavier-00', '192.168.0.120', nano_freqs, [1, 2, 4, 8, 16, 32], agx_dict),
+    Device('agx-xavier-00', '192.168.0.112', nano_freqs, [1, 2, 4, 8, 16, 32], agx_dict),
     Device('xavier-nx-00', '192.168.0.110', nx_freqs, [1, 2, 4, 8, 16, 32], nx_dict),
     Device('xavier-nx-01', '192.168.0.111', nx_freqs, [1, 2, 4, 8, 16, 32], nx_dict),
     Device('LoudJetson0', '192.168.0.120', nano_freqs, [1, 2, 4, 8, 16, 32], nano_dict),
@@ -86,3 +94,12 @@ devices = [
     ]
 
 
+if __name__ == '__main__':
+    print("Device data loaded successfully.")
+    print("Devices:")
+    for device in devices:
+        print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}, Batch Sizes: {device.batch_sizes}")
+        print(f"Profiles: {device.profiles}")
+        print(f"Current Frequency: {device.current_freq}, Current Batch Size: {device.current_batch_size}")
+        print(f"Max Frequency: {device.max_freq}, Min Frequency: {device.min_freq}")
+        print("\n")

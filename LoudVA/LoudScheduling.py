@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 import threading
 import DeviceData
 
+devices = DeviceData.devices
+
 request_queue = []
 
 def select_best_device_config(devices, max_latency, batch_size):

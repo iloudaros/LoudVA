@@ -23,7 +23,7 @@ def generate_cameras(num_cameras, max_entries=5, max_time_active=20, min_time_ac
         })
     return cameras
 
-def simulate_frames(cameras, simulation_duration=120):
+def simulate_frames(cameras, simulation_duration=40):
     events = []
     last_exit_time = 0
     for camera_index, camera in enumerate(cameras):
@@ -37,7 +37,7 @@ def simulate_frames(cameras, simulation_duration=120):
                 # Calculate the number of frames generated in the period
                 frames_generated = camera['fps'] * camera['period']
                 # Calculate the number of frames after filtering
-                frames_after_filter = int(frames_generated * (1 - filtering_percentage))
+                frames_after_filter = max(int(frames_generated * (1 - filtering_percentage)),1)
                 # Add the event to the list with the camera index
                 events.append((time, frames_after_filter, camera_index))
                 # Move to the next period
@@ -73,24 +73,22 @@ def plot_events(events, num_cameras, cameras, last_exit_time, live=False, log_fi
 
         if live:
             ax.clear()
+            # Plot all camera events
+            for cam_idx in range(num_cameras):
+                camera_config = cameras[cam_idx]
+                ax.scatter(camera_times[cam_idx], camera_frame_counts[cam_idx], color=colors(cam_idx),
+                           label=f'Camera {cam_idx + 1} (FPS: {camera_config["fps"]}, Period: {camera_config["period"]}s)', alpha=0.6)
 
-        # Plot all camera events
-        for cam_idx in range(num_cameras):
-            camera_config = cameras[cam_idx]
-            ax.scatter(camera_times[cam_idx], camera_frame_counts[cam_idx], color=colors(cam_idx),
-                       label=f'Camera {cam_idx + 1} (FPS: {camera_config["fps"]}, Period: {camera_config["period"]}s)', alpha=0.6)
+            ax.set_xlabel('Time (s)')
+            ax.set_ylabel('Frames')
+            ax.set_title('Real-Time Arrival of Frame Events')
+            ax.legend(loc='upper right')
+            ax.grid(True)
 
-        ax.set_xlabel('Time (s)')
-        ax.set_ylabel('Frames')
-        ax.set_title('Real-Time Arrival of Frame Events' if live else 'Arrival of Frame Events')
-        ax.legend(loc='upper right')
-        ax.grid(True)
+            # Update the text annotation with the cumulative frame count
+            ax.text(0.02, 0.95, f'Total Frames: {cumulative_frames}', transform=ax.transAxes,
+                    fontsize=12, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8))
 
-        # Update the text annotation with the cumulative frame count
-        ax.text(0.02, 0.95, f'Total Frames: {cumulative_frames}', transform=ax.transAxes,
-                fontsize=12, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8))
-
-        if live:
             plt.draw()
             plt.pause(0.01)  # Pause to update the plot
 
@@ -99,8 +97,30 @@ def plot_events(events, num_cameras, cameras, last_exit_time, live=False, log_fi
             print("All cameras have exited.")
             break
 
-    plt.ioff()  # Turn off interactive mode after live plotting
-    plt.show()  # Keep the plot window open after live plotting
+    # For static plotting, plot all data points at once
+    if not live:
+        ax.clear()
+        for cam_idx in range(num_cameras):
+            camera_config = cameras[cam_idx]
+            ax.scatter(camera_times[cam_idx], camera_frame_counts[cam_idx], color=colors(cam_idx),
+                       label=f'Camera {cam_idx + 1} (FPS: {camera_config["fps"]}, Period: {camera_config["period"]}s)', alpha=0.6)
+
+        ax.set_xlabel('Time (s)')
+        ax.set_ylabel('Frames')
+        ax.set_title('Arrival of Frame Events')
+        ax.legend(loc='upper right')
+        ax.grid(True)
+
+        # Update the text annotation with the cumulative frame count
+        ax.text(0.02, 0.95, f'Total Frames: {cumulative_frames}', transform=ax.transAxes,
+                fontsize=12, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8))
+
+        plt.show()  # Keep the plot window open after static plotting
+
+    # If live, keep the plot open after the simulation
+    if live:
+        plt.ioff()  # Turn off interactive mode
+        plt.show()  # Keep the plot window open until manually closed
 
     # Export the event log to a CSV file
     with open(log_filename, 'w', newline='') as csvfile:
@@ -112,8 +132,10 @@ def plot_events(events, num_cameras, cameras, last_exit_time, live=False, log_fi
             writer.writerow({'Time': event[0], 'Frames After Filter': event[1], 'Camera Index': event[2]})
 
 
+
+
 # Run
-num_cameras = 5
+num_cameras = 10
 cameras = generate_cameras(num_cameras)
 simulated_events, last_exit_time = simulate_frames(cameras)
 

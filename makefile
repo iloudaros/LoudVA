@@ -143,10 +143,11 @@ performance_profiling: update_workers is_triton_running
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-evaluate_batchPredictor:
+eval_LoudIntervalPrediction:
 	@echo "____Evaluating the Predictor____"
-	python3 LoudPredictor/batches/batchPrediction.py --plot
+	python3 LoudPredictor/batches/LoudIntervalPrediction.py --plot
 	python3 LoudPredictor/batches/bpEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/batches/prediction_log.csv
+
 
 
 ### To be run on the Jetsons ###

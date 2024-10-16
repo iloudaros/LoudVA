@@ -145,8 +145,8 @@ performance_profiling: update_workers is_triton_running
 
 eval_LoudIntervalPrediction:
 	@echo "____Evaluating the Predictor____"
-	python3 LoudPredictor/batches/LoudIntervalPrediction.py --plot
-	python3 LoudPredictor/batches/bpEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/batches/prediction_log.csv
+	python3 LoudPredictor/input/LoudIntervalPredictor.py --plot
+	python3 LoudPredictor/input/bpEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/prediction_log.csv
 
 
 

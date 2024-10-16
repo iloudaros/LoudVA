@@ -146,8 +146,12 @@ performance_profiling: update_workers is_triton_running
 eval_LoudIntervalPrediction:
 	@echo "____Evaluating the Predictor____"
 	python3 LoudPredictor/input/LoudIntervalPredictor.py --plot
-	python3 LoudPredictor/input/bpEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/prediction_log.csv
+	python3 LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/interval_prediction_log.csv
 
+eval_LoudFramePrediction:
+	@echo "____Evaluating the Predictor____"
+	python3 LoudPredictor/input/LoudFramePredictor.py --log_filename LoudMonitor/frame_monitor_log.csv --plot
+	python3 LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudPredictor/input/frame_prediction_log.csv
 
 
 ### To be run on the Jetsons ###

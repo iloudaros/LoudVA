@@ -101,4 +101,4 @@ if __name__ == '__main__':
     num_cameras = args.num_cameras
     cameras = generator.generate_cameras(num_cameras)
     simulated_events, last_exit_time = generator.simulate_frames(cameras)
-    run_predictor(simulated_events, log_filename='prediction_log.csv', plot=args.plot)
+    run_predictor(simulated_events, log_filename='interval_prediction_log.csv', plot=args.plot)

@@ -56,7 +56,7 @@ if __name__ == '__main__':
     # Add arguments with default values
     parser.add_argument('--generator_log', type=str, default=os.path.join(script_dir, 'event_log.csv'),
                         help='Path to the generator log CSV file (default: event_log.csv in the script directory)')
-    parser.add_argument('--predictor_log', type=str, default=os.path.join(script_dir, 'prediction_log.csv'),
+    parser.add_argument('--predictor_log', type=str, default=os.path.join(script_dir, '../interval_prediction_log.csv'),
                         help='Path to the predictor log CSV file (default: prediction_log.csv in the script directory)')
     
     args = parser.parse_args()

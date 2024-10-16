@@ -10,9 +10,14 @@ model=$(shell tr -d '\0' < /proc/device-tree/model)
 playground:
 	mkdir -p ~/LoudVA/measurements/performance/$(shell date +'%Y-%m-%d_%H-%M-%S')
 
+
+
+
+
+
 ###### System Initialization and Setup #######
-# To be run on LoudGateway
-################################################
+### To be run on LoudGateway ###
+
 sync_time: 
 	@echo "____Setting Correct Time and Date on Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/sync_time.yaml
@@ -102,8 +107,13 @@ print_flags:
 
 
 
+
+
+
+
+
 ############### Tests and Checks ###############
-# To be run on LoudGateway
+### To be run on LoudGateway ###
 
 # ping the Jetsons
 ping_workers:
@@ -133,8 +143,13 @@ performance_profiling: update_workers is_triton_running
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
+evaluate_batchPredictor:
+	@echo "____Evaluating the Predictor____"
+	python3 LoudPredictor/batches/batchPrediction.py --plot
+	python3 LoudPredictor/batches/bpEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/batches/prediction_log.csv
 
-# To be run on the Jetsons
+
+### To be run on the Jetsons ###
 CONCURRENCY_FLOOR = 1
 CONCURRENCY_LIMIT = 20
 
@@ -174,8 +189,13 @@ measure_performance_and_power:
 
 
 
+
+
+
+
+
 ################ Quick Access ##################
-# To be run on LoudGateway
+### To be run on LoudGateway ###
 start_triton: configure_triton
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
@@ -209,7 +229,7 @@ send_makefile:
 	@echo "____Sending Makefile to the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
 
-# To be run on the Jetsons
+### To be run on the Jetsons ###
 
 model:
 	@echo ${model}
@@ -295,10 +315,15 @@ jetpack_version:
 	echo "Remember to check the linux version from https://docs.nvidia.com/jetson/archives/index.html"
 
 
-# To be run on the client
+### To be run on the client ###
 check_api:
 	@curl 127.0.0.1:5000
 ################################################
+
+
+
+
+
 
 
 

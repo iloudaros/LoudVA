@@ -79,14 +79,24 @@ def run_frame_predictor(log_filename, window_size=5, plot=False, prediction_log_
     print(f"Predictions logged to {prediction_log_path}")
 
     if plot:
+        # Plot for Frames Per Second
         plt.figure(figsize=(12, 6))
         plt.plot(seconds, frames_per_second, label='Actual Frames Per Second', color='#0165a0', linestyle='-', linewidth=2)
-        plt.plot(seconds, events_per_second, label='Actual Events Per Second', color='#f4d792', linestyle='--', linewidth=2)
-        plt.plot(prediction_seconds, predicted_frames, label='Predicted Frames Per Second', color='green', linestyle='-', linewidth=2)
-        plt.plot(prediction_seconds, predicted_events, label='Predicted Events Per Second', color='orange', linestyle='--', linewidth=2)
+        plt.plot(prediction_seconds, predicted_frames, label='Predicted Frames Per Second', color='#f4d792', linestyle='--', linewidth=2)
         plt.xlabel('Seconds')
-        plt.ylabel('Count')
-        plt.title('Actual vs Predicted Frames and Events Per Second')
+        plt.ylabel('Frames Per Second')
+        plt.title('Actual vs Predicted Frames Per Second')
+        plt.legend()
+        plt.grid(True, linestyle='--', alpha=0.7)
+        plt.show()
+
+        # Plot for Events Per Second
+        plt.figure(figsize=(12, 6))
+        plt.plot(seconds, events_per_second, label='Actual Events Per Second', color='#0165a0', linestyle='-', linewidth=2)
+        plt.plot(prediction_seconds, predicted_events, label='Predicted Events Per Second', color='#f4d792', linestyle='--', linewidth=2)
+        plt.xlabel('Seconds')
+        plt.ylabel('Events Per Second')
+        plt.title('Actual vs Predicted Events Per Second')
         plt.legend()
         plt.grid(True, linestyle='--', alpha=0.7)
         plt.show()

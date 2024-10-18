@@ -13,8 +13,7 @@ measurements/performance/modes/*
 measurements/power/freqs/*
 measurements/power/modes/*
 measurements/archive/*
-!measurements/archive/Representative/*
-measurements/archive/Representative/** 
+!measurements/archive/Representative/
 measurements/energy/freqs/*
 measurements/energy/modes/*
 ansible/test.yaml

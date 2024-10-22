@@ -342,8 +342,8 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
           # combine the results of the different concurrencies
           print("Combining the results")
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_mode_{mode}')
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_mode_{mode}')
+          os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh performance_measurements_mode_{mode}')
+          os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh power_measurement_stats_mode_{mode}')
 
           # calculate the energy consumption
           print("Calculating the energy consumption")
@@ -434,8 +434,8 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
           # combine the results of the different concurrencies
           print("Combining the results")
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh performance_measurements_freq_{freq}')
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/power/freqs && bash /home/iloudaros/LoudVA/scripts/combine_measurements.sh power_measurement_stats_freq_{freq}')
+          os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh performance_measurements_freq_{freq}')
+          os.system(f'cd /home/iloudaros/LoudVA/measurements/power/freqs && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh power_measurement_stats_freq_{freq}')
 
           # calculate the energy consumption
           print("Calculating the energy consumption")

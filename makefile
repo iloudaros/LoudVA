@@ -179,14 +179,14 @@ measure_performance_csv:
 MEASUREMENT_INTERVAL2 = 500 #in ms
 measure_idle_power:
 	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile ~/LoudVA/measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} && sleep 10 && sudo tegrastats --stop
-	@sudo bash ~/LoudVA/scripts/clean_measurements.sh ~/LoudVA/measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
-	@bash ~/LoudVA/scripts/mean_median.sh ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@sudo bash ~/LoudVA/scripts/shell/clean_measurements.sh ~/LoudVA/measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@bash ~/LoudVA/scripts/shell/mean_median.sh ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
 	@echo "Check ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
 
 measure_performance_and_power:
 	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile /home/iloudaros/LoudVA/measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv && sudo tegrastats --stop
-	@sudo bash /home/iloudaros/LoudVA/scripts/clean_measurements.sh /home/iloudaros/LoudVA/measurements/power/tegra_log /home/iloudaros/LoudVA/measurements/power/power_measurement
-	@bash /home/iloudaros/LoudVA/scripts/mean_median.sh /home/iloudaros/LoudVA/measurements/power/power_measurement
+	@sudo bash /home/iloudaros/LoudVA/scripts/shell/clean_measurements.sh /home/iloudaros/LoudVA/measurements/power/tegra_log /home/iloudaros/LoudVA/measurements/power/power_measurement
+	@bash /home/iloudaros/LoudVA/scripts/shell/mean_median.sh /home/iloudaros/LoudVA/measurements/power/power_measurement
 	@echo "Check /home/iloudaros/LoudVA/measurements/power/power_measurement_stats for the power measurements"
 ################################################
 

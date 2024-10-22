@@ -7,6 +7,13 @@
 # 
 # (To be run on the Jetsons via the performance_profiling ansible playbook.)
 
+# Add the python scripts directory to the system path
+import os, sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+sibling_folder_path = os.path.join(parent_dir, 'scripts/python')
+sys.path.append(sibling_folder_path)
+
 import ihelper as i
 i.return_to_defaults("nx")
 

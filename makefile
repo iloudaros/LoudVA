@@ -122,12 +122,12 @@ ping_workers:
 
 
 check_triton: is_triton_running
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0:✅") &
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1:✅") &
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "agx-xavier-00:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "xavier-nx-00:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION ~/LoudVA/data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "xavier-nx-01:✅")
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0:✅") &
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1:✅") &
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2:✅") &
+	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "agx-xavier-00:✅") &
+	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "xavier-nx-00:✅") &
+	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "xavier-nx-01:✅")
 
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml
@@ -170,24 +170,24 @@ MEASUREMENT_COUNT = 10000
 STABILITY_THRESHOLD = 10
 
 measure_performance:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} --measurement-request-count${MEASUREMENT_COUNT}
+	~/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} --measurement-request-count${MEASUREMENT_COUNT}
 
 measure_performance_csv:
-	/home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv
+	~/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv
 
 
 MEASUREMENT_INTERVAL2 = 500 #in ms
 measure_idle_power:
-	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile ~/LoudVA/measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} && sleep 10 && sudo tegrastats --stop
-	@sudo bash ~/LoudVA/scripts/shell/clean_measurements.sh ~/LoudVA/measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
-	@bash ~/LoudVA/scripts/shell/mean_median.sh ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
-	@echo "Check ~/LoudVA/measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
+	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} && sleep 10 && sudo tegrastats --stop
+	@sudo bash scripts/shell/clean_measurements.sh measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@bash scripts/shell/mean_median.sh measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@echo "Check measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
 
 measure_performance_and_power:
-	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile /home/iloudaros/LoudVA/measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv && sudo tegrastats --stop
-	@sudo bash /home/iloudaros/LoudVA/scripts/shell/clean_measurements.sh /home/iloudaros/LoudVA/measurements/power/tegra_log /home/iloudaros/LoudVA/measurements/power/power_measurement
-	@bash /home/iloudaros/LoudVA/scripts/shell/mean_median.sh /home/iloudaros/LoudVA/measurements/power/power_measurement
-	@echo "Check /home/iloudaros/LoudVA/measurements/power/power_measurement_stats for the power measurements"
+	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv && sudo tegrastats --stop
+	@sudo bash scripts/shell/clean_measurements.sh measurements/power/tegra_log measurements/power/power_measurement
+	@bash scripts/shell/mean_median.sh measurements/power/power_measurement
+	@echo "Check measurements/power/power_measurement_stats for the power measurements"
 ################################################
 
 
@@ -313,7 +313,7 @@ cat_nvpmodel:
 	cat /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
 
 watch_log:
-	watch -n 1 cat /home/iloudaros/LoudVA/measurements/log
+	watch -n 1 cat ~/LoudVA/measurements/log
 
 jetpack_version:
 	sudo apt-cache show nvidia-jetpack

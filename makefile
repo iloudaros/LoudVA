@@ -112,89 +112,6 @@ print_flags:
 
 
 
-############### Tests and Checks ###############
-### To be run on LoudGateway ###
-
-# ping the Jetsons
-ping_workers:
-	@echo "____Pinging the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} all -m ping
-
-
-check_triton: is_triton_running
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0:✅") &
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1:✅") &
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "agx-xavier-00:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "xavier-nx-00:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "xavier-nx-01:✅")
-
-is_triton_running:
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml
-
-performance_profiling: update_workers is_triton_running
-	@echo "____Beginning The performance profiling____"
-	@echo "(This will take a while)"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros
-	@echo "✅ : Performance Profiling Complete"
-	@curl \
-		-d "Performance Profiling complete" \
-		-H "Title: LoudVA" \
-		-H "Tags: white_check_mark" \
-		${NOTIFICATION_URL}
-
-eval_LoudIntervalPrediction:
-	@echo "____Evaluating the Predictor____"
-	python3 LoudPredictor/input/LoudIntervalPredictor.py --plot
-	python3 LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/interval_prediction_log.csv
-
-eval_LoudFramePrediction:
-	@echo "____Evaluating the Predictor____"
-	python3 LoudPredictor/input/LoudFramePredictor.py --log_filename LoudMonitor/frame_monitor_log.csv --plot
-	python3 LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudPredictor/input/frame_prediction_log.csv
-
-
-### To be run on the Jetsons ###
-CONCURRENCY_FLOOR = 1
-CONCURRENCY_LIMIT = 20
-
-MEASUREMENT_MODE = count_windows #time_windows or count_windows
-
-## used with time_windows with option --measurement-interval
-MEASUREMENT_INTERVAL = 5000
-
-## used with count_windows with option --measurement-request-count
-MEASUREMENT_COUNT = 10000
-
-## determine when a measurement is considered successful
-STABILITY_THRESHOLD = 10
-
-measure_performance:
-	~/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} --measurement-request-count${MEASUREMENT_COUNT}
-
-measure_performance_csv:
-	~/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv
-
-
-MEASUREMENT_INTERVAL2 = 500 #in ms
-measure_idle_power:
-	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} && sleep 10 && sudo tegrastats --stop
-	@sudo bash scripts/shell/clean_measurements.sh measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
-	@bash scripts/shell/mean_median.sh measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
-	@echo "Check measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
-
-measure_performance_and_power:
-	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv && sudo tegrastats --stop
-	@sudo bash scripts/shell/clean_measurements.sh measurements/power/tegra_log measurements/power/power_measurement
-	@bash scripts/shell/mean_median.sh measurements/power/power_measurement
-	@echo "Check measurements/power/power_measurement_stats for the power measurements"
-################################################
-
-
-
-
-
-
 
 
 
@@ -233,6 +150,10 @@ default_power_mode:
 send_makefile:
 	@echo "____Sending Makefile to the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
+
+
+add_specs_to_profiling:
+	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv devices/gpu_specs.csv LoudPredictor/costs/agnostic/data.csv
 
 ### To be run on the Jetsons ###
 
@@ -323,6 +244,102 @@ jetpack_version:
 ### To be run on the client ###
 check_api:
 	@curl 127.0.0.1:5000
+################################################
+
+
+
+
+
+
+
+
+
+
+############### Tests and Checks ###############
+### To be run on LoudGateway ###
+
+# ping the Jetsons
+ping_workers:
+	@echo "____Pinging the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} all -m ping
+
+
+check_triton: is_triton_running
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0:✅") &
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1:✅") &
+	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2:✅") &
+	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "agx-xavier-00:✅") &
+	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "xavier-nx-00:✅") &
+	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "xavier-nx-01:✅")
+
+is_triton_running:
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml
+
+performance_profiling: update_workers is_triton_running
+	@echo "____Beginning The performance profiling____"
+	@echo "(This will take a while)"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros
+	@echo "✅ : Performance Profiling Complete"
+	@curl \
+		-d "Performance Profiling complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
+
+eval_LoudIntervalPredictor:
+	@echo "____Evaluating the Predictor____"
+	python3 LoudPredictor/input/LoudIntervalPredictor.py --plot
+	python3 LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/interval_prediction_log.csv
+
+eval_LoudFramePredictor:
+	@echo "____Evaluating the Predictor____"
+	python3 LoudPredictor/input/LoudFramePredictor.py --log_filename LoudMonitor/frame_monitor_log.csv --plot
+	python3 LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudPredictor/input/frame_prediction_log.csv
+
+eval_specific_LoudCostPredictors:
+	@echo "____Evaluating the Predictors____"
+	@cd LoudPredictor/costs/specific && python3 LCP-agx.py &
+	@cd LoudPredictor/costs/specific && python3 LCP-nano.py &
+	@cd LoudPredictor/costs/specific && python3 LCP-nx.py 
+
+eval_agnostic_LoudCostPredictor: add_specs_to_profiling
+	@echo "____Evaluating the Predictor____"
+	@cd LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
+
+### To be run on the Jetsons ###
+CONCURRENCY_FLOOR = 1
+CONCURRENCY_LIMIT = 20
+
+MEASUREMENT_MODE = count_windows #time_windows or count_windows
+
+## used with time_windows with option --measurement-interval
+MEASUREMENT_INTERVAL = 5000
+
+## used with count_windows with option --measurement-request-count
+MEASUREMENT_COUNT = 10000
+
+## determine when a measurement is considered successful
+STABILITY_THRESHOLD = 10
+
+measure_performance:
+	~/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} --measurement-request-count${MEASUREMENT_COUNT}
+
+measure_performance_csv:
+	~/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv
+
+
+MEASUREMENT_INTERVAL2 = 500 #in ms
+measure_idle_power:
+	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} && sleep 10 && sudo tegrastats --stop
+	@sudo bash scripts/shell/clean_measurements.sh measurements/power/idle_tegra_log_${MEASUREMENT_INTERVAL2} measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@bash scripts/shell/mean_median.sh measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2}
+	@echo "Check measurements/power/idle_power_measurement_${MEASUREMENT_INTERVAL2} for the power measurements"
+
+measure_performance_and_power:
+	@sudo tegrastats --interval ${MEASUREMENT_INTERVAL2} --start --logfile measurements/power/tegra_log && /home/iloudaros/tritonserver/clients/bin/perf_analyzer -s ${STABILITY_THRESHOLD} -m inception_graphdef --concurrency-range ${CONCURRENCY_FLOOR}:${CONCURRENCY_LIMIT} --measurement-mode ${MEASUREMENT_MODE} -f measurements/performance/performance_measurements.csv && sudo tegrastats --stop
+	@sudo bash scripts/shell/clean_measurements.sh measurements/power/tegra_log measurements/power/power_measurement
+	@bash scripts/shell/mean_median.sh measurements/power/power_measurement
+	@echo "Check measurements/power/power_measurement_stats for the power measurements"
 ################################################
 
 

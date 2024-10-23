@@ -1,12 +1,17 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from xgboost import XGBRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, root_mean_squared_error
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Load the data
-data = pd.read_csv('../../../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv')
+data = pd.read_csv('../../../measurements/archive/Representative/profiling.csv')
+
+# Filter the data to keep only rows where 'Directory' is 'Nano'
+data = data[data['Directory'] == 'Nano']
+
+print(data.head())
 
 # Features and target variables
 features = data[['Batch Size', 'Frequency', 'Throughput']]
@@ -35,11 +40,11 @@ def mean_absolute_percentage_error(y_true, y_pred):
 
 # Calculate metrics
 mae_energy = mean_absolute_error(y_test_energy, y_pred_energy)
-rmse_energy = mean_squared_error(y_test_energy, y_pred_energy, squared=False)
+rmse_energy = root_mean_squared_error(y_test_energy, y_pred_energy)
 mape_energy = mean_absolute_percentage_error(y_test_energy, y_pred_energy)
 
 mae_latency = mean_absolute_error(y_test_latency, y_pred_latency)
-rmse_latency = mean_squared_error(y_test_latency, y_pred_latency, squared=False)
+rmse_latency = root_mean_squared_error(y_test_latency, y_pred_latency)
 mape_latency = mean_absolute_percentage_error(y_test_latency, y_pred_latency)
 
 print(f"Energy Prediction - MAE: {mae_energy}, RMSE: {rmse_energy}, MAPE: {mape_energy:.2f}%")

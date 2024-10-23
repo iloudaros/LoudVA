@@ -1,0 +1,4 @@
+Device,GPU Max Frequency (MHz),GPU Min Frequency (MHz),GPU Architecture,GPU Number of Cores,Memory Speed (GB/s),DRAM,Shared Memory,Memory Size (GB),Tensor Cores
+Nano,921,76.8,Maxwell,128,25.6,Yes,Yes,4,N/A
+NX,1100,76.8,Volta,384,51.2,Yes,Yes,8,48
+AGX,1370,76.8,Volta,512,137,Yes,Yes,32,64

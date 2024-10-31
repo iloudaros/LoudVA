@@ -2,6 +2,7 @@ import time
 from flask import Flask, request, jsonify
 import threading
 import DeviceData
+import LoudPredictor.costs
 
 devices = DeviceData.devices
 

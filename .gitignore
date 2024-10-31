@@ -23,3 +23,4 @@ scripts/test/*
 
 .venv/
 .vscode/
+playground.ipynb

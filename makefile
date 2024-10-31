@@ -16,7 +16,7 @@ playground:
 
 
 ###### System Initialization and Setup #######
-### To be run on LoudGateway ###
+### To be run on the Controller ###
 
 sync_time: 
 	@echo "____Setting Correct Time and Date on Jetsons____"
@@ -44,9 +44,9 @@ clone_LoudVA:
 
 initialise_Jetsons: sync_time install_dependecies download_triton clone_LoudVA create_model_repository
 
-client_setup: 
-	@echo "____Setting up Triton Client on LoudGateway____"
-	#### Install Triton Client Dependencies ####
+controller_setup: 
+	@echo "____Setting up LoudController on LoudGateway____"
+	@echo "Install Triton Client Dependencies..."
 	sudo apt-get install -y --no-install-recommends \
         curl \
         pkg-config \
@@ -60,18 +60,18 @@ client_setup:
 	pip3 install flask
 
 
-	#### Create directories for for each version of Triton client ####
+	@echo "Creating directories for for each version of Triton client..."
 	mkdir -p ~/tritonserver2_19
 	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
 	mkdir -p ~/tritonserver2_34
 	tar zxvf ~/tritonserver2_34.tgz -C ~/tritonserver2_34
 	
-	#### Run python wheels for each version of Triton client ####
+	@echo "Running python wheels for each version of Triton client..."
 	
 	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
 	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
-client_download_triton:
+controller_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
 	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver2_19.tgz	
 	wget https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
@@ -89,7 +89,7 @@ configure_triton:
 	@echo "____Enabling Dynamic Batching on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/configure_triton.yaml
 
-system_setup: initialise_Jetsons set_environment client_setup
+system_setup: initialise_Jetsons set_environment controller_setup
 
 	@echo "✅ : System Setup Complete"
 
@@ -117,7 +117,7 @@ print_flags:
 
 
 ################ Quick Access ##################
-### To be run on LoudGateway ###
+### To be run on the Controller ###
 start_triton: configure_triton
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
@@ -256,7 +256,7 @@ check_api:
 
 
 ############### Tests and Checks ###############
-### To be run on LoudGateway ###
+### To be run on the Controller ###
 
 # ping the Jetsons
 ping_workers:
@@ -288,23 +288,23 @@ performance_profiling: update_workers is_triton_running
 
 eval_LoudIntervalPredictor:
 	@echo "____Evaluating the Predictor____"
-	python3 LoudPredictor/input/LoudIntervalPredictor.py --plot
-	python3 LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/interval_prediction_log.csv
+	python3 LoudController/LoudPredictor/input/LoudIntervalPredictor.py --plot
+	python3 LoudController/LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/interval_prediction_log.csv
 
 eval_LoudFramePredictor:
 	@echo "____Evaluating the Predictor____"
-	python3 LoudPredictor/input/LoudFramePredictor.py --log_filename LoudMonitor/frame_monitor_log.csv --plot
-	python3 LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudPredictor/input/frame_prediction_log.csv
+	python3 LoudController/LoudPredictor/input/LoudFramePredictor.py --log_filename LoudMonitor/frame_monitor_log.csv --plot
+	python3 LoudController/LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudPredictor/input/frame_prediction_log.csv
 
 eval_specific_LoudCostPredictors:
 	@echo "____Evaluating the Predictors____"
-	@cd LoudPredictor/costs/specific && python3 LCP-agx.py &
-	@cd LoudPredictor/costs/specific && python3 LCP-nano.py &
-	@cd LoudPredictor/costs/specific && python3 LCP-nx.py 
+	@cd LoudController/LoudPredictor/costs/specific && python3 LCP-agx.py &
+	@cd LoudController/LoudPredictor/costs/specific && python3 LCP-nano.py &
+	@cd LoudController/LoudPredictor/costs/specific && python3 LCP-nx.py 
 
 eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@echo "____Evaluating the Predictor____"
-	@cd LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
+	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 ### To be run on the Jetsons ###
 CONCURRENCY_FLOOR = 1

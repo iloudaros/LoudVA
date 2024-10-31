@@ -153,7 +153,7 @@ send_makefile:
 
 
 add_specs_to_profiling:
-	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv devices/gpu_specs.csv LoudPredictor/costs/agnostic/data.csv
+	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
 
 ### To be run on the Jetsons ###
 

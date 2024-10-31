@@ -289,12 +289,12 @@ performance_profiling: update_workers is_triton_running
 eval_LoudIntervalPredictor:
 	@echo "____Evaluating the Predictor____"
 	python3 LoudController/LoudPredictor/input/LoudIntervalPredictor.py --plot
-	python3 LoudController/LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudGenerator/event_log.csv --predictor_log LoudPredictor/input/interval_prediction_log.csv
+	python3 LoudController/LoudPredictor/input/eval/IntervalPredictionEvaluator.py --generator_log LoudController/LoudGenerator/event_log.csv --predictor_log LoudController/LoudPredictor/input/interval_prediction_log.csv
 
 eval_LoudFramePredictor:
 	@echo "____Evaluating the Predictor____"
-	python3 LoudController/LoudPredictor/input/LoudFramePredictor.py --log_filename LoudMonitor/frame_monitor_log.csv --plot
-	python3 LoudController/LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudPredictor/input/frame_prediction_log.csv
+	python3 LoudController/LoudPredictor/input/LoudFramePredictor.py --log_filename LoudController/LoudMonitor/frame_monitor_log.csv --plot
+	python3 LoudController/LoudPredictor/input/eval/FramePredictionEvaluator.py --actual_log_filename LoudController/LoudMonitor/frame_monitor_log.csv --prediction_log_filename LoudController/LoudPredictor/input/frame_prediction_log.csv
 
 eval_specific_LoudCostPredictors:
 	@echo "____Evaluating the Predictors____"

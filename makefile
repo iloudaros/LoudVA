@@ -1,5 +1,6 @@
 include .environment #for our credentials, making it easy to reuse and add to .gitignore
 ANSIBLE_DIRECTORY = ./ansible
+ANSIIBLE_PLAYBOOK_DIR = ${ANSIBLE_DIRECTORY}/playbooks
 ANSIBLE_OPTS = -f 6 -i ${ANSIBLE_DIRECTORY}/inventory.ini -e "ansible_become_pass=${PASS}"
 model=$(shell tr -d '\0' < /proc/device-tree/model)
 
@@ -8,7 +9,7 @@ model=$(shell tr -d '\0' < /proc/device-tree/model)
 
 
 playground:
-	mkdir -p ~/LoudVA/measurements/performance/$(shell date +'%Y-%m-%d_%H-%M-%S')
+	mkdir -p measurements/performance/$(shell date +'%Y-%m-%d_%H-%M-%S')
 
 
 
@@ -20,7 +21,7 @@ playground:
 
 sync_time: 
 	@echo "____Setting Correct Time and Date on Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/sync_time.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/sync_time.yaml
 
 print_time:
 	@echo "____What time is it?____"
@@ -28,19 +29,19 @@ print_time:
 
 download_triton:
 	@echo "____Downloading and Sending triton to the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/download_triton.yaml -u iloudaros
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/download_triton.yaml -u iloudaros
 
 install_dependecies:
 	@echo "____Installing Dependencies on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/install_dependencies.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/install_dependencies.yaml
 
 create_model_repository:
 	@echo "____Creating Model Directory on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/create_model_repository.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/create_model_repository.yaml
 
 clone_LoudVA:
 	@echo "____Cloning LoudVA to the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/clone_LoudVA.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/clone_LoudVA.yaml
 
 initialise_Jetsons: sync_time install_dependecies download_triton clone_LoudVA create_model_repository
 
@@ -86,15 +87,15 @@ controller_download_triton:
 
 install_tao:
 	@echo "____Installing TAO on The Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/install_tao.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/install_tao.yaml
 
 set_environment:
 	@echo "____Setting Environment Variables on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/set_environment.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/set_environment.yaml
 
 configure_triton:
 	@echo "____Enabling Dynamic Batching on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/configure_triton.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/configure_triton.yaml
 
 system_setup: initialise_Jetsons set_environment controller_setup
 
@@ -102,11 +103,11 @@ system_setup: initialise_Jetsons set_environment controller_setup
 
 update_workers:
 	@echo "____Updating the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/update_workers.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/update_workers.yaml
 
 print_flags:
 	@echo "____Printing Flags from the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/print_flags.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/print_flags.yaml
 
 ################################################
 
@@ -127,15 +128,15 @@ print_flags:
 ### To be run on the Controller ###
 start_triton: configure_triton
 	@echo "____Starting Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton.yaml 
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/start_triton.yaml 
 
 start_triton_gpumetrics:
 	@echo "____Starting Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/start_triton_gpumetrics.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/start_triton_gpumetrics.yaml
 
 stop_triton:
 	@echo "____Stopping Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/stop_triton.yaml
 
 start_LoudController:
 	@echo "____Starting LoudVA server____"
@@ -146,7 +147,7 @@ start_LoudVA: start_triton start_LoudController
 
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/reboot.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/reboot.yaml
 	@echo "Jetsons Rebooted"
 	@make sync_time
 
@@ -241,7 +242,7 @@ cat_nvpmodel:
 	cat /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
 
 watch_log:
-	watch -n 1 cat ~/LoudVA/measurements/log
+	watch -n 1 cat measurements/log
 
 jetpack_version:
 	sudo apt-cache show nvidia-jetpack
@@ -280,12 +281,12 @@ check_triton: is_triton_running
 	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "xavier-nx-01:✅")
 
 is_triton_running:
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/is_triton_running.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/is_triton_running.yaml
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/performance_profiling.yaml -u iloudaros
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/performance_profiling.yaml -u iloudaros
 	@echo "✅ : Performance Profiling Complete"
 	@curl \
 		-d "Performance Profiling complete" \
@@ -365,7 +366,7 @@ delete_LoudVA:
 
 delete_triton:
 	@echo "____Removing Triton from the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/delete_triton.yaml
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/delete_triton.yaml
 
 delete_flags:
 	@echo "____Deleting Flags from the Jetsons____"
@@ -377,5 +378,5 @@ clean: delete_LoudVA delete_triton
 	
 delete_measurements:
 	@echo "Deleting..."
-	@rm -r ~/LoudVA/measurements/*
-	@touch ~/LoudVA/measurements/.gitkeep
+	@rm -r measurements/*
+	@touch measurements/.gitkeep

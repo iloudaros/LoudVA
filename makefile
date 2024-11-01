@@ -44,8 +44,7 @@ clone_LoudVA:
 
 initialise_Jetsons: sync_time install_dependecies download_triton clone_LoudVA create_model_repository
 
-controller_setup: 
-	@echo "____Setting up LoudController on LoudGateway____"
+triton_client_dependencies:
 	@echo "Install Triton Client Dependencies..."
 	sudo apt-get install -y --no-install-recommends \
         curl \
@@ -57,19 +56,27 @@ controller_setup:
 	pip3 install --upgrade grpcio-tools numpy future attrdict pillow 
 	pip3 install --upgrade image six requests flake8
 	pip install protobuf==3.20
-	pip3 install flask
-
+		
+	@echo "Running python wheels for each version of Triton client..."
+	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
 	@echo "Creating directories for for each version of Triton client..."
 	mkdir -p ~/tritonserver2_19
 	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
 	mkdir -p ~/tritonserver2_34
 	tar zxvf ~/tritonserver2_34.tgz -C ~/tritonserver2_34
+
+LoudController_dependencies:
+	@echo "Installing Dependencies for LoudController..."
+	pip3 install flask gunicorn pandas matplotlib scikit-learn scipy xgboost
+
+controller_setup: triton_client_dependencies LoudController_dependencies
+
 	
-	@echo "Running python wheels for each version of Triton client..."
+
 	
-	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
-	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
+
 
 controller_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz

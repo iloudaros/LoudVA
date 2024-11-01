@@ -141,7 +141,7 @@ start_LoudController:
 	@echo "____Starting LoudVA server____"
 	@cd LoudVA && gunicorn -w 4 'LoudController:app'
 
-start_LoudVA: start_triton start_LoudVA_server
+start_LoudVA: start_triton start_LoudController
 	@echo "LoudVA Started"
 
 reboot_workers: stop_triton

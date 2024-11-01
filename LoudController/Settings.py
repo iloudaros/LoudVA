@@ -1,3 +1,4 @@
-maximum_batch_size = 200
-minimum_batch_size = 1
-maximum_latency = 1000
+max_batch_size = 200
+min_batch_size = 1
+max_latency = 1.0
+max_wait_time = 1.0

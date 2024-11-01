@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.
-
 import argparse
 from functools import partial
 import os

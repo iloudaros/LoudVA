@@ -56,16 +56,16 @@ triton_client_dependencies:
 	pip3 install --upgrade grpcio-tools numpy future attrdict pillow 
 	pip3 install --upgrade image six requests flake8
 	pip install protobuf==3.20
-		
-	@echo "Running python wheels for each version of Triton client..."
-	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
-	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
 	@echo "Creating directories for for each version of Triton client..."
 	mkdir -p ~/tritonserver2_19
 	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
 	mkdir -p ~/tritonserver2_34
 	tar zxvf ~/tritonserver2_34.tgz -C ~/tritonserver2_34
+
+	@echo "Running python wheels for each version of Triton client..."
+	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
+	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
 LoudController_dependencies:
 	@echo "Installing Dependencies for LoudController..."
@@ -137,9 +137,9 @@ stop_triton:
 	@echo "____Stopping Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_DIRECTORY}/stop_triton.yaml
 
-start_LoudVA_server:
+start_LoudController:
 	@echo "____Starting LoudVA server____"
-	@cd ~/LoudVA/LoudVA && gunicorn -w 4 'LoudVA:app'
+	@cd LoudVA && gunicorn -w 4 'LoudController:app'
 
 start_LoudVA: start_triton start_LoudVA_server
 	@echo "LoudVA Started"

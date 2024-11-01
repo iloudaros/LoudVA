@@ -1,39 +1,13 @@
 #!/usr/bin/env python
 # Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-#  * Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-#  * Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-#  * Neither the name of NVIDIA CORPORATION nor the names of its
-#    contributors may be used to endorse or promote products derived
-#    from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
-# EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-# PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
-# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
-# OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
 from functools import partial
 import os
 import sys
-
 from PIL import Image
 import numpy as np
 from attrdict import AttrDict
-
 import tritonclient.grpc as grpcclient
 import tritonclient.grpc.model_config_pb2 as mc
 import tritonclient.http as httpclient
@@ -56,9 +30,6 @@ class UserData:
 def completion_callback(user_data, result, error):
     # passing error raise and handling out
     user_data._completed_requests.put((result, error))
-
-
-FLAGS = None
 
 
 def parse_model(model_metadata, model_config):
@@ -144,8 +115,6 @@ def preprocess(img, format, dtype, c, h, w, scaling, protocol):
     Pre-process an image to meet the size, type and format
     requirements specified by the parameters.
     """
-    # np.set_printoptions(threshold='nan')
-
     if c == 1:
         sample_img = img.convert('L')
     else:
@@ -229,7 +198,7 @@ def convert_http_metadata_config(_metadata, _config):
     return _model_metadata, _model_config
 
 
-if __name__ == '__main__':
+def main(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('-v',
                         '--verbose',
@@ -297,10 +266,9 @@ if __name__ == '__main__':
                         'the inference service. Default is HTTP.')
     parser.add_argument('image_filename',
                         type=str,
-                        nargs='?',
-                        default=None,
+                        nargs='+',  # Allow multiple image filenames
                         help='Input image / Input folder.')
-    FLAGS = parser.parse_args()
+    FLAGS = parser.parse_args(args)  # Parse the passed arguments
 
     if FLAGS.streaming and FLAGS.protocol.lower() != "grpc":
         raise Exception("Streaming is only allowed with gRPC protocol")
@@ -346,16 +314,15 @@ if __name__ == '__main__':
         model_metadata, model_config)
 
     filenames = []
-    if os.path.isdir(FLAGS.image_filename):
-        filenames = [
-            os.path.join(FLAGS.image_filename, f)
-            for f in os.listdir(FLAGS.image_filename)
-            if os.path.isfile(os.path.join(FLAGS.image_filename, f))
-        ]
-    else:
-        filenames = [
-            FLAGS.image_filename,
-        ]
+    for image_filename in FLAGS.image_filename:
+        if os.path.isdir(image_filename):
+            filenames.extend([
+                os.path.join(image_filename, f)
+                for f in os.listdir(image_filename)
+                if os.path.isfile(os.path.join(image_filename, f))
+            ])
+        else:
+            filenames.append(image_filename)
 
     filenames.sort()
 
@@ -475,3 +442,7 @@ if __name__ == '__main__':
         postprocess(response, output_name, FLAGS.batch_size, max_batch_size > 0)
 
     print("PASS")
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:])

@@ -1,27 +1,38 @@
-import csv
 from collections import defaultdict
+import os
+import csv
 
 # Device class to store the device information
 class Device:
-    def __init__(self, name, ip, frequencies, batch_sizes, profiles):
+    def __init__(self, name, ip, frequencies, profile, gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
         self.name = name
         self.ip = ip
         self.frequencies = frequencies
-        self.batch_sizes = batch_sizes
-        self.profiles = profiles  # Dictionary of (freq, batch_size) -> (throughput, latency, energy)
+        self.profile = profile  # Dictionary of (freq, batch_size) -> (throughput, latency, energy)
         self.current_freq = min(frequencies)
-        self.current_batch_size = 1
         self.max_freq = max(frequencies)
         self.min_freq = min(frequencies)
-    
+        self.current_batch_size = None  # Initialize current_batch_size
+        
+        # GPU Specifications
+        self.gpu_max_freq = gpu_max_freq
+        self.gpu_min_freq = gpu_min_freq
+        self.architecture = architecture
+        self.num_cores = num_cores
+        self.memory_speed = memory_speed
+        self.dram = dram
+        self.shared_memory = shared_memory
+        self.memory_size = memory_size
+        self.tensor_cores = tensor_cores
+
     def get_latency(self, freq, batch_size):
-        return self.profiles[(freq, batch_size)][1]
+        return self.profile[(freq, batch_size)][1]
     
     def get_energy_consumption(self, freq, batch_size):
-        return self.profiles[(freq, batch_size)][2]
+        return self.profile[(freq, batch_size)][2]
     
     def get_throughput(self, freq, batch_size):
-        return self.profiles[(freq, batch_size)][0]
+        return self.profile[(freq, batch_size)][0]
 
     def set_frequency(self, freq):
         self.current_freq = freq
@@ -30,11 +41,38 @@ class Device:
         self.current_batch_size = size
 
 
+def initialize_devices():
+    # Get the path of this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Define the paths to the CSV files
+    agx_path = os.path.join(script_dir, '../measurements/archive/Representative/agx-xavier-00/measurements/agx-xavier-00_filtered_freqs.csv')
+    nx_path = os.path.join(script_dir, '../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv')
+    nano_path = os.path.join(script_dir, '../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv')
+    specs_path = os.path.join(script_dir, '../data/devices/gpu_specs.csv')
+
+    agx_dict = csv_to_dict(agx_path)
+    nx_dict = csv_to_dict(nx_path)
+    nano_dict = csv_to_dict(nano_path)
+    specs_dict = load_gpu_specs(specs_path)
+
+    # Declare the frequencies
+    nano_freqs = [76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
+    agx_freqs = [114750000, 216750000, 318750000, 420750000, 522750000, 624750000, 675750000, 828750000, 905250000, 1032750000, 1198500000, 1236750000, 1338750000, 1377000000]
+    nx_freqs = [114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 701250000, 752250000, 803250000, 854250000, 905250000, 956250000, 1007250000, 1058250000, 1109250000]
+
+    # Define the devices
+    devices = [
+        Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_dict, **specs_dict['AGX']),
+        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_dict, **specs_dict['NX']),
+        Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_dict, **specs_dict['NX']),
+        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_dict, **specs_dict['Nano']),
+        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_dict, **specs_dict['Nano']),
+        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_dict, **specs_dict['Nano'])
+    ]
+    return devices
 
 
-
-
-# Function to read the CSV file and convert it to a dictionary
 def csv_to_dict(file_path):
     # Initialize an empty dictionary to store the results
     result = defaultdict(list)
@@ -57,49 +95,42 @@ def csv_to_dict(file_path):
             latency = float(row[2])
             
             # Use (frequency, label) as the key and (throughput, latency, z) as the value
-            result[(frequency, batch_size)]=(throughput, latency, energy)
+            result[(frequency, batch_size)] = (throughput, latency, energy)
     
     return dict(result)
 
 
-
-
-
-
-
-
-# Collect dictionary data from the CSV files
-agx_path = '/home/louduser/LoudVA/measurements/archive/Representative/agx-xavier-00/measurements/agx-xavier-00_filtered_freqs.csv'
-nx_path = '/home/louduser/LoudVA/measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv'
-nano_path = '/home/louduser/LoudVA/measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv'
-
-agx_dict = csv_to_dict(agx_path)
-nx_dict = csv_to_dict(nx_path)
-nano_dict = csv_to_dict(nano_path)
-
-
-# Declare the frequencies
-nano_freqs = [76800000, 153600000, 230400000, 307200000, 384000000, 460800000, 537600000, 614400000, 691200000, 768000000, 844800000, 921600000] 
-agx_freqs = [ 114750000, 216750000, 318750000, 420750000, 522750000, 624750000, 675750000, 828750000, 905250000, 1032750000, 1198500000, 1236750000, 1338750000, 1377000000]
-nx_freqs = [ 114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 701250000, 752250000, 803250000, 854250000, 905250000, 956250000, 1007250000, 1058250000, 1109250000] 
-
-# Define the devices
-devices = [
-    Device('agx-xavier-00', '192.168.0.112', nano_freqs, [1, 2, 4, 8, 16, 32], agx_dict),
-    Device('xavier-nx-00', '192.168.0.110', nx_freqs, [1, 2, 4, 8, 16, 32], nx_dict),
-    Device('xavier-nx-01', '192.168.0.111', nx_freqs, [1, 2, 4, 8, 16, 32], nx_dict),
-    Device('LoudJetson0', '192.168.0.120', nano_freqs, [1, 2, 4, 8, 16, 32], nano_dict),
-    Device('LoudJetson1', '192.168.0.121', nano_freqs, [1, 2, 4, 8, 16, 32], nano_dict),
-    Device('LoudJetson2', '192.168.0.122', nano_freqs, [1, 2, 4, 8, 16, 32], nano_dict)
-    ]
+def load_gpu_specs(file_path):
+    specs = {}
+    with open(file_path, 'r') as csvfile:
+        csvreader = csv.DictReader(csvfile)
+        for row in csvreader:
+            device_type = row['Device']
+            specs[device_type] = {
+                'gpu_max_freq': float(row['GPU Max Frequency (MHz)']),
+                'gpu_min_freq': float(row['GPU Min Frequency (MHz)']),
+                'architecture': row['GPU Architecture'],
+                'num_cores': int(row['GPU Number of Cores']),
+                'memory_speed': float(row['Memory Speed (GB/s)']),
+                'dram': row['DRAM'] == 'Yes',
+                'shared_memory': row['Shared Memory'] == 'Yes',
+                'memory_size': float(row['Memory Size (GB)']),
+                'tensor_cores': int(row['Tensor Cores']) if row['Tensor Cores'] != 'N/A' else None
+            }
+    return specs
 
 
 if __name__ == '__main__':
+    devices = initialize_devices()
     print("Device data loaded successfully.")
     print("Devices:")
     for device in devices:
-        print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}, Batch Sizes: {device.batch_sizes}")
-        print(f"Profiles: {device.profiles}")
+        print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
+        print(f"Profile: {device.profile}")
         print(f"Current Frequency: {device.current_freq}, Current Batch Size: {device.current_batch_size}")
         print(f"Max Frequency: {device.max_freq}, Min Frequency: {device.min_freq}")
+        print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
+        print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
+        print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")
+        print(f"Memory Size: {device.memory_size} GB, Tensor Cores: {device.tensor_cores}")
         print("\n")

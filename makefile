@@ -283,6 +283,10 @@ check_triton: is_triton_running
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/is_triton_running.yaml
 
+check_triton_client:
+	@echo "____Checking Triton Client____"
+	@python3 LoudController/triton_client.py -m inception_graphdef -c 1 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP
+
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
@@ -363,6 +367,8 @@ measure_performance_and_power:
 delete_LoudVA:
 	@echo "____Deleting LoudVA from the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} Workers -a "rm -r /home/iloudaros/LoudVA" -u iloudaros --become
+	@echo "____Deleting Model Repository Flags from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "rm -r /ansible/flags/model_repository_installed.flag" -u iloudaros --become
 
 delete_triton:
 	@echo "____Removing Triton from the Jetsons____"

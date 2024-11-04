@@ -1,6 +1,7 @@
 ---
 - name: Install Triton dependencies
   hosts: Workers
+  gather_facts: no
 
   tasks:
 

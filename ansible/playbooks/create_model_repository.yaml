@@ -20,9 +20,7 @@
 
     # Download model repository in the tritonserver directory
     - name: Fetching Models
-      ansible.builtin.script: ../scripts/setup/fetch_models.sh
-      args:
-        chdir: /home/iloudaros/tritonserver
+      ansible.builtin.script: ../../scripts/setup/fetch_models.sh
       become: yes
       when : not flag.stat.exists
 

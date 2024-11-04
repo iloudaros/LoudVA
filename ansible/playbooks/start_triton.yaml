@@ -11,7 +11,7 @@
       register: triton_running
 
     - name: Run the shell script
-      ansible.builtin.script: ../scripts/shell/start_triton.sh
+      ansible.builtin.script: ../../scripts/shell/start_triton.sh
       become: yes
       when: not triton_running.stat.exists
 

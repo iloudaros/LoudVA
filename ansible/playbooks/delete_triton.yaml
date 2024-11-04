@@ -4,27 +4,18 @@
 
   tasks:
     
-    - name: Delete triton directory on the LoudJetsons
+    - name: Delete triton directory 
+      ansible.builtin.file:
+        path: '{{triton_install_dir}}/tritonserver'
+        state: absent 
+      become: yes
+
+    - name: Delete symlinks 
       ansible.builtin.file:
         path: /home/iloudaros/tritonserver
         state: absent 
       become: yes
-      when: inventory_hostname in groups['LoudJetsons']
-
-    - name: Delete triton directory on AGX and NX
-      ansible.builtin.file:
-        path: /mnt/sd_card/tritonserver
-        state: absent 
-      become: yes
-      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
-
-    - name: Delete symlink on AGX and NX
-      ansible.builtin.file:
-        path: /home/iloudaros/tritonserver
-        state: absent 
-      become: yes
-      when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
-
+  
     - name: Delete flag file
       ansible.builtin.file:
         path: /ansible/flags/triton_installed.flag

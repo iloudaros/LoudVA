@@ -20,7 +20,7 @@
             dest: ~/tritonserver2_19.tgz       
           async: 1000
           poll: 0
-          register: download
+          register: download2_19
 
         - name: Download Release 2.34
           delegate_to: localhost
@@ -28,86 +28,61 @@
           get_url:
             url: https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
             dest: ~/tritonserver2_34.tgz
+          async: 1000
+          poll: 0
+          register: download2_34
 
-        - name: Check on an async download of Release 2.19
+        - name: Wait for file downloads to complete
           delegate_to: localhost
           async_status:
-            jid: "{{ download.ansible_job_id }}"
+            jid: "{{ item.ansible_job_id }}"
           register: job_result
           until: job_result.finished
-          retries: 100
-          delay: 5
+          retries: 10
+          delay: 10
+          loop: 
+            - "{{ download2_19 }}"
+            - "{{ download2_34 }}"
+
+        - name: Triton Server Downloaded
+          debug:
+            msg: "Triton Server has been downloaded"
             
-        - name: Copy Release 2.19 to the LoudJetsons
+        - name: Copy Triton to the workers
           copy:
-            src: ~/tritonserver2_19.tgz
-            dest: ~/tritonserver.tgz
-          when: inventory_hostname in groups['LoudJetsons']
+            src: ~/tritonserver{{triton_version}}.tgz
+            dest: '{{triton_install_dir}}/tritonserver.tgz'
           register: copy
-
-        - name: Copy Release 2.34 to AGX and NX
-          copy:
-            src: ~/tritonserver2_34.tgz
-            dest: /mnt/sd_card/tritonserver.tgz
-          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
           become: yes
 
-        - name: Creates directory on LoudJetsons
-          ansible.builtin.file:
-            path: ~/tritonserver
+        - name: Ensure directory exists
+          file:
+            path: '{{triton_install_dir}}/tritonserver'
             state: directory
-          when: inventory_hostname in groups['LoudJetsons']
-
-        - name: Creates directory on AGX and NX
-          ansible.builtin.file:
-            path: /mnt/sd_card/tritonserver
-            state: directory
-          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
           become: yes
+
         
-        - name: Unarchive tritonserver.tgz on LoudJetsons 
+        - name: Unarchive tritonserver.tgz on the workers
           ansible.builtin.unarchive:
-            src: ~/tritonserver.tgz
-            dest: ~/tritonserver
+            src: '{{triton_install_dir}}/tritonserver.tgz'
+            dest: '{{triton_install_dir}}/tritonserver'
             remote_src: yes
-          when: inventory_hostname in groups['LoudJetsons']
-
-        - name: Unarchive tritonserver.tgz on AGX and NX 
-          ansible.builtin.unarchive:
-            src: /mnt/sd_card/tritonserver.tgz
-            dest: /mnt/sd_card/tritonserver
-            remote_src: yes
-          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
+          register: unarchive
           become: yes
 
-        - name: Delete tgz file on LoudJetsons
+        - name: Delete tgz file on workers
           ansible.builtin.file:
-            path: ~/tritonserver.tgz
+            path: '{{triton_install_dir}}/tritonserver.tgz'
             state: absent
-          when: inventory_hostname in groups['LoudJetsons']
-
-        - name: Delete tgz file on AGX and NX 
-          ansible.builtin.file:
-            path: /mnt/sd_card/tritonserver.tgz
-            state: absent 
-          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
           become: yes
 
-        - name: Create symlink on AGX and NX
+        - name: Create symlink on workers if install dir is different than /home/iloudaros
           ansible.builtin.file:
-            src: /mnt/sd_card/tritonserver/tritonserver
+            src: '{{triton_install_dir}}/tritonserver'
             dest: /home/iloudaros/tritonserver
             state: link
-          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
-          become: yes
-
-        - name: Create symlink for the client on AGX and NX
-          ansible.builtin.file:
-            src: /mnt/sd_card/tritonserver/clients
-            dest: /home/iloudaros/tritonserver/clients
-            state: link
-          when: inventory_hostname in groups['NX'] or inventory_hostname in groups['AGX']
-          become: yes
+          when: triton_install_dir != '/home/iloudaros'
+          become: yes 
 
       when: not flag.stat.exists
 

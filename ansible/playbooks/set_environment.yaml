@@ -1,6 +1,6 @@
 ---
 - name: Copy the environment to the Workers
-  hosts: NX
+  hosts: Workers
   gather_facts: no
 
   tasks:

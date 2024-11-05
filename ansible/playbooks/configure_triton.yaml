@@ -18,6 +18,7 @@
       line: "dynamic_batching {\n    max_queue_delay_microseconds: 100\n  }"
       state: present
     when: dynamic_batching.rc != 0
+    ignore_errors: yes
 
   - name: Set maximum batch size
     lineinfile:
@@ -26,3 +27,4 @@
       create: no
       line: "max_batch_size: {{ max_batch_size }}"
       state: present
+    ignore_errors: yes

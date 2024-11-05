@@ -241,8 +241,11 @@ edit_nvpmodel:
 cat_nvpmodel:
 	cat /etc/nvpmodel/nvpmodel_t210_jetson-nano.conf
 
-watch_log:
+watch_measurements_log:
 	watch -n 1 cat measurements/log
+
+watch_triton_log:
+	watch -n 1 cat ../tritonserver/triton.log
 
 jetpack_version:
 	sudo apt-cache show nvidia-jetpack

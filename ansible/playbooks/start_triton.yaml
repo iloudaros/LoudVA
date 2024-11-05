@@ -18,7 +18,7 @@
         --model-repository=./model_repository \
         --backend-directory=./{{ triton_backends_dir }} \
         --backend-config=tensorflow,version=2 \
-        > /home/iloudaros/tritonserver/triton_startup.log 2>&1"&
+        > /home/iloudaros/tritonserver/triton.log 2>&1"&
       args:
         executable: /bin/bash
       become: yes

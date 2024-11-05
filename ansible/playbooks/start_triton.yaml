@@ -5,15 +5,25 @@
   become: yes
 
   tasks: 
-    - name: Check if the triton server is already running
+    - name: Check if the Triton server is already running
       ansible.builtin.stat:
         path: /tmp/ansible/flags/triton_running.flag
       register: triton_running
 
-    - name: Run the shell script
-      ansible.builtin.script: ../../scripts/shell/start_triton.sh
+    - name: Start Triton server
+      shell: |
+        cd /home/iloudaros/tritonserver &&
+        screen -dmS triton bash -c \
+        "./{{ triton_binary }} \
+        --model-repository=./model_repository \
+        --backend-directory=./{{ triton_backends_dir }} \
+        --backend-config=tensorflow,version=2 \
+        > /home/iloudaros/tritonserver/triton_startup.log 2>&1"&
+      args:
+        executable: /bin/bash
       become: yes
       when: not triton_running.stat.exists
+
 
     - name: Wait for Triton to start
       wait_for:
@@ -27,16 +37,11 @@
       ansible.builtin.file:
         path: /tmp/ansible/flags
         state: directory
-      when: not triton_running.stat.exists
+      when: not triton_running.stat.exists and triton_started.elapsed < 120
 
     - name: Create a flag file to indicate that Triton is running
       ansible.builtin.file:
         path: /tmp/ansible/flags/triton_running.flag
         state: touch
-      when: not triton_running.stat.exists and triton_started.elapsed < 120  
+      when: not triton_running.stat.exists and triton_started.elapsed < 120
       ignore_errors: yes
-
-
-          
-
-          

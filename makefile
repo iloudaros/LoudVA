@@ -278,15 +278,25 @@ ping_workers:
 check_triton: is_triton_running
 	@echo "🔍 Starting Triton server checks on all Jetson devices..." && \
 	( \
-	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "✅ LoudJetson0: Triton server is running successfully." || echo "❌ LoudJetson0: Triton server check failed." & \
-	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "✅ LoudJetson1: Triton server is running successfully." || echo "❌ LoudJetson1: Triton server check failed." & \
-	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "✅ LoudJetson2: Triton server is running successfully." || echo "❌ LoudJetson2: Triton server check failed." & \
-	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "✅ agx-xavier-00: Triton server is running successfully." || echo "❌ agx-xavier-00: Triton server check failed." & \
-	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "✅ xavier-nx-00: Triton server is running successfully." || echo "❌ xavier-nx-00: Triton server check failed." & \
-	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "✅ xavier-nx-01: Triton server is running successfully." || echo "❌ xavier-nx-01: Triton server check failed." & \
-	wait \
+	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
+	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ0 || echo 0 > /tmp/LJ0 & \
+	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ1 || echo 0 > /tmp/LJ1 & \
+	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ2 || echo 0 > /tmp/LJ2 & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/AGX || echo 0 > /tmp/AGX & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX0 || echo 0 > /tmp/NX0 & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX1 || echo 0 > /tmp/NX1 & \
+	wait; \
+	if [ $$(cat /tmp/LJ0) -eq 1 ]; then echo "✅ LoudJetson0: Triton server is running successfully."; else echo "❌ LoudJetson0: Triton server check failed."; fi; \
+	if [ $$(cat /tmp/LJ1) -eq 1 ]; then echo "✅ LoudJetson1: Triton server is running successfully."; else echo "❌ LoudJetson1: Triton server check failed."; fi; \
+	if [ $$(cat /tmp/LJ2) -eq 1 ]; then echo "✅ LoudJetson2: Triton server is running successfully."; else echo "❌ LoudJetson2: Triton server check failed."; fi; \
+	if [ $$(cat /tmp/AGX) -eq 1 ]; then echo "✅ agx-xavier-00: Triton server is running successfully."; else echo "❌ agx-xavier-00: Triton server check failed."; fi; \
+	if [ $$(cat /tmp/NX0) -eq 1 ]; then echo "✅ xavier-nx-00: Triton server is running successfully."; else echo "❌ xavier-nx-00: Triton server check failed."; fi; \
+	if [ $$(cat /tmp/NX1) -eq 1 ]; then echo "✅ xavier-nx-01: Triton server is running successfully."; else echo "❌ xavier-nx-01: Triton server check failed."; fi; \
 	) && \
 	echo "🔍 Triton server checks completed."
+
+
+
 
 
 

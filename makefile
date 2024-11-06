@@ -276,12 +276,22 @@ ping_workers:
 
 
 check_triton: is_triton_running
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "LoudJetson0:✅") &
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "LoudJetson1:✅") &
-	@(python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "LoudJetson2:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "agx-xavier-00:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "xavier-nx-00:✅") &
-	@(python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "xavier-nx-01:✅")
+	@echo "🔍 Starting Triton server checks on all Jetson devices..." && \
+	( \
+	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP && echo "✅ LoudJetson0: Triton server is running successfully." || echo "❌ LoudJetson0: Triton server check failed." & \
+	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP && echo "✅ LoudJetson1: Triton server is running successfully." || echo "❌ LoudJetson1: Triton server check failed." & \
+	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP && echo "✅ LoudJetson2: Triton server is running successfully." || echo "❌ LoudJetson2: Triton server check failed." & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP && echo "✅ agx-xavier-00: Triton server is running successfully." || echo "❌ agx-xavier-00: Triton server check failed." & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP && echo "✅ xavier-nx-00: Triton server is running successfully." || echo "❌ xavier-nx-00: Triton server check failed." & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP && echo "✅ xavier-nx-01: Triton server is running successfully." || echo "❌ xavier-nx-01: Triton server check failed." & \
+	wait \
+	) && \
+	echo "🔍 Triton server checks completed."
+
+
+
+
+
 
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/is_triton_running.yaml

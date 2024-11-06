@@ -276,7 +276,7 @@ ping_workers:
 
 
 check_triton: is_triton_running
-	@echo "🔍 Starting Triton server checks on all Jetson devices..." && \
+	@echo "🔍 Sending an inference request to all Jetson devices..." && \
 	( \
 	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
 	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ0 || echo 0 > /tmp/LJ0 & \

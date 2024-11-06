@@ -74,11 +74,6 @@ LoudController_dependencies:
 
 controller_setup: triton_client_dependencies LoudController_dependencies
 
-	
-
-	
-
-
 controller_download_triton:
 	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
 	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver2_19.tgz	
@@ -110,6 +105,7 @@ print_flags:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/print_flags.yaml
 
 ################################################
+
 
 
 
@@ -159,7 +155,6 @@ send_makefile:
 	@echo "____Sending Makefile to the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
 
-
 add_specs_to_profiling:
 	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
 
@@ -168,8 +163,10 @@ add_specs_to_profiling:
 model:
 	@echo ${model}
 
+# Min and Max GPU Frequencies
 GPU_MIN_FREQ = 76800000 
 GPU_MAX_FREQ = 921600000
+
 change_gpu_freq:
 	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
 		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'; \
@@ -197,7 +194,6 @@ current_gpu_freq:
 		echo "This is not a Jetson"; \
 	fi
 
-	
 	@echo "Upper Boundary"
 	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
 		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq; \
@@ -266,6 +262,11 @@ check_api:
 
 
 
+
+
+
+
+
 ############### Tests and Checks ###############
 ### To be run on the Controller ###
 
@@ -273,7 +274,6 @@ check_api:
 ping_workers:
 	@echo "____Pinging the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} all -m ping
-
 
 check_triton: is_triton_running
 	@echo "🔍 Sending an inference request to all Jetson devices..." && \
@@ -294,14 +294,6 @@ check_triton: is_triton_running
 	if [ $$(cat /tmp/NX1) -eq 1 ]; then echo "✅ xavier-nx-01: Triton server is running successfully."; else echo "❌ xavier-nx-01: Triton server check failed."; fi; \
 	) && \
 	echo "🔍 Triton server checks completed."
-
-
-
-
-
-
-
-
 
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIIBLE_PLAYBOOK_DIR}/is_triton_running.yaml
@@ -376,6 +368,11 @@ measure_performance_and_power:
 	@bash scripts/shell/mean_median.sh measurements/power/power_measurement
 	@echo "Check measurements/power/power_measurement_stats for the power measurements"
 ################################################
+
+
+
+
+
 
 
 

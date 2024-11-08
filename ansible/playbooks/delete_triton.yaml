@@ -16,9 +16,15 @@
         state: absent 
       become: yes
   
-    - name: Delete flag file
+    - name: Delete flag file for triton
       ansible.builtin.file:
         path: /ansible/flags/triton_installed.flag
+        state: absent
+      become: yes
+
+    - name: Delete flag file for model repository
+      ansible.builtin.file:
+        path: /ansible/flags/model_repository_installed.flag
         state: absent
       become: yes
 

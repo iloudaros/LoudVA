@@ -77,5 +77,6 @@ def send_to_triton_server(ip, images, freq, batch_size):
     triton_client.main(args)
 
 # Start the batch manager in a separate thread
-def start_scheduler(max_latency=0.05, max_wait_time=1.0):
+def start_scheduler(max_latency=0.5, max_wait_time=1.0):
+    print("Starting scheduler...")
     threading.Thread(target=manage_batches, args=(max_latency, max_wait_time)).start()

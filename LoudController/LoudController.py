@@ -5,10 +5,6 @@ import time
 
 app = Flask(__name__)
 
-@app.route('/test/<string:name>', methods=['GET'])
-def test(name):
-    return f"Hello, {name}!"
-
 @app.route('/')
 def home():
     return "Welcome to LoudVA!"
@@ -16,8 +12,15 @@ def home():
 @app.route('/infer', methods=['POST'])
 def infer():
     image = request.get_json().get('image')
-    scheduler.request_queue.append((image, time.time()))
-    return jsonify({"status": "queued"})
+    request_id = str(time.time())
+    scheduler.request_queue.append((image, request_id))
+    
+    # Wait for the response to be available in the response dictionary
+    while request_id not in scheduler.response_dict:
+        time.sleep(0.01)
+    
+    response = scheduler.response_dict.pop(request_id)
+    return jsonify({"status": "completed", "response": response})
 
 if __name__ == '__main__':
     # Start the scheduler

@@ -256,10 +256,6 @@ jetpack_version:
 	sudo apt-cache show nvidia-jetpack
 	echo "Remember to check the linux version from https://docs.nvidia.com/jetson/archives/index.html"
 
-
-### To be run on the client ###
-check_api:
-	@curl 127.0.0.1:5000
 ################################################
 
 
@@ -278,11 +274,13 @@ check_api:
 
 ############### Tests and Checks ###############
 ### To be run on the Controller ###
-
-# ping the Jetsons
 ping_workers:
 	@echo "____Pinging the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} all -m ping
+
+check_LoudController:
+	@echo "____Checking LoudController____"
+	@curl -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!" && echo "✅ LoudController is running" || echo "❌ LoudController check failed"
 
 check_triton: is_triton_running
 	@echo "🔍 Sending an inference request to all Jetson devices..." && \
@@ -309,7 +307,12 @@ is_triton_running:
 
 check_triton_client:
 	@echo "____Checking Triton Client____"
-	@python3 LoudController/triton_client.py -m inception_graphdef -c 1 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP
+	@python3 LoudController/triton_client.py -m inception_graphdef -c 1 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP
+
+check_LoudVA: check_LoudController check_triton 
+	@echo "\n"
+	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
+	@echo "✅ : LoudVA is running"
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"

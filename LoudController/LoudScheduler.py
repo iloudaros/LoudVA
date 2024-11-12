@@ -8,6 +8,7 @@ devices = initialize_devices()
 
 # Request queue
 request_queue = []
+response_dict = {}  # Dictionary to store responses
 
 def select_best_device_config(devices, max_latency, batch_size):
     best_device = None
@@ -34,22 +35,25 @@ def manage_batches(max_latency, max_wait_time=1.0):
             max_batch_size = max(batch_sizes)
             for batch_size in sorted(set(batch_sizes), reverse=True):
                 if len(request_queue) >= batch_size:
-                    images, _ = zip(*request_queue[:batch_size])
+                    images, request_ids = zip(*request_queue[:batch_size])
                     request_queue[:] = request_queue[batch_size:]
 
                     best_device, best_freq = select_best_device_config(devices, max_latency, batch_size)
                     if best_device:
                         best_device.set_frequency(best_freq)
-                        threading.Thread(target=dispatch_request, args=(best_device, images)).start()
+                        threading.Thread(target=dispatch_request, args=(best_device, images, request_ids)).start()
 
         time.sleep(0.01)
 
-def dispatch_request(device, images):
+def dispatch_request(device, images, request_ids):
     batch_size = len(images)
     device.set_batch_size(batch_size)
     # Dispatch the batch to the device's Triton server using triton_client
     response = send_to_triton_server(device.ip, images, device.current_freq, batch_size)
-    # Handle the server response as needed
+    
+    # Store the server response in the response dictionary for each request_id
+    for request_id in request_ids:
+        response_dict[request_id] = response
 
 def send_to_triton_server(ip, images, freq, batch_size):
     # Use the triton_client to send images to the Triton server
@@ -74,7 +78,7 @@ def send_to_triton_server(ip, images, freq, batch_size):
     args.extend(images)
 
     # Call the triton_client's main function
-    triton_client.main(args)
+    return triton_client.main(args)  # Return the response directly
 
 # Start the batch manager in a separate thread
 def start_scheduler(max_latency=0.5, max_wait_time=1.0):

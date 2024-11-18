@@ -2,6 +2,7 @@ import time
 import threading
 from DeviceData import initialize_devices
 import triton_client  
+import Settings
 
 # Initialize devices
 devices = initialize_devices()
@@ -10,7 +11,7 @@ devices = initialize_devices()
 request_queue = []
 response_dict = {}  # Dictionary to store responses
 
-def select_best_device_config(devices, max_latency, batch_size):
+def select_best_device_config(devices, latency_constraint, batch_size):
     best_device = None
     best_freq = None
     min_energy = float('inf')
@@ -18,36 +19,43 @@ def select_best_device_config(devices, max_latency, batch_size):
     for device in devices:
         for freq in device.frequencies:
             latency = device.get_latency(freq, batch_size)
-            if latency <= max_latency:
+            if latency <= latency_constraint:
                 energy = device.get_energy_consumption(freq, batch_size)
                 if energy < min_energy:
                     min_energy = energy
                     best_device = device
                     best_freq = freq
 
+    if best_device:
+        print(f"Selected device: {best_device.name}, frequency: {best_freq}, batch size: {batch_size}")
     return best_device, best_freq
 
-def manage_batches(max_latency, max_wait_time=1.0):
+def manage_batches(max_wait_time=1.0):
     while True:
         if request_queue:
-            # Determine the largest batch size possible
+            # Process each request with its specific latency constraint
+            images, request_ids, latency_constraints = zip(*request_queue)
+            
+            # Determine the batch size based on the smallest latency constraint
             batch_sizes = [device.current_batch_size for device in devices]
-            max_batch_size = max(batch_sizes)
             for batch_size in sorted(set(batch_sizes), reverse=True):
                 if len(request_queue) >= batch_size:
-                    images, request_ids = zip(*request_queue[:batch_size])
-                    request_queue[:] = request_queue[batch_size:]
-
-                    best_device, best_freq = select_best_device_config(devices, max_latency, batch_size)
+                    # Find the minimum latency constraint in the batch
+                    min_latency_constraint = min(latency_constraints[:batch_size])
+                    
+                    # Select the best device configuration based on the minimum latency constraint
+                    best_device, best_freq = select_best_device_config(devices, min_latency_constraint, batch_size)
                     if best_device:
                         best_device.set_frequency(best_freq)
-                        threading.Thread(target=dispatch_request, args=(best_device, images, request_ids)).start()
+                        threading.Thread(target=dispatch_request, args=(best_device, images[:batch_size], request_ids[:batch_size])).start()
+                    
+                    # Remove processed requests from the queue
+                    request_queue[:] = request_queue[batch_size:]
 
         time.sleep(0.01)
 
 def dispatch_request(device, images, request_ids):
     batch_size = len(images)
-    device.set_batch_size(batch_size)
     # Dispatch the batch to the device's Triton server using triton_client
     response = send_to_triton_server(device.ip, images, device.current_freq, batch_size)
     
@@ -56,20 +64,15 @@ def dispatch_request(device, images, request_ids):
         response_dict[request_id] = response
 
 def send_to_triton_server(ip, images, freq, batch_size):
-    # Use the triton_client to send images to the Triton server
-    model_name = 'your_model_name'  # Replace with your actual model name
-    model_version = '1'  # Replace with your model version if needed
-    classes = 1  # Define the number of classes
-    scaling = 'NONE'  # Define the type of scaling
     url = f'{ip}:8000'  # Triton server URL
     
     # Prepare the arguments for the triton_client
     args = [
-        '--model-name', model_name,
-        '--model-version', model_version,
+        '--model-name', Settings.model_name,
+        '--model-version', Settings.model_version,
         '--batch-size', str(batch_size),
-        '--classes', str(classes),
-        '--scaling', scaling,
+        '--classes', Settings.number_of_classes,
+        '--scaling', Settings.scaling,
         '--url', url,
         '--protocol', 'HTTP'
     ]
@@ -81,6 +84,6 @@ def send_to_triton_server(ip, images, freq, batch_size):
     return triton_client.main(args)  # Return the response directly
 
 # Start the batch manager in a separate thread
-def start_scheduler(max_latency=0.5, max_wait_time=1.0):
+def start_scheduler(max_wait_time=1.0):
     print("Starting scheduler...")
-    threading.Thread(target=manage_batches, args=(max_latency, max_wait_time)).start()
+    threading.Thread(target=manage_batches, args=(max_wait_time,)).start()

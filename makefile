@@ -139,11 +139,18 @@ start_LoudController:
 	@echo "____Starting Control Node____"
 	@screen -dmS LoudController bash -c 'cd LoudController && gunicorn -w 4 "LoudController:app"'
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
+
+start_LoudController_no_gunicorn:
+	@echo "____Starting Control Node____"
+	@screen -dmS LoudController bash -c 'cd LoudController && python3 LoudController.py'
+	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 	
 stop_LoudController:
 	@echo "____Stopping Control Node____"
 	@screen -S LoudController -X quit
 	@echo "LoudController Stopped"
+
+restart_LoudController: stop_LoudController start_LoudController
 
 start: start_triton start_LoudController
 	@echo "LoudVA Started"

@@ -4,16 +4,13 @@ import csv
 
 # Device class to store the device information
 class Device:
-    def __init__(self, name, ip, frequencies, profile, gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
+    def __init__(self, name, ip, frequencies, profile,
+                gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
         self.name = name
         self.ip = ip
         self.frequencies = frequencies
         self.profile = profile  # Dictionary of (freq, batch_size) -> (throughput, latency, energy)
-        self.current_freq = min(frequencies)
-        self.max_freq = max(frequencies)
-        self.min_freq = min(frequencies)
-        self.current_batch_size = None  # Initialize current_batch_size
-        
+
         # GPU Specifications
         self.gpu_max_freq = gpu_max_freq
         self.gpu_min_freq = gpu_min_freq
@@ -24,6 +21,15 @@ class Device:
         self.shared_memory = shared_memory
         self.memory_size = memory_size
         self.tensor_cores = tensor_cores
+
+        # Calculate Max Batch Size from profile
+        self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()])
+
+        # Set the current frequency and batch size to the first frequency and batch size in the profile
+        self.current_freq = frequencies[4]
+        self.current_batch_size = 1
+
+
 
     def get_latency(self, freq, batch_size):
         return self.profile[(freq, batch_size)][1]
@@ -36,9 +42,6 @@ class Device:
 
     def set_frequency(self, freq):
         self.current_freq = freq
-    
-    def set_batch_size(self, size):
-        self.current_batch_size = size
 
 
 def initialize_devices():
@@ -51,9 +54,10 @@ def initialize_devices():
     nano_path = os.path.join(script_dir, '../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv')
     specs_path = os.path.join(script_dir, '../data/devices/gpu_specs.csv')
 
-    agx_dict = csv_to_dict(agx_path)
-    nx_dict = csv_to_dict(nx_path)
-    nano_dict = csv_to_dict(nano_path)
+    agx_profile = csv_to_dict(agx_path)
+    nx_profile = csv_to_dict(nx_path)
+    nano_profile = csv_to_dict(nano_path)
+
     specs_dict = load_gpu_specs(specs_path)
 
     # Declare the frequencies
@@ -63,12 +67,12 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_dict, **specs_dict['AGX']),
-        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_dict, **specs_dict['NX']),
-        Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_dict, **specs_dict['NX']),
-        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_dict, **specs_dict['Nano']),
-        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_dict, **specs_dict['Nano']),
-        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_dict, **specs_dict['Nano'])
+        Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
+        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
+        Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile, **specs_dict['NX']),
+        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, **specs_dict['Nano']),
+        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),
+        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, **specs_dict['Nano'])
     ]
     return devices
 
@@ -128,7 +132,7 @@ if __name__ == '__main__':
         print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
         print(f"Profile: {device.profile}")
         print(f"Current Frequency: {device.current_freq}, Current Batch Size: {device.current_batch_size}")
-        print(f"Max Frequency: {device.max_freq}, Min Frequency: {device.min_freq}")
+        print(f"Max Frequency: {device.gpu_max_freq}, Min Frequency: {device.gpu_min_freq}")
         print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
         print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
         print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")

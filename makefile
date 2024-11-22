@@ -140,11 +140,11 @@ start_LoudController:
 	@screen -dmS LoudController bash -c 'cd LoudController && gunicorn -w 4 "LoudController:app"'
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
-start_LoudController_no_gunicorn:
+start_LoudController_debug:
 	@echo "____Starting Control Node____"
-	@screen -dmS LoudController bash -c 'cd LoudController && python3 LoudController.py'
-	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
-	
+	cd LoudController && flask --app LoudController run --debug
+
+
 stop_LoudController:
 	@echo "____Stopping Control Node____"
 	@screen -S LoudController -X quit

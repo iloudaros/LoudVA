@@ -319,31 +319,22 @@ check_triton: is_triton_running
 
 check_WorkerController:
 	@echo "🔍 Sending a request to check if the Flask app is running on all specified hosts..." && \
-	URL0="http://192.168.0.120:5000/" && \
-	URL1="http://192.168.0.121:5000/" && \
-	URL2="http://192.168.0.122:5000/" && \
-	URL3="http://192.168.0.112:5000/" && \
-	URL4="http://192.168.0.110:5000/" && \
-	URL5="http://192.168.0.111:5000/" && \
-	TEMP0="/tmp/LJ0" && \
-	TEMP1="/tmp/LJ1" && \
-	TEMP2="/tmp/LJ2" && \
-	TEMP3="/tmp/AGX" && \
-	TEMP4="/tmp/NX0" && \
-	TEMP5="/tmp/NX1" && \
-	curl -s -o /dev/null -w "%{http_code}" $$URL0 > $$TEMP0 & \
-	curl -s -o /dev/null -w "%{http_code}" $$URL1 > $$TEMP1 & \
-	curl -s -o /dev/null -w "%{http_code}" $$URL2 > $$TEMP2 & \
-	curl -s -o /dev/null -w "%{http_code}" $$URL3 > $$TEMP3 & \
-	curl -s -o /dev/null -w "%{http_code}" $$URL4 > $$TEMP4 & \
-	curl -s -o /dev/null -w "%{http_code}" $$URL5 > $$TEMP5 & \
-	wait && \
-	if [ $$(cat $$TEMP0) -eq 200 ]; then echo "✅ LoudJetson0: Flask app is running successfully."; else echo "❌ LoudJetson0: Flask app check failed."; fi; \
-	if [ $$(cat $$TEMP1) -eq 200 ]; then echo "✅ LoudJetson1: Flask app is running successfully."; else echo "❌ LoudJetson1: Flask app check failed."; fi; \
-	if [ $$(cat $$TEMP2) -eq 200 ]; then echo "✅ LoudJetson2: Flask app is running successfully."; else echo "❌ LoudJetson2: Flask app check failed."; fi; \
-	if [ $$(cat $$TEMP3) -eq 200 ]; then echo "✅ agx-xavier-00: Flask app is running successfully."; else echo "❌ agx-xavier-00: Flask app check failed."; fi; \
-	if [ $$(cat $$TEMP4) -eq 200 ]; then echo "✅ xavier-nx-00: Flask app is running successfully."; else echo "❌ xavier-nx-00: Flask app check failed."; fi; \
-	if [ $$(cat $$TEMP5) -eq 200 ]; then echo "✅ xavier-nx-01: Flask app is running successfully."; else echo "❌ xavier-nx-01: Flask app check failed."; fi; \
+	( \
+	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
+	curl -s http://192.168.0.120:5000/ > /tmp/LJ0 & \
+	curl -s http://192.168.0.121:5000/ > /tmp/LJ1 & \
+	curl -s http://192.168.0.122:5000/ > /tmp/LJ2 & \
+	curl -s http://192.168.0.112:5000/ > /tmp/AGX & \
+	curl -s http://192.168.0.110:5000/ > /tmp/NX0 & \
+	curl -s http://192.168.0.111:5000/ > /tmp/NX1 & \
+	wait; \
+	if [ $$(cat /tmp/LJ0) = 'running' ]; then echo "✅ LoudJetson0: Flask app is running successfully."; else echo "❌ LoudJetson0: Flask app check failed."; fi; \
+	if [ $$(cat /tmp/LJ1) = 'running' ]; then echo "✅ LoudJetson1: Flask app is running successfully."; else echo "❌ LoudJetson1: Flask app check failed."; fi; \
+	if [ $$(cat /tmp/LJ2) = 'running' ]; then echo "✅ LoudJetson2: Flask app is running successfully."; else echo "❌ LoudJetson2: Flask app check failed."; fi; \
+	if [ $$(cat /tmp/AGX) = 'running' ]; then echo "✅ agx-xavier-00: Flask app is running successfully."; else echo "❌ agx-xavier-00: Flask app check failed."; fi; \
+	if [ $$(cat /tmp/NX0) = 'running' ]; then echo "✅ xavier-nx-00: Flask app is running successfully."; else echo "❌ xavier-nx-00: Flask app check failed."; fi; \
+	if [ $$(cat /tmp/NX1) = 'running' ]; then echo "✅ xavier-nx-01: Flask app is running successfully."; else echo "❌ xavier-nx-01: Flask app check failed."; fi; \
+	) && \
 	echo "🔍 Flask app checks completed."
 
 

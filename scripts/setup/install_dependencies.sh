@@ -50,3 +50,4 @@ echo ______Utilities______
 sudo apt install screen
 sudo apt install strace
 sudo pip3 install -U jetson-stats
+sudo pip3 install flask

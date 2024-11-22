@@ -1,0 +1,33 @@
+import requests
+
+def set_gpu_frequency(ip, frequency):
+    """
+    Sends an HTTP request to the Flask app to set the GPU frequency.
+
+    Args:
+        ip (str): The IP address of the Flask server.
+        frequency (int): The frequency to set for the GPU.
+
+    Returns:
+        dict: A dictionary containing the status code and response message.
+    """
+    url = f"http://{ip}:5000/set_gpu_freq/{frequency}"
+    try:
+        response = requests.get(url)
+        return {
+            'status_code': response.status_code,
+            'message': response.text
+        }
+    except requests.exceptions.RequestException as e:
+        return {
+            'status_code': None,
+            'message': str(e)
+        }
+
+# Example usage
+if __name__ == "__main__":
+    ip_address = "192.168.0.120"  # Replace with your Flask server's IP
+    frequency = '921600000'            # Replace with the desired frequency
+    print(f"Setting GPU frequency to {frequency} MHz on {ip_address}...")
+    result = set_gpu_frequency(ip_address, frequency)
+    print(f"Status Code: {result['status_code']}, Message: {result['message']}")

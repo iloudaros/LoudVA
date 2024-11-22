@@ -18,7 +18,7 @@
         --model-repository=./model_repository \
         --backend-directory=./{{ triton_backends_dir }} \
         --backend-config=tensorflow,version=2 \
-        > /home/iloudaros/tritonserver/triton.log 2>&1"&
+        > /home/iloudaros/tritonserver/triton.log 2>&1"
       args:
         executable: /bin/bash
       become: yes
@@ -28,7 +28,7 @@
     - name: Wait for Triton to start
       wait_for:
         port: 8000
-        timeout: 120
+        timeout: 180
         state: present
       register: triton_started
       when: not triton_running.stat.exists

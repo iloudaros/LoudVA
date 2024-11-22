@@ -195,7 +195,7 @@ def convert_http_metadata_config(_metadata, _config):
     return _model_metadata, _model_config
 
 
-def main(args):
+def inference(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('-v',
                         '--verbose',
@@ -442,4 +442,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    inference(sys.argv[1:])

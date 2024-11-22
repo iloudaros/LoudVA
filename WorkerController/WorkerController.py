@@ -11,7 +11,7 @@ def home():
 def set_gpu_freq(freq):
     try:
         # Execute the bash script with the provided frequency
-        result = subprocess.run(['../scripts/shell/set_gpu_freq.sh', str(freq)], capture_output=True, text=True, check=True)
+        result = subprocess.run(['sudo ../scripts/shell/set_gpu_freq.sh', str(freq)], capture_output=True, text=True, check=True)
         
         # Return the script's output
         return jsonify({"message": result.stdout}), 200

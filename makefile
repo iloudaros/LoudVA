@@ -141,7 +141,7 @@ start_LoudController:
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
 start_LoudController_debug:
-	@echo "____Starting Control Node____"
+	@echo "____Starting Control Node in debug mode____"
 	cd LoudController && flask --app LoudController run --debug
 
 stop_LoudController:
@@ -159,10 +159,10 @@ stop_WorkerController:
 	@echo "____Stopping Worker Controller____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_WorkerController.yaml
 
-start: start_triton start_LoudController start_WorkerController
+start: start_triton start_WorkerController start_LoudController 
 	@echo "LoudVA Started"
 
-stop: stop_triton stop_LoudController stop_WorkerController
+stop: stop_triton stop_WorkerController stop_LoudController 
 	@echo "LoudVA Stopped"
 
 reboot_workers: stop_triton
@@ -297,7 +297,7 @@ check_LoudController:
 	@echo "____Checking LoudController____"
 	@curl -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!" && echo "✅ LoudController is running" || echo "❌ LoudController check failed"
 
-check_triton: is_triton_running
+check_triton: 
 	@echo "🔍 Sending an inference request to all Jetson devices..." && \
 	( \
 	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
@@ -318,7 +318,7 @@ check_triton: is_triton_running
 	echo "🔍 Triton server checks completed."
 
 check_WorkerController:
-	@echo "🔍 Sending a request to check if the Flask app is running on all specified hosts..." && \
+	@echo "🔍 Sending a request to check if the WorkerController is running on all specified hosts..." && \
 	( \
 	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
 	curl -s http://192.168.0.120:5000/ > /tmp/LJ0 & \
@@ -328,14 +328,14 @@ check_WorkerController:
 	curl -s http://192.168.0.110:5000/ > /tmp/NX0 & \
 	curl -s http://192.168.0.111:5000/ > /tmp/NX1 & \
 	wait; \
-	if [ $$(cat /tmp/LJ0) = 'running' ]; then echo "✅ LoudJetson0: Flask app is running successfully."; else echo "❌ LoudJetson0: Flask app check failed."; fi; \
-	if [ $$(cat /tmp/LJ1) = 'running' ]; then echo "✅ LoudJetson1: Flask app is running successfully."; else echo "❌ LoudJetson1: Flask app check failed."; fi; \
-	if [ $$(cat /tmp/LJ2) = 'running' ]; then echo "✅ LoudJetson2: Flask app is running successfully."; else echo "❌ LoudJetson2: Flask app check failed."; fi; \
-	if [ $$(cat /tmp/AGX) = 'running' ]; then echo "✅ agx-xavier-00: Flask app is running successfully."; else echo "❌ agx-xavier-00: Flask app check failed."; fi; \
-	if [ $$(cat /tmp/NX0) = 'running' ]; then echo "✅ xavier-nx-00: Flask app is running successfully."; else echo "❌ xavier-nx-00: Flask app check failed."; fi; \
-	if [ $$(cat /tmp/NX1) = 'running' ]; then echo "✅ xavier-nx-01: Flask app is running successfully."; else echo "❌ xavier-nx-01: Flask app check failed."; fi; \
+	if [ $$(cat /tmp/LJ0) = 'running' ]; then echo "✅ LoudJetson0: WorkerController is running successfully."; else echo "❌ LoudJetson0: WorkerController check failed."; fi; \
+	if [ $$(cat /tmp/LJ1) = 'running' ]; then echo "✅ LoudJetson1: WorkerController is running successfully."; else echo "❌ LoudJetson1: WorkerController check failed."; fi; \
+	if [ $$(cat /tmp/LJ2) = 'running' ]; then echo "✅ LoudJetson2: WorkerController is running successfully."; else echo "❌ LoudJetson2: WorkerController check failed."; fi; \
+	if [ $$(cat /tmp/AGX) = 'running' ]; then echo "✅ agx-xavier-00: WorkerController is running successfully."; else echo "❌ agx-xavier-00: WorkerController check failed."; fi; \
+	if [ $$(cat /tmp/NX0) = 'running' ]; then echo "✅ xavier-nx-00: WorkerController is running successfully."; else echo "❌ xavier-nx-00: WorkerController check failed."; fi; \
+	if [ $$(cat /tmp/NX1) = 'running' ]; then echo "✅ xavier-nx-01: WorkerController is running successfully."; else echo "❌ xavier-nx-01: WorkerController check failed."; fi; \
 	) && \
-	echo "🔍 Flask app checks completed."
+	echo "🔍 WorkerController checks completed."
 
 
 

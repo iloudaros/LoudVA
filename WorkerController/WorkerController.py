@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Welcome to WorkerController!"
+    return "running"
 
 @app.route('/set_gpu_freq/<int:freq>', methods=['GET'])
 def set_gpu_freq(freq):

@@ -144,7 +144,6 @@ start_LoudController_debug:
 	@echo "____Starting Control Node____"
 	cd LoudController && flask --app LoudController run --debug
 
-
 stop_LoudController:
 	@echo "____Stopping Control Node____"
 	@screen -S LoudController -X quit
@@ -152,10 +151,19 @@ stop_LoudController:
 
 restart_LoudController: stop_LoudController start_LoudController
 
-start: start_triton start_LoudController
+start_WorkerController:
+	@echo "____Starting Worker Controller____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/start_WorkerController.yaml
+
+stop_WorkerController:
+	@echo "____Stopping Worker Controller____"
+	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_WorkerController.yaml
+
+start: start_triton start_LoudController start_WorkerController
 	@echo "LoudVA Started"
 
-stop: stop_triton stop_LoudController
+stop: stop_triton stop_LoudController stop_WorkerController
+	@echo "LoudVA Stopped"
 
 reboot_workers: stop_triton
 	@echo "____Rebooting the Jetsons____"
@@ -309,6 +317,37 @@ check_triton: is_triton_running
 	) && \
 	echo "🔍 Triton server checks completed."
 
+check_WorkerController:
+	@echo "🔍 Sending a request to check if the Flask app is running on all specified hosts..." && \
+	URL0="http://192.168.0.120:5000/" && \
+	URL1="http://192.168.0.121:5000/" && \
+	URL2="http://192.168.0.122:5000/" && \
+	URL3="http://192.168.0.112:5000/" && \
+	URL4="http://192.168.0.110:5000/" && \
+	URL5="http://192.168.0.111:5000/" && \
+	TEMP0="/tmp/LJ0" && \
+	TEMP1="/tmp/LJ1" && \
+	TEMP2="/tmp/LJ2" && \
+	TEMP3="/tmp/AGX" && \
+	TEMP4="/tmp/NX0" && \
+	TEMP5="/tmp/NX1" && \
+	curl -s -o /dev/null -w "%{http_code}" $$URL0 > $$TEMP0 & \
+	curl -s -o /dev/null -w "%{http_code}" $$URL1 > $$TEMP1 & \
+	curl -s -o /dev/null -w "%{http_code}" $$URL2 > $$TEMP2 & \
+	curl -s -o /dev/null -w "%{http_code}" $$URL3 > $$TEMP3 & \
+	curl -s -o /dev/null -w "%{http_code}" $$URL4 > $$TEMP4 & \
+	curl -s -o /dev/null -w "%{http_code}" $$URL5 > $$TEMP5 & \
+	wait && \
+	if [ $$(cat $$TEMP0) -eq 200 ]; then echo "✅ LoudJetson0: Flask app is running successfully."; else echo "❌ LoudJetson0: Flask app check failed."; fi; \
+	if [ $$(cat $$TEMP1) -eq 200 ]; then echo "✅ LoudJetson1: Flask app is running successfully."; else echo "❌ LoudJetson1: Flask app check failed."; fi; \
+	if [ $$(cat $$TEMP2) -eq 200 ]; then echo "✅ LoudJetson2: Flask app is running successfully."; else echo "❌ LoudJetson2: Flask app check failed."; fi; \
+	if [ $$(cat $$TEMP3) -eq 200 ]; then echo "✅ agx-xavier-00: Flask app is running successfully."; else echo "❌ agx-xavier-00: Flask app check failed."; fi; \
+	if [ $$(cat $$TEMP4) -eq 200 ]; then echo "✅ xavier-nx-00: Flask app is running successfully."; else echo "❌ xavier-nx-00: Flask app check failed."; fi; \
+	if [ $$(cat $$TEMP5) -eq 200 ]; then echo "✅ xavier-nx-01: Flask app is running successfully."; else echo "❌ xavier-nx-01: Flask app check failed."; fi; \
+	echo "🔍 Flask app checks completed."
+
+
+
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/is_triton_running.yaml
 
@@ -316,7 +355,7 @@ check_triton_client:
 	@echo "____Checking Triton Client____"
 	@python3 LoudController/triton_client.py -m inception_graphdef -c 1 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP
 
-check_LoudVA: check_LoudController check_triton 
+check_LoudVA: check_LoudController check_triton check_WorkerController
 	@echo "\n"
 	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
 	@echo "✅ : LoudVA is running"

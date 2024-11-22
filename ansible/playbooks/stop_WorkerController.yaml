@@ -1,0 +1,11 @@
+---
+- name: Stop WorkerController
+  hosts: Workers
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Stop the Flask app
+      shell: |
+        pkill -f "flask run"
+      ignore_errors: yes

@@ -1,0 +1,22 @@
+---
+- name: Start WorkerController
+  hosts: Workers
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Ensure the script is executable
+      file:
+        path: /home/iloudaros/LoudVA/scripts/shell/set_frequency.sh
+        mode: '0755'
+
+    - name: Install flask
+      pip:
+        name: flask
+        executable: pip3
+
+    - name: Start Flask app
+      shell: nohup flask run --host=0.0.0.0 --port=5000 &
+      args:
+        chdir: /home/iloudaros/LoudVA/WorkerController
+

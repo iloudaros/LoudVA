@@ -3,6 +3,10 @@ import subprocess
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def index():
+    return 'running'
+
 @app.route('/set_gpu_freq/<int:freq>', methods=['GET'])
 def set_gpu_freq(freq):
     try:

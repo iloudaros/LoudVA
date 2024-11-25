@@ -1,37 +1,40 @@
+import os
 import requests
-import base64
-import json
 
-# Path to the image you want to test
-image_path = '/home/louduser/LoudVA/data/images/brown_bear.jpg'
+# Define the server URL
+SERVER_URL = 'http://localhost:5000/inference'
 
-# URL of the LoudController API
-url = 'http://localhost:8000/infer'
-
-def load_image_as_base64(image_path):
-    """Load an image and encode it as a base64 string."""
-    with open(image_path, 'rb') as image_file:
-        return base64.b64encode(image_file.read()).decode('utf-8')
+# Define the path to the images directory
+IMAGES_DIR = '/home/louduser/LoudVA/data/images/'
 
 def test_inference():
-    # Load the image and encode it as base64
-    image_base64 = load_image_as_base64(image_path)
+    # Collect all image files in the directory
+    image_files = [f for f in os.listdir(IMAGES_DIR) if os.path.isfile(os.path.join(IMAGES_DIR, f))]
 
-    # Prepare the payload for the POST request
-    payload = json.dumps({
-        'image': image_path
-    })
+    if not image_files:
+        print("No images found in the directory.")
+        return
 
-    # Send the POST request to the LoudController
-    response = requests.post(url, data=payload, headers={'Content-Type': 'application/json'})
+    # Prepare the files for the POST request
+    files = [('images', open(os.path.join(IMAGES_DIR, image), 'rb')) for image in image_files]
 
-    # Print the response from the server
-    if response.status_code == 200:
-        print("Test Passed. Response from server:")
-        print(response.json())
-    else:
-        print(f"Test Failed. Status Code: {response.status_code}")
-        print(response.text)
+    # Define the latency constraint (optional)
+    latency_constraint = 0.8  
 
-if __name__ == "__main__":
+    # Make the POST request to the inference endpoint
+    try:
+        response = requests.post(SERVER_URL, files=files, data={'latency': latency_constraint})
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            print("Inference successful.")
+            print("Response:", response.json())
+        else:
+            print("Inference failed with status code:", response.status_code)
+            print("Response:", response.text)
+
+    except requests.exceptions.RequestException as e:
+        print("An error occurred while making the request:", e)
+
+if __name__ == '__main__':
     test_inference()

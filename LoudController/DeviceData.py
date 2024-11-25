@@ -1,11 +1,15 @@
 from collections import defaultdict
 import os
 import csv
+import worker_client
+import triton_client
+import Settings
+import logging
 
 # Device class to store the device information
 class Device:
     def __init__(self, name, ip, frequencies, profile,
-                gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
+                 gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
         self.name = name
         self.ip = ip
         self.frequencies = frequencies
@@ -26,23 +30,56 @@ class Device:
         self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()])
 
         # Set the current frequency and batch size to the first frequency and batch size in the profile
-        self.current_freq = frequencies[4]
+        self.__current_freq = frequencies[4]
         self.current_batch_size = 1
 
-
-
     def get_latency(self, freq, batch_size):
-        return self.profile[(freq, batch_size)][1]
-    
+        try:
+            return self.profile[(freq, batch_size)][1]
+        except KeyError:
+            logging.error(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            return float('inf')  # Return a high latency value as a fallback
+
     def get_energy_consumption(self, freq, batch_size):
-        return self.profile[(freq, batch_size)][2]
-    
+        try:
+            return self.profile[(freq, batch_size)][2]
+        except KeyError:
+            logging.error(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            return float('inf')  # Return a high energy value as a fallback
+
     def get_throughput(self, freq, batch_size):
-        return self.profile[(freq, batch_size)][0]
+        try:
+            return self.profile[(freq, batch_size)][0]
+        except KeyError:
+            logging.error(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
-        self.current_freq = freq
+        worker_client.set_gpu_frequency(self.ip, freq)
+        self.__current_freq = freq
 
+    def get_frequency(self):
+        return self.__current_freq
+
+    def inference(self, images, batch_size):
+        url = f'{self.ip}:8000'  # Triton server URL
+
+        # Prepare the arguments for the triton_client
+        args = [
+            '--model-name', Settings.model_name,
+            '--model-version', Settings.model_version,
+            '--batch-size', str(batch_size),
+            '--classes', Settings.number_of_classes,
+            '--scaling', Settings.scaling,
+            '--url', url,
+            '--protocol', 'HTTP'
+        ]
+
+        # Add image filenames to arguments
+        args.extend(images)
+
+        # Call the triton_client's main function
+        return triton_client.inference(args)  # Return the response directly
 
 def initialize_devices():
     # Get the path of this script
@@ -76,7 +113,6 @@ def initialize_devices():
     ]
     return devices
 
-
 def csv_to_dict(file_path):
     # Initialize an empty dictionary to store the results
     result = defaultdict(list)
@@ -103,7 +139,6 @@ def csv_to_dict(file_path):
     
     return dict(result)
 
-
 def load_gpu_specs(file_path):
     specs = {}
     with open(file_path, 'r') as csvfile:
@@ -122,7 +157,6 @@ def load_gpu_specs(file_path):
                 'tensor_cores': int(row['Tensor Cores']) if row['Tensor Cores'] != 'N/A' else None
             }
     return specs
-
 
 if __name__ == '__main__':
     devices = initialize_devices()

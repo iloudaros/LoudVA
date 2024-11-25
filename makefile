@@ -142,7 +142,7 @@ start_LoudController:
 
 start_LoudController_debug:
 	@echo "____Starting Control Node in debug mode____"
-	cd LoudController && flask --app LoudController run --debug
+	python3 LoudController/LoudController.py
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"

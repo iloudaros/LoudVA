@@ -2,19 +2,24 @@ import time
 import threading
 from collections import deque
 from DeviceData import initialize_devices
+from logging_config import setup_logging
 
 # Initialize devices
 devices = initialize_devices()
 
 # Request queue
-request_queue = deque()
+request_queue = deque() # Queue to store incoming requests
 response_dict = {}  # Dictionary to store responses
+
+# Configure logging
+logger = setup_logging()
 
 def select_best_device_config(devices, latency_constraint, batch_size):
     best_device = None
     best_freq = None
     min_energy = float('inf')
 
+    logger.debug("Selecting best device configuration")
     for device in devices:
         for freq in device.frequencies:
             latency = device.get_latency(freq, batch_size)
@@ -24,6 +29,11 @@ def select_best_device_config(devices, latency_constraint, batch_size):
                     min_energy = energy
                     best_device = device
                     best_freq = freq
+
+    if best_device:
+        logger.info(f"Selected device: {best_device.name} with frequency: {best_freq}")
+    else:
+        logger.warning("No suitable device configuration found")
 
     return best_device, best_freq
 
@@ -54,6 +64,8 @@ def manage_batches(max_wait_time=1.0):
 
 def dispatch_request(device, freq, images, request_ids):
     batch_size = len(images)
+    
+    logger.debug(f"Dispatching request to device {device.name} with frequency {freq} and batch size {batch_size}")
 
     # Set the GPU frequency on the device
     device.set_frequency(freq)
@@ -65,7 +77,10 @@ def dispatch_request(device, freq, images, request_ids):
     for request_id in request_ids:
         response_dict[request_id] = response
 
+    logger.info(f"Request dispatched and processed for IDs: {request_ids}")
+
+
 # Start the batch manager in a separate thread
 def start_scheduler(max_wait_time=1.0):
-    print("Starting scheduler...")
+    logger.info("Starting scheduler...")
     threading.Thread(target=manage_batches, args=(max_wait_time,), daemon=True).start()

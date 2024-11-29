@@ -4,7 +4,10 @@ import csv
 import worker_client
 import triton_client
 import Settings
-import logging
+from logging_config import setup_logging
+
+# Configure logger
+logger = setup_logging()
 
 # Device class to store the device information
 class Device:
@@ -37,26 +40,27 @@ class Device:
         try:
             return self.profile[(freq, batch_size)][1]
         except KeyError:
-            logging.error(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.warning(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
             return float('inf')  # Return a high latency value as a fallback
 
     def get_energy_consumption(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][2]
         except KeyError:
-            logging.error(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.warning(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
             return float('inf')  # Return a high energy value as a fallback
 
     def get_throughput(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][0]
         except KeyError:
-            logging.error(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.warning(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
         worker_client.set_gpu_frequency(self.ip, freq)
         self.__current_freq = freq
+        logger.info(f"Set frequency to {freq} for device {self.name}")
 
     def get_frequency(self):
         return self.__current_freq
@@ -79,6 +83,7 @@ class Device:
         args.extend(images)
 
         # Call the triton_client's main function
+        logger.debug(f"Running inference on device {self.name} with batch size {batch_size}")
         return triton_client.inference(args)  # Return the response directly
 
 def initialize_devices():
@@ -111,51 +116,62 @@ def initialize_devices():
         Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),
         Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, **specs_dict['Nano'])
     ]
+    logger.info("Devices initialized successfully")
     return devices
 
 def csv_to_dict(file_path):
     # Initialize an empty dictionary to store the results
     result = defaultdict(list)
 
-    # Open the CSV file
-    with open(file_path, 'r') as csvfile:
-        # Create a CSV reader object
-        csvreader = csv.reader(csvfile)
-        
-        # Skip the header
-        next(csvreader)
-        
-        # Iterate through each row in the CSV
-        for row in csvreader:
-            # Extract the frequency, label, throughput, and z from the row
-            frequency = int(row[4])
-            batch_size = int(row[3])
-            throughput = float(row[0])
-            energy = float(row[1])
-            latency = float(row[2])
+    try:
+        # Open the CSV file
+        with open(file_path, 'r') as csvfile:
+            # Create a CSV reader object
+            csvreader = csv.reader(csvfile)
             
-            # Use (frequency, label) as the key and (throughput, latency, z) as the value
-            result[(frequency, batch_size)] = (throughput, latency, energy)
+            # Skip the header
+            next(csvreader)
+            
+            # Iterate through each row in the CSV
+            for row in csvreader:
+                # Extract the frequency, label, throughput, and z from the row
+                frequency = int(row[4])
+                batch_size = int(row[3])
+                throughput = float(row[0])
+                energy = float(row[1])
+                latency = float(row[2])
+                
+                # Use (frequency, label) as the key and (throughput, latency, z) as the value
+                result[(frequency, batch_size)] = (throughput, latency, energy)
+        logger.info(f"Loaded profile from {file_path}")
     
+    except Exception as e:
+        logger.error(f"Failed to load profile from {file_path}: {e}")
     return dict(result)
+    
 
 def load_gpu_specs(file_path):
     specs = {}
-    with open(file_path, 'r') as csvfile:
-        csvreader = csv.DictReader(csvfile)
-        for row in csvreader:
-            device_type = row['Device']
-            specs[device_type] = {
-                'gpu_max_freq': float(row['GPU Max Frequency (MHz)']),
-                'gpu_min_freq': float(row['GPU Min Frequency (MHz)']),
-                'architecture': row['GPU Architecture'],
-                'num_cores': int(row['GPU Number of Cores']),
-                'memory_speed': float(row['Memory Speed (GB/s)']),
-                'dram': row['DRAM'] == 'Yes',
-                'shared_memory': row['Shared Memory'] == 'Yes',
-                'memory_size': float(row['Memory Size (GB)']),
-                'tensor_cores': int(row['Tensor Cores']) if row['Tensor Cores'] != 'N/A' else None
-            }
+    try:
+        with open(file_path, 'r') as csvfile:
+            csvreader = csv.DictReader(csvfile)
+            for row in csvreader:
+                device_type = row['Device']
+                specs[device_type] = {
+                    'gpu_max_freq': float(row['GPU Max Frequency (MHz)']),
+                    'gpu_min_freq': float(row['GPU Min Frequency (MHz)']),
+                    'architecture': row['GPU Architecture'],
+                    'num_cores': int(row['GPU Number of Cores']),
+                    'memory_speed': float(row['Memory Speed (GB/s)']),
+                    'dram': row['DRAM'] == 'Yes',
+                    'shared_memory': row['Shared Memory'] == 'Yes',
+                    'memory_size': float(row['Memory Size (GB)']),
+                    'tensor_cores': int(row['Tensor Cores']) if row['Tensor Cores'] != 'N/A' else None
+                }
+        logger.info(f"Loaded GPU specs from {file_path}")
+    except Exception as e:
+        logger.error(f"Failed to load GPU specs from {file_path}: {e}")
+
     return specs
 
 if __name__ == '__main__':

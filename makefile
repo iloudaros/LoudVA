@@ -349,7 +349,7 @@ check_triton_client:
 check_LoudVA: check_LoudController check_triton check_WorkerController
 	@echo "\n"
 	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
-	@echo "✅ : LoudVA is running"
+	@echo "Check Complete"
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"

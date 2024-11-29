@@ -1,4 +1,8 @@
 import requests
+from logging_config import setup_logging
+
+# Configure logging
+logger = setup_logging()
 
 def set_gpu_frequency(ip, frequency):
     """
@@ -11,14 +15,17 @@ def set_gpu_frequency(ip, frequency):
     Returns:
         dict: A dictionary containing the status code and response message.
     """
+
     url = f"http://{ip}:5000/set_gpu_freq/{frequency}"
     try:
         response = requests.get(url)
+        logger.info(f"Set GPU frequency to {frequency} on {ip}")
         return {
             'status_code': response.status_code,
             'message': response.text
         }
     except requests.exceptions.RequestException as e:
+        logger.error(f"Failed to set GPU frequency on {ip}: {e}")
         return {
             'status_code': None,
             'message': str(e)

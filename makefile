@@ -147,6 +147,7 @@ start_LoudController_debug:
 stop_LoudController:
 	@echo "____Stopping Control Node____"
 	@screen -S LoudController -X quit
+	@pkill gunicorn
 	@echo "LoudController Stopped"
 
 restart_LoudController: stop_LoudController start_LoudController

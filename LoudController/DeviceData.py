@@ -67,26 +67,27 @@ class Device:
 
     def inference(self, images, batch_size):
         url = f'{self.ip}:8000'  # Triton server URL
-
         # Prepare the arguments for the triton_client
-        args = [
-            '--model-name', Settings.model_name,
-            '--model-version', str(Settings.model_version),
-            '--batch-size', str(batch_size),
-            '--classes', str(Settings.number_of_classes),
-            '--scaling', Settings.scaling,
-            '--url', url,
-            '--protocol', 'HTTP'
-        ]
+        args = {
+            'image_sources': images,
+            'model_name': Settings.model_name,
+            'model_version': str(Settings.model_version),
+            'batch_size': batch_size,
+            'classes': Settings.number_of_classes,
+            'scaling': Settings.scaling,
+            'url': url,
+            'protocol': 'HTTP',
+            'verbose': False,  # Set to True if you want verbose logging
+            'async_set': False,
+            'streaming': False
+        }
 
-        # Add image filenames to arguments
-        args.extend(images)
         logger.debug(f"Image filenames added to arguments: {images}")
-
-
         # Call the triton_client's main function
         logger.debug(f"Running inference on device {self.name} with arguments: {args}")
-        return triton_client.inference(args)  # Return the response directly
+        return triton_client.inference(**args)  # Unpack the dictionary using **
+
+
 
 def initialize_devices():
     # Get the path of this script
@@ -111,8 +112,8 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        #Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
-        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
+        Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
+        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, **specs_dict['Nano']),
         Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),

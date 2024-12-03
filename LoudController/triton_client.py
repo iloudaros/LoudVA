@@ -237,6 +237,7 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
 
     # Preprocess the input sources into input data according to model requirements
     image_data = []
+
     for source in image_sources:
         try:
             if isinstance(source, FileStorage):
@@ -258,6 +259,15 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
             image_data.append(preprocess(img, format, dtype, c, h, w, scaling, protocol.lower()))
         except Exception as e:
             logger.error(f"Error processing image source {source}: {e}")
+
+    if not image_data:
+        logger.error("No valid images found for processing.")
+        return
+
+    # Ensure image_data is not empty before proceeding
+    if len(image_data) < batch_size:
+        logger.error("Not enough images to fill the batch size.")
+        return
 
     requests = []
     responses = []

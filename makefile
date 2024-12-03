@@ -295,9 +295,17 @@ ping_workers:
 
 check_LoudController:
 	@echo "____Checking LoudController____"
-	@curl -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!" && echo "✅ LoudController is running" || echo "❌ LoudController check failed"
+	@if curl -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!"; then \
+		echo "✅ LoudController is running on port 8000"; \
+	elif curl -s http://127.0.0.1:5000/ | grep -q "Welcome to LoudVA!"; then \
+		echo "✅ LoudController is running in Debug mode (port 5000)"; \
+	else \
+		echo "❌ LoudController check failed on both ports"; \
+	fi
+
 
 check_triton: 
+	@echo "____Checking Triton on the Jetsons____"
 	@echo "🔍 Sending an inference request to all Jetson devices..." && \
 	( \
 	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
@@ -318,6 +326,7 @@ check_triton:
 	echo "🔍 Triton server checks completed."
 
 check_WorkerController:
+	@echo "____Checking WorkerController____"
 	@echo "🔍 Sending a request to check if the WorkerController is running on all specified hosts..." && \
 	( \
 	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
@@ -346,8 +355,8 @@ check_triton_client:
 	@echo "____Checking Triton Client____"
 	@python3 LoudController/triton_client.py -m inception_graphdef -c 1 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP
 
-check_LoudVA: check_LoudController check_triton check_WorkerController
-	@echo "\n"
+check: check_LoudController check_triton check_triton_client check_WorkerController
+	@echo "\n🔍 Final Test : Test_LoudVA.py"
 	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
 	@echo "Check Complete"
 

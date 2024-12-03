@@ -19,7 +19,7 @@ def set_gpu_frequency(ip, frequency):
     url = f"http://{ip}:5000/set_gpu_freq/{frequency}"
     try:
         response = requests.get(url)
-        logger.info(f"Set GPU frequency to {frequency} on {ip}")
+        logger.debug(f"HTTP GET request sent to {url}")
         return {
             'status_code': response.status_code,
             'message': response.text

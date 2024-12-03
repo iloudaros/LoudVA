@@ -40,27 +40,27 @@ class Device:
         try:
             return self.profile[(freq, batch_size)][1]
         except KeyError:
-            logger.warning(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.debug(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
             return float('inf')  # Return a high latency value as a fallback
 
     def get_energy_consumption(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][2]
         except KeyError:
-            logger.warning(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.debug(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
             return float('inf')  # Return a high energy value as a fallback
 
     def get_throughput(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][0]
         except KeyError:
-            logger.warning(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.debug(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
         worker_client.set_gpu_frequency(self.ip, freq)
         self.__current_freq = freq
-        logger.info(f"Set frequency to {freq} for device {self.name}")
+        logger.info(f"Frequency change successful for device {self.name} to {freq}")
 
     def get_frequency(self):
         return self.__current_freq
@@ -71,9 +71,9 @@ class Device:
         # Prepare the arguments for the triton_client
         args = [
             '--model-name', Settings.model_name,
-            '--model-version', Settings.model_version,
+            '--model-version', str(Settings.model_version),
             '--batch-size', str(batch_size),
-            '--classes', Settings.number_of_classes,
+            '--classes', str(Settings.number_of_classes),
             '--scaling', Settings.scaling,
             '--url', url,
             '--protocol', 'HTTP'
@@ -81,9 +81,11 @@ class Device:
 
         # Add image filenames to arguments
         args.extend(images)
+        logger.debug(f"Image filenames added to arguments: {images}")
+
 
         # Call the triton_client's main function
-        logger.debug(f"Running inference on device {self.name} with batch size {batch_size}")
+        logger.debug(f"Running inference on device {self.name} with arguments: {args}")
         return triton_client.inference(args)  # Return the response directly
 
 def initialize_devices():
@@ -109,8 +111,8 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
-        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
+        #Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
+        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, **specs_dict['Nano']),
         Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),

@@ -10,12 +10,17 @@ import tritonclient.grpc.model_config_pb2 as mc
 import tritonclient.http as httpclient
 from tritonclient.utils import InferenceServerException
 from tritonclient.utils import triton_to_np_dtype
+from werkzeug.datastructures import FileStorage
+from logging_config import setup_logging
 
 if sys.version_info >= (3, 0):
     import queue
 else:
     import Queue as queue
 
+
+# Configure logging
+logger = setup_logging()
 
 class UserData:
 
@@ -166,7 +171,7 @@ def postprocess(results, output_name, batch_size, batching):
                 cls = "".join(chr(x) for x in result).split(':')
             else:
                 cls = result.split(':')
-            print("    {} ({}) = {}".format(cls[0], cls[1], cls[2]))
+            logger.debug("    {} ({}) = {}".format(cls[0], cls[1], cls[2]))
 
 
 def requestGenerator(batched_image_data, input_name, output_name, dtype, FLAGS):
@@ -282,7 +287,7 @@ def inference(args):
             triton_client = httpclient.InferenceServerClient(
                 url=FLAGS.url, verbose=FLAGS.verbose, concurrency=concurrency)
     except Exception as e:
-        print("client creation failed: " + str(e))
+        logger.error("client creation failed: " + str(e))
         sys.exit(1)
 
     # Make sure the model matches our requirements, and get some
@@ -291,14 +296,14 @@ def inference(args):
         model_metadata = triton_client.get_model_metadata(
             model_name=FLAGS.model_name, model_version=FLAGS.model_version)
     except InferenceServerException as e:
-        print("failed to retrieve the metadata: " + str(e))
+        logger.error("failed to retrieve the metadata: " + str(e))
         sys.exit(1)
 
     try:
         model_config = triton_client.get_model_config(
             model_name=FLAGS.model_name, model_version=FLAGS.model_version)
     except InferenceServerException as e:
-        print("failed to retrieve the config: " + str(e))
+        logger.error("failed to retrieve the config: " + str(e))
         sys.exit(1)
 
     if FLAGS.protocol.lower() == "grpc":
@@ -405,7 +410,7 @@ def inference(args):
                                             outputs=outputs))
 
         except InferenceServerException as e:
-            print("inference failed: " + str(e))
+            logger.error("inference failed: " + str(e))
             if FLAGS.streaming:
                 triton_client.stop_stream()
             sys.exit(1)
@@ -420,7 +425,7 @@ def inference(args):
                 (results, error) = user_data._completed_requests.get()
                 processed_count += 1
                 if error is not None:
-                    print("inference failed: " + str(error))
+                    logger.error("inference failed: " + str(error))
                     sys.exit(1)
                 responses.append(results)
     else:
@@ -435,10 +440,10 @@ def inference(args):
             this_id = response.get_response().id
         else:
             this_id = response.get_response()["id"]
-        print("Request {}, batch size {}".format(this_id, FLAGS.batch_size))
+        logger.info("Request {}, batch size {}".format(this_id, FLAGS.batch_size))
         postprocess(response, output_name, FLAGS.batch_size, max_batch_size > 0)
 
-    print("PASS")
+    logger.info("PASS")
 
 
 if __name__ == '__main__':

@@ -354,7 +354,7 @@ is_triton_running:
 
 check_triton_client:
 	@echo "____Checking Triton Client____"
-	@python3 LoudController/triton_client.py -m inception_graphdef -c 1 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP
+	@python3 LoudController/triton_client.py -m inception_graphdef -b 4 -c 1 -s INCEPTION data/images/ --url 192.168.0.111:8000 --protocol HTTP
 
 check: check_LoudController check_triton check_triton_client check_WorkerController
 	@echo "\n🔍 Final Test : Test_LoudVA.py"

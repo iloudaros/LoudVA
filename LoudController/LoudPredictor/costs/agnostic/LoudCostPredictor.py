@@ -8,7 +8,7 @@ import numpy as np
 class LoudCostPredictor:
     def __init__(self, data_path):
         self.data = pd.read_csv(data_path)
-        self.features = self.data[['Batch Size', 'Frequency', 'Throughput', 'GPU Max Frequency (MHz)',
+        self.features = self.data[['Batch Size', 'Frequency', 'GPU Max Frequency (MHz)',
                                    'GPU Min Frequency (MHz)', 'GPU Number of Cores', 'Memory Speed (GB/s)',
                                    'Memory Size (GB)', 'Tensor Cores']]
         self.target_energy = self.data['Energy']
@@ -23,7 +23,8 @@ class LoudCostPredictor:
             self.features, self.target_latency, test_size=test_size, random_state=random_state)
         return X_train, X_test, y_train_energy, y_test_energy, y_train_latency, y_test_latency
 
-    def train_models(self):
+    def train(self):
+        """Train the energy and latency prediction models."""
         X_train, _, y_train_energy, _, y_train_latency, _ = self.split_data()
         
         self.model_energy = XGBRegressor()
@@ -31,6 +32,7 @@ class LoudCostPredictor:
 
         self.model_latency = XGBRegressor()
         self.model_latency.fit(X_train, y_train_latency)
+        print("Models trained successfully.")
 
     def evaluate_models(self):
         _, X_test, _, y_test_energy, _, y_test_latency = self.split_data()
@@ -93,19 +95,17 @@ class LoudCostPredictor:
 
         return predicted_energy[0], predicted_latency[0]
 
-
 if __name__ == '__main__':
     data_path = 'data.csv'  # Path to your CSV file
     model = LoudCostPredictor(data_path)
     
-    model.train_models()
+    model.train()
     model.evaluate_models()
 
     # Example input for prediction
     input_features = {
         'Batch Size': 32,
         'Frequency': 1000000000,
-        'Throughput': 50,
         'GPU Max Frequency (MHz)': 1377000000,
         'GPU Min Frequency (MHz)': 76800000,
         'GPU Number of Cores': 64,
@@ -118,5 +118,3 @@ if __name__ == '__main__':
     print(f"Predicted Energy: {predicted_energy}, Predicted Latency: {predicted_latency}")
 
     model.plot_results()
-
-

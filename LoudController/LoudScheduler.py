@@ -3,9 +3,16 @@ import threading
 from collections import deque
 from DeviceData import initialize_devices
 from logging_config import setup_logging
+from LoudPredictor.costs.agnostic.LoudCostPredictor import LoudCostPredictor
+import Settings as settings
 
 # Initialize devices
 devices = initialize_devices()
+
+# Initialize and train the LoudCostPredictor
+if settings.use_prediction:
+    predictor = LoudCostPredictor('path/to/data.csv')
+    predictor.train()
 
 # Request queue
 request_queue = deque() # Queue to store incoming requests
@@ -22,17 +29,44 @@ def select_best_device_config(devices, latency_constraint, batch_size):
     best_device = None
     best_freq = None
     min_energy = float('inf')
-
+    
     logger.debug("Selecting best device configuration")
-    for device in devices:
-        for freq in device.frequencies:
-            latency = device.get_latency(freq, batch_size)
-            if latency <= latency_constraint:
-                energy = device.get_energy_consumption(freq, batch_size)
-                if energy < min_energy:
-                    min_energy = energy
+
+    if settings.use_prediction:
+        # Use LoudCostPredictor for decision making
+        predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/LoudCostPredictor.py')
+        predictor.train_models()
+
+        for device in devices:
+            for freq in device.frequencies:
+                # Predict energy and latency using the predictor
+                predicted_energy, predicted_latency = predictor.predict({
+                    'Batch Size': batch_size,
+                    'Frequency': freq,
+                    'GPU Max Frequency (MHz)': device.gpu_max_freq,
+                    'GPU Min Frequency (MHz)': device.gpu_min_freq,
+                    'GPU Number of Cores': device.num_cores,
+                    'Memory Speed (GB/s)': device.memory_speed,
+                    'Memory Size (GB)': device.memory_size,
+                    'Tensor Cores': device.tensor_cores
+                })
+
+                if predicted_latency <= latency_constraint and predicted_energy < min_energy:
+                    min_energy = predicted_energy
                     best_device = device
                     best_freq = freq
+
+    else:
+        # Use profiling data for decision making
+        for device in devices:
+            for freq in device.frequencies:
+                latency = device.get_latency(freq, batch_size)
+                if latency <= latency_constraint:
+                    energy = device.get_energy_consumption(freq, batch_size)
+                    if energy < min_energy:
+                        min_energy = energy
+                        best_device = device
+                        best_freq = freq
 
     if best_device:
         logger.info(f"Selected device: {best_device.name} with frequency: {best_freq}")

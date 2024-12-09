@@ -113,7 +113,7 @@ def initialize_devices():
     # Define the devices
     devices = [
         Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
-        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
+        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, **specs_dict['Nano']),
         Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),

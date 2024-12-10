@@ -162,6 +162,7 @@ def postprocess(results, output_name, batch_size, batching):
         raise Exception("expected {} results, got {}".format(
             batch_size, len(output_array)))
 
+    output = []
     # Include special handling for non-batching models
     for results in output_array:
         if not batching:
@@ -172,6 +173,9 @@ def postprocess(results, output_name, batch_size, batching):
             else:
                 cls = result.split(':')
             logger.info("{} ({}) = {}".format(cls[0], cls[1], cls[2]))
+            output.append(cls)
+
+    return output
 
 
 def requestGenerator(batched_image_data, input_name, output_name, dtype, model_name, model_version, classes, protocol="http"):
@@ -360,9 +364,11 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
         else:
             this_id = response.get_response()["id"]
         logger.info("Request {}, batch size {}".format(this_id, batch_size))
-        postprocess(response, output_name, batch_size, max_batch_size > 0)
+        output = postprocess(response, output_name, batch_size, max_batch_size > 0)
 
-    logger.debug("PASS")
+    logger.debug(output)
+
+    return output
 
 
 

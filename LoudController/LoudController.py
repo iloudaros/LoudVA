@@ -26,10 +26,11 @@ def inference():
 
         # Extract latency constraint from the request, default to a reasonable value if not provided
         latency_constraint = request.form.get('latency', type=float, default=settings.default_latency)
+        logger.info(f"Received inference request with latency constraint: {latency_constraint}")
+
 
         # Add the request to the scheduler's queue with the latency constraint
         scheduler.request_queue.append((images, request_id, latency_constraint))
-        logger.info(f"Received inference request with latency constraint: {latency_constraint}")
         
         # Wait for the response to be available in the response dictionary
         while request_id not in scheduler.response_dict:

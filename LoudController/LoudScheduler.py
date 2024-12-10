@@ -9,11 +9,6 @@ import Settings as settings
 # Initialize devices
 devices = initialize_devices()
 
-# Initialize and train the LoudCostPredictor
-if settings.use_prediction:
-    predictor = LoudCostPredictor('path/to/data.csv')
-    predictor.train()
-
 # Request queue
 request_queue = deque() # Queue to store incoming requests
 response_dict = {}  # Dictionary to store responses
@@ -25,6 +20,18 @@ response_lock = threading.Lock()
 # Configure logging
 logger = setup_logging()
 
+# Initialize and train the LoudCostPredictor
+if settings.use_prediction:
+    
+    predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
+    logger.info("Training the LoudCostPredictor...")
+    predictor.train()
+    logger.info("LoudCostPredictor training complete.")
+
+else:
+        logger.info("Using profiling data for decision making.")
+
+
 def select_best_device_config(devices, latency_constraint, batch_size):
     best_device = None
     best_freq = None
@@ -33,9 +40,6 @@ def select_best_device_config(devices, latency_constraint, batch_size):
     logger.debug("Selecting best device configuration")
 
     if settings.use_prediction:
-        # Use LoudCostPredictor for decision making
-        predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/LoudCostPredictor.py')
-        predictor.train_models()
 
         for device in devices:
             for freq in device.frequencies:
@@ -121,7 +125,7 @@ def dispatch_request(device, freq, images, request_ids):
     with response_lock:
         for request_id in request_ids:
             response_dict[request_id] = response
-    logger.info(f"Request dispatched and processed for IDs: {request_ids}")
+    logger.info(f"Response stored in the response dictionary for request IDs: {request_ids}")
 
 
 # Start the batch manager in a separate thread

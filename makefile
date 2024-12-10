@@ -313,7 +313,7 @@ check_triton:
 	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.120:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ0 || echo 0 > /tmp/LJ0 & \
 	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.121:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ1 || echo 0 > /tmp/LJ1 & \
 	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ2 || echo 0 > /tmp/LJ2 & \
-	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.112:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/AGX || echo 0 > /tmp/AGX & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 147.102.37.108:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/AGX || echo 0 > /tmp/AGX & \
 	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX0 || echo 0 > /tmp/NX0 & \
 	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX1 || echo 0 > /tmp/NX1 & \
 	wait; \
@@ -331,19 +331,19 @@ check_WorkerController:
 	@echo "🔍 Sending a request to check if the WorkerController is running on all specified hosts..." && \
 	( \
 	rm -f /tmp/LJ0 /tmp/LJ1 /tmp/LJ2 /tmp/AGX /tmp/NX0 /tmp/NX1; \
-	curl -s http://192.168.0.120:5000/ > /tmp/LJ0 & \
-	curl -s http://192.168.0.121:5000/ > /tmp/LJ1 & \
-	curl -s http://192.168.0.122:5000/ > /tmp/LJ2 & \
-	curl -s http://192.168.0.112:5000/ > /tmp/AGX & \
-	curl -s http://192.168.0.110:5000/ > /tmp/NX0 & \
-	curl -s http://192.168.0.111:5000/ > /tmp/NX1 & \
+	curl -s --max-time 2 http://192.168.0.120:5000/ > /tmp/LJ0 & \
+	curl -s --max-time 2 http://192.168.0.121:5000/ > /tmp/LJ1 & \
+	curl -s --max-time 2 http://192.168.0.122:5000/ > /tmp/LJ2 & \
+	curl -s --max-time 2 http://147.102.37.108:5000/ > /tmp/AGX & \
+	curl -s --max-time 2 http://192.168.0.110:5000/ > /tmp/NX0 & \
+	curl -s --max-time 2 http://192.168.0.111:5000/ > /tmp/NX1 & \
 	wait; \
-	if [ $$(cat /tmp/LJ0) = 'running' ]; then echo "✅ LoudJetson0: WorkerController is running successfully."; else echo "❌ LoudJetson0: WorkerController check failed."; fi; \
-	if [ $$(cat /tmp/LJ1) = 'running' ]; then echo "✅ LoudJetson1: WorkerController is running successfully."; else echo "❌ LoudJetson1: WorkerController check failed."; fi; \
-	if [ $$(cat /tmp/LJ2) = 'running' ]; then echo "✅ LoudJetson2: WorkerController is running successfully."; else echo "❌ LoudJetson2: WorkerController check failed."; fi; \
-	if [ $$(cat /tmp/AGX) = 'running' ]; then echo "✅ agx-xavier-00: WorkerController is running successfully."; else echo "❌ agx-xavier-00: WorkerController check failed."; fi; \
-	if [ $$(cat /tmp/NX0) = 'running' ]; then echo "✅ xavier-nx-00: WorkerController is running successfully."; else echo "❌ xavier-nx-00: WorkerController check failed."; fi; \
-	if [ $$(cat /tmp/NX1) = 'running' ]; then echo "✅ xavier-nx-01: WorkerController is running successfully."; else echo "❌ xavier-nx-01: WorkerController check failed."; fi; \
+	if [ -s /tmp/LJ0 ] && [ $$(cat /tmp/LJ0) = 'running' ]; then echo "✅ LoudJetson0: WorkerController is running successfully."; else echo "❌ LoudJetson0: WorkerController check failed."; fi; \
+	if [ -s /tmp/LJ1 ] && [ $$(cat /tmp/LJ1) = 'running' ]; then echo "✅ LoudJetson1: WorkerController is running successfully."; else echo "❌ LoudJetson1: WorkerController check failed."; fi; \
+	if [ -s /tmp/LJ2 ] && [ $$(cat /tmp/LJ2) = 'running' ]; then echo "✅ LoudJetson2: WorkerController is running successfully."; else echo "❌ LoudJetson2: WorkerController check failed."; fi; \
+	if [ -s /tmp/AGX ] && [ $$(cat /tmp/AGX) = 'running' ]; then echo "✅ agx-xavier-00: WorkerController is running successfully."; else echo "❌ agx-xavier-00: WorkerController check failed."; fi; \
+	if [ -s /tmp/NX0 ] && [ $$(cat /tmp/NX0) = 'running' ]; then echo "✅ xavier-nx-00: WorkerController is running successfully."; else echo "❌ xavier-nx-00: WorkerController check failed."; fi; \
+	if [ -s /tmp/NX1 ] && [ $$(cat /tmp/NX1) = 'running' ]; then echo "✅ xavier-nx-01: WorkerController is running successfully."; else echo "❌ xavier-nx-01: WorkerController check failed."; fi; \
 	) && \
 	echo "🔍 WorkerController checks completed."
 

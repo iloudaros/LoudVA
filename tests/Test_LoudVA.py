@@ -1,8 +1,30 @@
 import os
 import requests
 
-# Define the server URL
-SERVER_URL = 'http://localhost:5000/inference'
+# Check if the server is running on any of the specified URLs
+SERVER_URLS = ['http://localhost:5000/', 'http://localhost:8000/']
+respones = []
+server_is_active = False
+
+for server_url in SERVER_URLS:
+    try:
+        response = requests.get(server_url)
+        respones.append(response)
+    except requests.exceptions.RequestException as e:
+        respones.append(e)
+
+for response in respones:
+    if isinstance(response, requests.models.Response):
+        print("Server is running on port:", response.url)
+        active_url = response.url
+        server_is_active = True
+
+if not server_is_active:
+    print("No server is running. Exiting the test.")
+    exit()
+
+# Define the server URL as the one that is running
+SERVER_URL = active_url + 'inference'
 
 # Define the path to the images directory
 IMAGES_DIR = '/home/louduser/LoudVA/data/images/'

@@ -58,9 +58,13 @@ class Device:
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
-        worker_client.set_gpu_frequency(self.ip, freq)
+        response = worker_client.set_gpu_frequency(self.ip, freq)
         self.__current_freq = freq
-        logger.info(f"Frequency change successful for device {self.name} to {freq}")
+
+        if response['status_code'] == 200:
+            logger.info(f"Frequency set to {freq} MHz on {self.name}")
+        else:
+            logger.error(f"Failed to set frequency on {self.name}: {response['message']}")
 
     def get_frequency(self):
         return self.__current_freq
@@ -85,7 +89,9 @@ class Device:
         logger.debug(f"Image filenames added to arguments: {images}")
         # Call the triton_client's main function
         logger.debug(f"Running inference on device {self.name} with arguments: {args}")
-        return triton_client.inference(**args)  # Unpack the dictionary using **
+        response = triton_client.inference(**args)
+        logger.debug(f"Response from Triton server: {response}")
+        return response
 
 
 
@@ -112,8 +118,8 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '192.168.0.112', agx_freqs, agx_profile, **specs_dict['AGX']),
-        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
+        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, **specs_dict['AGX']),
+        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile, **specs_dict['NX']),
         Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, **specs_dict['Nano']),
         Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),

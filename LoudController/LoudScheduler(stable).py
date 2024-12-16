@@ -32,7 +32,7 @@ else:
         logger.info("Using profiling data for decision making.")
 
 
-def select_best_device_config(devices, latency_constraint, queue_size):
+def select_best_device_config(devices, latency_constraint):
     """
     Selects the best device configuration based on latency constraints and energy consumption.
     If no configuration meets the constraints, returns the closest match.
@@ -59,7 +59,7 @@ def select_best_device_config(devices, latency_constraint, queue_size):
         # Use prediction model to estimate energy and latency
         for device in devices:
             for freq in device.frequencies:
-                for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
+                for batch_size in range(1, device.max_batch_size + 1):
                     # Predict energy and latency for the current configuration
                     predicted_energy, predicted_latency = predictor.predict({
                         'Batch Size': batch_size,
@@ -89,7 +89,7 @@ def select_best_device_config(devices, latency_constraint, queue_size):
         # Use profiling data for decision making
         for device in devices:
             for freq in device.frequencies:
-                for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
+                for batch_size in range(1, device.max_batch_size + 1):
                     # Get latency and energy from profiling data
                     latency = device.get_latency(freq, batch_size)
                     energy = device.get_energy_consumption(freq, batch_size)
@@ -126,46 +126,29 @@ def manage_batches(max_wait_time=1.0):
             if request_queue:
                 logger.debug(f"Queue: {request_queue}")
 
-                # Flatten the queue to handle multiple images per request
-                all_images = []
-                all_request_ids = []
-                latency_constraints = []
-
-                for images, request_id, latency_constraint in request_queue:
-                    all_images.extend(images)  # Add all images from the request
-                    all_request_ids.extend([request_id] * len(images))  # Associate each image with the request ID
-                    latency_constraints.append(latency_constraint)  # Add the latency constraint
-
-                logger.debug(f"Flattened queue: {all_images}")
-                logger.debug(f"Request IDs: {all_request_ids}")
-                logger.debug(f"Latency constraints: {latency_constraints}")
-                logger.debug(f"Queue size: {len(all_images)}")
-
+                # Extract request details
+                images, request_ids, latency_constraints = zip(*request_queue)
 
                 # Determine the minimum latency constraint in the queue
                 min_latency_constraint = min(latency_constraints)
 
                 # Select the best device configuration and batch size
-                best_device, best_freq, best_batch_size = select_best_device_config(devices, min_latency_constraint, len(all_images))
+                best_device, best_freq, best_batch_size = select_best_device_config(devices, min_latency_constraint)
 
                 if best_device and best_batch_size > 0:
                     # Prepare the batch for dispatch
-                    batch_images = all_images[:best_batch_size]
-                    batch_request_ids = all_request_ids[:best_batch_size]
+                    batch_images = images[:best_batch_size]
+                    batch_request_ids = request_ids[:best_batch_size]
 
                     # Dispatch the request
-                    threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images, batch_request_ids)).start()
+                    threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images[0], batch_request_ids)).start()
 
                     # Remove processed requests from the queue
-                    processed_requests = 0
-                    for images, request_id, _ in request_queue:
-                        if processed_requests + len(images) <= best_batch_size:
-                            processed_requests += len(images)
-                            request_queue.popleft()
-                        else:
-                            break
-                            
+                    for _ in range(best_batch_size):
+                        request_queue.popleft()
+
         time.sleep(0.01)  # Sleep briefly to reduce CPU usage
+
 
 
 
@@ -192,4 +175,3 @@ def dispatch_request(device, freq, images, request_ids):
 def start_scheduler(max_wait_time=1.0):
     logger.info("Starting scheduler...")
     threading.Thread(target=manage_batches, args=(max_wait_time,), daemon=True).start()
-

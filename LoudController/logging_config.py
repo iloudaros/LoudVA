@@ -1,7 +1,7 @@
 import logging
 import logging.handlers
 
-def setup_logging(log_level=logging.DEBUG):
+def setup_logging(log_level=logging.INFO):
     # Create a custom logger
     logger = logging.getLogger('LoudVA')
     if not logger.handlers:
@@ -16,8 +16,8 @@ def setup_logging(log_level=logging.DEBUG):
         f_handler.setLevel(log_level)
 
         # Create formatters and add them to handlers
-        c_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        c_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - [%(module)s] - %(message)s')
+        f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - [%(module)s] - %(message)s')
         c_handler.setFormatter(c_format)
         f_handler.setFormatter(f_format)
 

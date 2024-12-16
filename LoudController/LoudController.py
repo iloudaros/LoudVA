@@ -22,10 +22,12 @@ def inference():
             return jsonify({"status": "error", "message": "No file part"}), 400
 
         images = request.files.getlist('images')
+        logger.debug(f"Received inference request: {images}")
         request_id = str(time.time())
 
         # Extract latency constraint from the request, default to a reasonable value if not provided
         latency_constraint = request.form.get('latency', type=float, default=settings.default_latency)
+
         logger.info(f"Received inference request with latency constraint: {latency_constraint}")
 
 

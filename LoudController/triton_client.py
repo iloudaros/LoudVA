@@ -243,6 +243,7 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
     image_data = []
 
     for source in image_sources:
+        logger.debug(f"Processing image source: {source}")
         try:
             if isinstance(source, FileStorage):
                 source.stream.seek(0)  # Ensure the stream is at the start
@@ -358,17 +359,19 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
             for async_request in async_requests:
                 responses.append(async_request.get_result())
 
+    all_results = []
     for response in responses:
         if protocol.lower() == "grpc":
             this_id = response.get_response().id
         else:
             this_id = response.get_response()["id"]
         logger.info("Request {}, batch size {}".format(this_id, batch_size))
-        output = postprocess(response, output_name, batch_size, max_batch_size > 0)
+        all_results.append(postprocess(response, output_name, batch_size, max_batch_size > 0))
 
-    logger.debug(output)
+    logger.debug("PASS")
+    return all_results
 
-    return output
+
 
 
 

@@ -146,8 +146,8 @@ start_LoudController_debug:
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"
-	@screen -S LoudController -X quit
-	@pkill gunicorn
+	screen -S LoudController -X quit
+	pkill gunicorn
 	@echo "LoudController Stopped"
 
 restart_LoudController: stop_LoudController start_LoudController
@@ -296,9 +296,9 @@ ping_workers:
 
 check_LoudController:
 	@echo "____Checking LoudController____"
-	@if curl -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!"; then \
+	@if curl --max-time 2 -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!"; then \
 		echo "✅ LoudController is running on port 8000"; \
-	elif curl -s http://127.0.0.1:5000/ | grep -q "Welcome to LoudVA!"; then \
+	elif curl --max-time 2 -s http://127.0.0.1:5000/ | grep -q "Welcome to LoudVA!"; then \
 		echo "✅ LoudController is running in Debug mode (port 5000)"; \
 	else \
 		echo "❌ LoudController check failed on both ports"; \

@@ -41,7 +41,7 @@ def test_inference():
     files = [('images', open(os.path.join(IMAGES_DIR, image), 'rb')) for image in image_files]
 
     # Define the latency constraint (optional)
-    latency_constraint = 0.8  
+    latency_constraint = 4
 
     # Make the POST request to the inference endpoint
     try:
@@ -50,7 +50,11 @@ def test_inference():
         # Check if the request was successful
         if response.status_code == 200:
             print("Inference successful.")
-            print("Response:", response.json())
+            response_json = response.json()
+            print("Response:", response_json)
+            # Verify that the response contains results for all images
+            assert len(response_json['response'][0]) == len(image_files), "Mismatch in number of results"
+            print("Number of results matches the number of images.")
         else:
             print("Inference failed with status code:", response.status_code)
             print("Response:", response.text)

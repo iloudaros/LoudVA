@@ -140,8 +140,7 @@ def manage_batches(max_wait_time=1.0):
                     batch_images = images[:best_batch_size]
                     batch_request_ids = request_ids[:best_batch_size]
 
-                    # Set the device frequency and dispatch the request
-                    best_device.set_frequency(best_freq)
+                    # Dispatch the request
                     threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images[0], batch_request_ids)).start()
 
                     # Remove processed requests from the queue

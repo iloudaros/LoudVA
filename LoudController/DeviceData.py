@@ -1,6 +1,7 @@
 from collections import defaultdict
 import os
 import csv
+import json
 import worker_client
 import triton_client
 import Settings
@@ -11,7 +12,7 @@ logger = setup_logging()
 
 # Device class to store the device information
 class Device:
-    def __init__(self, name, ip, frequencies, profile,
+    def __init__(self, name, ip, frequencies, profile, frequency_change_delay, batch_size_change_delay,
                  gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
         self.name = name
         self.ip = ip
@@ -33,8 +34,13 @@ class Device:
         self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()])
 
         # Set the current frequency and batch size to the first frequency and batch size in the profile
-        self.__current_freq = frequencies[4]
+        self.__current_freq = self.request_frequency()
+        logger.info(f"Initial frequency on {self.name}: {self.__current_freq}")
         self.current_batch_size = 1
+
+        # Other delays
+        self.frequency_change_delay = frequency_change_delay
+        self.batch_size_change_delay = batch_size_change_delay
 
     def get_latency(self, freq, batch_size):
         try:
@@ -68,6 +74,16 @@ class Device:
 
     def get_frequency(self):
         return self.__current_freq
+
+    def request_frequency(self):
+        response = worker_client.get_gpu_frequency(self.ip)
+        if response['status_code'] == 200:
+            frequency = json.loads(response['message'])['message'].strip()
+            logger.debug(f"Current frequency on {self.name}: {frequency} MHz")
+            return frequency
+        else:
+            logger.error(f"Failed to get frequency on {self.name}: {response['message']}")
+            return None
 
     def inference(self, images, batch_size):
         url = f'{self.ip}:8000'  # Triton server URL
@@ -116,14 +132,24 @@ def initialize_devices():
     agx_freqs = [114750000, 216750000, 318750000, 420750000, 522750000, 624750000, 675750000, 828750000, 905250000, 1032750000, 1198500000, 1236750000, 1338750000, 1377000000]
     nx_freqs = [114750000, 204000000, 306000000, 408000000, 510000000, 599250000, 701250000, 752250000, 803250000, 854250000, 905250000, 956250000, 1007250000, 1058250000, 1109250000]
 
+    # Other delays
+    agx_frequency_change_delay = 0.56
+    agx_batch_size_change_delay = 0.5
+
+    nx_frequency_change_delay = 0.8
+    nx_batch_size_change_delay = 0.5
+
+    nano_frequency_change_delay = 0.65
+    nano_batch_size_change_delay = 0.5
+
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, **specs_dict['AGX']),
-        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, **specs_dict['NX']),
-        Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile, **specs_dict['NX']),
-        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, **specs_dict['Nano']),
-        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, **specs_dict['Nano']),
-        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, **specs_dict['Nano'])
+        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX']),
+        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
+        Device('xavier-nx-01', '192.168.0.111', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
+        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
+        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
+        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'])
     ]
     logger.info("Devices initialized successfully")
     return devices

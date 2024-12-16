@@ -31,6 +31,32 @@ def set_gpu_frequency(ip, frequency):
             'message': str(e)
         }
 
+def get_gpu_frequency(ip):
+    """
+    Sends an HTTP request to the Flask app to get the current GPU frequency.
+
+    Args:
+        ip (str): The IP address of the Flask server.
+
+    Returns:
+        dict: A dictionary containing the status code and response message.
+    """
+
+    url = f"http://{ip}:5000/get_gpu_freq"
+    try:
+        response = requests.get(url)
+        logger.debug(f"HTTP request sent to {url}")
+        return {
+            'status_code': response.status_code,
+            'message': response.text
+        }
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Failed to get GPU frequency on {ip}: {e}")
+        return {
+            'status_code': None,
+            'message': str(e)
+        }
+
 # Example usage
 if __name__ == "__main__":
     ip_address = "192.168.0.120"  

@@ -22,7 +22,7 @@ def set_gpu_freq(freq):
     except subprocess.CalledProcessError as e:
         return jsonify({"error": e.stderr}), 500
     
-
+@app.route('/get_gpu_freq', methods=['GET'])
 def current_gpu_freq():
     # Run the shell script to get the current GPU frequency
     result = subprocess.run(

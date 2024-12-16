@@ -137,7 +137,7 @@ stop_triton:
 
 start_LoudController:
 	@echo "____Starting Control Node____"
-	@screen -dmS LoudController bash -c 'cd LoudController && gunicorn -w 4 "LoudController:app"'
+	@screen -dmS LoudController bash -c 'cd LoudController && gunicorn --worker-class gevent -w 4 "LoudController:app"'
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
 start_LoudController_debug:

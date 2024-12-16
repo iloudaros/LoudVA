@@ -47,9 +47,11 @@ def inference():
 
 
 if __name__ == '__main__':
+
+    logger.info("Starting LoudController")
+
     # Start the scheduler
     scheduler.start_scheduler(settings.max_wait_time)
-    logger.info("Starting Flask app")
 
     # Run the Flask app
     app.run(host='0.0.0.0', port=5000)

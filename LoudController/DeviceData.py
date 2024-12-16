@@ -28,7 +28,7 @@ class Device:
         self.dram = dram
         self.shared_memory = shared_memory
         self.memory_size = memory_size
-        self.tensor_cores = tensor_cores
+        self.tensor_cores = tensor_cores if isinstance(tensor_cores, int) else 0     
 
         # Calculate Max Batch Size from profile
         self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()])

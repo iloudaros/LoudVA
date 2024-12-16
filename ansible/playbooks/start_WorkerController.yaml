@@ -5,9 +5,14 @@
   become: yes
 
   tasks:
-    - name: Ensure the script is executable
+    - name: Ensure the set script is executable
       file:
         path: /home/iloudaros/LoudVA/scripts/shell/set_frequency.sh
+        mode: '0755'
+    
+    - name: Ensure the get script is executable
+      file:
+        path: /home/iloudaros/LoudVA/scripts/shell/get_frequency.sh
         mode: '0755'
 
     - name: Start Flask app

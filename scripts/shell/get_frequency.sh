@@ -1,3 +1,5 @@
+#!/bin/bash
+
 model=$(tr -d '\0' < /proc/device-tree/model)
 
 if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then

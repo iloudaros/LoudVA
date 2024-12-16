@@ -53,10 +53,10 @@ def test_inference():
             response_json = response.json()
             print("Response:", response_json)
             # Verify that the response contains results for all images
-            assert len(response_json['response'][0]) == len(image_files), "Mismatch in number of results"
-            print("Number of results matches the number of images.")
+            assert len(response_json['response'][0]) == len(image_files), "❌ Mismatch in number of results"
+            print("✅ Number of results matches the number of images.")
         else:
-            print("Inference failed with status code:", response.status_code)
+            print("❌ Inference failed with status code:", response.status_code)
             print("Response:", response.text)
 
     except requests.exceptions.RequestException as e:

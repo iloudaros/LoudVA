@@ -190,7 +190,7 @@ if __name__ == '__main__':
     for device in devices:
         print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
         print(f"Profile: {device.profile}")
-        print(f"Current Frequency: {device.current_freq}, Current Batch Size: {device.current_batch_size}")
+        print(f"Current Frequency: {device.get_frequency}, Current Batch Size: {device.current_batch_size}")
         print(f"Max Frequency: {device.gpu_max_freq}, Min Frequency: {device.gpu_min_freq}")
         print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
         print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")

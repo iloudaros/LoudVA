@@ -315,7 +315,7 @@ check_triton:
 	python3 ~/tritonserver2_19/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.122:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/LJ2 || echo 0 > /tmp/LJ2 & \
 	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 147.102.37.108:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/AGX || echo 0 > /tmp/AGX & \
 	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.110:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX0 || echo 0 > /tmp/NX0 & \
-	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 192.168.0.111:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX1 || echo 0 > /tmp/NX1 & \
+	python3 ~/tritonserver2_34/clients/python/image_client.py -m inception_graphdef -c 3 -s INCEPTION data/images/brown_bear.jpg --url 147.102.37.122:8000 --protocol HTTP > /dev/null 2>&1 && echo 1 > /tmp/NX1 || echo 0 > /tmp/NX1 & \
 	wait; \
 	if [ $$(cat /tmp/LJ0) -eq 1 ]; then echo "✅ LoudJetson0: Triton server is running successfully."; else echo "❌ LoudJetson0: Triton server check failed."; fi; \
 	if [ $$(cat /tmp/LJ1) -eq 1 ]; then echo "✅ LoudJetson1: Triton server is running successfully."; else echo "❌ LoudJetson1: Triton server check failed."; fi; \
@@ -336,7 +336,7 @@ check_WorkerController:
 	curl -s --max-time 2 http://192.168.0.122:5000/ > /tmp/LJ2 & \
 	curl -s --max-time 2 http://147.102.37.108:5000/ > /tmp/AGX & \
 	curl -s --max-time 2 http://192.168.0.110:5000/ > /tmp/NX0 & \
-	curl -s --max-time 2 http://192.168.0.111:5000/ > /tmp/NX1 & \
+	curl -s --max-time 2 http://147.102.37.122:5000/ > /tmp/NX1 & \
 	wait; \
 	if [ -s /tmp/LJ0 ] && [ $$(cat /tmp/LJ0) = 'running' ]; then echo "✅ LoudJetson0: WorkerController is running successfully."; else echo "❌ LoudJetson0: WorkerController check failed."; fi; \
 	if [ -s /tmp/LJ1 ] && [ $$(cat /tmp/LJ1) = 'running' ]; then echo "✅ LoudJetson1: WorkerController is running successfully."; else echo "❌ LoudJetson1: WorkerController check failed."; fi; \
@@ -354,7 +354,7 @@ is_triton_running:
 
 check_triton_client:
 	@echo "____Checking Triton Client____"
-	@python3 LoudController/triton_client.py -m inception_graphdef -b 4 -c 1 -s INCEPTION data/images/ --url 192.168.0.111:8000 --protocol HTTP
+	@python3 LoudController/triton_client.py -m inception_graphdef -b 4 -c 1 -s INCEPTION data/images/ --url 147.102.37.122:8000 --protocol HTTP
 
 check: check_LoudController check_triton check_triton_client check_WorkerController
 	@echo "\n🔍 Final Test : Test_LoudVA.py"

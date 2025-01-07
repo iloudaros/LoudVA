@@ -8,3 +8,11 @@
     - shell: |
         screen -S WorkerController -X quit
       ignore_errors: yes
+
+    - name: Delete WorkerController flag
+      ansible.builtin.file:
+        path: /tmp/ansible/flags/WorkerController_running.flag
+        state: absent
+      become: yes
+
+      

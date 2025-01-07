@@ -5,6 +5,13 @@
   become: yes
 
   tasks:
+
+    - name: Check if the WorkerController is already running
+      ansible.builtin.stat:
+        path: /tmp/ansible/flags/WorkerController_running.flag
+      register: WorkerController_running
+
+
     - name: Ensure the set script is executable
       file:
         path: /home/iloudaros/LoudVA/scripts/shell/set_frequency.sh
@@ -22,4 +29,18 @@
         chdir: /home/iloudaros/LoudVA/WorkerController
       environment:
         FLASK_ENV: production
+      when: not WorkerController_running.stat.exists
+
+    - name: Create the flags directory
+      ansible.builtin.file:
+        path: /tmp/ansible/flags
+        state: directory
+      when: not WorkerController_running.stat.exists
+
+    - name: Create a flag file to indicate that Triton is running
+      ansible.builtin.file:
+        path: /tmp/ansible/flags/WorkerController_running.flag
+        state: touch
+      when: not WorkerController_running.stat.exists
+      ignore_errors: yes
 

@@ -162,6 +162,11 @@ stop_WorkerController:
 
 start: start_triton start_WorkerController start_LoudController 
 	@echo "LoudVA Started"
+	@curl \
+		-d "LoudVA Online" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 
 stop: stop_triton stop_WorkerController stop_LoudController 
 	@echo "LoudVA Stopped"
@@ -171,6 +176,11 @@ reboot_workers: stop_triton
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/reboot.yaml
 	@echo "Jetsons Rebooted"
 	@make sync_time
+	@curl \
+		-d "Workers Rebooted" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 
 default_power_mode:
 	@echo "____Setting the Jetsons to Default Power Mode____"

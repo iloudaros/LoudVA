@@ -56,6 +56,32 @@ def get_gpu_frequency(ip):
             'status_code': None,
             'message': str(e)
         }
+    
+def health_check(ip):
+    """
+    Sends an HTTP request to the Flask app to check the health of the server.
+
+    Args:
+        ip (str): The IP address of the Flask server.
+
+    Returns:
+        dict: A dictionary containing the status code and response message.
+    """
+
+    url = f"http://{ip}:5000/"
+    try:
+        response = requests.get(url)
+        logger.debug(f"HTTP request sent to {url}")
+        return {
+            'status_code': response.status_code,
+            'message': response.text
+        }
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Failed to check health of the server on {ip}: {e}")
+        return {
+            'status_code': None,
+            'message': str(e)
+        }
 
 # Example usage
 if __name__ == "__main__":

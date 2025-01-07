@@ -20,13 +20,21 @@ response_lock = threading.Lock()
 # Configure logging
 logger = setup_logging()
 
+# Get Debug mode of the logger
+debug_mode = 1 if logger.getEffectiveLevel() == 10 else 0
+
+if debug_mode:
+    logger.info("Debug mode enabled.")
+
 # Initialize and train the LoudCostPredictor
 if settings.use_prediction:
     
     predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
     logger.info("Training the LoudCostPredictor...")
+    start_time = time.time()
     predictor.train()
-    logger.info("LoudCostPredictor training complete.")
+    end_time = time.time()
+    logger.info(f"LoudCostPredictor training complete. Training time: {end_time - start_time} seconds.")
 
 else:
         logger.info("Using profiling data for decision making.")
@@ -55,9 +63,15 @@ def select_best_device_config(devices, latency_constraint, queue_size):
 
     logger.debug("Selecting best device configuration")
 
+    available_devices = [device for device in devices if device.is_available()]
+
+    if not available_devices:
+        logger.warning("No available devices found.")
+        return None, None, 0
+
     if settings.use_prediction:
         # Use prediction model to estimate energy and latency
-        for device in devices:
+        for device in available_devices:
             for freq in device.frequencies:
                 for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
                     # Predict energy and latency for the current configuration
@@ -87,7 +101,7 @@ def select_best_device_config(devices, latency_constraint, queue_size):
 
     else:
         # Use profiling data for decision making
-        for device in devices:
+        for device in available_devices:
             for freq in device.frequencies:
                 for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
                     # Get latency and energy from profiling data
@@ -126,20 +140,23 @@ def manage_batches(max_wait_time=1.0):
             if request_queue:
                 logger.debug(f"Queue: {request_queue}")
 
-                # Flatten the queue to handle multiple images per request
+                # Collect all images and all ids from the queue
                 all_images = []
-                all_request_ids = []
+                all_image_ids = []
                 latency_constraints = []
 
-                for images, request_id, latency_constraint in request_queue:
-                    all_images.extend(images)  # Add all images from the request
-                    all_request_ids.extend([request_id] * len(images))  # Associate each image with the request ID
-                    latency_constraints.append(latency_constraint)  # Add the latency constraint
+                for images, image_id, latency_constraint in request_queue:
+                    all_images.append(images)  
+                    all_image_ids.append(image_id)  
+                    latency_constraints.append(latency_constraint)  
 
-                logger.debug(f"Flattened queue: {all_images}")
-                logger.debug(f"Request IDs: {all_request_ids}")
-                logger.debug(f"Latency constraints: {latency_constraints}")
-                logger.debug(f"Queue size: {len(all_images)}")
+
+                if debug_mode:
+                    image_info = [(img.filename, img.content_length) for img in all_images]
+                    logger.debug(f"Images: {image_info}")
+                    logger.debug(f"Image IDs: {all_image_ids}")
+                    logger.debug(f"Latency constraints: {latency_constraints}")
+                    logger.debug(f"Queue size: {len(all_images)}")
 
 
                 # Determine the minimum latency constraint in the queue
@@ -151,29 +168,30 @@ def manage_batches(max_wait_time=1.0):
                 if best_device and best_batch_size > 0:
                     # Prepare the batch for dispatch
                     batch_images = all_images[:best_batch_size]
-                    batch_request_ids = all_request_ids[:best_batch_size]
+                    batch_image_ids = all_image_ids[:best_batch_size]
 
                     # Dispatch the request
-                    threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images, batch_request_ids)).start()
+                    threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids)).start()
 
                     # Remove processed requests from the queue
-                    processed_requests = 0
-                    for images, request_id, _ in request_queue:
-                        if processed_requests + len(images) <= best_batch_size:
-                            processed_requests += len(images)
-                            request_queue.popleft()
-                        else:
-                            break
-                            
-        time.sleep(0.01)  # Sleep briefly to reduce CPU usage
+                    for _ in range(best_batch_size):
+                        request_queue.popleft()
+
+        # Wait for the next batch depending on the debug mode of the logger
+        if debug_mode:
+            time.sleep(2) 
+        else:
+            time.sleep(0.01)
 
 
 
-
-def dispatch_request(device, freq, images, request_ids):
+def dispatch_request(device, freq, images, image_ids):
     batch_size = len(images)
     
-    logger.debug(f"Dispatching request to device {device.name} with frequency {freq},batch size {batch_size} and images {images}") 
+    # Set the device status to BUSY
+    device.set_status('BUSY')
+    
+    logger.debug(f"Dispatching request to device {device.name} with frequency {freq}, batch size {batch_size} and images {images}") 
 
     # Set the GPU frequency on the device
     device.set_frequency(freq)
@@ -183,13 +201,41 @@ def dispatch_request(device, freq, images, request_ids):
     
     # Store the server response in the response dictionary for each request_id
     with response_lock:
-        for request_id in request_ids:
-            response_dict[request_id] = response
+        for image_id, image_response in zip(image_ids, response):
+            response_dict[image_id] = response
     logger.info(f"Response stored in the response dictionary for request IDs: {request_ids}")
+
+    # Set the device status back to AVAILABLE
+    device.set_status('AVAILABLE')
+
+
+def health_check():
+    while True:
+        for device in devices:
+            try:
+                # Implement a simple check, e.g., ping or a test inference request
+                healthy = device.health_check()
+                if healthy:
+                    if device.get_status == 'OFFLINE':
+                        device.set_status('AVAILABLE')
+                else:
+                    device.set_status('OFFLINE')
+            except Exception as e:
+                device.set_status('OFFLINE')
+                logger.error(f"Health check failed for {device.name}: {e}")
+        
+        time.sleep(settings.health_check_interval)  
+
+
 
 
 # Start the batch manager in a separate thread
 def start_scheduler(max_wait_time=1.0):
     logger.info("Starting scheduler...")
     threading.Thread(target=manage_batches, args=(max_wait_time,), daemon=True).start()
+
+    if settings.health_checks_enabled:
+        # Start the health check in a separate thread
+        threading.Thread(target=health_check, daemon=True).start()
+
 

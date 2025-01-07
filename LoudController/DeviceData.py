@@ -42,6 +42,9 @@ class Device:
         self.frequency_change_delay = frequency_change_delay
         self.batch_size_change_delay = batch_size_change_delay
 
+        # Status
+        self.__status = 'AVAILABLE'
+
     def get_latency(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][1]
@@ -84,6 +87,25 @@ class Device:
         else:
             logger.error(f"Failed to get frequency on {self.name}: {response['message']}")
             return None
+        
+    def set_status(self, status):
+        self.__status = status
+        logger.info(f"Device {self.name} status set to {status}")
+
+    def is_available(self):
+        return self.__status == 'AVAILABLE'
+    
+    def get_status(self):
+        return self.__status
+    
+    def health_check(self):
+        response = worker_client.health_check(self.ip)
+        if response['status_code'] == 200:
+            logger.debug(f"Health check passed for {self.name}")
+            return True
+        else:
+            logger.error(f"Health check failed for {self.name}: {response['message']}")
+            return False
 
     def inference(self, images, batch_size):
         url = f'{self.ip}:8000'  # Triton server URL
@@ -144,8 +166,8 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX']),
-        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
+        #Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX']),
+        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
         Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
         Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
         Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
@@ -222,4 +244,5 @@ if __name__ == '__main__':
         print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
         print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")
         print(f"Memory Size: {device.memory_size} GB, Tensor Cores: {device.tensor_cores}")
+        print(f'Health Check: {device.health_check()}')
         print("\n")

@@ -12,5 +12,9 @@ number_of_classes = 1
 model_version = '1'
 scaling = 'INCEPTION'
 
-# Profiling or Predecting
+# Profiling or Predicting
 use_prediction = False
+
+# Health check settings
+health_check_interval = 15
+health_checks_enabled = False

@@ -22,25 +22,38 @@ def inference():
             return jsonify({"status": "error", "message": "No file part"}), 400
 
         images = request.files.getlist('images')
-        logger.debug(f"Received inference request: {images}")
         request_id = str(time.time())
 
         # Extract latency constraint from the request, default to a reasonable value if not provided
         latency_constraint = request.form.get('latency', type=float, default=settings.default_latency)
 
         logger.info(f"Received inference request with latency constraint: {latency_constraint}")
+        logger.debug(f"Images: {images}")
+
+        # Create a unique ID for every image in the request
+        image_ids = [f"{request_id}_{i}" for i in range(len(images))]
 
 
-        # Add the request to the scheduler's queue with the latency constraint
-        scheduler.request_queue.append((images, request_id, latency_constraint))
+        # Add each image to the scheduler's queue with its unique ID
+        for image, image_id in zip(images, image_ids):
+            scheduler.request_queue.append((image, image_id, latency_constraint))
+
+
+
+        # Wait for all responses to be available in the response dictionary
+        responses = {}
+        while len(responses) < len(image_ids):
+            for image_id in image_ids:
+                if image_id in scheduler.response_dict:
+                    responses[image_id] = scheduler.response_dict.pop(image_id)
+            time.sleep(0.01)
         
         # Wait for the response to be available in the response dictionary
         while request_id not in scheduler.response_dict:
             time.sleep(0.01)
         
-        response = scheduler.response_dict.pop(request_id)
         logger.info(f"Inference completed for request ID: {request_id}")
-        return jsonify({"status": "completed", "response": response})
+        return jsonify({"status": "completed", "response": responses})
     except Exception as e:
         logger.error("An error occurred during inference", exc_info=True)
         return jsonify({"status": "error", "message": "Internal server error"}), 500

@@ -5,17 +5,14 @@ from DeviceData import initialize_devices
 from logging_config import setup_logging
 from LoudPredictor.costs.agnostic.LoudCostPredictor import LoudCostPredictor
 import Settings as settings
+from shared_resources import request_queue, response_dict, shared_queue_lock, shared_response_lock
 
 # Initialize devices
 devices = initialize_devices()
 
-# Request queue
-request_queue = deque() # Queue to store incoming requests
-response_dict = {}  # Dictionary to store responses
-
 # Lock for synchronizing access to shared resources
-queue_lock = threading.Lock()
-response_lock = threading.Lock()
+internal_queue_lock = threading.Lock()
+internal_response_lock = threading.Lock()
 
 # Configure logging
 logger = setup_logging()
@@ -136,7 +133,7 @@ def manage_batches(max_wait_time=1.0):
         max_wait_time (float): Maximum time to wait before processing the batch.
     """
     while True:
-        with queue_lock:
+        with internal_queue_lock:
             if request_queue:
                 logger.debug(f"Queue: {request_queue}")
 
@@ -200,7 +197,7 @@ def dispatch_request(device, freq, images, image_ids):
     response = device.inference(images, batch_size)
     
     # Store the server response in the response dictionary for each request_id
-    with response_lock:
+    with internal_response_lock:
         for image_id, image_response in zip(image_ids, response):
             response_dict[image_id] = response
     logger.info(f"Response stored in the response dictionary for image IDs: {image_ids}")
@@ -239,3 +236,8 @@ def start_scheduler(max_wait_time=1.0):
         threading.Thread(target=health_check, daemon=True).start()
 
 
+if __name__ == '__main__':
+    start_scheduler(settings.max_wait_time)
+    logger.info("Scheduler started.")
+    while True:
+        time.sleep(1)

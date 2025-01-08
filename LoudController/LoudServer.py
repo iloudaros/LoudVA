@@ -3,6 +3,7 @@ import LoudScheduler as scheduler
 import Settings as settings
 import time
 from logging_config import setup_logging
+from shared_resources import request_queue, response_dict, shared_queue_lock, shared_response_lock
 
 app = Flask(__name__)
 
@@ -12,6 +13,11 @@ logger = setup_logging()
 @app.route('/')
 def home():
     return "Welcome to LoudVA!"
+
+@app.route('/info', methods=['GET'])
+def info():
+    # return instructions on how to use the API
+    return "This API is used to perform inference on images. Send a POST request to the /inference endpoint with the 'images' part containing the images to be processed. Optionally, you can provide a 'latency' parameter to specify the maximum latency in seconds for the inference process.\n"
 
 @app.route('/inference', methods=['POST'])
 def inference():
@@ -35,8 +41,9 @@ def inference():
 
 
         # Add each image to the scheduler's queue with its unique ID
-        for image, image_id in zip(images, image_ids):
-            scheduler.request_queue.append((image, image_id, latency_constraint))
+        with shared_queue_lock:
+            for image, image_id in zip(images, image_ids):
+                scheduler.request_queue.put((image, image_id, latency_constraint))
 
 
 
@@ -59,9 +66,6 @@ def inference():
 if __name__ == '__main__':
 
     logger.info("Starting LoudController")
-
-    # Start the scheduler
-    scheduler.start_scheduler(settings.max_wait_time)
 
     # Run the Flask app
     app.run(host='0.0.0.0', port=5000)

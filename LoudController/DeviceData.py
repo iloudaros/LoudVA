@@ -49,21 +49,21 @@ class Device:
         try:
             return self.profile[(freq, batch_size)][1]
         except KeyError:
-            logger.debug(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.debug(f"{self.name} : No latency for profile (f:{freq}, b:{batch_size}).")
             return float('inf')  # Return a high latency value as a fallback
 
     def get_energy_consumption(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][2]
         except KeyError:
-            logger.debug(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.debug(f"{self.name} : No energy for profile (f:{freq}, b:{batch_size}).")
             return float('inf')  # Return a high energy value as a fallback
 
     def get_throughput(self, freq, batch_size):
         try:
             return self.profile[(freq, batch_size)][0]
         except KeyError:
-            logger.debug(f"Profile for frequency {freq} and batch size {batch_size} not found in {self.name}.")
+            logger.debug(f"{self.name} : No throughput for profile (f:{freq}, b:{batch_size}).")
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
@@ -166,7 +166,7 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        #Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX']),
+        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX']),
         #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
         Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
         Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),

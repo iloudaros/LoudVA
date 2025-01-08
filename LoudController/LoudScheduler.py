@@ -203,7 +203,7 @@ def dispatch_request(device, freq, images, image_ids):
     with response_lock:
         for image_id, image_response in zip(image_ids, response):
             response_dict[image_id] = response
-    logger.info(f"Response stored in the response dictionary for request IDs: {request_ids}")
+    logger.info(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
     # Set the device status back to AVAILABLE
     device.set_status('AVAILABLE')

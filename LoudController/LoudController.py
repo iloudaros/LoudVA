@@ -48,9 +48,6 @@ def inference():
                     responses[image_id] = scheduler.response_dict.pop(image_id)
             time.sleep(0.01)
         
-        # Wait for the response to be available in the response dictionary
-        while request_id not in scheduler.response_dict:
-            time.sleep(0.01)
         
         logger.info(f"Inference completed for request ID: {request_id}")
         return jsonify({"status": "completed", "response": responses})

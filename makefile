@@ -436,6 +436,15 @@ measure_performance_and_power:
 	@sudo bash scripts/shell/clean_measurements.sh measurements/power/tegra_log measurements/power/power_measurement
 	@bash scripts/shell/mean_median.sh measurements/power/power_measurement
 	@echo "Check measurements/power/power_measurement_stats for the power measurements"
+
+
+
+notify:
+	@curl \
+		-d "Testing Notification" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 ################################################
 
 

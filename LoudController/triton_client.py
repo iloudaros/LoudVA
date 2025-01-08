@@ -245,7 +245,9 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
     for source in image_sources:
         logger.debug(f"Processing image source: {source}")
         try:
-            if isinstance(source, FileStorage):
+            if isinstance(source, bytes):
+                img = Image.open(io.BytesIO(source))
+            elif isinstance(source, FileStorage):
                 source.stream.seek(0)  # Ensure the stream is at the start
                 img = Image.open(source.stream)
             elif os.path.isdir(source):

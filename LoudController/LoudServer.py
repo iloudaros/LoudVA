@@ -39,11 +39,14 @@ def inference():
         # Create a unique ID for every image in the request
         image_ids = [f"{request_id}_{i}" for i in range(len(images))]
 
+        # Convert images to bytes
+        image_data = [(image.read(), image_id, latency_constraint) for image, image_id in zip(images, image_ids)]
+
 
         # Add each image to the scheduler's queue with its unique ID
         with shared_queue_lock:
-            for image, image_id in zip(images, image_ids):
-                scheduler.request_queue.put((image, image_id, latency_constraint))
+            for data in image_data:
+                request_queue.put(data)
 
 
 

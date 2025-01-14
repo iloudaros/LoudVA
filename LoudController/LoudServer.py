@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import LoudScheduler as scheduler
 import Settings as settings
 import time
 from logging_config import setup_logging
@@ -49,13 +48,13 @@ def inference():
                 request_queue.put(data)
 
 
-
+        logger.debug(f"Added {len(images)} images to the queue and waiting for inference to complete")
         # Wait for all responses to be available in the response dictionary
         responses = {}
         while len(responses) < len(image_ids):
             for image_id in image_ids:
-                if image_id in scheduler.response_dict:
-                    responses[image_id] = scheduler.response_dict.pop(image_id)
+                if image_id in response_dict:
+                    responses[image_id] = response_dict.pop(image_id)
             time.sleep(0.01)
         
         
@@ -65,10 +64,3 @@ def inference():
         logger.error("An error occurred during inference", exc_info=True)
         return jsonify({"status": "error", "message": "Internal server error"}), 500
 
-
-if __name__ == '__main__':
-
-    logger.info("Starting LoudController")
-
-    # Run the Flask app
-    app.run(host='0.0.0.0', port=5000)

@@ -142,7 +142,7 @@ start_LoudController:
 
 start_LoudController_debug:
 	@echo "____Starting Control Node in debug mode____"
-	python3 LoudController/LoudController.py
+	@python3 LoudController/LoudController.py
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"
@@ -304,14 +304,14 @@ ping_workers:
 	@echo "____Pinging the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} all -m ping
 
-check_LoudController:
-	@echo "____Checking LoudController____"
+check_LoudServer:
+	@echo "____Checking LoudServer"
 	@if curl --max-time 2 -s http://127.0.0.1:8000/ | grep -q "Welcome to LoudVA!"; then \
-		echo "✅ LoudController is running on port 8000"; \
+		echo "✅ LoudServer is running on port 8000"; \
 	elif curl --max-time 2 -s http://127.0.0.1:5000/ | grep -q "Welcome to LoudVA!"; then \
-		echo "✅ LoudController is running in Debug mode (port 5000)"; \
+		echo "✅ LoudServer is running in Debug mode (port 5000)"; \
 	else \
-		echo "❌ LoudController check failed on both ports"; \
+		echo "❌ LoudServer check failed on both ports"; \
 	fi
 
 
@@ -366,10 +366,10 @@ check_triton_client:
 	@echo "____Checking Triton Client____"
 	@python3 LoudController/triton_client.py -m inception_graphdef -b 4 -c 1 -s INCEPTION data/images/ --url 147.102.37.122:8000 --protocol HTTP
 
-check: check_LoudController check_triton check_triton_client check_WorkerController
+check: check_LoudServer check_triton check_triton_client check_WorkerController
 	@echo "\n🔍 Final Test : Test_LoudVA.py"
 	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
-	@echo "Check Complete"
+	@echo "👍 : Check Complete"
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"

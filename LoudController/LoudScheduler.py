@@ -132,29 +132,29 @@ def manage_batches(max_wait_time=1.0):
     Args:
         max_wait_time (float): Maximum time to wait before processing the batch.
     """
+
+    logger.info("Starting batch manager...")
+
     while True:
+
+        all_images = []
+        all_image_ids = []
+        latency_constraints = []
+
         with internal_queue_lock:
-            if request_queue:
-                logger.debug(f"Queue: {request_queue}")
+            
+            # Get all requests from the queue
+            while not request_queue.empty():
+                images, image_id, latency_constraint = request_queue.get()
+                all_images.append(images)
+                all_image_ids.append(image_id)
+                latency_constraints.append(latency_constraint)
 
-                # Collect all images and all ids from the queue
-                all_images = []
-                all_image_ids = []
-                latency_constraints = []
-
-                for images, image_id, latency_constraint in request_queue:
-                    all_images.append(images)  
-                    all_image_ids.append(image_id)  
-                    latency_constraints.append(latency_constraint)  
-
-
-                if debug_mode:
-                    image_info = [(img.filename, img.content_length) for img in all_images]
-                    logger.debug(f"Images: {image_info}")
-                    logger.debug(f"Image IDs: {all_image_ids}")
-                    logger.debug(f"Latency constraints: {latency_constraints}")
-                    logger.debug(f"Queue size: {len(all_images)}")
-
+            if all_images:
+                logger.debug(f"Images: {[img.filename for img in all_images]}")
+                logger.debug(f"Image IDs: {all_image_ids}")
+                logger.debug(f"Latency constraints: {latency_constraints}")
+                logger.debug(f"Queue size: {len(all_images)}")
 
                 # Determine the minimum latency constraint in the queue
                 min_latency_constraint = min(latency_constraints)
@@ -176,7 +176,9 @@ def manage_batches(max_wait_time=1.0):
 
         # Wait for the next batch depending on the debug mode of the logger
         if debug_mode:
-            time.sleep(2) 
+            wait_time = 2
+            logger.debug(f"Debug mode enabled. Waiting for {wait_time} seconds.")
+            time.sleep(wait_time) 
         else:
             time.sleep(0.01)
 
@@ -228,16 +230,10 @@ def health_check():
 
 # Start the batch manager in a separate thread
 def start_scheduler(max_wait_time=1.0):
-    logger.info("Starting scheduler...")
+    logger.info("Starting LoudScheduler...")
     threading.Thread(target=manage_batches, args=(max_wait_time,), daemon=True).start()
 
     if settings.health_checks_enabled:
         # Start the health check in a separate thread
         threading.Thread(target=health_check, daemon=True).start()
 
-
-if __name__ == '__main__':
-    start_scheduler(settings.max_wait_time)
-    logger.info("Scheduler started.")
-    while True:
-        time.sleep(1)

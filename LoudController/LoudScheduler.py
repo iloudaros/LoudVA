@@ -237,10 +237,3 @@ def start_scheduler(max_wait_time=1.0):
     if settings.health_checks_enabled:
         # Start the health check in a separate thread
         threading.Thread(target=health_check, daemon=True).start()
-
-
-if __name__ == '__main__':
-    start_scheduler(settings.max_wait_time)
-    logger.info("Scheduler started.")
-    while True:
-        time.sleep(1)

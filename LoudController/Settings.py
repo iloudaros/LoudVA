@@ -21,3 +21,6 @@ health_checks_enabled = False
 
 # Batching 
 batching_wait_strictness = 3
+
+# Debugging
+debug = True

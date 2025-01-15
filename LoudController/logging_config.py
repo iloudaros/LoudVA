@@ -1,7 +1,11 @@
 import logging
 import logging.handlers
+import Settings as settings
 
-def setup_logging(log_level=logging.INFO):
+if settings.debug:
+    default_level = logging.DEBUG
+
+def setup_logging(log_level=default_level):
     # Create a custom logger
     logger = logging.getLogger('LoudVA')
     if not logger.handlers:

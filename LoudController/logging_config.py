@@ -4,6 +4,8 @@ import Settings as settings
 
 if settings.debug:
     default_level = logging.DEBUG
+else:
+    default_level = logging.INFO
 
 def setup_logging(log_level=default_level):
     # Create a custom logger

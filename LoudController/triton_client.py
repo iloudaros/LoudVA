@@ -12,6 +12,7 @@ from tritonclient.utils import InferenceServerException
 from tritonclient.utils import triton_to_np_dtype
 from werkzeug.datastructures import FileStorage
 from logging_config import setup_logging
+import io
 
 if sys.version_info >= (3, 0):
     import queue
@@ -243,7 +244,7 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
     image_data = []
 
     for source in image_sources:
-        logger.debug(f"Processing image source: {source}")
+        logger.debug(f"Processing image source")
         try:
             if isinstance(source, bytes):
                 img = Image.open(io.BytesIO(source))
@@ -265,7 +266,7 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
 
             image_data.append(preprocess(img, format, dtype, c, h, w, scaling, protocol.lower()))
         except Exception as e:
-            logger.error(f"Error processing image source {source}: {e}")
+            logger.error(f"Error processing image source: {e}")
 
     if not image_data:
         logger.error("No valid images found for processing.")

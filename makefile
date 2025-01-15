@@ -135,19 +135,19 @@ stop_triton:
 	@echo "____Stopping Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_triton.yaml
 
-start_LoudController:
+start_LoudController_gunicorn:
 	@echo "____Starting Control Node____"
 	@screen -dmS LoudController bash -c 'cd LoudController && gunicorn --worker-class gevent -w 4 "LoudController:app"'
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
-start_LoudController_debug:
+start_LoudController:
 	@echo "____Starting Control Node in debug mode____"
-	python3 LoudController/LoudController.py
+	@screen -dmS LoudController bash -c 'python3 LoudController/LoudController.py' 
+	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"
 	screen -S LoudController -X quit
-	pkill gunicorn
 	@echo "LoudController Stopped"
 
 restart_LoudController: stop_LoudController start_LoudController

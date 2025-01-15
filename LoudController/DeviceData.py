@@ -124,9 +124,8 @@ class Device:
             'streaming': False
         }
 
-        logger.debug(f"Image filenames added to arguments: {images}")
         # Call the triton_client's main function
-        logger.debug(f"Running inference on device {self.name} with arguments: {args}")
+        logger.debug(f"Running inference on device {self.name}")
         response = triton_client.inference(**args)
         logger.debug(f"Response from Triton server: {response}")
         return response

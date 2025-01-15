@@ -1,18 +1,12 @@
 import time
 import threading
-from collections import deque
 from DeviceData import initialize_devices
 from logging_config import setup_logging
 from LoudPredictor.costs.agnostic.LoudCostPredictor import LoudCostPredictor
 import Settings as settings
-from shared_resources import request_queue, response_dict, shared_queue_lock, shared_response_lock
 
 # Initialize devices
 devices = initialize_devices()
-
-# Lock for synchronizing access to shared resources
-internal_queue_lock = threading.Lock()
-internal_response_lock = threading.Lock()
 
 # Configure logging
 logger = setup_logging()
@@ -35,6 +29,9 @@ if settings.use_prediction:
 
 else:
         logger.info("Using profiling data for decision making.")
+
+
+
 
 
 def select_best_device_config(devices, latency_constraint, queue_size):
@@ -125,54 +122,59 @@ def select_best_device_config(devices, latency_constraint, queue_size):
         logger.warning("No suitable device configuration found within constraints. Using closest match.")
         return closest_device, closest_freq, closest_batch_size
 
-def manage_batches(max_wait_time=1.0):
+
+
+
+def manage_batches(queue, response_dict):
     """
     Manages the batching of requests and dispatches them to the selected device configuration.
 
     Args:
         max_wait_time (float): Maximum time to wait before processing the batch.
     """
+    queue_list = []
+
     while True:
-        with internal_queue_lock:
-            if request_queue:
-                logger.debug(f"Queue: {request_queue}")
+        if not (queue.empty() and not queue_list):
+            logger.debug(f"Queue: {queue}")
 
-                # Collect all images and all ids from the queue
-                all_images = []
-                all_image_ids = []
-                latency_constraints = []
+            # Add the contents of the queue to the queue_list. Caution, queue is not iterable
+            while not queue.empty():
+                queue_list.append(queue.get())
+            queue_list.sort(key=lambda x: x[2])  # Sort based on latency constraints
 
-                for images, image_id, latency_constraint in request_queue:
-                    all_images.append(images)  
-                    all_image_ids.append(image_id)  
-                    latency_constraints.append(latency_constraint)  
+            # Collect all images and all ids from the queue, sort them based on latency constraints
+            all_images = []
+            all_image_ids = []
+            latency_constraints = []
 
+            for images, image_id, latency_constraint in queue_list:
+                all_images.append(images)  
+                all_image_ids.append(image_id)  
+                latency_constraints.append(latency_constraint)  
 
-                if debug_mode:
-                    image_info = [(img.filename, img.content_length) for img in all_images]
-                    logger.debug(f"Images: {image_info}")
-                    logger.debug(f"Image IDs: {all_image_ids}")
-                    logger.debug(f"Latency constraints: {latency_constraints}")
-                    logger.debug(f"Queue size: {len(all_images)}")
+            if debug_mode:
+                logger.debug(f"Image IDs: {all_image_ids}")
+                logger.debug(f"Latency constraints: {latency_constraints}")
 
+            # Determine the minimum latency constraint in the queue
+            min_latency_constraint = min(latency_constraints)
 
-                # Determine the minimum latency constraint in the queue
-                min_latency_constraint = min(latency_constraints)
+            # Select the best device configuration and batch size
+            best_device, best_freq, best_batch_size = select_best_device_config(devices, min_latency_constraint, len(all_images))
 
-                # Select the best device configuration and batch size
-                best_device, best_freq, best_batch_size = select_best_device_config(devices, min_latency_constraint, len(all_images))
+            if best_device and best_batch_size > 0:
+                # Prepare the batch for dispatch
+                batch_images = all_images[:best_batch_size]
+                batch_image_ids = all_image_ids[:best_batch_size]
 
-                if best_device and best_batch_size > 0:
-                    # Prepare the batch for dispatch
-                    batch_images = all_images[:best_batch_size]
-                    batch_image_ids = all_image_ids[:best_batch_size]
+                # Dispatch the request
+                threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict)).start()
 
-                    # Dispatch the request
-                    threading.Thread(target=dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids)).start()
+                # Remove the dispatched batch from the queue
+                queue_list = queue_list[best_batch_size:]
+                logger.debug(f"Batch dispatched. Remaining number of items in the queue: {len(queue_list)}")
 
-                    # Remove processed requests from the queue
-                    for _ in range(best_batch_size):
-                        request_queue.popleft()
 
         # Wait for the next batch depending on the debug mode of the logger
         if debug_mode:
@@ -182,13 +184,13 @@ def manage_batches(max_wait_time=1.0):
 
 
 
-def dispatch_request(device, freq, images, image_ids):
+def dispatch_request(device, freq, images, image_ids, response_dict):
     batch_size = len(images)
     
     # Set the device status to BUSY
     device.set_status('BUSY')
     
-    logger.debug(f"Dispatching request to device {device.name} with frequency {freq}, batch size {batch_size} and images {images}") 
+    logger.debug(f"Dispatching request to device {device.name} with frequency {freq}, batch size {batch_size}") 
 
     # Set the GPU frequency on the device
     device.set_frequency(freq)
@@ -197,13 +199,14 @@ def dispatch_request(device, freq, images, image_ids):
     response = device.inference(images, batch_size)
     
     # Store the server response in the response dictionary for each request_id
-    with internal_response_lock:
-        for image_id, image_response in zip(image_ids, response):
-            response_dict[image_id] = response
+    for image_id, image_response in zip(image_ids, response):
+        response_dict[image_id] = response
+
     logger.info(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
     # Set the device status back to AVAILABLE
     device.set_status('AVAILABLE')
+
 
 
 def health_check():

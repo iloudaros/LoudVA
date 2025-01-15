@@ -51,7 +51,7 @@ def select_best_device_config(devices, latency_constraint, queue_size):
     available_devices = [device for device in devices if device.is_available()]
     if not available_devices:
         logger.warning("No available devices found.")
-        return None, None, 0
+        return None, None, 0, float('inf')
 
     # Iterate over each device and its possible configurations
     for device in available_devices:
@@ -69,13 +69,13 @@ def select_best_device_config(devices, latency_constraint, queue_size):
 
                 # Check if configuration meets latency constraint and is energy efficient (energy per frame)
                 if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
-                    best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame})
+                    best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})
                 elif latency < closest_config['latency']:
                     # Track the closest configuration if it doesn't meet the latency constraint
                     closest_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'latency': latency})
 
     if best_config['device']:
-        logger.info(f"Selected device: {best_config['device'].name} with frequency: {best_config['freq']} and batch size: {best_config['batch_size']}")
+        logger.debug(f"Selected device: {best_config['device'].name} with frequency: {best_config['freq']} and batch size: {best_config['batch_size']}")
         return best_config['device'], best_config['freq'], best_config['batch_size'], best_config['latency']
     else:
         logger.warning("No suitable device configuration found within constraints. Using closest match.")
@@ -104,7 +104,7 @@ def manage_batches(queue, response_dict):
 
 
 
-            # Calculate remaining time for each request in the queue and sort based on it
+            # Calculate remaining time in seconds for each request in the queue and sort based on it
             logger.debug("Calculating remaining time for each request in the queue.")
             current_time = time.time()
             remaining_time_list = []
@@ -145,7 +145,8 @@ def manage_batches(queue, response_dict):
                 logger.debug(f"Best device configuration found. Proceeding.")
 
                 # If the remaining time is greater than the expected latency, wait for more images
-                if min_remaining_time > expected_latency * (1 + settings.batching_wait_strictness):
+                logger.debug(f"Min remaining time: {min_remaining_time}, Expected latency: {expected_latency}")
+                if min_remaining_time > expected_latency * settings.batching_wait_strictness:
                     logger.debug(f"Latency constraint allows for waiting, holding for more images.")
                     time.sleep(0.01)
                     continue
@@ -182,13 +183,16 @@ def dispatch_request(device, freq, images, image_ids, response_dict):
     device.set_frequency(freq)
 
     # Dispatch the batch to the device's Triton server using the device's method
-    response = device.inference(images, batch_size)
+    [response] = device.inference(images, batch_size)
+    
+    logger.debug(f"Received response ({response}) from device {device.name} for image IDs: {image_ids}")
     
     # Store the server response in the response dictionary for each request_id
     for image_id, image_response in zip(image_ids, response):
-        response_dict[image_id] = response
 
-    logger.info(f"Response stored in the response dictionary for image IDs: {image_ids}")
+        response_dict[image_id] = image_response
+
+    logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
     # Set the device status back to AVAILABLE
     device.set_status('AVAILABLE')

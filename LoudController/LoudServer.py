@@ -62,8 +62,9 @@ def LoudServer(queue, response_dict):
                     if image_id in response_dict:
                         logger.debug(f"Response received for image: {image_id}")
                         responses[image_id] = response_dict.pop(image_id)
-                        logger.debug(f"Responses: {responses}")
-                time.sleep(0.1)
+                        logger.debug(f"Responses: {responses}, remaining: {len(image_ids) - len(responses)}")
+                        logger.debug(f"Response dictionary: {response_dict}")
+                time.sleep(0.01)
             
             end_time = time.time()
 

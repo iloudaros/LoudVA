@@ -281,7 +281,9 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
     responses = []
     user_data = UserData()
     sent_count = 0
-
+    # Holds the handles to the ongoing HTTP async requests.
+    async_requests = []
+    
     if streaming:
         triton_client.start_stream(partial(completion_callback, user_data))
 

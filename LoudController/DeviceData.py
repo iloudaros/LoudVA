@@ -4,11 +4,30 @@ import csv
 import json
 import worker_client
 import triton_client
-import Settings
+import Settings as settings
+import time
 from logging_config import setup_logging
+from LoudPredictor.costs.agnostic.LoudCostPredictor import LoudCostPredictor
+
 
 # Configure logger
 logger = setup_logging()
+
+# Initialize and train the LoudCostPredictor
+ 
+predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
+logger.info("Training the LoudCostPredictor...")
+start_time = time.time()
+predictor.train()
+end_time = time.time()
+logger.info(f"LoudCostPredictor training complete. Training time: {end_time - start_time} seconds.")
+
+
+if settings.use_prediction:
+    logger.info("Using prediction model for decision making.")
+else:
+    logger.info("Using profiling data for decision making.")
+
 
 # Device class to store the device information
 class Device:
@@ -33,7 +52,7 @@ class Device:
         # Calculate Max Batch Size from profile
         self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()])
 
-        # Set the current frequency and batch size to the first frequency and batch size in the profile
+        # Set the current frequency and batch size 
         self.__current_freq = self.request_frequency()
         logger.info(f"Initial frequency on {self.name}: {self.__current_freq}")
         self.current_batch_size = 1
@@ -44,6 +63,55 @@ class Device:
 
         # Status
         self.__status = 'AVAILABLE'
+
+        # Cache for storing the predicted energy and latency
+        self.prediction_cache = {}
+
+        # Fill missing profile data or calculate prediction_cache
+        if settings.use_prediction:
+            self.calculate_prediction_cache()
+        else:
+            self.fill_missing_profile_data()
+
+    def calculate_prediction_cache(self):
+        # Populate the prediction cache with the predicted energy and latency for all batch sizes and frequencies
+        for freq in self.frequencies:
+            for batch_size in range(1, self.max_batch_size + 1):
+                predicted_energy, predicted_latency = self.predict(freq, batch_size)
+                self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
+                logger.debug(f"{self.name} : Predicted energy and latency for profile (f:{freq}, b:{batch_size})")
+
+    def fill_missing_profile_data(self):
+        # Fill the missing profile data with the predicted energy and latency
+        for freq in self.frequencies:
+            for batch_size in range(1, self.max_batch_size + 1):
+                if (freq, batch_size) not in self.profile:
+                    predicted_energy, predicted_latency = self.predict(freq, batch_size)
+                    self.profile[(freq, batch_size)] = (self.get_throughput(freq, batch_size), predicted_latency, predicted_energy)
+                    logger.debug(f"{self.name} : Filled missing profile data for (f:{freq}, b:{batch_size})")
+
+
+    def predict(self, freq, batch_size):
+        # Check if the prediction is already in the cache
+        if (freq, batch_size) in self.prediction_cache:
+            return self.prediction_cache[(freq, batch_size)]
+
+        # Use the predictor to predict the energy and latency
+        predicted_energy, predicted_latency = predictor.predict({
+                        'Batch Size': batch_size,
+                        'Frequency': freq,
+                        'GPU Max Frequency (MHz)': self.gpu_max_freq,
+                        'GPU Min Frequency (MHz)': self.gpu_min_freq,
+                        'GPU Number of Cores': self.num_cores,
+                        'Memory Speed (GB/s)': self.memory_speed,
+                        'Memory Size (GB)': self.memory_size,
+                        'Tensor Cores': self.tensor_cores
+                    })
+        
+        # Cache the prediction
+        self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
+        
+        return predicted_energy, predicted_latency
 
     def get_latency(self, freq, batch_size):
         try:
@@ -112,11 +180,11 @@ class Device:
         # Prepare the arguments for the triton_client
         args = {
             'image_sources': images,
-            'model_name': Settings.model_name,
-            'model_version': str(Settings.model_version),
+            'model_name': settings.model_name,
+            'model_version': str(settings.model_version),
             'batch_size': batch_size,
-            'classes': Settings.number_of_classes,
-            'scaling': Settings.scaling,
+            'classes': settings.number_of_classes,
+            'scaling': settings.scaling,
             'url': url,
             'protocol': 'HTTP',
             'verbose': False,  # Set to True if you want verbose logging
@@ -165,12 +233,12 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX']),
+        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'])#,
         #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
-        Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
-        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
-        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
-        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'])
+        #Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
+        #Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
+        #Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
+        #Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'])
     ]
     logger.info("Devices initialized successfully")
     return devices

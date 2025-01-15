@@ -42,8 +42,11 @@ def LoudServer(queue, response_dict):
             # Create a unique ID for every image in the request
             image_ids = [f"{request_id}_{i}" for i in range(len(images))]
 
+            # Record arrival time of the request
+            arrival_time = time.time()
+
             # Convert images to bytes
-            image_data = [(image.read(), image_id, latency_constraint) for image, image_id in zip(images, image_ids)]
+            image_data = [(image.read(), image_id, latency_constraint, arrival_time) for image, image_id in zip(images, image_ids)]
 
 
             # Add each image to the scheduler's queue with its unique ID
@@ -52,16 +55,20 @@ def LoudServer(queue, response_dict):
 
 
             # Wait for all responses to be available in the response dictionary
+            logger.debug(f"Waiting for responses for images: {image_ids}")
             responses = {}
             while len(responses) < len(image_ids):
                 for image_id in image_ids:
                     if image_id in response_dict:
+                        logger.debug(f"Response received for image: {image_id}")
                         responses[image_id] = response_dict.pop(image_id)
-                time.sleep(0.01)
+                        logger.debug(f"Responses: {responses}")
+                time.sleep(0.1)
             
-            
+            end_time = time.time()
+
             logger.info(f"Inference completed for request ID: {request_id}")
-            return jsonify({"status": "completed", "response": responses})
+            return jsonify({"status": "completed", "response": responses, "latency": end_time - arrival_time}), 200
         except Exception as e:
             logger.error("An error occurred during inference", exc_info=True)
             return jsonify({"status": "error", "message": "Internal server error"}), 500

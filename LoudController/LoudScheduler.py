@@ -2,7 +2,6 @@ import time
 import threading
 from DeviceData import initialize_devices
 from logging_config import setup_logging
-from LoudPredictor.costs.agnostic.LoudCostPredictor import LoudCostPredictor
 import Settings as settings
 
 # Initialize devices
@@ -17,110 +16,71 @@ debug_mode = 1 if logger.getEffectiveLevel() == 10 else 0
 if debug_mode:
     logger.info("Debug mode enabled.")
 
-# Initialize and train the LoudCostPredictor
-if settings.use_prediction:
-    
-    predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
-    logger.info("Training the LoudCostPredictor...")
-    start_time = time.time()
-    predictor.train()
-    end_time = time.time()
-    logger.info(f"LoudCostPredictor training complete. Training time: {end_time - start_time} seconds.")
-
-else:
-        logger.info("Using profiling data for decision making.")
-
-
-
-
 
 def select_best_device_config(devices, latency_constraint, queue_size):
     """
-    Selects the best device configuration based on latency constraints and energy consumption.
+    Selects the best device configuration based on latency constraints and energy efficiency (energy per frame).
     If no configuration meets the constraints, returns the closest match.
 
     Args:
         devices (list): List of available devices.
         latency_constraint (float): The maximum allowable latency in seconds.
+        queue_size (int): The number of requests currently in the queue.
 
     Returns:
         tuple: Selected device, frequency, and batch size.
     """
-    best_device = None
-    best_freq = None
-    best_batch_size = 0
-    min_energy = float('inf')  # Initialize with infinity to find the minimum energy
-    closest_device = None
-    closest_freq = None
-    closest_batch_size = 0
-    closest_latency = float('inf')  # Initialize with infinity to find the closest latency
+    best_config = {
+        'device': None,
+        'freq': None,
+        'batch_size': 0,
+        'energy_per_frame': float('inf'),
+        'latency': float('inf')
+    }
+    
+    closest_config = {
+        'device': None,
+        'freq': None,
+        'batch_size': 0,
+        'latency': float('inf')
+    }
 
     logger.debug("Selecting best device configuration")
 
+    # Filter available devices
     available_devices = [device for device in devices if device.is_available()]
-
     if not available_devices:
         logger.warning("No available devices found.")
         return None, None, 0
 
-    if settings.use_prediction:
-        # Use prediction model to estimate energy and latency
-        for device in available_devices:
-            for freq in device.frequencies:
-                for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
-                    # Predict energy and latency for the current configuration
-                    predicted_energy, predicted_latency = predictor.predict({
-                        'Batch Size': batch_size,
-                        'Frequency': freq,
-                        'GPU Max Frequency (MHz)': device.gpu_max_freq,
-                        'GPU Min Frequency (MHz)': device.gpu_min_freq,
-                        'GPU Number of Cores': device.num_cores,
-                        'Memory Speed (GB/s)': device.memory_speed,
-                        'Memory Size (GB)': device.memory_size,
-                        'Tensor Cores': device.tensor_cores
-                    })
-
-                    # Check if the configuration meets the latency constraint and is energy efficient
-                    if predicted_latency <= latency_constraint and predicted_energy < min_energy:
-                        min_energy = predicted_energy
-                        best_device = device
-                        best_freq = freq
-                        best_batch_size = batch_size
-                    elif predicted_latency < closest_latency:
-                        # Track the closest configuration if it doesn't meet the latency constraint
-                        closest_latency = predicted_latency
-                        closest_device = device
-                        closest_freq = freq
-                        closest_batch_size = batch_size
-
-    else:
-        # Use profiling data for decision making
-        for device in available_devices:
-            for freq in device.frequencies:
-                for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
-                    # Get latency and energy from profiling data
+    # Iterate over each device and its possible configurations
+    for device in available_devices:
+        for freq in device.frequencies:
+            for batch_size in range(min(queue_size, device.max_batch_size), 0, -1):
+                # Predict or retrieve energy and latency
+                if settings.use_prediction:
+                    energy, latency = device.predict(freq, batch_size)
+                else:
                     latency = device.get_latency(freq, batch_size)
                     energy = device.get_energy_consumption(freq, batch_size)
-                    
-                    # Check if the configuration meets the latency constraint and is energy efficient
-                    if latency <= latency_constraint and energy < min_energy:
-                        min_energy = energy
-                        best_device = device
-                        best_freq = freq
-                        best_batch_size = batch_size
-                    elif latency < closest_latency:
-                        # Track the closest configuration if it doesn't meet the latency constraint
-                        closest_latency = latency
-                        closest_device = device
-                        closest_freq = freq
-                        closest_batch_size = batch_size
 
-    if best_device:
-        logger.info(f"Selected device: {best_device.name} with frequency: {best_freq} and batch size: {best_batch_size}")
-        return best_device, best_freq, best_batch_size
+                # Calculate energy per frame
+                energy_per_frame = energy / batch_size if batch_size > 0 else float('inf')
+
+                # Check if configuration meets latency constraint and is energy efficient (energy per frame)
+                if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
+                    best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame})
+                elif latency < closest_config['latency']:
+                    # Track the closest configuration if it doesn't meet the latency constraint
+                    closest_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'latency': latency})
+
+    if best_config['device']:
+        logger.info(f"Selected device: {best_config['device'].name} with frequency: {best_config['freq']} and batch size: {best_config['batch_size']}")
+        return best_config['device'], best_config['freq'], best_config['batch_size'], best_config['latency']
     else:
         logger.warning("No suitable device configuration found within constraints. Using closest match.")
-        return closest_device, closest_freq, closest_batch_size
+        return closest_config['device'], closest_config['freq'], closest_config['batch_size'], closest_config['latency']
+
 
 
 
@@ -141,29 +101,55 @@ def manage_batches(queue, response_dict):
             # Add the contents of the queue to the queue_list. Caution, queue is not iterable
             while not queue.empty():
                 queue_list.append(queue.get())
-            queue_list.sort(key=lambda x: x[2])  # Sort based on latency constraints
+
+
+
+            # Calculate remaining time for each request in the queue and sort based on it
+            logger.debug("Calculating remaining time for each request in the queue.")
+            current_time = time.time()
+            remaining_time_list = []
+
+            for image_bytes, image_id, latency_constraint, arrival_time in queue_list:
+                time_elapsed = current_time - arrival_time
+                remaining_time = latency_constraint - time_elapsed
+                remaining_time_list.append((remaining_time, image_bytes, image_id, latency_constraint, arrival_time))
+
+            remaining_time_list.sort(key=lambda x: x[0])
 
             # Collect all images and all ids from the queue, sort them based on latency constraints
+            all_remaining_times = []
             all_images = []
             all_image_ids = []
             latency_constraints = []
+            arrival_times = []
 
-            for images, image_id, latency_constraint in queue_list:
+            for remaining_time, images, image_id, latency_constraint, arrival_time in remaining_time_list:
+                all_remaining_times.append(remaining_time)
                 all_images.append(images)  
                 all_image_ids.append(image_id)  
                 latency_constraints.append(latency_constraint)  
+                arrival_times.append(arrival_time)
 
             if debug_mode:
                 logger.debug(f"Image IDs: {all_image_ids}")
                 logger.debug(f"Latency constraints: {latency_constraints}")
 
-            # Determine the minimum latency constraint in the queue
-            min_latency_constraint = min(latency_constraints)
+            # Determine the minimum remaining time 
+            min_remaining_time = min(all_remaining_times)
 
             # Select the best device configuration and batch size
-            best_device, best_freq, best_batch_size = select_best_device_config(devices, min_latency_constraint, len(all_images))
+            best_device, best_freq, best_batch_size, expected_latency = select_best_device_config(devices, min_remaining_time, len(all_images))
 
             if best_device and best_batch_size > 0:
+                # We have a valid configuration, dispatch the batch
+                logger.debug(f"Best device configuration found. Proceeding.")
+
+                # If the remaining time is greater than the expected latency, wait for more images
+                if min_remaining_time > expected_latency * (1 + settings.batching_wait_strictness):
+                    logger.debug(f"Latency constraint allows for waiting, holding for more images.")
+                    time.sleep(0.01)
+                    continue
+
                 # Prepare the batch for dispatch
                 batch_images = all_images[:best_batch_size]
                 batch_image_ids = all_image_ids[:best_batch_size]

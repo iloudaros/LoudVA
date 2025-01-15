@@ -18,3 +18,6 @@ use_prediction = False
 # Health check settings
 health_check_interval = 15
 health_checks_enabled = False
+
+# Batching 
+batching_wait_strictness = 0.5

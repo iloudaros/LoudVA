@@ -116,7 +116,7 @@ def manage_batches(queue, response_dict):
 
             remaining_time_list.sort(key=lambda x: x[0])
 
-            # Collect all images and all ids from the queue, sort them based on latency constraints
+            # Collect all images and all ids from the queue.
             all_remaining_times = []
             all_images = []
             all_image_ids = []
@@ -203,7 +203,7 @@ def health_check():
     while True:
         for device in devices:
             try:
-                # Implement a simple check, e.g., ping or a test inference request
+                # Use the device's health check method to determine if the device is healthy
                 healthy = device.health_check()
                 if healthy:
                     if device.get_status == 'OFFLINE':
@@ -217,13 +217,3 @@ def health_check():
         time.sleep(settings.health_check_interval)  
 
 
-
-
-# Start the batch manager in a separate thread
-def start_scheduler(max_wait_time=1.0):
-    logger.info("Starting scheduler...")
-    threading.Thread(target=manage_batches, args=(max_wait_time,), daemon=True).start()
-
-    if settings.health_checks_enabled:
-        # Start the health check in a separate thread
-        threading.Thread(target=health_check, daemon=True).start()

@@ -74,6 +74,11 @@ def LoudServer(queue, response_dict):
             logger.error("An error occurred during inference", exc_info=True)
             return jsonify({"status": "error", "message": "Internal server error"}), 500
         
+    @app.route('/resources', methods=['GET'])
+    def resources():
+        # Return the current state of the queue and response dictionary
+        return jsonify({"queue_size": queue.qsize(), "response_dict": dict(response_dict)}), 200
+        
     return app
     
 

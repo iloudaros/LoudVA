@@ -2,6 +2,10 @@ from multiprocessing import Process, Queue, Manager # Queue and Manager.dict are
 from LoudServer import run_server
 from LoudScheduler import manage_batches
 import Settings as settings
+from logging_config import setup_logging
+
+# Configure logging
+logger = setup_logging()
 
 def start_processes():
     # Create a shared queue for messages and a manager dictionary for responses
@@ -22,4 +26,7 @@ def start_processes():
     scheduler_process.join()
 
 if __name__ == '__main__':
+    logger.info("Starting LoudController...")
+    logger.info("Press CTRL+C to stop the controller.")
+    logger.info(f"Debug mode: {settings.debug}") 
     start_processes()

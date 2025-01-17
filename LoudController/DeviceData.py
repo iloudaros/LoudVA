@@ -158,7 +158,7 @@ class Device:
         
     def set_status(self, status):
         self.__status = status
-        logger.info(f"Device {self.name} status set to {status}")
+        logger.debug(f"Device {self.name} status set to {status}")
 
     def is_available(self):
         return self.__status == 'AVAILABLE'

@@ -4,14 +4,29 @@ import Settings as settings
 import time
 import uuid
 from logging_config import setup_logging
+import csv
+import os
 
 # Configure logging
 logger = setup_logging()
 
+# Define CSV log file path
+CSV_LOG_FILE = 'request_log.csv'
+
+# Initialize CSV file and write headers if it doesn't exist
+if not os.path.exists(CSV_LOG_FILE):
+    with open(CSV_LOG_FILE, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Request ID', 'Arrival Time', 'Completion Time', 'Latency'])
+
+def log_request_to_csv(request_id, arrival_time, completion_time):
+    latency = completion_time - arrival_time
+    with open(CSV_LOG_FILE, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([request_id, arrival_time, completion_time, latency])
+
 def LoudServer(queue, response_dict):
     app = Flask(__name__)
-
-
 
     @app.route('/')
     def home():
@@ -19,7 +34,6 @@ def LoudServer(queue, response_dict):
 
     @app.route('/info', methods=['GET'])
     def info():
-        # return instructions on how to use the API
         return "This API is used to perform inference on images. Send a POST request to the /inference endpoint with the 'images' part containing the images to be processed. Optionally, you can provide a 'latency' parameter to specify the maximum latency in seconds for the inference process.\n"
 
     @app.route('/inference', methods=['POST'])
@@ -68,7 +82,10 @@ def LoudServer(queue, response_dict):
             
             end_time = time.time()
 
-            logger.info(f"Inference completed for request ID: {request_id}")
+            # Log request to CSV
+            log_request_to_csv(request_id, arrival_time, end_time)
+
+            logger.info(f"Inference completed. Request ID: {request_id}")
             return jsonify({"status": "completed", "response": responses, "latency": end_time - arrival_time}), 200
         except Exception as e:
             logger.error("An error occurred during inference", exc_info=True)
@@ -76,17 +93,13 @@ def LoudServer(queue, response_dict):
         
     @app.route('/resources', methods=['GET'])
     def resources():
-        # Return the current state of the queue and response dictionary
         return jsonify({"queue_size": queue.qsize(), "response_dict": dict(response_dict)}), 200
         
     return app
-    
-
 
 def run_server(queue, response_dict):
     app = LoudServer(queue, response_dict)
     app.run(debug=False, port=5000, threaded=True)
 
 if __name__ == '__main__':
-
    pass

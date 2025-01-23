@@ -8,6 +8,7 @@ import Settings as settings
 import time
 from logging_config import setup_logging
 from LoudPredictor.costs.agnostic.LoudCostPredictor import LoudCostPredictor
+import threading
 
 
 # Configure logger
@@ -32,7 +33,7 @@ else:
 # Device class to store the device information
 class Device:
     def __init__(self, name, ip, frequencies, profile, frequency_change_delay, batch_size_change_delay,
-                 gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores):
+                 gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores, max_batch_size=None, model_instances=1):
         self.name = name
         self.ip = ip
         self.frequencies = frequencies
@@ -50,7 +51,7 @@ class Device:
         self.tensor_cores = tensor_cores if isinstance(tensor_cores, int) else 0     
 
         # Calculate Max Batch Size from profile
-        self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()])
+        self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()]) if max_batch_size is None else max_batch_size
 
         # Set the current frequency and batch size 
         self.__current_freq = self.request_frequency()
@@ -63,6 +64,10 @@ class Device:
 
         # Status
         self.__status = 'AVAILABLE'
+        self.model_instances = model_instances
+        self.current_requests = 0
+        self.lock =threading.Lock()
+
 
         # Cache for storing the predicted energy and latency
         self.prediction_cache = {}
@@ -70,7 +75,7 @@ class Device:
         # Fill missing profile data or calculate prediction_cache
         if settings.use_prediction:
             self.calculate_prediction_cache()
-        else:
+        elif settings.fill_missing_profile_data:
             self.fill_missing_profile_data()
 
     def calculate_prediction_cache(self):
@@ -174,6 +179,24 @@ class Device:
         else:
             logger.error(f"Health check failed for {self.name}: {response['message']}")
             return False
+        
+    def add_request(self):
+        with self.lock:
+            self.current_requests += 1
+            logger.debug(f"Request added to {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
+            if self.current_requests >= self.model_instances:
+                self.set_status('BUSY')
+            else:
+                logger.debug(f"{self.name} is still AVAILABLE")
+
+
+    def end_request(self):
+        with self.lock:
+            self.current_requests -= 1
+            logger.debug(f"Request completed on {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
+            if self.current_requests < self.model_instances:
+                self.set_status('AVAILABLE')
+
 
     def inference(self, images, batch_size):
         url = f'{self.ip}:8000'  # Triton server URL
@@ -196,6 +219,7 @@ class Device:
         logger.debug(f"Running inference on device {self.name}")
         response = triton_client.inference(**args)
         logger.debug(f"Response from Triton server: {response}")
+
         return response
 
 
@@ -233,12 +257,12 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'])#,
-        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
-        #Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX']),
-        #Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
-        #Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano']),
-        #Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'])
+        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'], max_batch_size=64, model_instances=3),
+        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
+        #Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
+        #Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
+        #Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
+        #Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4)
     ]
     logger.info("Devices initialized successfully")
     return devices

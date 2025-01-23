@@ -14,6 +14,7 @@ scaling = 'INCEPTION'
 
 # Profiling or Predicting
 use_prediction = False
+fill_missing_profile_data = True
 
 # Health check settings
 health_check_interval = 15

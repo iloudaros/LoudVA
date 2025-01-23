@@ -173,7 +173,7 @@ def postprocess(results, output_name, batch_size, batching):
                 cls = "".join(chr(x) for x in result).split(':')
             else:
                 cls = result.split(':')
-            logger.info("{} ({}) = {}".format(cls[0], cls[1], cls[2]))
+            logger.debug("{} ({}) = {}".format(cls[0], cls[1], cls[2]))
             output.append(cls)
 
     return output
@@ -370,7 +370,7 @@ def inference(image_sources, model_name, model_version='1', batch_size=1, classe
             this_id = response.get_response().id
         else:
             this_id = response.get_response()["id"]
-        logger.info("Request {}, batch size {}".format(this_id, batch_size))
+        logger.debug("Request {}, batch size {}".format(this_id, batch_size))
         all_results.append(postprocess(response, output_name, batch_size, max_batch_size > 0))
 
     logger.debug("PASS")

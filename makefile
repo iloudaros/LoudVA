@@ -142,7 +142,7 @@ start_LoudController_gunicorn:
 
 start_LoudController:
 	@echo "____Starting Control Node in debug mode____"
-	@screen -dmS LoudController bash -c 'python3 LoudController/LoudController.py' 
+	@screen -dmS LoudController bash -c 'python3 LoudController/LoudController.py > LoudController.log 2>&1' 
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
 stop_LoudController:
@@ -192,6 +192,9 @@ send_makefile:
 
 add_specs_to_profiling:
 	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
+
+plot_request_log:
+	python3 plots/LoudVA_activity.py
 
 ### To be run on the Jetsons ###
 
@@ -370,6 +373,10 @@ check: check_LoudController check_triton check_triton_client check_WorkerControl
 	@echo "\n🔍 Final Test : Test_LoudVA.py"
 	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
 	@echo "Check Complete"
+
+simulate_workload:
+	@echo "____Simulating Workload____"
+	@python3 tests/Simulate_Workload.py
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"

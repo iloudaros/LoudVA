@@ -1,4 +1,3 @@
-# loud_scheduler.py
 import time
 import threading
 from DeviceData import initialize_devices
@@ -10,6 +9,9 @@ devices = initialize_devices()
 
 # Configure logging
 logger = setup_logging()
+
+# Find the maximum batch size among all devices
+max_batch_size = max([device.max_batch_size for device in devices])
 
 class LoudScheduler:
     def __init__(self):
@@ -35,6 +37,15 @@ class LoudScheduler:
         logger.debug("Selecting best device configuration")
 
         available_devices = [device for device in self.devices if device.is_available()]
+
+        if settings.debug:
+            current_request_count = [device.current_requests for device in available_devices]
+            model_instances = [device.model_instances for device in available_devices]
+            current_request_count = [f"{current_request_count[i]}/{model_instances[i]}" for i in range(len(current_request_count))]
+            device_request_counts = dict(zip([device.name for device in available_devices], current_request_count))
+            logger.debug(f"Device request counts: {device_request_counts}")
+
+        
         if not available_devices:
             logger.warning("No available devices found.")
             return None, None, 0, float('inf')
@@ -67,7 +78,7 @@ class LoudScheduler:
 
         while True:
             if not (queue.empty() and not queue_list):
-                logger.debug(f"Queue: {queue}")
+                logger.debug(f"Queue: {queue.qsize()+len(queue_list)}")
 
                 while not queue.empty():
                     queue_list.append(queue.get())
@@ -82,6 +93,8 @@ class LoudScheduler:
                     remaining_time_list.append((remaining_time, image_bytes, image_id, latency_constraint, arrival_time))
 
                 remaining_time_list.sort(key=lambda x: x[0])
+                queue_list = [(image_bytes, image_id, latency_constraint, arrival_time) for _, image_bytes, image_id, latency_constraint, arrival_time in remaining_time_list]
+
 
                 all_remaining_times = []
                 all_images = []
@@ -105,10 +118,10 @@ class LoudScheduler:
                 best_device, best_freq, best_batch_size, expected_latency = self.select_best_device_config(min_remaining_time, len(all_images))
 
                 if best_device and best_batch_size > 0:
-                    logger.debug(f"Best device configuration found. Proceeding.")
+                    logger.debug(f"Device configuration found. Proceeding.")
 
-                    logger.debug(f"Min remaining time: {min_remaining_time}, Expected latency: {expected_latency}")
-                    if min_remaining_time > expected_latency * settings.batching_wait_strictness:
+                    logger.debug(f"Min remaining time: {min_remaining_time}, Expected latency: {expected_latency}, Queue: {len(queue_list)}, Max batch size: {max_batch_size}")
+                    if (min_remaining_time > expected_latency * settings.batching_wait_strictness) and len(queue_list)< max_batch_size: # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
                         logger.debug(f"Latency constraint allows for waiting, holding for more images.")
                         time.sleep(0.01)
                         continue
@@ -127,11 +140,10 @@ class LoudScheduler:
                 time.sleep(0.01)
 
     def dispatch_request(self, device, freq, images, image_ids, response_dict):
+        device.add_request()
         batch_size = len(images)
-        
-        device.set_status('BUSY')
-        
-        logger.debug(f"Dispatching request to device {device.name} with frequency {freq}, batch size {batch_size}") 
+                
+        logger.info(f"Dispatching to {device.name} with frequency {freq}, batch size {batch_size}") 
 
         device.set_frequency(freq)
 
@@ -144,20 +156,6 @@ class LoudScheduler:
 
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
-        device.set_status('AVAILABLE')
+        device.end_request()
 
-    def health_check(self):
-        while True:
-            for device in self.devices:
-                try:
-                    healthy = device.health_check()
-                    if healthy:
-                        if device.get_status == 'OFFLINE':
-                            device.set_status('AVAILABLE')
-                    else:
-                        device.set_status('OFFLINE')
-                except Exception as e:
-                    device.set_status('OFFLINE')
-                    logger.error(f"Health check failed for {device.name}: {e}")
-            
-            time.sleep(settings.health_check_interval)  
+

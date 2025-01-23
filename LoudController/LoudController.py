@@ -22,7 +22,7 @@ def start_processes():
     server_process.start()
 
     # Start the printer process as a separate deamon process
-    scheduler = RoundRobinScheduler(4)
+    scheduler = LoudScheduler()
     scheduler_process = Process(target=scheduler.start, args=(message_queue, response_dict))
     scheduler_process.start()
 

@@ -31,7 +31,36 @@ if not server_is_active:
 SERVER_URL = active_url + 'inference'
 
 # Define the path to the images directory
-IMAGES_DIR = '../images'
+IMAGES_DIR = '/home/louduser/images'
+
+# Function to handle a single request
+def send_request(camera_index, selected_images, latency_constraint):
+    # Prepare the files for the POST request
+    files = [('images', open(os.path.join(IMAGES_DIR, image), 'rb')) for image in selected_images]
+
+    # Make the POST request to the inference endpoint
+    try:
+        response = requests.post(SERVER_URL, files=files, data={'latency': latency_constraint})
+        print(f'Camera {camera_index} - Response: {response}')
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            print(f"Camera {camera_index} - Inference successful.")
+            response_json = response.json()
+            print(f"Camera {camera_index} - Response:", response_json)
+            # Verify that the response contains results for all images
+            assert len(response_json['response']) == len(selected_images), "❌ Mismatch in number of results"
+            print(f"Camera {camera_index} - ✅ Number of results matches the number of images.")
+        else:
+            print(f"Camera {camera_index} - ❌ Inference failed with status code:", response.status_code)
+            print(f"Camera {camera_index} - Response:", response.text)
+
+    except requests.exceptions.RequestException as e:
+        print(f"Camera {camera_index} - An error occurred while making the request:", e)
+
+    # Close the file handlers
+    for _, file in files:
+        file.close()
 
 # Function to simulate a camera sending requests
 def simulate_camera(camera_index, schedule):
@@ -51,42 +80,18 @@ def simulate_camera(camera_index, schedule):
         if time_to_wait > 0:
             time.sleep(time_to_wait)
 
-        # Select the specified number of images
-        selected_images = random.sample(image_files, num_frames)
-
-        # Prepare the files for the POST request
-        files = [('images', open(os.path.join(IMAGES_DIR, image), 'rb')) for image in selected_images]
+        # Select the specified number of images, allowing repeats if necessary
+        selected_images = random.choices(image_files, k=num_frames)
 
         # Define a random latency constraint
-        latency_constraint = random.randint(1, 10)
+        latency_constraint = random.randint(int(max(num_frames * 0.8, 1)), num_frames * 6)
 
         # Print the selected images and latency constraint
         print(f"Camera {camera_index} - Selected images: {selected_images}")
         print(f"Camera {camera_index} - Latency constraint: {latency_constraint}")
 
-        # Make the POST request to the inference endpoint
-        try:
-            response = requests.post(SERVER_URL, files=files, data={'latency': latency_constraint})
-            print(f'Camera {camera_index} - Response: {response}')
-
-            # Check if the request was successful
-            if response.status_code == 200:
-                print(f"Camera {camera_index} - Inference successful.")
-                response_json = response.json()
-                print(f"Camera {camera_index} - Response:", response_json)
-                # Verify that the response contains results for all images
-                assert len(response_json['response']) == num_frames, "❌ Mismatch in number of results"
-                print(f"Camera {camera_index} - ✅ Number of results matches the number of images.")
-            else:
-                print(f"Camera {camera_index} - ❌ Inference failed with status code:", response.status_code)
-                print(f"Camera {camera_index} - Response:", response.text)
-
-        except requests.exceptions.RequestException as e:
-            print(f"Camera {camera_index} - An error occurred while making the request:", e)
-
-        # Close the file handlers
-        for _, file in files:
-            file.close()
+        # Start a new thread for each request
+        threading.Thread(target=send_request, args=(camera_index, selected_images, latency_constraint)).start()
 
 def load_camera_schedule(csv_filename):
     camera_schedules = {}
@@ -106,7 +111,7 @@ def load_camera_schedule(csv_filename):
 
 def main():
     # Load the camera schedule from the CSV file
-    camera_schedules = load_camera_schedule('camera_schedule.csv')
+    camera_schedules = load_camera_schedule('/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv')
 
     # Start a thread for each camera
     threads = []

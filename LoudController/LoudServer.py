@@ -17,13 +17,13 @@ CSV_LOG_FILE = 'request_log.csv'
 if not os.path.exists(CSV_LOG_FILE):
     with open(CSV_LOG_FILE, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Request ID', 'Arrival Time', 'Completion Time', 'Latency'])
+        writer.writerow(['Request ID', 'Arrival Time', 'Queue Exit Time', 'Completion Time', 'Latency', 'Requested Latency'])
 
-def log_request_to_csv(request_id, arrival_time, completion_time):
-    latency = completion_time - arrival_time
+def log_request_to_csv(request_id, arrival_time, completion_time, requested_latency):
+    actual_latency = completion_time - arrival_time
     with open(CSV_LOG_FILE, mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([request_id, arrival_time, completion_time, latency])
+        writer.writerow([request_id, arrival_time, completion_time, actual_latency, requested_latency])
 
 def LoudServer(queue, response_dict):
     app = Flask(__name__)
@@ -83,7 +83,7 @@ def LoudServer(queue, response_dict):
             end_time = time.time()
 
             # Log request to CSV
-            log_request_to_csv(request_id, arrival_time, end_time)
+            log_request_to_csv(request_id, arrival_time, end_time, latency_constraint)
 
             logger.info(f"Inference completed. Request ID: {request_id}")
             return jsonify({"status": "completed", "response": responses, "latency": end_time - arrival_time}), 200
@@ -99,7 +99,7 @@ def LoudServer(queue, response_dict):
 
 def run_server(queue, response_dict):
     app = LoudServer(queue, response_dict)
-    app.run(debug=False, port=5000, threaded=True)
+    app.run(debug=settings.debug, port=5000, threaded=True)
 
 if __name__ == '__main__':
    pass

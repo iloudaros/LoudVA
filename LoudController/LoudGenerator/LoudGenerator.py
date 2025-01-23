@@ -4,7 +4,7 @@ import csv
 import time
 
 class LoudGenerator:
-    def __init__(self, num_cameras, max_entries=5, max_time_active=20, min_time_active=5, last_entry_time=50):
+    def __init__(self, num_cameras, max_entries=5, max_time_active=200, min_time_active=5, last_entry_time=200):
         self.num_cameras = num_cameras
         self.max_entries = max_entries
         self.max_time_active = max_time_active
@@ -25,7 +25,7 @@ class LoudGenerator:
             cameras.append({'fps': fps, 'period': period, 'entries': entries})
         return cameras
 
-    def simulate_frames(self, simulation_duration=60):
+    def simulate_frames(self, simulation_duration=300):
         events = []
         last_exit_time = 0
         for camera_index, camera in enumerate(self.cameras):
@@ -114,7 +114,7 @@ class LoudGenerator:
 
 
 if __name__ == '__main__':
-    num_cameras = 6
+    num_cameras = 2
     simulator = LoudGenerator(num_cameras)
     simulated_events, last_exit_time = simulator.simulate_frames()
-    simulator.plot_events(simulated_events, last_exit_time, live=True, log_filename='event_log.csv')
+    simulator.plot_events(simulated_events, last_exit_time, live=False, log_filename='event_log.csv')

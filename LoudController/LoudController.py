@@ -1,15 +1,26 @@
 from multiprocessing import Process, Queue, Manager # Queue and Manager.dict are both thread and process safe
 from LoudServer import run_server
-from LoudScheduler import LoudScheduler
 import Settings as settings
 from logging_config import setup_logging
 
-# Alternative schedulers
-from altSchedulers.RandomScheduler import RandomScheduler
-from altSchedulers.RoundRobinScheduler import RoundRobinScheduler
-
 # Configure logging
 logger = setup_logging()
+
+
+# Scheduler selection : Import only the scheduler you want to use and return an instance of it
+def selected_scheduler():
+    if settings.scheduler == 'round_robin':
+        from altSchedulers.RoundRobinScheduler import RoundRobinScheduler
+        logger.info(f"Using {settings.scheduler} scheduler with fixed batch size {settings.fixed_batch_size}")
+        return RoundRobinScheduler(settings.fixed_batch_size)
+    elif settings.scheduler == 'random':
+        from altSchedulers.RandomScheduler import RandomScheduler
+        return RandomScheduler()
+    else:
+        from LoudScheduler import LoudScheduler
+        return LoudScheduler()
+
+
 
 def start_processes():
     # Create a shared queue for messages and a manager dictionary for responses
@@ -22,7 +33,7 @@ def start_processes():
     server_process.start()
 
     # Start the printer process as a separate deamon process
-    scheduler = LoudScheduler()
+    scheduler = selected_scheduler()
     scheduler_process = Process(target=scheduler.start, args=(message_queue, response_dict))
     scheduler_process.start()
 

@@ -1,11 +1,10 @@
-from flask import Flask, request, jsonify
-import LoudScheduler as scheduler
-import Settings as settings
-import time
-import uuid
-from logging_config import setup_logging
 import csv
 import os
+import time
+import uuid
+from flask import Flask, request, jsonify
+import Settings as settings
+from logging_config import setup_logging
 
 # Configure logging
 logger = setup_logging()
@@ -17,13 +16,13 @@ CSV_LOG_FILE = 'request_log.csv'
 if not os.path.exists(CSV_LOG_FILE):
     with open(CSV_LOG_FILE, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Request ID', 'Arrival Time', 'Queue Exit Time', 'Completion Time', 'Latency', 'Requested Latency'])
+        writer.writerow(['Request ID', 'Image ID', 'Arrival Time', 'Queue Exit Time', 'Completion Time', 'Latency', 'Requested Latency'])
 
-def log_request_to_csv(request_id, arrival_time, completion_time, requested_latency):
+def log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time, completion_time, requested_latency):
     actual_latency = completion_time - arrival_time
     with open(CSV_LOG_FILE, mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([request_id, arrival_time, completion_time, actual_latency, requested_latency])
+        writer.writerow([request_id, image_id, arrival_time, queue_exit_time, completion_time, actual_latency, requested_latency])
 
 def LoudServer(queue, response_dict):
     app = Flask(__name__)
@@ -62,11 +61,9 @@ def LoudServer(queue, response_dict):
             # Convert images to bytes
             image_data = [(image.read(), image_id, latency_constraint, arrival_time) for image, image_id in zip(images, image_ids)]
 
-
             # Add each image to the scheduler's queue with its unique ID
             for data in image_data:
                 queue.put(data)
-
 
             # Wait for all responses to be available in the response dictionary
             logger.debug(f"Waiting for responses for images: {image_ids}")
@@ -79,22 +76,24 @@ def LoudServer(queue, response_dict):
                         logger.debug(f"Responses: {responses}, remaining: {len(image_ids) - len(responses)}")
                         logger.debug(f"Response dictionary: {response_dict}")
                 time.sleep(0.01)
-            
+
             end_time = time.time()
 
-            # Log request to CSV
-            log_request_to_csv(request_id, arrival_time, end_time, latency_constraint)
+            # Log each frame to CSV
+            for image_id in image_ids:
+                queue_exit_time = responses[image_id][-1]
+                log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time, end_time, latency_constraint)
 
             logger.info(f"Inference completed. Request ID: {request_id}")
             return jsonify({"status": "completed", "response": responses, "latency": end_time - arrival_time}), 200
         except Exception as e:
             logger.error("An error occurred during inference", exc_info=True)
             return jsonify({"status": "error", "message": "Internal server error"}), 500
-        
+
     @app.route('/resources', methods=['GET'])
     def resources():
         return jsonify({"queue_size": queue.qsize(), "response_dict": dict(response_dict)}), 200
-        
+
     return app
 
 def run_server(queue, response_dict):
@@ -102,4 +101,4 @@ def run_server(queue, response_dict):
     app.run(debug=settings.debug, port=5000, threaded=True)
 
 if __name__ == '__main__':
-   pass
+    pass

@@ -378,6 +378,11 @@ simulate_workload:
 	@echo "____Simulating Workload____"
 	@python3 tests/Simulate_Workload.py
 
+experiment_1:
+	@echo "____Running Experiment 1____"
+	@python3 tests/Experiment_1.py
+
+
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
 	@echo "(This will take a while)"
@@ -408,6 +413,21 @@ eval_specific_LoudCostPredictors:
 eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@echo "____Evaluating the Predictor____"
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
+
+
+tegrastats_log_name = tegra_log
+
+remote_start_tegrastats:
+	@echo "____Starting tegrastats on the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "sudo tegrastats --interval 1000 --logfile /home/iloudaros/${tegrastats_log_name} --start" -u iloudaros --become
+
+remote_stop_tegrastats:
+	@echo "____Stopping tegrastats on the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "sudo tegrastats --stop" -u iloudaros --become
+
+retrieve_tegrastats:
+	@echo "____Retrieving tegrastats from the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -m fetch -a "src=/home/iloudaros/${tegrastats_log_name} dest=measurements/power" -u iloudaros --become
 
 ### To be run on the Jetsons ###
 CONCURRENCY_FLOOR = 1

@@ -142,20 +142,26 @@ class LoudScheduler:
     def dispatch_request(self, device, freq, images, image_ids, response_dict):
         device.add_request()
         batch_size = len(images)
-                
-        logger.info(f"Dispatching to {device.name} with frequency {freq}, batch size {batch_size}") 
+
+        logger.info(f"Dispatching to {device.name} with frequency {freq}, batch size {batch_size}")
 
         device.set_frequency(freq)
 
+        # Capture the queue exit time
+        queue_exit_time = time.time()
+
+        # Get the response from the device inference
         [response] = device.inference(images, batch_size)
-        
+
         logger.debug(f"Received response ({response}) from device {device.name} for image IDs: {image_ids}")
-        
+
         for image_id, image_response in zip(image_ids, response):
+            # Assuming image_response is a list, append the queue_exit_time
+            image_response.append(queue_exit_time)
+            logger.debug(f"Response: {image_response}")
             response_dict[image_id] = image_response
 
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
         device.end_request()
-
 

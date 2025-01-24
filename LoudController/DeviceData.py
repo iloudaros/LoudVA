@@ -29,6 +29,10 @@ if settings.use_prediction:
 else:
     logger.info("Using profiling data for decision making.")
 
+if settings.fill_missing_profile_data:
+    logger.info("Filling missing profile data with predictions.")
+else:
+    logger.info("Not filling missing profile data with predictions.")
 
 # Device class to store the device information
 class Device:
@@ -322,18 +326,18 @@ def load_gpu_specs(file_path):
 
     return specs
 
-if __name__ == '__main__':
-    devices = initialize_devices()
-    print("Device data loaded successfully.")
-    print("Devices:")
-    for device in devices:
-        print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
-        print(f"Profile: {device.profile}")
-        print(f"Current Frequency: {device.get_frequency}, Current Batch Size: {device.current_batch_size}")
-        print(f"Max Frequency: {device.gpu_max_freq}, Min Frequency: {device.gpu_min_freq}")
-        print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
-        print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
-        print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")
-        print(f"Memory Size: {device.memory_size} GB, Tensor Cores: {device.tensor_cores}")
-        print(f'Health Check: {device.health_check()}')
-        print("\n")
+# if __name__ == '__main__':
+#     devices = initialize_devices()
+#     print("Device data loaded successfully.")
+#     print("Devices:")
+#     for device in devices:
+#         print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
+#         print(f"Profile: {device.profile}")
+#         print(f"Current Frequency: {device.get_frequency}, Current Batch Size: {device.current_batch_size}")
+#         print(f"Max Frequency: {device.gpu_max_freq}, Min Frequency: {device.gpu_min_freq}")
+#         print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
+#         print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
+#         print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")
+#         print(f"Memory Size: {device.memory_size} GB, Tensor Cores: {device.tensor_cores}")
+#         print(f'Health Check: {device.health_check()}')
+#         print("\n")

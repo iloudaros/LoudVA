@@ -98,6 +98,8 @@ class Device:
                     predicted_energy, predicted_latency = self.predict(freq, batch_size)
                     self.profile[(freq, batch_size)] = (self.get_throughput(freq, batch_size), predicted_latency, predicted_energy)
                     logger.debug(f"{self.name} : Filled missing profile data for (f:{freq}, b:{batch_size})")
+        
+        logger.info(f"{self.name} : Missing profile data filled with predictions.")
 
 
     def predict(self, freq, batch_size):

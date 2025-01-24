@@ -1,32 +1,93 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import re
+from datetime import datetime
 
-# Define the path to the CSV log file
-CSV_LOG_FILE = 'request_log.csv'
+# Function to parse the latency CSV
+def parse_latency_csv(file_path):
+    df = pd.read_csv(file_path)
+    return df
 
-def plot_request_latency(csv_file):
-    # Read the CSV file into a DataFrame
-    df = pd.read_csv(csv_file)
+# Function to parse the tegrastats log
+def parse_tegrastats_log(file_path):
+    timestamps = []
+    cpu_power = []
+    soc_power = []
+    temperatures = []
 
-    # Convert the arrival and completion times to datetime
-    df['Arrival Time'] = pd.to_datetime(df['Arrival Time'], unit='s')
-    df['Completion Time'] = pd.to_datetime(df['Completion Time'], unit='s')
+    with open(file_path, 'r') as file:
+        for line in file:
+            # Extract timestamp
+            time_str = line.split()[0] + ' ' + line.split()[1]
+            timestamp = datetime.strptime(time_str, '%m-%d-%Y %H:%M:%S')
+            timestamps.append(timestamp)
 
-    # Calculate latency in seconds
-    df['Latency'] = (df['Completion Time'] - df['Arrival Time']).dt.total_seconds()
+            # Extract CPU and SOC power
+            cpu_power_match = re.search(r'CPU (\d+)mW', line)
+            soc_power_match = re.search(r'SOC (\d+)mW', line)
 
-    # Plot the latency over time
-    plt.figure(figsize=(12, 6))
-    plt.plot(df['Arrival Time'], df['Latency'], marker='o', linestyle='-')
-    plt.title('Request Latency Over Time')
-    plt.xlabel('Arrival Time')
-    plt.ylabel('Latency (seconds)')
-    plt.grid(True)
-    plt.xticks(rotation=45)
-    plt.tight_layout()
+            # Handle missing power data
+            cpu_power.append(int(cpu_power_match.group(1)) if cpu_power_match else 0)
+            soc_power.append(int(soc_power_match.group(1)) if soc_power_match else 0)
 
-    # Show the plot
-    plt.show()
+            # Extract temperature
+            temperature_match = re.search(r'CPU@(\d+)C', line)
+            # Handle missing temperature data
+            temperatures.append(int(temperature_match.group(1)) if temperature_match else 0)
 
-# Call the function to plot the data
-plot_request_latency(CSV_LOG_FILE)
+    df = pd.DataFrame({
+        'Timestamp': timestamps,
+        'CPU_Power': cpu_power,
+        'SOC_Power': soc_power,
+        'Temperature': temperatures
+    })
+    return df
+
+# Load the data
+latency_df = parse_latency_csv('/home/louduser/LoudVA/2025-01-24_12:21:06_loud_request_log.csv')
+power_temp_df = parse_tegrastats_log('/home/louduser/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_12:16:08_loud_tegrastats')
+
+# Convert timestamps to datetime for synchronization
+latency_df['Arrival Time'] = pd.to_datetime(latency_df['Arrival Time'], unit='s')
+latency_df['Queue Exit Time'] = pd.to_datetime(latency_df['Queue Exit Time'], unit='s')
+latency_df['Completion Time'] = pd.to_datetime(latency_df['Completion Time'], unit='s')
+
+# Calculate additional metrics for latency
+latency_df['Queue Time'] = (latency_df['Queue Exit Time'] - latency_df['Arrival Time']).dt.total_seconds()
+latency_df['Excess Latency'] = (latency_df['Latency'] - latency_df['Requested Latency']).clip(lower=0)
+
+# Plotting
+fig, ax1 = plt.subplots(figsize=(14, 7))
+
+# Plot latency data using indices
+ax1.bar(latency_df.index, latency_df['Latency'], color='lightblue', label='Total Latency')
+ax1.bar(latency_df.index, latency_df['Queue Time'], color='orange', label='Queue Time')
+excess_indices = latency_df[latency_df['Excess Latency'] > 0].index
+ax1.bar(excess_indices, latency_df.loc[excess_indices, 'Excess Latency'], color='red', label='Excess Latency')
+
+# Set labels for latency
+ax1.set_xlabel('Request Index')
+ax1.set_ylabel('Latency (s)')
+ax1.set_title('Server Latency, Temperature, and Power Consumption Analysis')
+ax1.legend(loc='upper left')
+
+# Plot temperature data
+ax2 = ax1.twinx()
+ax2.plot(power_temp_df['Timestamp'], power_temp_df['Temperature'], color='green', label='Temperature (°C)')
+ax2.set_ylabel('Temperature (°C)', color='green')
+ax2.tick_params(axis='y', labelcolor='green')
+
+# Plot power consumption data
+ax3 = ax1.twinx()
+ax3.spines['right'].set_position(('outward', 60))
+ax3.plot(power_temp_df['Timestamp'], power_temp_df['CPU_Power'], color='purple', label='CPU Power (mW)')
+ax3.plot(power_temp_df['Timestamp'], power_temp_df['SOC_Power'], color='brown', label='SOC Power (mW)')
+ax3.set_ylabel('Power (mW)', color='purple')
+ax3.tick_params(axis='y', labelcolor='purple')
+
+# Add legends for temperature and power
+fig.tight_layout()
+fig.legend(loc='upper right', bbox_to_anchor=(1, 0.9), bbox_transform=ax1.transAxes)
+
+plt.show()

@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
+import matplotlib.dates as mdates
 import re
 from datetime import datetime
 
@@ -60,17 +60,18 @@ latency_df['Excess Latency'] = (latency_df['Latency'] - latency_df['Requested La
 # Plotting
 fig, ax1 = plt.subplots(figsize=(14, 7))
 
-# Plot latency data using indices
-ax1.bar(latency_df.index, latency_df['Latency'], color='lightblue', label='Total Latency')
-ax1.bar(latency_df.index, latency_df['Queue Time'], color='orange', label='Queue Time')
-excess_indices = latency_df[latency_df['Excess Latency'] > 0].index
-ax1.bar(excess_indices, latency_df.loc[excess_indices, 'Excess Latency'], color='red', label='Excess Latency')
+# Plot latency data
+ax1.bar(latency_df['Arrival Time'], latency_df['Latency'], color='lightblue', label='Total Latency', width=0.0001)
+ax1.bar(latency_df['Arrival Time'], latency_df['Queue Time'], color='orange', label='Queue Time', width=0.0001)
+ax1.bar(latency_df['Arrival Time'], latency_df['Excess Latency'], color='red', label='Excess Latency', width=0.0001)
 
-# Set labels for latency
-ax1.set_xlabel('Request Index')
+# Set labels and format x-axis
+ax1.set_xlabel('Time')
 ax1.set_ylabel('Latency (s)')
 ax1.set_title('Server Latency, Temperature, and Power Consumption Analysis')
-ax1.legend(loc='upper left')
+ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+fig.autofmt_xdate()
 
 # Plot temperature data
 ax2 = ax1.twinx()

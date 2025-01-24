@@ -1,0 +1,19 @@
+2025-01-24 16:11:46,982 - LoudVA - INFO - [LoudController] - Starting LoudController...
+2025-01-24 16:11:46,983 - LoudVA - INFO - [LoudController] - Press CTRL+C to stop the controller.
+2025-01-24 16:11:46,983 - LoudVA - INFO - [LoudController] - Debug mode: False
+ * Serving Flask app 'LoudServer'
+ * Debug mode: off
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.
+2025-01-24 16:11:48,194 - LoudVA - INFO - [DeviceData] - Training the LoudCostPredictor...
+2025-01-24 16:11:48,419 - LoudVA - INFO - [DeviceData] - LoudCostPredictor training complete. Training time: 0.22474098205566406 seconds.
+2025-01-24 16:11:48,419 - LoudVA - INFO - [DeviceData] - Using profiling data for decision making.
+2025-01-24 16:11:48,419 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
+2025-01-24 16:11:48,419 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/agx-xavier-00/measurements/agx-xavier-00_filtered_freqs.csv
+2025-01-24 16:11:48,420 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-01-24 16:11:48,420 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-01-24 16:11:48,420 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-01-24 16:11:48,449 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 905250000
+2025-01-24 16:11:54,958 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Missing profile data filled with predictions.
+2025-01-24 16:11:54,959 - LoudVA - INFO - [DeviceData] - Devices initialized successfully
+Models trained successfully.

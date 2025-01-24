@@ -44,75 +44,81 @@ def parse_tegrastats_log(file_path):
     })
     return df
 
-# Load the data
-latency_df = parse_latency_csv('2025-01-24_14:55:46_loud_request_log.csv')
-power_temp_df = parse_tegrastats_log('measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_14:50:56_loud_tegrastats')
+logs = [('2025-01-24_16:26:55_random_request_log.csv', 'measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_16:22:01_random_tegrastats'),
+         ('2025-01-24_16:21:51_round_robin_request_log.csv','measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_16:16:56_round_robin_tegrastats'),
+         ('2025-01-24_16:16:46_loud_request_log.csv','measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_14:50:56_loud_tegrastats')]
 
-# Convert timestamps to datetime for synchronization
-latency_df['Arrival Time'] = pd.to_datetime(latency_df['Arrival Time'], unit='s') + pd.Timedelta(hours=2)
-latency_df['Queue Exit Time'] = pd.to_datetime(latency_df['Queue Exit Time'], unit='s') + pd.Timedelta(hours=2)
-latency_df['Completion Time'] = pd.to_datetime(latency_df['Completion Time'], unit='s') + pd.Timedelta(hours=2)
 
-# Calculate additional metrics for latency
-latency_df['Queue Time'] = (latency_df['Queue Exit Time'] - latency_df['Arrival Time']).dt.total_seconds()
-latency_df['Excess Latency'] = (latency_df['Latency'] - latency_df['Requested Latency'])
+for request_log, tegrastats_log in logs:
+    # Load the data
+    latency_df = parse_latency_csv(request_log)
+    power_temp_df = parse_tegrastats_log(tegrastats_log)
 
-# Filter out rows with negative Excess Latency
-latency_df = latency_df[latency_df['Excess Latency'] >= 0]
+    # Convert timestamps to datetime for synchronization
+    latency_df['Arrival Time'] = pd.to_datetime(latency_df['Arrival Time'], unit='s') + pd.Timedelta(hours=2)
+    latency_df['Queue Exit Time'] = pd.to_datetime(latency_df['Queue Exit Time'], unit='s') + pd.Timedelta(hours=2)
+    latency_df['Completion Time'] = pd.to_datetime(latency_df['Completion Time'], unit='s') + pd.Timedelta(hours=2)
 
-# Calculate statistics
-mean_excess_latency = latency_df['Excess Latency'].mean()
-median_excess_latency = latency_df['Excess Latency'].median()
-total_energy_used = (power_temp_df['SOC_Power'].sum() / 1000) * (power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]).total_seconds() / len(power_temp_df)
+    # Calculate additional metrics for latency
+    latency_df['Queue Time'] = (latency_df['Queue Exit Time'] - latency_df['Arrival Time']).dt.total_seconds()
+    latency_df['Excess Latency'] = (latency_df['Latency'] - latency_df['Requested Latency'])
 
-# Print the head of the dataframes
-print("\nHead of Latency DataFrame:")
-print(latency_df.head())
+    # Filter out rows with negative Excess Latency
+    latency_df = latency_df[latency_df['Excess Latency'] >= 0]
 
-print("\nHead of Power and Temperature DataFrame:")
-print(power_temp_df.head())
+    # Calculate statistics
+    mean_excess_latency = latency_df['Excess Latency'].mean()
+    median_excess_latency = latency_df['Excess Latency'].median()
+    total_energy_used = (power_temp_df['SOC_Power'].sum() / 1000) * (power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]).total_seconds() / len(power_temp_df)
 
-# Plotting
-fig, ax1 = plt.subplots(figsize=(16, 8))
-fig.suptitle('Server Latency, Temperature, and Power Consumption Analysis', fontsize=16)
+    # Print the head of the dataframes
+    print("\nHead of Latency DataFrame:")
+    print(latency_df.head())
 
-# Plot latency data
-ax1.bar(latency_df['Arrival Time'], latency_df['Queue Time'], color='orange', label='Queue Time', width=0.0001, alpha=0.7)
-ax1.bar(latency_df['Arrival Time'], latency_df['Excess Latency'], color='red', label='Excess Latency', width=0.0001, alpha=0.7)
-ax1.bar(latency_df['Arrival Time'], latency_df['Latency'], color='lightblue', label='Total Latency', width=0.0001, alpha=0.1)
+    print("\nHead of Power and Temperature DataFrame:")
+    print(power_temp_df.head())
 
-# Set labels and format x-axis
-ax1.set_xlabel('Time', fontsize=12)
-ax1.set_ylabel('Latency (s)', fontsize=12)
-ax1.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
-ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
-ax1.tick_params(axis='x', rotation=45)
-ax1.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
+    # Plotting
+    fig, ax1 = plt.subplots(figsize=(16, 8))
+    fig.suptitle('Server Latency, Temperature, and Power Consumption Analysis', fontsize=16)
 
-# Plot temperature data
-ax2 = ax1.twinx()
-ax2.plot(power_temp_df['Timestamp'], power_temp_df['Temperature'], color='green', label='Temperature (°C)', linewidth=2)
-ax2.set_ylabel('Temperature (°C)', color='green', fontsize=12)
-ax2.tick_params(axis='y', labelcolor='green')
+    # Plot latency data
+    ax1.bar(latency_df['Arrival Time'], latency_df['Queue Time'], color='orange', label='Queue Time', width=0.0001, alpha=0.7)
+    ax1.bar(latency_df['Arrival Time'], latency_df['Excess Latency'], color='red', label='Excess Latency', width=0.0001, alpha=0.7)
+    ax1.bar(latency_df['Arrival Time'], latency_df['Latency'], color='lightblue', label='Total Latency', width=0.0001, alpha=0.1)
 
-# Plot power consumption data
-ax3 = ax1.twinx()
-ax3.spines['right'].set_position(('outward', 60))
-ax3.plot(power_temp_df['Timestamp'], power_temp_df['SOC_Power'], color='brown', label='SOC Power (mW)', linestyle='-.', linewidth=2)
-ax3.set_ylabel('Power (mW)', fontsize=12)
-ax3.tick_params(axis='y', labelcolor='purple')
+    # Set labels and format x-axis
+    ax1.set_xlabel('Time', fontsize=12)
+    ax1.set_ylabel('Latency (s)', fontsize=12)
+    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
+    ax1.xaxis.set_major_locator(mdates.AutoDateLocator())
+    ax1.tick_params(axis='x', rotation=45)
+    ax1.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
 
-# Add legends for temperature and power
-fig.tight_layout(rect=[0, 0.03, 1, 0.95])
-lines, labels = ax1.get_legend_handles_labels()
-lines2, labels2 = ax2.get_legend_handles_labels()
-lines3, labels3 = ax3.get_legend_handles_labels()
-ax1.legend(lines + lines2 + lines3, labels + labels2 + labels3, loc='upper right', fontsize=10)
+    # Plot temperature data
+    ax2 = ax1.twinx()
+    ax2.plot(power_temp_df['Timestamp'], power_temp_df['Temperature'], color='green', label='Temperature (°C)', linewidth=2)
+    ax2.set_ylabel('Temperature (°C)', color='green', fontsize=12)
+    ax2.tick_params(axis='y', labelcolor='green')
 
-# Add a text box for statistics
-textstr = f'Energy Used: {total_energy_used:.2f} J\nMean Excess Latency: {mean_excess_latency:.2f} s\nMedian Excess Latency: {median_excess_latency:.2f} s'
-props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-ax1.text(0.02, 0.98, textstr, transform=ax1.transAxes, fontsize=10,
-         verticalalignment='top', bbox=props)
+    # Plot power consumption data
+    ax3 = ax1.twinx()
+    ax3.spines['right'].set_position(('outward', 60))
+    ax3.plot(power_temp_df['Timestamp'], power_temp_df['SOC_Power'], color='brown', label='SOC Power (mW)', linestyle='-.', linewidth=2)
+    ax3.set_ylabel('Power (mW)', fontsize=12)
+    ax3.tick_params(axis='y', labelcolor='purple')
 
-plt.show()
+    # Add legends for temperature and power
+    fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+    lines, labels = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    lines3, labels3 = ax3.get_legend_handles_labels()
+    ax1.legend(lines + lines2 + lines3, labels + labels2 + labels3, loc='upper right', fontsize=10)
+
+    # Add a text box for statistics
+    textstr = f'Energy Used: {total_energy_used:.2f} J\nMean Excess Latency: {mean_excess_latency:.2f} s\nMedian Excess Latency: {median_excess_latency:.2f} s'
+    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+    ax1.text(0.02, 0.98, textstr, transform=ax1.transAxes, fontsize=10,
+            verticalalignment='top', bbox=props)
+
+    plt.show()

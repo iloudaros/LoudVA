@@ -193,7 +193,7 @@ send_makefile:
 add_specs_to_profiling:
 	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
 
-plot_request_log:
+plot_activity:
 	python3 plots/LoudVA_activity.py
 
 ### To be run on the Jetsons ###
@@ -420,7 +420,7 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-24_14:55:56_round_robin_tegrastats
+tegrastats_log_name = 2025-01-24_16:09:43_round_robin_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"

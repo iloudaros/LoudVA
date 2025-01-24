@@ -74,7 +74,7 @@ def simulate_camera(camera_index, schedule):
     start_time = time.time()
 
     for entry in schedule:
-        target_time, num_frames = entry
+        target_time, num_frames, latency_constraint = entry
         # Wait until the scheduled time
         time_to_wait = target_time - (time.time() - start_time)
         if time_to_wait > 0:
@@ -82,9 +82,6 @@ def simulate_camera(camera_index, schedule):
 
         # Select the specified number of images, allowing repeats if necessary
         selected_images = random.choices(image_files, k=num_frames)
-
-        # Define a random latency constraint
-        latency_constraint = random.randint(int(max(num_frames * 0.8, 1)), num_frames * 6)
 
         # Print the selected images and latency constraint
         print(f"Camera {camera_index} - Selected images: {selected_images}")
@@ -95,17 +92,40 @@ def simulate_camera(camera_index, schedule):
 
 def load_camera_schedule(csv_filename):
     camera_schedules = {}
-    with open(csv_filename, mode='r') as csvfile:
+    updated_rows = []
+    with open(csv_filename, mode='r', newline='') as csvfile:
         csv_reader = csv.DictReader(csvfile)
+        fieldnames = csv_reader.fieldnames
+        has_latency_constraint = 'latency_constraint' in fieldnames
+
+        if not has_latency_constraint:
+            # Add latency_constraint to the headers if it doesn't exist
+            fieldnames.append('latency_constraint')
+
         for row in csv_reader:
             time = float(row['Time'])
             frames = int(row['Frames After Filter'])
             camera_index = int(row['Camera Index'])
 
+            # Use latency constraint from CSV if available, otherwise generate it
+            if has_latency_constraint:
+                latency_constraint = int(row['latency_constraint'])
+            else:
+                latency_constraint = random.randint(int(max(frames * 0.8, 1)), frames * 6)
+                row['latency_constraint'] = latency_constraint  # Add to the row for writing back
+
             if camera_index not in camera_schedules:
                 camera_schedules[camera_index] = []
 
-            camera_schedules[camera_index].append((time, frames))
+            camera_schedules[camera_index].append((time, frames, latency_constraint))
+            updated_rows.append(row)
+
+    # Write back to the CSV file if we generated new latency constraints
+    if not has_latency_constraint:
+        with open(csv_filename, mode='w', newline='') as csvfile:
+            csv_writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            csv_writer.writeheader()
+            csv_writer.writerows(updated_rows)
 
     return camera_schedules
 

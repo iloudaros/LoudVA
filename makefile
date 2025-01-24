@@ -420,11 +420,11 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-24_16:22:01_random_tegrastats
+tegrastats_log_name = 2025-01-24_18:41:30_random_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} Workers -a "sudo tegrastats --interval 1000 --logfile /home/iloudaros/${tegrastats_log_name} --start" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -a "sudo tegrastats --interval 500 --logfile /home/iloudaros/${tegrastats_log_name} --start" -u iloudaros --become
 
 remote_stop_tegrastats:
 	@echo "____Stopping tegrastats on the Jetsons____"

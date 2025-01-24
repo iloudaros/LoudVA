@@ -1,0 +1,637 @@
+2025-01-24 18:40:31,298 - LoudVA - INFO - [LoudController] - Starting LoudController...
+2025-01-24 18:40:31,298 - LoudVA - INFO - [LoudController] - Press CTRL+C to stop the controller.
+2025-01-24 18:40:31,298 - LoudVA - INFO - [LoudController] - Debug mode: False
+ * Serving Flask app 'LoudServer'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+2025-01-24 18:40:32,566 - LoudVA - INFO - [DeviceData] - Training the LoudCostPredictor...
+2025-01-24 18:40:32,787 - LoudVA - INFO - [DeviceData] - LoudCostPredictor training complete. Training time: 0.22037839889526367 seconds.
+2025-01-24 18:40:32,787 - LoudVA - INFO - [DeviceData] - Using profiling data for decision making.
+2025-01-24 18:40:32,787 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
+2025-01-24 18:40:32,787 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/agx-xavier-00/measurements/agx-xavier-00_filtered_freqs.csv
+2025-01-24 18:40:32,788 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-01-24 18:40:32,788 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-01-24 18:40:32,788 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-01-24 18:40:32,816 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 905250000
+2025-01-24 18:40:38,898 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Missing profile data filled with predictions.
+2025-01-24 18:40:38,898 - LoudVA - INFO - [DeviceData] - Devices initialized successfully
+Models trained successfully.
+127.0.0.1 - - [24/Jan/2025 18:41:31] "GET / HTTP/1.1" 200 -
+2025-01-24 18:41:41,469 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 230.0
+2025-01-24 18:41:51,450 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 163.0
+2025-01-24 18:41:51,679 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:41:51,764 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:42:01,284 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 27.0
+2025-01-24 18:42:11,276 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-01-24 18:42:19,994 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-01-24 18:42:20,066 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-01-24 18:42:21,488 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 51.0
+2025-01-24 18:42:25,305 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0408bca6-7609-4ca0-8d16-f8e35b524761
+127.0.0.1 - - [24/Jan/2025 18:42:25] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:25,315 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6f46fd35-a736-4859-98d3-733b148f1ba7
+127.0.0.1 - - [24/Jan/2025 18:42:25] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:25,346 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 87b1428c-326a-4f5b-a35c-92222ecf2c67
+127.0.0.1 - - [24/Jan/2025 18:42:25] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:31,394 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 140.0
+2025-01-24 18:42:31,599 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:42:31,669 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:42:39,066 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bdf3ccad-0abf-41f9-b91d-b26db13dab69
+127.0.0.1 - - [24/Jan/2025 18:42:39] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:41,294 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 76.0
+2025-01-24 18:42:42,507 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-01-24 18:42:45,473 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 29.0
+2025-01-24 18:42:48,448 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.0
+2025-01-24 18:42:49,299 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:42:49,374 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:42:51,524 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-01-24 18:42:54,461 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-01-24 18:42:55,916 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 8d758b2d-790d-4524-a371-d75faa7ca4f2
+127.0.0.1 - - [24/Jan/2025 18:42:55] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:55,932 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: af74a224-550f-4531-90bf-20498da589b3
+127.0.0.1 - - [24/Jan/2025 18:42:55] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:55,957 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3d866453-2c27-49c7-b839-e0c43e83774d
+127.0.0.1 - - [24/Jan/2025 18:42:55] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:55,982 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 169f126b-ff32-45ac-abe7-586c350bb48c
+127.0.0.1 - - [24/Jan/2025 18:42:55] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:42:57,499 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 69.0
+2025-01-24 18:43:00,471 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 25.0
+2025-01-24 18:43:03,517 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.0
+2025-01-24 18:43:05,374 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:43:05,446 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:43:12,746 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bb38f355-8051-48aa-b4b0-6b3ead9e8c09
+127.0.0.1 - - [24/Jan/2025 18:43:12] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:43:12,782 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9e73c0d8-bd3c-4980-933e-23344c0880ff
+127.0.0.1 - - [24/Jan/2025 18:43:12] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:43:12,798 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0fc78d76-4aba-4cae-8a1a-a807112f867a
+2025-01-24 18:43:12,799 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3e80db7f-608b-40b7-be65-cee91eb5dd27
+127.0.0.1 - - [24/Jan/2025 18:43:12] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [24/Jan/2025 18:43:12] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:43:12,817 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 8ce33331-671c-49d5-ac71-413c57b048ef
+127.0.0.1 - - [24/Jan/2025 18:43:12] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:43:12,824 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3e818212-5a5d-4698-8ca5-fa0921108186
+127.0.0.1 - - [24/Jan/2025 18:43:12] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:43:59,640 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 89.0
+2025-01-24 18:44:09,468 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-01-24 18:44:17,218 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 35.0
+2025-01-24 18:44:18,201 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-01-24 18:44:18,273 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-01-24 18:44:19,548 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 28.0
+2025-01-24 18:44:20,147 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 54.0
+2025-01-24 18:44:23,168 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 52.0
+2025-01-24 18:44:23,402 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cfa07089-b858-4640-8ca0-793d0ee9b181
+127.0.0.1 - - [24/Jan/2025 18:44:23] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:23,418 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 8254eabe-d62b-4a2a-88a7-a048803aebc9
+127.0.0.1 - - [24/Jan/2025 18:44:23] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:26,166 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-01-24 18:44:29,183 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 59.0
+2025-01-24 18:44:29,331 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:44:29,407 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:44:29,587 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 38.0
+2025-01-24 18:44:32,132 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.0
+2025-01-24 18:44:34,158 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 32
+2025-01-24 18:44:34,272 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-01-24 18:44:35,158 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 49.0
+2025-01-24 18:44:36,359 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 251.0
+2025-01-24 18:44:37,998 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9701aa0c-db0a-4e8b-8949-a48bb3d6b576
+127.0.0.1 - - [24/Jan/2025 18:44:38] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:38,020 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6e18f18d-59e6-4bdf-b198-810ab30ea6de
+127.0.0.1 - - [24/Jan/2025 18:44:38] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:38,046 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 029fcf10-8e4c-4e6b-b99c-0d657f9ece15
+127.0.0.1 - - [24/Jan/2025 18:44:38] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:38,061 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: eeaff002-2f2f-497c-9721-e01cdc42fc7a
+127.0.0.1 - - [24/Jan/2025 18:44:38] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:38,160 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 36.0
+2025-01-24 18:44:38,276 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:44:38,383 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:44:39,450 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-01-24 18:44:40,016 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3e5d5ca2-77d8-4e89-82c4-6d9ff8f8516c
+127.0.0.1 - - [24/Jan/2025 18:44:40] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:40,060 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 18799d08-6fb8-4e6e-961b-85da53d56ad9
+127.0.0.1 - - [24/Jan/2025 18:44:40] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:40,079 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 18d3308a-6fec-47d4-aa60-f4e751924d4c
+127.0.0.1 - - [24/Jan/2025 18:44:40] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:41,138 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 34.0
+2025-01-24 18:44:44,122 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.0
+2025-01-24 18:44:45,461 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 498b35ea-981b-418c-b9f4-778f407ecb82
+127.0.0.1 - - [24/Jan/2025 18:44:45] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:45,467 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a214c695-85d2-4ac6-ae65-9f2252c9c70e
+127.0.0.1 - - [24/Jan/2025 18:44:45] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:45,477 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 33a21233-c183-4142-8793-27693bf6a646
+127.0.0.1 - - [24/Jan/2025 18:44:45] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:45,486 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 23
+2025-01-24 18:44:45,493 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7650f0a4-8ee2-4927-bf7c-1ba708716bca
+127.0.0.1 - - [24/Jan/2025 18:44:45] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:45,556 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-01-24 18:44:46,134 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-01-24 18:44:47,146 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 34.0
+2025-01-24 18:44:48,459 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 761b6632-8d13-4710-830f-f661528c7e58
+127.0.0.1 - - [24/Jan/2025 18:44:48] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:48,479 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ba52e466-548c-440e-8b9d-ee8a25e1d5e3
+127.0.0.1 - - [24/Jan/2025 18:44:48] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:48,487 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 68b0b9c3-e446-43bc-b975-78b64c8071b2
+127.0.0.1 - - [24/Jan/2025 18:44:48] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:44:49,480 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 46.0
+2025-01-24 18:44:50,188 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 68.0
+2025-01-24 18:44:53,214 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 43.0
+2025-01-24 18:44:56,177 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-01-24 18:44:56,244 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:44:56,323 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 207.0
+2025-01-24 18:44:56,405 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:44:59,123 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.0
+2025-01-24 18:44:59,150 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:44:59,244 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:44:59,630 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 188.0
+2025-01-24 18:44:59,672 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-01-24 18:44:59,683 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,695 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,707 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,718 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,730 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,745 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,763 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,775 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,789 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,797 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:44:59,802 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,816 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,838 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,850 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,874 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,886 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,900 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,918 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,929 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,941 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,952 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,963 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,975 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,985 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:44:59,996 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,007 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,018 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,029 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,040 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,051 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,062 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,088 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,123 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,133 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,144 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,155 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,165 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,176 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,187 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,198 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,209 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,220 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,231 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,241 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,252 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,264 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,275 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,286 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,297 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,307 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,318 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,330 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,340 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,351 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,362 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,373 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,383 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,394 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,405 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,433 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,444 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,455 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,465 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,476 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,487 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,498 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,508 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,519 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,530 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,540 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,686 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,982 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:00,993 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,004 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,014 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,025 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,036 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,047 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,057 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,068 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,079 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,089 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,100 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,111 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,122 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,132 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,143 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,154 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,165 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,176 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,186 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,197 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,208 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,219 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,230 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,240 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,251 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,262 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,273 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,283 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,294 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,305 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,315 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,326 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,337 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,348 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,358 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,369 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,380 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,391 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,401 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,412 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,423 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,433 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,444 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,455 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,466 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,476 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,487 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,498 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,508 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,519 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,530 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,541 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,551 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,562 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,573 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,583 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,594 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,605 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,616 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,626 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,637 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,647 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,658 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,669 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,680 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,690 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,701 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,712 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,722 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,733 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,744 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,755 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,765 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,776 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,787 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,798 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,808 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,819 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,830 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,840 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,851 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,862 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,873 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,883 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,894 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,905 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,915 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,926 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,937 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,947 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,958 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,969 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,980 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:01,990 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,001 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,012 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,022 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,033 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,044 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,055 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,065 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,076 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,087 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,097 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,108 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,119 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,130 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,138 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.0
+2025-01-24 18:45:02,141 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,154 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,166 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,177 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,188 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,199 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,209 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,220 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,231 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,242 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,252 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,263 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,274 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,284 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,295 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,306 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,316 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,327 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,338 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,348 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,359 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,370 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,380 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,391 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,402 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,412 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,423 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,434 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,445 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,455 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,466 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,477 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,487 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,498 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,509 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,519 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,530 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,541 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,552 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,563 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,574 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,585 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,595 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,606 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,617 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,628 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,639 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,650 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,660 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,671 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,682 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,693 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,704 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,714 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,725 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,736 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,747 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,758 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,768 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,779 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,790 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,801 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,812 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,823 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,834 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,844 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,855 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,866 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,877 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,888 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,899 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,910 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,921 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,932 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,943 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,954 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,965 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,976 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,987 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:02,998 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:03,009 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:03,020 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:03,031 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:03,042 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:03,053 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:03,098 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:05,260 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 52.0
+2025-01-24 18:45:06,127 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-01-24 18:45:06,329 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:45:06,340 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,351 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,361 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,372 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,383 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,393 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,404 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,414 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,425 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,435 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:45:06,438 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,449 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,459 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,470 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,483 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,493 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,504 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,514 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,524 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,535 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,546 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,557 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,567 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,578 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,589 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,600 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,610 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,621 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,632 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,643 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,654 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,664 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,675 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,686 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,696 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,707 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,718 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,729 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,740 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,751 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,761 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,772 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,783 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,794 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,804 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,815 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,826 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,836 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,847 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,858 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,869 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,880 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,891 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,901 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,912 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,923 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,934 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,945 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,955 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,966 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,984 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:06,995 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,006 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,017 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,027 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,038 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,049 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,059 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,070 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,081 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,091 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,102 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,113 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,123 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,134 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,144 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,156 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,166 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,177 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,187 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,198 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,208 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,219 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,230 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,240 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,251 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,261 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,272 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,282 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,293 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,304 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,322 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,344 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,358 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,369 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,380 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,390 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,401 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,412 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,423 - LoudVA - WARNING - [LoudScheduler] - No available devices found.
+2025-01-24 18:45:07,429 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e7455f91-ad0e-4a5b-9a5a-300258e334af
+127.0.0.1 - - [24/Jan/2025 18:45:07] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:07,475 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bc58cc0e-2e9c-4f4d-b981-71b17de337d2
+127.0.0.1 - - [24/Jan/2025 18:45:07] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:07,505 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f2ca3e5b-a271-454e-8ff8-8ff17691fae4
+127.0.0.1 - - [24/Jan/2025 18:45:07] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:07,527 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 56a42422-b966-4b3f-91e3-28707e1af117
+127.0.0.1 - - [24/Jan/2025 18:45:07] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:08,151 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-01-24 18:45:11,148 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-01-24 18:45:11,425 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 38e5c8c8-4c4f-447b-b8ce-c48efb805761
+127.0.0.1 - - [24/Jan/2025 18:45:11] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:11,432 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 114ba3f2-d11b-489d-baa0-3df55e41ad60
+127.0.0.1 - - [24/Jan/2025 18:45:11] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:11,506 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 4c512e9e-8eed-4362-a53f-7f7e1cd5311f
+127.0.0.1 - - [24/Jan/2025 18:45:11] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:11,584 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2035ad0d-f541-4b87-a849-607297b3bac9
+127.0.0.1 - - [24/Jan/2025 18:45:11] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:14,116 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.0
+2025-01-24 18:45:14,125 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 28
+2025-01-24 18:45:14,198 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:45:14,680 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6c6f3dbf-d0f6-41a3-93b1-37313cf8a5fd
+127.0.0.1 - - [24/Jan/2025 18:45:14] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:14,723 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ab07e58a-7984-416f-bc43-827b3b9b4291
+127.0.0.1 - - [24/Jan/2025 18:45:14] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:14,732 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1fdf286d-a935-4707-bbe7-4d532cd5ed1b
+127.0.0.1 - - [24/Jan/2025 18:45:14] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:16,188 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 185.0
+2025-01-24 18:45:17,138 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 35.0
+2025-01-24 18:45:17,852 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: dd970a29-6f35-43a4-b01f-cf10f677e0ff
+127.0.0.1 - - [24/Jan/2025 18:45:17] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:17,865 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e080fb09-69bc-4b29-adc7-8e30fdfd76ca
+127.0.0.1 - - [24/Jan/2025 18:45:17] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:17,877 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 74513f40-0dbc-4353-a39d-213f9aec5f65
+127.0.0.1 - - [24/Jan/2025 18:45:17] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:17,903 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: aca68fab-2a10-48b3-8197-6cc41c2a918a
+127.0.0.1 - - [24/Jan/2025 18:45:17] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:17,918 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2916e2bb-13d3-4940-8747-947de14a7a5d
+127.0.0.1 - - [24/Jan/2025 18:45:17] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:20,120 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-01-24 18:45:23,151 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 25.0
+2025-01-24 18:45:23,326 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:45:23,395 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:45:26,100 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-01-24 18:45:26,122 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-01-24 18:45:29,156 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 24.0
+2025-01-24 18:45:30,201 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e2623482-dfe9-491a-8357-7d8e65aef4ff
+127.0.0.1 - - [24/Jan/2025 18:45:30] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:30,227 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 030d32fe-55fa-465d-b8e8-3602a6ed5842
+127.0.0.1 - - [24/Jan/2025 18:45:30] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:32,142 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-01-24 18:45:35,120 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.0
+2025-01-24 18:45:36,207 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 187.0
+2025-01-24 18:45:36,371 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-01-24 18:45:36,453 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:45:38,131 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 42.0
+2025-01-24 18:45:41,158 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-01-24 18:45:43,375 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 371f43b6-44d6-4abd-90b2-12975023c4b1
+127.0.0.1 - - [24/Jan/2025 18:45:43] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:43,411 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ec315e1c-6e29-4076-af72-9a5d2bfb0d3c
+127.0.0.1 - - [24/Jan/2025 18:45:43] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:43,425 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 45464bd7-4d86-402c-81ff-617c5be27211
+127.0.0.1 - - [24/Jan/2025 18:45:43] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:43,455 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 58a6cf88-6fb8-412d-ac2f-38612b215d5e
+127.0.0.1 - - [24/Jan/2025 18:45:43] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:43,466 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d2f2fb0d-e040-419e-bd3b-c95725ac1a7d
+127.0.0.1 - - [24/Jan/2025 18:45:43] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:43,468 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9372fd16-d2be-499d-9c87-ad9380dbd464
+127.0.0.1 - - [24/Jan/2025 18:45:43] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:44,134 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.0
+2025-01-24 18:45:45,861 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-01-24 18:45:45,929 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-01-24 18:45:47,143 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-01-24 18:45:50,122 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.0
+2025-01-24 18:45:50,524 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-01-24 18:45:50,728 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-01-24 18:45:51,476 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 808fa8f3-d0f1-4a2f-b82d-2cc97ce213a8
+127.0.0.1 - - [24/Jan/2025 18:45:51] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:51,483 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e9c27933-4331-4c12-b115-40cc1396b762
+127.0.0.1 - - [24/Jan/2025 18:45:51] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:51,490 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5775c38a-e319-4d65-8229-ce30c2ec6bea
+127.0.0.1 - - [24/Jan/2025 18:45:51] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:51,510 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ad984652-f3c6-43ca-96bf-33f40fb2eb9c
+127.0.0.1 - - [24/Jan/2025 18:45:51] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:53,101 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 605e2cc6-43d0-4338-92c0-4a7314b40113
+127.0.0.1 - - [24/Jan/2025 18:45:53] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:53,121 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 541968c8-c876-4656-9a50-edb7ed5e01bd
+127.0.0.1 - - [24/Jan/2025 18:45:53] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:53,129 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.0
+2025-01-24 18:45:53,147 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 4
+2025-01-24 18:45:53,218 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:45:53,846 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b4cd32ba-6707-4ca8-b417-9d18ef985de1
+127.0.0.1 - - [24/Jan/2025 18:45:53] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:53,862 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 78f3a7eb-8fcf-4df0-be84-0613e741a6ab
+127.0.0.1 - - [24/Jan/2025 18:45:53] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:45:56,127 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 23.0
+2025-01-24 18:45:59,122 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.0
+2025-01-24 18:46:02,177 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 82.0
+2025-01-24 18:46:02,289 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 27
+2025-01-24 18:46:02,448 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-01-24 18:46:05,132 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-01-24 18:46:06,232 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 91c081f7-d589-4a56-8211-1fed64828377
+127.0.0.1 - - [24/Jan/2025 18:46:06] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:46:06,237 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: dfb8660e-ecb6-4f77-9f87-40ef8467a823
+127.0.0.1 - - [24/Jan/2025 18:46:06] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:46:06,241 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: dbd12309-2fb6-43c3-a472-ada3c615c3e5
+127.0.0.1 - - [24/Jan/2025 18:46:06] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:46:08,163 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 64.0
+2025-01-24 18:46:11,140 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 39.0
+2025-01-24 18:46:14,124 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.0
+2025-01-24 18:46:14,150 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 27
+2025-01-24 18:46:14,222 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-01-24 18:46:18,305 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c2f5359a-654b-4d0f-917f-eb2955876c11
+127.0.0.1 - - [24/Jan/2025 18:46:18] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:46:18,314 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 399eac00-568c-4a83-b246-29c53900d677
+127.0.0.1 - - [24/Jan/2025 18:46:18] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:46:18,324 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6664f70e-db8c-4f26-802b-12a5e24b4c66
+127.0.0.1 - - [24/Jan/2025 18:46:18] "POST /inference HTTP/1.1" 200 -
+2025-01-24 18:47:10,191 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 4
+2025-01-24 18:47:10,266 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-01-24 18:47:10,959 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c165af6f-375f-4394-b67c-80b8b85afa51
+127.0.0.1 - - [24/Jan/2025 18:47:10] "POST /inference HTTP/1.1" 200 -

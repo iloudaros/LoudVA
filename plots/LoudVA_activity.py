@@ -13,7 +13,12 @@ def parse_latency_csv(file_path):
 def parse_tegrastats_log(file_path):
     timestamps = []
     cpu_power = []
+    gpu_power = []
     soc_power = []
+    cv_power = []
+    vddrq_power = []
+    sys5v_power = []
+    power_sum = []
     temperatures = []
 
     with open(file_path, 'r') as file:
@@ -25,11 +30,23 @@ def parse_tegrastats_log(file_path):
 
             # Extract CPU and SOC power
             cpu_power_match = re.search(r'CPU (\d+)mW', line)
-            soc_power_match = re.search(r'GPU (\d+)mW', line)
+            gpu_power_match = re.search(r'GPU (\d+)mW', line)
+            soc_power_match = re.search(r'SOC (\d+)mW', line)
+            cv_power_match = re.search(r'CV (\d+)mW', line)
+            vddrq_power_match = re.search(r'VDDRQ (\d+)mW', line)
+            sys5v_power_match = re.search(r'SYS5V (\d+)mW', line)
 
-            # Handle missing power data
-            cpu_power.append(int(cpu_power_match.group(1)) if cpu_power_match else 0)
-            soc_power.append(int(soc_power_match.group(1)) if soc_power_match else 0)
+             # Handle missing power data
+            cpu_power_val = int(cpu_power_match.group(1)) if cpu_power_match else 0
+            gpu_power_val = int(gpu_power_match.group(1)) if gpu_power_match else 0
+            soc_power_val = int(soc_power_match.group(1)) if soc_power_match else 0
+            cv_power_val = int(cv_power_match.group(1)) if cv_power_match else 0
+            vddrq_power_val = int(vddrq_power_match.group(1)) if vddrq_power_match else 0
+            sys5v_power_val = int(sys5v_power_match.group(1)) if sys5v_power_match else 0
+
+            # Calculate total power sum
+            total_power = cpu_power_val + gpu_power_val + soc_power_val + cv_power_val + vddrq_power_val + sys5v_power_val
+            power_sum.append(total_power)
 
             # Extract temperature
             temperature_match = re.search(r'CPU@([\d.]+)C', line)
@@ -38,15 +55,14 @@ def parse_tegrastats_log(file_path):
 
     df = pd.DataFrame({
         'Timestamp': timestamps,
-        'CPU_Power': cpu_power,
-        'SOC_Power': soc_power,
+        'Power_Sum': power_sum,
         'Temperature': temperatures
-    })
+        })
     return df
 
-logs = [('2025-01-24_16:26:55_random_request_log.csv', 'measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_16:22:01_random_tegrastats'),
-         ('2025-01-24_16:21:51_round_robin_request_log.csv','measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_16:16:56_round_robin_tegrastats'),
-         ('2025-01-24_16:16:46_loud_request_log.csv','measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_14:50:56_loud_tegrastats')]
+logs = [('2025-01-24_18:33:28_loud_request_log.csv', 'measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:28:38_loud_tegrastats'),
+         ('2025-01-24_18:40:20_round_robin_request_log.csv','measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:34:38_round_robin_tegrastats'),
+         ('2025-01-24_18:47:13_random_request_log.csv','measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:41:30_random_tegrastats')]
 
 
 for request_log, tegrastats_log in logs:
@@ -69,8 +85,8 @@ for request_log, tegrastats_log in logs:
     # Calculate statistics
     mean_excess_latency = latency_df['Excess Latency'].mean()
     median_excess_latency = latency_df['Excess Latency'].median()
-    total_energy_used = (power_temp_df['SOC_Power'].sum() / 1000) * (power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]).total_seconds() / len(power_temp_df)
-
+    total_energy_used = (power_temp_df['Power_Sum'].sum() / 1000) * (power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]).total_seconds() / len(power_temp_df)
+    
     # Print the head of the dataframes
     print("\nHead of Latency DataFrame:")
     print(latency_df.head())
@@ -104,7 +120,7 @@ for request_log, tegrastats_log in logs:
     # Plot power consumption data
     ax3 = ax1.twinx()
     ax3.spines['right'].set_position(('outward', 60))
-    ax3.plot(power_temp_df['Timestamp'], power_temp_df['SOC_Power'], color='brown', label='SOC Power (mW)', linestyle='-.', linewidth=2)
+    ax3.plot(power_temp_df['Timestamp'], power_temp_df['Power_Sum'], color='brown', label='Total Power (mW)', linestyle='-.', linewidth=2)
     ax3.set_ylabel('Power (mW)', fontsize=12)
     ax3.tick_params(axis='y', labelcolor='purple')
 

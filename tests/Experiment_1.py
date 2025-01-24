@@ -29,7 +29,7 @@ def set_scheduler(scheduler):
 
     for i, line in enumerate(data):
         if line.startswith('scheduler'):
-            data[i] = f"    scheduler = '{scheduler}' # Options: 'loud', 'random', 'round_robin'\n"
+            data[i] = f"scheduler = '{scheduler}' # Options: 'loud', 'random', 'round_robin'\n"
 
     with open('Settings.py', 'w') as file:
         file.writelines(data)
@@ -87,8 +87,8 @@ def main():
         set_scheduler(scheduler)
         controller = start_controller()
 
-        # Wait for the controller to start
-        time.sleep(10)
+        # Wait for the controller to start and the board to cool down
+        time.sleep(60)
 
         data_collection = start_data_collection(scheduler)
         workload = simulate_workload()
@@ -105,6 +105,7 @@ def main():
         
         stop_controller()
         empty_logs()
+        time.sleep(10)
         
 if __name__ == '__main__':
     main()

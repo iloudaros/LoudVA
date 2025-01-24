@@ -381,6 +381,11 @@ simulate_workload:
 experiment_1:
 	@echo "____Running Experiment 1____"
 	@python3 tests/Experiment_1.py
+	@curl \
+		-d "Experiment 1: Complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 
 
 performance_profiling: update_workers is_triton_running
@@ -415,7 +420,7 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = tegra_log
+tegrastats_log_name = 2025-01-24_14:55:56_round_robin_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"

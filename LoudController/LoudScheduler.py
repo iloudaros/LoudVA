@@ -60,6 +60,10 @@ class LoudScheduler:
                         energy = device.get_energy_consumption(freq, batch_size)
 
                     energy_per_frame = energy / batch_size if batch_size > 0 else float('inf')
+                    
+                    # Add the frequency change delay to the latency if the frequency is different from the current frequency
+                    if device.get_frequency() != freq:
+                        latency = latency + device.frequency_change_delay
 
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
                         best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})

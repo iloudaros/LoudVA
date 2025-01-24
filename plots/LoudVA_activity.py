@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import re
 from datetime import datetime
+#import pytz 
 
 # Function to parse the latency CSV
 def parse_latency_csv(file_path):
@@ -45,17 +46,25 @@ def parse_tegrastats_log(file_path):
     return df
 
 # Load the data
-latency_df = parse_latency_csv('/home/louduser/LoudVA/2025-01-24_12:21:06_loud_request_log.csv')
-power_temp_df = parse_tegrastats_log('/home/louduser/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_12:16:08_loud_tegrastats')
+latency_df = parse_latency_csv('/home/louduser/LoudVA/2025-01-24_14:55:46_loud_request_log.csv')
+power_temp_df = parse_tegrastats_log('/home/louduser/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_14:50:56_loud_tegrastats')
 
 # Convert timestamps to datetime for synchronization
-latency_df['Arrival Time'] = pd.to_datetime(latency_df['Arrival Time'], unit='s')
-latency_df['Queue Exit Time'] = pd.to_datetime(latency_df['Queue Exit Time'], unit='s')
+latency_df['Arrival Time'] = pd.to_datetime(latency_df['Arrival Time'], unit='s').dt.tz_localize('EET')
+latency_df['Queue Exit Time'] = pd.to_datetime(latency_df['Queue Exit Time'], unit='s').dt.tz_localize('EET')
 latency_df['Completion Time'] = pd.to_datetime(latency_df['Completion Time'], unit='s')
 
 # Calculate additional metrics for latency
 latency_df['Queue Time'] = (latency_df['Queue Exit Time'] - latency_df['Arrival Time']).dt.total_seconds()
 latency_df['Excess Latency'] = (latency_df['Latency'] - latency_df['Requested Latency']).clip(lower=0)
+
+
+# Print the head of the dataframes
+print("\nHead of Latency DataFrame:")
+print(latency_df.head())
+
+print("\nHead of Power and Temperature DataFrame:")
+print(power_temp_df.head())
 
 # Plotting
 fig, ax1 = plt.subplots(figsize=(14, 7))

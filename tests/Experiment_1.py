@@ -17,8 +17,11 @@ import subprocess
 schedulers = ['loud', 'round_robin', 'random']
 
 def empty_logs():
-    open('request_log.csv', 'w').close()
-    open('LoudController.log', 'w').close()
+    # Delete the logs if they exist
+    if os.path.exists('request_log.csv'):
+        os.remove('request_log.csv')
+    if os.path.exists('LoudController.log'):
+        os.remove('LoudController.log')
 
 def set_scheduler(scheduler):
     with open('LoudController/Settings.py', 'r') as file:
@@ -35,6 +38,11 @@ def start_controller():
     controller = subprocess.Popen(['make', 'start_LoudController'])
     return controller
 
+def stop_controller():
+    controller = subprocess.Popen(['pkill', 'screen'])
+    return controller
+
+
 def start_data_collection(scheduler):
     # Set tegrastats_log_name to [date]_[scheduler]_tegrastats
     tegrastats_log_name = f"{time.strftime('%Y-%m-%d_%H:%M:%S')}_{scheduler}_tegrastats"
@@ -47,7 +55,7 @@ def start_data_collection(scheduler):
             if line.startswith('tegrastats_log_name'):
                 data[i] = f"tegrastats_log_name = {tegrastats_log_name}\n"
     
-        with open('Makefile', 'w') as file:
+        with open('makefile', 'w') as file:
             file.writelines(data)
 
     # Start data collection
@@ -75,8 +83,13 @@ def main():
     empty_logs()
 
     for scheduler in schedulers:
+        print(f"Running experiment with {scheduler} scheduler")
         set_scheduler(scheduler)
         controller = start_controller()
+
+        # Wait for the controller to start
+        time.sleep(10)
+
         data_collection = start_data_collection(scheduler)
         workload = simulate_workload()
 
@@ -89,9 +102,10 @@ def main():
 
         data_retrieval.wait()
         rename_logs(scheduler)
-
+        
+        stop_controller()
         empty_logs()
-
+        
 if __name__ == '__main__':
     main()
 

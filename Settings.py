@@ -28,4 +28,4 @@ fixed_batch_size = 4
 debug = False
 
 # Scheduler settings
-    scheduler = 'loud' # Options: 'loud', 'random', 'round_robin'
+    scheduler = 'round_robin' # Options: 'loud', 'random', 'round_robin'

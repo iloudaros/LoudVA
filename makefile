@@ -193,9 +193,6 @@ send_makefile:
 add_specs_to_profiling:
 	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
 
-plot_activity:
-	python3 plots/LoudVA_activity.py
-
 ### To be run on the Jetsons ###
 
 model:
@@ -376,17 +373,7 @@ check: check_LoudController check_triton check_triton_client check_WorkerControl
 
 simulate_workload:
 	@echo "____Simulating Workload____"
-	@python3 tests/Simulate_Workload.py
-
-experiment_1:
-	@echo "____Running Experiment 1____"
-	@python3 tests/Experiment_1.py
-	@curl \
-		-d "Experiment 1: Complete" \
-		-H "Title: LoudVA" \
-		-H "Tags: white_check_mark" \
-		${NOTIFICATION_URL}
-
+	@python3 LoudController/Experiments/Simulate_Workload.py
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
@@ -420,7 +407,7 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-24_18:41:30_random_tegrastats
+tegrastats_log_name = 2025-01-28_21:18:21_stress_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -477,6 +464,70 @@ notify:
 		-H "Title: LoudVA" \
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
+################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############### Experiments ###############
+experiment_dir = LoudVA/LoudController/Experiments
+experiment_1:
+	@echo "____Running Experiment 1____"
+	@python3 LoudController/Experiments/Experiment_1.py
+	@curl \
+		-d "Experiment 1: Complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
+
+experiment_2:
+	@echo "____Running Experiment 2____"
+	@python3 LoudController/Experiments/Experiment_2.py
+	@curl \
+		-d "Experiment 2: Complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
+
+################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############## Plots ################
+
+LoudScheduler_logs = "2025-01-24_18:33:28_loud_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:28:38_loud_tegrastats"
+RandomScheduler_logs = "2025-01-24_18:47:13_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:41:30_random_tegrastats"
+RoundRobinScheduler_logs = "2025-01-24_18:40:20_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:34:38_round_robin_tegrastats"
+StressScheduler_logs = "2025-01-28_04:27:03_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-28_04:25:58_stress_tegrastats"
+
+plot_activity:
+	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RandomScheduler_logs} ${RoundRobinScheduler_logs} --plot-latency --align-zero 
+
+
+
 ################################################
 
 

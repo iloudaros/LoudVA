@@ -36,26 +36,23 @@ class RoundRobinScheduler:
                 while not device.is_available():
                     device = next(self.device_cycle)
 
-                freq = device.frequencies[0]  # Use the first frequency as default
                 batch_size = min(self.fixed_batch_size, len(queue_list), device.max_batch_size)
 
                 # Dispatch the batch
-                self.dispatch_request(device, freq, queue_list[:batch_size], response_dict)
+                threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict)).start()
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]
 
             time.sleep(0.01)
 
-    def dispatch_request(self, device, freq, batch, response_dict):
+    def dispatch_request(self, device, batch, response_dict):
         device.add_request()
         batch_size = len(batch)
         images = [item[0] for item in batch]
         image_ids = [item[1] for item in batch]
         
-        logger.debug(f"Dispatching request to device {device.name} with frequency {freq}, batch size {batch_size}")
-
-        device.set_frequency(freq)
+        logger.debug(f"Dispatching request to device {device.name}, batch size {batch_size}")
 
         queue_exit_time = time.time()
 

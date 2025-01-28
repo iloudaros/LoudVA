@@ -9,13 +9,17 @@ logger = setup_logging()
 
 # Scheduler selection : Import only the scheduler you want to use and return an instance of it
 def selected_scheduler():
+    logger.info(f"Selected scheduler: {settings.scheduler}")
     if settings.scheduler == 'round_robin':
         from altSchedulers.RoundRobinScheduler import RoundRobinScheduler
-        logger.info(f"Using {settings.scheduler} scheduler with fixed batch size {settings.fixed_batch_size}")
+        logger.info(f"Using fixed batch size {settings.fixed_batch_size}")
         return RoundRobinScheduler(settings.fixed_batch_size)
     elif settings.scheduler == 'random':
         from altSchedulers.RandomScheduler import RandomScheduler
         return RandomScheduler()
+    elif settings.scheduler == 'stress':
+        from altSchedulers.StressScheduler import StressScheduler
+        return StressScheduler()
     else:
         from LoudScheduler import LoudScheduler
         return LoudScheduler()

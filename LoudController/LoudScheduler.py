@@ -65,6 +65,9 @@ class LoudScheduler:
                     if device.get_frequency() != freq:
                         latency = latency + device.frequency_change_delay
 
+                    # Add the safety margin to the latency
+                    latency = latency + settings.safety_margin
+
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
                         best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})
                     elif latency < closest_config['latency']:

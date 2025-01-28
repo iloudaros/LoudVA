@@ -1,5 +1,5 @@
-# random_scheduler.py
-import random
+# rotation_scheduler.py
+from itertools import cycle
 import time
 import threading
 from DeviceData import initialize_devices
@@ -11,9 +11,7 @@ devices = initialize_devices()
 # Configure logging
 logger = setup_logging()
 
-class RandomScheduler:
-    def __init__(self):
-        self.devices = devices
+class StressScheduler:
 
     def start(self, queue, response_dict):
         while True:
@@ -23,35 +21,28 @@ class RandomScheduler:
                 # Gather all requests from the queue
                 while not queue.empty():
                     queue_list.append(queue.get())
-
-                # Ensure there are available devices
-                available_devices = [device for device in self.devices if device.is_available()]
-                if not available_devices:
-                    logger.warning("No available devices found.")
+                
+                # If queue_list is smaller than the fixed batch size, wait for more requests
+                if len(queue_list) < 64:
                     continue
 
-                # Randomly select a device and configuration
-                device = random.choice(available_devices)
-                freq = random.choice(device.frequencies)
-                batch_size = random.randint(1, min(len(queue_list), device.max_batch_size))
+                batch_size = devices[0].max_batch_size
 
                 # Dispatch the batch
-                threading.Thread(target=self.dispatch_request, args=(device, freq, queue_list[:batch_size], response_dict)).start()
+                threading.Thread(target=self.dispatch_request, args=(devices[0], queue_list[:batch_size], response_dict)).start()
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]
 
             time.sleep(0.01)
 
-    def dispatch_request(self, device, freq, batch, response_dict):
+    def dispatch_request(self, device, batch, response_dict):
         device.add_request()
         batch_size = len(batch)
         images = [item[0] for item in batch]
         image_ids = [item[1] for item in batch]
         
-        logger.debug(f"Dispatching request to device {device.name} with frequency {freq}, batch size {batch_size}")
-
-        device.set_frequency(freq)
+        logger.debug(f"Dispatching request to device {device.name}, batch size {batch_size}")
 
         queue_exit_time = time.time()
 

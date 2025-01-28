@@ -4,6 +4,7 @@ import random
 import time
 import threading
 import csv
+import argparse
 
 # Check if the server is running on any of the specified URLs
 SERVER_URLS = ['http://localhost:5000/', 'http://localhost:8000/']
@@ -90,9 +91,11 @@ def simulate_camera(camera_index, schedule):
         # Start a new thread for each request
         threading.Thread(target=send_request, args=(camera_index, selected_images, latency_constraint)).start()
 
-def load_camera_schedule(csv_filename):
+def load_camera_schedule(csv_filename, random_latency, stable_latency):
     camera_schedules = {}
     updated_rows = []
+    file_updated = False
+
     with open(csv_filename, mode='r', newline='') as csvfile:
         csv_reader = csv.DictReader(csvfile)
         fieldnames = csv_reader.fieldnames
@@ -107,12 +110,13 @@ def load_camera_schedule(csv_filename):
             frames = int(row['Frames After Filter'])
             camera_index = int(row['Camera Index'])
 
-            # Use latency constraint from CSV if available, otherwise generate it
+            # Determine latency constraint
             if has_latency_constraint:
                 latency_constraint = int(row['latency_constraint'])
             else:
-                latency_constraint = random.randint(int(max(frames * 0.8, 1)), frames * 6)
+                latency_constraint = random.randint(int(max(frames * 0.8, 1)), frames * 6) if random_latency else stable_latency
                 row['latency_constraint'] = latency_constraint  # Add to the row for writing back
+                file_updated = True
 
             if camera_index not in camera_schedules:
                 camera_schedules[camera_index] = []
@@ -120,8 +124,8 @@ def load_camera_schedule(csv_filename):
             camera_schedules[camera_index].append((time, frames, latency_constraint))
             updated_rows.append(row)
 
-    # Write back to the CSV file if we generated new latency constraints
-    if not has_latency_constraint:
+    # Write back to the CSV file only if we generated new latency constraints
+    if file_updated:
         with open(csv_filename, mode='w', newline='') as csvfile:
             csv_writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             csv_writer.writeheader()
@@ -130,8 +134,14 @@ def load_camera_schedule(csv_filename):
     return camera_schedules
 
 def main():
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Simulate camera requests with latency constraints.')
+    parser.add_argument('--random-latency', action='store_true', help='Enable random latency constraints')
+    parser.add_argument('--stable-latency', type=int, default=100, help='Set a stable latency constraint when random latency is off')
+    args = parser.parse_args()
+
     # Load the camera schedule from the CSV file
-    camera_schedules = load_camera_schedule('/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv')
+    camera_schedules = load_camera_schedule('/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv', args.random_latency, args.stable_latency)
 
     # Start a thread for each camera
     threads = []

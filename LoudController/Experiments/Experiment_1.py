@@ -29,7 +29,7 @@ def set_scheduler(scheduler):
 
     for i, line in enumerate(data):
         if line.startswith('scheduler'):
-            data[i] = f"scheduler = '{scheduler}' # Options: 'loud', 'random', 'round_robin'\n"
+            data[i] = f"scheduler = '{scheduler}' # Options: 'loud', 'random', 'round_robin', 'stress'\n"
 
     with open('Settings.py', 'w') as file:
         file.writelines(data)
@@ -74,9 +74,9 @@ def simulate_workload():
     workload = subprocess.Popen(['make', 'simulate_workload'])
     return workload
 
-def rename_logs(scheduler):
-    os.rename('request_log.csv', f'{time.strftime("%Y-%m-%d_%H:%M:%S")}_{scheduler}_request_log.csv')
-    os.rename('LoudController.log', f'{time.strftime("%Y-%m-%d_%H:%M:%S")}_{scheduler}_LoudController.log')
+def rename_logs(scheduler, time):
+    os.rename('request_log.csv', f'{time}_{scheduler}_request_log.csv')
+    os.rename('LoudController.log', f'{time}_{scheduler}_LoudController.log')
 
 
 def main():
@@ -90,6 +90,7 @@ def main():
         # Wait for the controller to start and the board to cool down
         time.sleep(60)
 
+        start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
         data_collection = start_data_collection(scheduler)
         workload = simulate_workload()
 
@@ -101,7 +102,7 @@ def main():
         data_retrieval = retrieve_data()
 
         data_retrieval.wait()
-        rename_logs(scheduler)
+        rename_logs(scheduler, start_time)
         
         stop_controller()
         empty_logs()

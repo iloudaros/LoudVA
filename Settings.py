@@ -3,6 +3,7 @@ max_batch_size = 200
 min_batch_size = 1
 max_latency = 5.0
 max_wait_time = 1.0
+safety_margin = 0.1
 
 default_latency = 1.0
 
@@ -28,4 +29,4 @@ fixed_batch_size = 4
 debug = False
 
 # Scheduler settings
-scheduler = 'random' # Options: 'loud', 'random', 'round_robin'
+scheduler = 'stress' # Options: 'loud', 'random', 'round_robin', 'stress'

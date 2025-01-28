@@ -29,4 +29,4 @@ fixed_batch_size = 4
 debug = False
 
 # Scheduler settings
-scheduler = 'stress' # Options: 'loud', 'random', 'round_robin', 'stress'
+scheduler = 'random' # Options: 'loud', 'random', 'round_robin', 'stress'

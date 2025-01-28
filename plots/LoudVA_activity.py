@@ -150,7 +150,17 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
         # Calculate statistics
         mean_excess_latency = latency_df['Excess Latency'].mean()
         median_excess_latency = latency_df['Excess Latency'].median()
-        total_energy_used = (power_temp_df['Power_Sum'].sum() / 1000) * (power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]) / len(power_temp_df)
+
+        # Determine the duration based on the type of Timestamp values
+        if isinstance(power_temp_df['Timestamp'].iloc[0], (pd.Timestamp, datetime)):
+            # If timestamps are datetime objects
+            total_duration_seconds = (power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]).total_seconds()
+        else:
+            # If timestamps are already in seconds
+            total_duration_seconds = power_temp_df['Timestamp'].iloc[-1] - power_temp_df['Timestamp'].iloc[0]
+
+        # Calculate total energy used
+        total_energy_used = (power_temp_df['Power_Sum'].sum() / 1000) * (total_duration_seconds / len(power_temp_df))
 
         # Print the head of the dataframes
         print(f"\nHead of Latency DataFrame for {request_log}:")
@@ -180,28 +190,34 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
         # Plot temperature data
         if plot_temperature:
             ax2 = ax.twinx()
-            ax2.plot(power_temp_df['Timestamp'], power_temp_df['Temperature'], label=f'Temperature (°C) ({get_log_label(tegrastats_log)})', linewidth=2)
+            ax2.plot(power_temp_df['Timestamp'], power_temp_df['Temperature'], label=f'Temperature (°C) ({get_log_label(tegrastats_log)})', linewidth=2, color='tab:red')
             ax2.set_ylim(min_temperature, max_temperature)
+            ax2.set_ylabel('Temperature (°C)', fontsize=12, fontweight='bold', color='tab:red')
+            ax2.tick_params(axis='y', labelcolor='tab:red')
 
         # Plot power consumption data
         if plot_power:
             ax3 = ax.twinx()
             ax3.spines['right'].set_position(('outward', 60))
-            ax3.plot(power_temp_df['Timestamp'], power_temp_df['Power_Sum'], label=f'Total Power (mW) ({get_log_label(tegrastats_log)})', linestyle='-.', linewidth=2)
+            ax3.plot(power_temp_df['Timestamp'], power_temp_df['Power_Sum'], label=f'Total Power (mW) ({get_log_label(tegrastats_log)})', linestyle='-.', linewidth=2, color='tab:blue')
             ax3.set_ylim(min_power, max_power)
+            ax3.set_ylabel('Power (mW)', fontsize=12, fontweight='bold', color='tab:blue')
+            ax3.tick_params(axis='y', labelcolor='tab:blue')
 
         # Set labels and format x-axis
         ax.set_xlabel('Time (s)', fontsize=12, fontweight='bold')
-        ax.set_ylabel('Latency (s)', fontsize=12, fontweight='bold')
+        
+        # Set main y-axis label based on the data being plotted
+        if plot_latency:
+            ax.set_ylabel('Latency (s)', fontsize=12, fontweight='bold')
+        elif plot_temperature:
+            ax.set_ylabel('Temperature (°C)', fontsize=12, fontweight='bold', color='tab:red')
+            ax.tick_params(axis='y', labelcolor='tab:red')
+        elif plot_power:
+            ax.set_ylabel('Power (mW)', fontsize=12, fontweight='bold', color='tab:blue')
+            ax.tick_params(axis='y', labelcolor='tab:blue')
+
         ax.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
-
-        if plot_temperature:
-            ax2.set_ylabel('Temperature (°C)', fontsize=12, fontweight='bold')
-            ax2.tick_params(axis='y')
-
-        if plot_power:
-            ax3.set_ylabel('Power (mW)', fontsize=12, fontweight='bold')
-            ax3.tick_params(axis='y')
 
         # Add legends for temperature and power
         fig.tight_layout(rect=[0, 0.03, 1, 0.95])

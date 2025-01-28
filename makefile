@@ -407,7 +407,7 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-28_21:18:21_stress_tegrastats
+tegrastats_log_name = 2025-01-28_22:31:31_random_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -500,6 +500,9 @@ experiment_2:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
+experiments: experiment_1 experiment_2
+	@echo "Experiments Complete"
+
 ################################################
 
 
@@ -518,15 +521,18 @@ experiment_2:
 
 ############## Plots ################
 
-LoudScheduler_logs = "2025-01-24_18:33:28_loud_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:28:38_loud_tegrastats"
+LoudScheduler_logs = "2025-01-28_22:18:26_loud_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-28_22:18:26_loud_tegrastats"
 RandomScheduler_logs = "2025-01-24_18:47:13_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:41:30_random_tegrastats"
 RoundRobinScheduler_logs = "2025-01-24_18:40:20_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:34:38_round_robin_tegrastats"
-StressScheduler_logs = "2025-01-28_04:27:03_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-28_04:25:58_stress_tegrastats"
+StressScheduler_logs = "2025-01-28_21:18:21_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-28_21:18:21_stress_tegrastats"
+
+
 
 plot_activity:
-	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RandomScheduler_logs} ${RoundRobinScheduler_logs} --plot-latency --align-zero 
+	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RandomScheduler_logs} ${RoundRobinScheduler_logs} --plot-latency --plot-power --plot-temperature --align-zero 
 
-
+plot_stress:
+	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-power --plot-temperature 
 
 ################################################
 

@@ -78,16 +78,21 @@ def rename_logs(scheduler, time):
     os.rename('request_log.csv', f'{time}_{scheduler}_request_log.csv')
     os.rename('LoudController.log', f'{time}_{scheduler}_LoudController.log')
 
+def default_power_mode():
+    default = subprocess.Popen(['make', 'default_power_mode'])
+    return default
 
 def main():
     empty_logs()
 
     for scheduler in schedulers:
+        default = default_power_mode()
+        default.wait()
         print(f"Running experiment with {scheduler} scheduler")
         set_scheduler(scheduler)
         controller = start_controller()
 
-        # Wait for the controller to start and the board to cool down
+        # Wait for the controller to start
         time.sleep(60)
 
         start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
@@ -106,7 +111,9 @@ def main():
         
         stop_controller()
         empty_logs()
-        time.sleep(10)
+
+        # Wait for the board to cool down
+        time.sleep(120)
         
 if __name__ == '__main__':
     main()

@@ -14,9 +14,10 @@ logger = setup_logging()
 class StressScheduler:
 
     def start(self, queue, response_dict):
+        queue_list = []
+
         while True:
-            if not queue.empty():
-                queue_list = []
+            if not (queue.empty() and not queue_list):
 
                 # Gather all requests from the queue
                 while not queue.empty():

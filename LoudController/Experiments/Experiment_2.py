@@ -63,8 +63,13 @@ def rename_logs(scheduler, time):
     os.rename('request_log.csv', f'{time}_{scheduler}_request_log.csv')
     os.rename('LoudController.log', f'{time}_{scheduler}_LoudController.log')
 
+def default_power_mode():
+    default = subprocess.Popen(['make', 'default_power_mode'])
+    return default
 
 def main():
+    default = default_power_mode()
+    default.wait()
     empty_logs()
 
     scheduler = 'stress'

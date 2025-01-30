@@ -122,7 +122,7 @@ print_flags:
 
 ################ Quick Access ##################
 ### To be run on the Controller ###
-start_triton: configure_triton
+start_triton: #configure_triton
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/start_triton.yaml 
 	@echo "Triton Started"
@@ -373,7 +373,7 @@ check: check_LoudController check_triton check_triton_client check_WorkerControl
 
 simulate_workload:
 	@echo "____Simulating Workload____"
-	@python3 LoudController/Experiments/Simulate_Workload.py
+	@python3 LoudController/Experiments/Simulate_Workload.py --random-latency
 
 performance_profiling: update_workers is_triton_running
 	@echo "____Beginning The performance profiling____"
@@ -407,11 +407,11 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-28_22:31:31_random_tegrastats
+tegrastats_log_name = 2025-01-30_09:19:43_stress_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} Workers -a "sudo tegrastats --interval 500 --logfile /home/iloudaros/${tegrastats_log_name} --start" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -a "sudo tegrastats --interval 200 --logfile /home/iloudaros/${tegrastats_log_name} --start" -u iloudaros --become
 
 remote_stop_tegrastats:
 	@echo "____Stopping tegrastats on the Jetsons____"
@@ -481,7 +481,6 @@ notify:
 
 
 ############### Experiments ###############
-experiment_dir = LoudVA/LoudController/Experiments
 experiment_1:
 	@echo "____Running Experiment 1____"
 	@python3 LoudController/Experiments/Experiment_1.py
@@ -521,18 +520,19 @@ experiments: experiment_1 experiment_2
 
 ############## Plots ################
 
-LoudScheduler_logs = "2025-01-28_22:18:26_loud_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-28_22:18:26_loud_tegrastats"
-RandomScheduler_logs = "2025-01-24_18:47:13_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:41:30_random_tegrastats"
-RoundRobinScheduler_logs = "2025-01-24_18:40:20_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-24_18:34:38_round_robin_tegrastats"
-StressScheduler_logs = "2025-01-28_21:18:21_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-28_21:18:21_stress_tegrastats"
+LoudScheduler_logs = "2025-01-30_06:19:43_loud_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_06:19:43_loud_tegrastats"
+RoundRobinScheduler_logs = "2025-01-30_04:44:12_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_04:44:12_round_robin_tegrastats"
+RandomScheduler_logs = "2025-01-30_05:26:40_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_05:26:40_random_tegrastats"
+
+StressScheduler_logs = "2025-01-30_08:23:21_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_08:23:21_stress_tegrastats"
 
 
 
 plot_activity:
-	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RandomScheduler_logs} ${RoundRobinScheduler_logs} --plot-latency --plot-power --plot-temperature --align-zero 
+	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-latency --plot-power --plot-gpu-freq --align-zero --subplots
 
 plot_stress:
-	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-power --plot-temperature 
+	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-power --plot-temperature --plot-gpu-freq
 
 ################################################
 

@@ -3,7 +3,7 @@ max_batch_size = 200
 min_batch_size = 1
 max_latency = 5.0
 max_wait_time = 1.0
-safety_margin = 0
+safety_margin = 0.5
 
 default_latency = 1.0
 
@@ -22,11 +22,11 @@ health_check_interval = 15
 health_checks_enabled = False
 
 # Batching 
-batching_wait_strictness = 3
+batching_wait_looseness = 2
 fixed_batch_size = 4
 
 # Debugging
 debug = False
 
 # Scheduler settings
-scheduler = 'round_robin' # Options: 'loud', 'random', 'round_robin', 'stress'
+scheduler = 'stress' # Options: 'loud', 'random', 'round_robin', 'stress'

@@ -14,7 +14,7 @@ import os
 import time
 import subprocess
 
-schedulers = ['round_robin']
+schedulers = ['loud']#, 'random', 'round_robin']
 
 def empty_logs():
     # Delete the logs if they exist

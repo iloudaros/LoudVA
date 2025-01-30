@@ -61,12 +61,8 @@ class LoudScheduler:
 
                     energy_per_frame = energy / batch_size if batch_size > 0 else float('inf')
                     
-                    # Add the frequency change delay to the latency if the frequency is different from the current frequency
-                    if device.get_frequency() != freq:
-                        latency = latency + device.frequency_change_delay
-
-                    # Add the safety margin to the latency
-                    latency = latency + settings.safety_margin
+                    # Add the safety margin to the latency and the frequency change delay if the frequency is different than the current one
+                    latency = latency + settings.safety_margin + (device.frequency_change_delay if device.get_frequency() != freq else 0)
 
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
                         best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})
@@ -128,7 +124,7 @@ class LoudScheduler:
                     logger.debug(f"Device configuration found. Proceeding.")
 
                     logger.debug(f"Min remaining time: {min_remaining_time}, Expected latency: {expected_latency}, Queue: {len(queue_list)}, Max batch size: {max_batch_size}")
-                    if (min_remaining_time > expected_latency * settings.batching_wait_strictness) and len(queue_list)< max_batch_size: # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
+                    if (min_remaining_time > expected_latency * settings.batching_wait_looseness) and len(queue_list)< max_batch_size: # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
                         logger.debug(f"Latency constraint allows for waiting, holding for more images.")
                         time.sleep(0.01)
                         continue

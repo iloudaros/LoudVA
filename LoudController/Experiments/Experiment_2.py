@@ -19,7 +19,7 @@ def set_scheduler(scheduler):
         if line.startswith('scheduler'):
             data[i] = f"scheduler = '{scheduler}' # Options: 'loud', 'random', 'round_robin', 'stress'\n"
 
-    with open('Settings.py', 'w') as file:
+    with open('LoudController/Settings.py', 'w') as file:
         file.writelines(data)
 
 def start_controller():

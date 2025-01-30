@@ -14,7 +14,7 @@ import os
 import time
 import subprocess
 
-schedulers = ['loud', 'round_robin', 'random']
+schedulers = ['round_robin']
 
 def empty_logs():
     # Delete the logs if they exist
@@ -29,10 +29,13 @@ def set_scheduler(scheduler):
 
     for i, line in enumerate(data):
         if line.startswith('scheduler'):
+            print(f"Changing scheduler to {scheduler}")
             data[i] = f"scheduler = '{scheduler}' # Options: 'loud', 'random', 'round_robin', 'stress'\n"
 
-    with open('Settings.py', 'w') as file:
+    with open('LoudController/Settings.py', 'w') as file:
         file.writelines(data)
+
+
 
 def start_controller():
     controller = subprocess.Popen(['make', 'start_LoudController'])
@@ -94,19 +97,20 @@ def main():
 
         # Wait for the controller to start
         time.sleep(60)
+        controller.wait()
 
         start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
         data_collection = start_data_collection(scheduler)
-        workload = simulate_workload()
-
-        controller.wait()
         data_collection.wait()
+
+        workload = simulate_workload()
         workload.wait()
 
         stop_data_collection()
+        
         data_retrieval = retrieve_data()
-
         data_retrieval.wait()
+
         rename_logs(scheduler, start_time)
         
         stop_controller()

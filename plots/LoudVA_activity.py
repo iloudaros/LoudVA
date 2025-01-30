@@ -176,6 +176,17 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
                 max(axis_limits['gpu_freq'][1], tegra_df['GPU_Freq'].max())
             )
 
+    # Determine which data to plot and their order
+    plot_types = []
+    if plot_latency:
+        plot_types.append('latency')
+    if plot_temperature:
+        plot_types.append('temperature')
+    if plot_power:
+        plot_types.append('power')
+    if plot_gpu_freq:
+        plot_types.append('gpu_freq')
+
     # Initialize plot
     if single_plot:
         fig, main_ax = plt.subplots(figsize=(20, 10))
@@ -214,53 +225,45 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
         else:
             ax = main_ax if single_plot else plt.gca()
 
-        # Plot latency metrics
-        if plot_latency:
-            ax.bar(req_df['Rounded Arrival Time'], req_df['Queue Time'], 
-                   width=2, alpha=0.7, label=f'{label} Queue Time')
-            ax.bar(req_df['Rounded Arrival Time'], req_df['Excess Latency'],
-                   bottom=req_df['Latency'] - req_df['Excess Latency'],
-                   width=2, alpha=0.7, label=f'{label} Excess Latency')
-            ax.bar(req_df['Rounded Arrival Time'], req_df['Latency'],
-                   width=2, alpha=0.1, label=f'{label} Total Latency')
-            ax.set_ylabel('Latency (s)')
-            ax.set_ylim(axis_limits['latency'])
-
         # Create twin axes for additional metrics
         axes = [ax]
-        if plot_temperature or plot_power or plot_gpu_freq:
-            ax_temp = ax.twinx()
-            axes.append(ax_temp)
-        if plot_power or plot_gpu_freq:
-            ax_power = ax.twinx()
-            ax_power.spines['right'].set_position(('outward', 60))
-            axes.append(ax_power)
-        if plot_gpu_freq:
-            ax_gpu = ax.twinx()
-            ax_gpu.spines['right'].set_position(('outward', 120))
-            axes.append(ax_gpu)
+        if len(plot_types) > 1:
+            for i in range(1, len(plot_types)):
+                new_ax = ax.twinx()
+                new_ax.spines['right'].set_position(('outward', 60 * i))
+                axes.append(new_ax)
 
-        # Plot temperature
-        if plot_temperature:
-            ax_temp.plot(tegra_df['Timestamp'], tegra_df['Temperature'], 'r-', label=f'{label} Temp')
-            ax_temp.set_ylabel('Temp (°C)', color='r')
-            ax_temp.set_ylim(axis_limits['temperature'])
+        # Plot data based on type
+        for i, plot_type in enumerate(plot_types):
+            current_ax = axes[i]
+            if plot_type == 'latency':
+                current_ax.bar(req_df['Rounded Arrival Time'], req_df['Queue Time'], 
+                               width=2, alpha=0.7, label=f'{label} Queue Time')
+                current_ax.bar(req_df['Rounded Arrival Time'], req_df['Excess Latency'],
+                               bottom=req_df['Latency'] - req_df['Excess Latency'],
+                               width=2, alpha=0.7, label=f'{label} Excess Latency')
+                current_ax.bar(req_df['Rounded Arrival Time'], req_df['Latency'],
+                               width=2, alpha=0.1, label=f'{label} Total Latency')
+                current_ax.set_ylabel('Latency (s)')
+                current_ax.set_ylim(axis_limits['latency'])
 
-        # Plot power
-        if plot_power:
-            ax_power.plot(tegra_df['Timestamp'], tegra_df['Power_Sum'], 'b-.', label=f'{label} Power')
-            ax_power.set_ylabel('Power (mW)', color='b')
-            ax_power.set_ylim(axis_limits['power'])
+            elif plot_type == 'temperature':
+                current_ax.plot(tegra_df['Timestamp'], tegra_df['Temperature'], 'r-', label=f'{label} Temp')
+                current_ax.set_ylabel('Temp (°C)', color='r')
+                current_ax.set_ylim(axis_limits['temperature'])
 
-        # Plot GPU frequency
-        if plot_gpu_freq:
-            ax_gpu.plot(tegra_df['Timestamp'], tegra_df['GPU_Freq'], 'g--', label=f'{label} GPU Freq')
-            ax_gpu.set_ylabel('GPU Freq (MHz)', color='g')
-            ax_gpu.set_ylim(axis_limits['gpu_freq'])
+            elif plot_type == 'power':
+                current_ax.plot(tegra_df['Timestamp'], tegra_df['Power_Sum'], 'b-.', label=f'{label} Power')
+                current_ax.set_ylabel('Power (mW)', color='b')
+                current_ax.set_ylim(axis_limits['power'])
 
-        # Configure axis
-        ax.set_xlabel('Time (s)' if align_zero else 'Timestamp')
-        ax.grid(True)
+            elif plot_type == 'gpu_freq':
+                current_ax.plot(tegra_df['Timestamp'], tegra_df['GPU_Freq'], 'g--', label=f'{label} GPU Freq')
+                current_ax.set_ylabel('GPU Freq (MHz)', color='g')
+                current_ax.set_ylim(axis_limits['gpu_freq'])
+
+            current_ax.set_xlabel('Time (s)' if align_zero else 'Timestamp')
+            current_ax.grid(True)
 
         # Combine legends
         handles, labels = [], []
@@ -282,6 +285,7 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
     if single_plot or subplots:
         plt.tight_layout()
         plt.show()
+
 
 def main():
     parser = argparse.ArgumentParser(description='Analyze server performance logs.')

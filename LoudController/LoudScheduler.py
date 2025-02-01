@@ -17,6 +17,7 @@ class LoudScheduler:
     def __init__(self):
         self.devices = devices
         self.debug_mode = 1 if logger.getEffectiveLevel() == 10 else 0
+        self.last_frequency_scaling_check = time.time()
 
     def select_best_device_config(self, latency_constraint, queue_size):
         best_config = {
@@ -78,16 +79,37 @@ class LoudScheduler:
 
     def start(self, queue, response_dict):
         queue_list = []
+        last_added_time = None
 
         while True:
+            current_time = time.time()
+
+
+            # Frequency scaling Logic
+            if current_time - self.last_frequency_scaling_check >= 2:
+                for device in self.devices:
+                    if device.is_available() and (current_time - device.last_available_time) >= settings.frequency_change_interval:
+                        device.set_frequency(min(device.frequencies))
+                        logger.debug(f"Frequency scaling check for device {device.name}. Set frequency to minimum: {min(device.frequencies)}")
+
+                self.last_frequency_scaling_check = current_time
+
+
+            # Queue Processing Logic
             if not (queue.empty() and not queue_list):
                 logger.debug(f"Queue: {queue.qsize()+len(queue_list)}")
 
+                # Did we add new items to the queue?
+                initial_length = len(queue_list)
                 while not queue.empty():
                     queue_list.append(queue.get())
 
+                if len(queue_list) > initial_length:
+                    logger.debug(f"Added {len(queue_list) - initial_length} new items to the queue.")
+
                 logger.debug("Calculating remaining time for each request in the queue.")
                 current_time = time.time()
+                time_since_last_add = current_time - (last_added_time or 0) # Time since the last image was added to the queue
                 remaining_time_list = []
 
                 for image_bytes, image_id, latency_constraint, arrival_time in queue_list:
@@ -121,26 +143,34 @@ class LoudScheduler:
                 best_device, best_freq, best_batch_size, expected_latency = self.select_best_device_config(min_remaining_time, len(all_images))
 
                 if best_device and best_batch_size > 0:
-                    logger.debug(f"Device configuration found. Proceeding.")
+                    logger.debug(f"Device configuration decided. Proceeding.")
 
                     logger.debug(f"Min remaining time: {min_remaining_time}, Expected latency: {expected_latency}, Queue: {len(queue_list)}, Max batch size: {max_batch_size}")
-                    if (min_remaining_time > expected_latency * settings.batching_wait_looseness) and len(queue_list)< max_batch_size: # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
+
+                    # Should we wait for more images?
+                    if (min_remaining_time > expected_latency * settings.batching_wait_looseness 
+                        and len(queue_list) < max_batch_size
+                        and time_since_last_add < settings.batching_max_wait_time
+                        ): # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
+
                         logger.debug(f"Latency constraint allows for waiting, holding for more images.")
-                        time.sleep(0.01)
+                        time.sleep(settings.scheduler_wait_time)
                         continue
 
-                    batch_images = all_images[:best_batch_size]
-                    batch_image_ids = all_image_ids[:best_batch_size]
+                    else:
+                        batch_images = all_images[:best_batch_size]
+                        batch_image_ids = all_image_ids[:best_batch_size]
 
-                    threading.Thread(target=self.dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict)).start()
+                        threading.Thread(target=self.dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict)).start()
 
-                    queue_list = queue_list[best_batch_size:]
-                    logger.debug(f"Batch dispatched. Remaining number of items in the queue: {len(queue_list)}")
+                        queue_list = queue_list[best_batch_size:]
+                        logger.debug(f"Batch dispatched. Remaining number of items in the queue: {len(queue_list)}")
+            
 
             if self.debug_mode:
                 time.sleep(2) 
             else:
-                time.sleep(0.01)
+                time.sleep(settings.scheduler_wait_time)
 
     def dispatch_request(self, device, freq, images, image_ids, response_dict):
         device.add_request()
@@ -167,4 +197,3 @@ class LoudScheduler:
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
         device.end_request()
-

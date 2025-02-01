@@ -35,7 +35,7 @@ IMAGES_DIR = '/home/louduser/images'
 # Lock for synchronizing access to the active_requests counter
 active_requests_lock = threading.Lock()
 active_requests = 0
-MAX_ACTIVE_REQUESTS = 5
+MAX_ACTIVE_REQUESTS = 10
 
 # Function to handle a single request
 def send_request(selected_images, latency_constraint):

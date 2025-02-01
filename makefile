@@ -407,7 +407,7 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-30_09:19:43_stress_tegrastats
+tegrastats_log_name = 2025-01-30_10:26:15_stress_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -524,15 +524,18 @@ LoudScheduler_logs = "2025-01-30_06:19:43_loud_request_log.csv,measurements/powe
 RoundRobinScheduler_logs = "2025-01-30_04:44:12_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_04:44:12_round_robin_tegrastats"
 RandomScheduler_logs = "2025-01-30_05:26:40_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_05:26:40_random_tegrastats"
 
-StressScheduler_logs = "2025-01-30_08:23:21_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_08:23:21_stress_tegrastats"
+StressScheduler_logs = "2025-01-30_10:26:15_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_10:26:15_stress_tegrastats"
 
 
 
 plot_activity:
-	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-latency --plot-power --plot-gpu-freq --align-zero --subplots
+	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-latency --plot-power --align-zero --subplots
+
+plot_freqs:
+	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-gpu-freq --align-zero --subplots
 
 plot_stress:
-	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-power --plot-temperature --plot-gpu-freq
+	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-latency --plot-temperature --align-zero 
 
 ################################################
 

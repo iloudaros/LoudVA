@@ -38,10 +38,13 @@ else:
 class Device:
     def __init__(self, name, ip, frequencies, profile, frequency_change_delay, batch_size_change_delay,
                  gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores, max_batch_size=None, model_instances=1):
+        
         self.name = name
         self.ip = ip
         self.frequencies = frequencies
         self.profile = profile  # Dictionary of (freq, batch_size) -> (throughput, latency, energy)
+        self.last_available_time = time.time() 
+
 
         # GPU Specifications
         self.gpu_max_freq = gpu_max_freq
@@ -70,11 +73,10 @@ class Device:
         self.__status = 'AVAILABLE'
         self.model_instances = model_instances
         self.current_requests = 0
-        self.lock =threading.Lock()
-
+        self.lock = threading.Lock()
 
         # Cache for storing the predicted energy and latency
-        self.prediction_cache = {}
+        self.prediction_cache = {}        
 
         # Fill missing profile data or calculate prediction_cache
         if settings.use_prediction:
@@ -146,13 +148,16 @@ class Device:
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
-        response = worker_client.set_gpu_frequency(self.ip, freq)
-        self.__current_freq = freq
+        if freq != self.__current_freq:    
+            response = worker_client.set_gpu_frequency(self.ip, freq)
+            self.__current_freq = freq
 
-        if response['status_code'] == 200:
-            logger.info(f"Frequency set to {freq} MHz on {self.name}")
+            if response['status_code'] == 200:
+                logger.info(f"Frequency set to {freq} MHz on {self.name}")
+            else:
+                logger.error(f"Failed to set frequency on {self.name}: {response['message']}")
         else:
-            logger.error(f"Failed to set frequency on {self.name}: {response['message']}")
+            logger.debug(f"Frequency already set to {freq} MHz on {self.name}")
 
     def get_frequency(self):
         return self.__current_freq
@@ -170,6 +175,8 @@ class Device:
     def set_status(self, status):
         self.__status = status
         logger.debug(f"Device {self.name} status set to {status}")
+        if status == 'AVAILABLE':
+            self.last_available_time = time.time()
 
     def is_available(self):
         return self.__status == 'AVAILABLE'

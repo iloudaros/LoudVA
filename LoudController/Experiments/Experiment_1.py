@@ -14,7 +14,8 @@ import os
 import time
 import subprocess
 
-schedulers = ['loud']#, 'random', 'round_robin']
+schedulers = ['loud', 'random', 'round_robin']
+num_repeats = 10
 
 def empty_logs():
     # Delete the logs if they exist
@@ -35,8 +36,6 @@ def set_scheduler(scheduler):
     with open('LoudController/Settings.py', 'w') as file:
         file.writelines(data)
 
-
-
 def start_controller():
     controller = subprocess.Popen(['make', 'start_LoudController'])
     return controller
@@ -44,7 +43,6 @@ def start_controller():
 def stop_controller():
     controller = subprocess.Popen(['pkill', 'screen'])
     return controller
-
 
 def start_data_collection(scheduler):
     # Set tegrastats_log_name to [date]_[scheduler]_tegrastats
@@ -77,49 +75,56 @@ def simulate_workload():
     workload = subprocess.Popen(['make', 'simulate_workload'])
     return workload
 
-def rename_logs(scheduler, time):
-    os.rename('request_log.csv', f'{time}_{scheduler}_request_log.csv')
-    os.rename('LoudController.log', f'{time}_{scheduler}_LoudController.log')
+def rename_logs(scheduler, time, iteration):
+    os.rename('request_log.csv', f'{time}_{scheduler}_{iteration}_request_log.csv')
+    os.rename('LoudController.log', f'{time}_{scheduler}_{iteration}_LoudController.log')
 
 def default_power_mode():
     default = subprocess.Popen(['make', 'default_power_mode'])
     return default
 
 def main():
-    empty_logs()
-
     for scheduler in schedulers:
-        default = default_power_mode()
-        default.wait()
-        print(f"Running experiment with {scheduler} scheduler")
-        set_scheduler(scheduler)
-        controller = start_controller()
+        # Create a directory for each scheduler
+        if not os.path.exists(scheduler):
+            os.makedirs(scheduler)
 
-        # Wait for the controller to start
-        time.sleep(60)
-        controller.wait()
+        for iteration in range(num_repeats):
+            empty_logs()
+            default = default_power_mode()
+            default.wait()
+            print(f"Running experiment with {scheduler} scheduler, iteration {iteration + 1}")
+            set_scheduler(scheduler)
+            controller = start_controller()
 
-        start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
-        data_collection = start_data_collection(scheduler)
-        data_collection.wait()
+            # Wait for the controller to start
+            time.sleep(60)
+            controller.wait()
 
-        workload = simulate_workload()
-        workload.wait()
+            start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
+            data_collection = start_data_collection(scheduler)
+            data_collection.wait()
 
-        stop_data_collection()
-        
-        data_retrieval = retrieve_data()
-        data_retrieval.wait()
+            workload = simulate_workload()
+            workload.wait()
 
-        rename_logs(scheduler, start_time)
-        
-        stop_controller()
-        empty_logs()
+            stop_data_collection()
+            
+            data_retrieval = retrieve_data()
+            data_retrieval.wait()
 
-        # Wait for the board to cool down
-        time.sleep(120)
+            # Move logs to the scheduler's directory
+            rename_logs(scheduler, start_time, iteration + 1)
+            os.rename(f'{start_time}_{scheduler}_{iteration + 1}_request_log.csv', 
+                      f'{scheduler}/{start_time}_{scheduler}_{iteration + 1}_request_log.csv')
+            os.rename(f'{start_time}_{scheduler}_{iteration + 1}_LoudController.log', 
+                      f'{scheduler}/{start_time}_{scheduler}_{iteration + 1}_LoudController.log')
+
+            stop_controller()
+            empty_logs()
+
+            # Wait for the board to cool down
+            time.sleep(120)
         
 if __name__ == '__main__':
     main()
-
-

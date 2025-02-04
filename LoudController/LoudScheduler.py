@@ -32,7 +32,8 @@ class LoudScheduler:
             'device': None,
             'freq': None,
             'batch_size': 0,
-            'latency': float('inf')
+            'latency': float('inf'),
+            'throughput': 0
         }
 
         logger.debug("Selecting best device configuration")
@@ -46,7 +47,6 @@ class LoudScheduler:
             device_request_counts = dict(zip([device.name for device in available_devices], current_request_count))
             logger.debug(f"Device request counts: {device_request_counts}")
 
-        
         if not available_devices:
             logger.warning("No available devices found.")
             return None, None, 0, float('inf')
@@ -62,13 +62,22 @@ class LoudScheduler:
 
                     energy_per_frame = energy / batch_size if batch_size > 0 else float('inf')
                     
+                    # Calculate throughput as inversely proportional to latency
+                    throughput = batch_size / latency if latency > 0 else 0
+
                     # Add the safety margin to the latency and the frequency change delay if the frequency is different than the current one
                     latency = latency + settings.safety_margin + (device.frequency_change_delay if device.get_frequency() != freq else 0)
-
+                    
+                    # We are within the latency constraint, select the configuration with minimum energy per frame
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
                         best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})
-                    elif latency < closest_config['latency']:
-                        closest_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'latency': latency})
+
+                    # We have fallen behind the latency constraint, we need to find the closest configuration and reduce the queue size.
+                    elif throughput <= queue_size: # This filters out unnecessary configurations, remember, the trend is that latency decreases at throughput increases
+                        # Select the configuration with maximum throughput and minimize latency
+                        if throughput > closest_config['throughput']:
+                            if latency <= closest_config['latency']:
+                                closest_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'latency': latency, 'throughput': throughput})
 
         if best_config['device']:
             logger.debug(f"Selected device: {best_config['device'].name} with frequency: {best_config['freq']} and batch size: {best_config['batch_size']}")
@@ -76,6 +85,7 @@ class LoudScheduler:
         else:
             logger.warning("No suitable device configuration found within constraints. Using closest match.")
             return closest_config['device'], closest_config['freq'], closest_config['batch_size'], closest_config['latency']
+
 
     def start(self, queue, response_dict):
         queue_list = []

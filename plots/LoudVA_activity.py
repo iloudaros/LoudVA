@@ -108,14 +108,13 @@ def parse_tegrastats_log(file_path):
 def get_log_label(filename):
     """Map filename to a human-readable label."""
     labels = {
-        "loud_request_log": "LoudScheduler",
-        "stress_request_log": "StressTest",
-        "round_robin_request_log": "RoundRobin",
-        "random_request_log": "RandomScheduler",
-        "loud_tegrastats": "LoudTegrastats",
-        "stress_tegrastats": "StressTegrastats",
-        "round_robin_tegrastats": "RoundRobinTegrastats",
-        "random_tegrastats": "RandomTegrastats"
+        "loud": "Our Scheduler",
+        "stress": "StressTest",
+        "round_robin": "Round Robin Scheduler",
+        "random": "Random Scheduler",
+        "fixed_batch": "Fixed Batch Scheduler",
+        "interval": "Interval Scheduler",
+        "transparent": "No Scheduler",
     }
     for key in labels:
         if key in filename:
@@ -192,6 +191,8 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
         fig, main_ax = plt.subplots(figsize=(20, 10))
     elif subplots:
         fig, axs = plt.subplots(len(logs), 1, figsize=(16, 8 * len(logs)), sharex=True)
+        if len(logs) == 1:
+            axs = [axs]
     else:
         fig, main_ax = None, None
 

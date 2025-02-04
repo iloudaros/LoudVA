@@ -11,11 +11,13 @@ logger = setup_logging()
 
 class FixedBatchScheduler:
 
-    def __init__(self, fixed_batch_size):
+    def __init__(self, fixed_batch_size, max_waiting_time):
         self.fixed_batch_size = fixed_batch_size
+        self.max_waiting_time = max_waiting_time
 
     def start(self, queue, response_dict):
         queue_list = []
+        first_item_time = None
 
         while True:
             if not (queue.empty() and not queue_list):
@@ -23,11 +25,19 @@ class FixedBatchScheduler:
                 # Gather all requests from the queue
                 while not queue.empty():
                     queue_list.append(queue.get())
+                    if first_item_time is None:
+                        first_item_time = time.time()
 
-                # If queue_list is smaller than the fixed batch size, wait for more requests
+                # Check if the queue_list is smaller than the fixed batch size
                 if len(queue_list) < self.fixed_batch_size:
+                    # Check if the max waiting time is surpassed
+                    if first_item_time and (time.time() - first_item_time >= self.max_waiting_time):
+                        # Dispatch the batch
+                        threading.Thread(target=self.dispatch_request, args=(devices[0], queue_list, response_dict)).start()
+                        queue_list = []
+                        first_item_time = None
                     continue
-                
+
                 # The batch size is the size of the queue list with max batch size as the upper limit
                 batch_size = self.fixed_batch_size
 
@@ -36,6 +46,7 @@ class FixedBatchScheduler:
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]
+                first_item_time = None if not queue_list else time.time()
 
             time.sleep(0.1)
 

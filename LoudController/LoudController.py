@@ -30,7 +30,7 @@ def selected_scheduler():
     elif settings.scheduler == 'fixed_batch':
         from altSchedulers.FixedBatchScheduler import FixedBatchScheduler
         logger.info(f"Using fixed batch size {settings.fixed_batch_size}")
-        return FixedBatchScheduler(settings.fixed_batch_size)
+        return FixedBatchScheduler(settings.fixed_batch_size, 15)
     else:
         from LoudScheduler import LoudScheduler
         return LoudScheduler()

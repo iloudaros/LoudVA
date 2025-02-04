@@ -150,8 +150,8 @@ def experiment(scheduler, results_dir, id):
         results_dir = scheduler
         
     # Create a directory for scheduler
-    if not os.path.exists(results_dir):
-        os.makedirs(results_dir)
+    if not os.path.exists(f"experiment_results/{results_dir}"):
+        os.makedirs(f"experiment_results/{results_dir}")
 
     # Clean slate
     empty_logs()
@@ -184,9 +184,9 @@ def experiment(scheduler, results_dir, id):
     # Move logs to the scheduler's directory
     rename_logs(results_dir, start_time)
     os.rename(f'{start_time}_{results_dir}_request_log.csv', 
-                f'{results_dir}/{start_time}_{results_dir}_id{id}request_log.csv')
+                f'experiment_results/{results_dir}/{start_time}_{results_dir}_id{id}_request_log.csv')
     os.rename(f'{start_time}_{results_dir}_LoudController.log', 
-                f'{results_dir}/{start_time}_{results_dir}_id{id}LoudController.log')
+                f'experiment_results/{results_dir}/{start_time}_{results_dir}_id{id}_LoudController.log')
 
     stop_controller()
     empty_logs()

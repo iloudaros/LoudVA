@@ -24,27 +24,33 @@ def main():
     for scenario in range(scenarios):
 
         # Generate scenario
+        print(f"Generating scenario {scenario}")
         scenario_generation = helper.generate_scenario()
         scenario_generation.wait()
 
         # LoudScheduler with prediction
+        print(f"Running scenario {scenario} on LoudScheduler with prediction")
         helper.enable_prediction()
         helper.experiment('loud', 'loud_pred', scenario)
 
         # LoudScheduler with profiling
+        print(f"Running scenario {scenario} on LoudScheduler with profiling")
         helper.disable_prediction()
         helper.experiment('loud', 'loud_prof', scenario)
 
         # TransparentScheduler
+        print(f"Running scenario {scenario} on TransparentScheduler")
         helper.experiment('transparent', 'transparent', scenario)
 
         # IntervalScheduler
         for interval in [0.2, 0.5, 1]:
+            print(f"Running scenario {scenario} on IntervalScheduler with interval {interval}")
             helper.set_batching_interval(interval)
             helper.experiment(f'interval', f'interval_{interval}', scenario)
 
         # FixedBatchScheduler
         for batch_size in [8, 16, 32]:
+            print(f"Running scenario {scenario} on FixedBatchScheduler with batch size {batch_size}")
             helper.set_fixed_batch_size(batch_size)
             helper.experiment(f'fixed_batch', f'fixed_batch_{batch_size}', scenario)
         

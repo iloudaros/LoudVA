@@ -41,7 +41,7 @@ class LoudGenerator:
         events.sort(key=lambda x: x[0])
         return events, last_exit_time
 
-    def plot_events(self, events, last_exit_time, live=False, log_filename='event_log.csv'):
+    def plot_events(self, events, last_exit_time, plot=True, live=False, log_filename='event_log.csv'):
         if live:
             plt.ion()
         else:
@@ -99,7 +99,10 @@ class LoudGenerator:
             ax.text(0.02, 0.95, f'Total Frames: {cumulative_frames}', transform=ax.transAxes,
                     fontsize=12, verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8))
 
-            plt.show()
+
+
+            if plot:
+                plt.show()
 
         if live:
             plt.ioff()
@@ -117,4 +120,4 @@ if __name__ == '__main__':
     num_cameras = 2
     simulator = LoudGenerator(num_cameras)
     simulated_events, last_exit_time = simulator.simulate_frames()
-    simulator.plot_events(simulated_events, last_exit_time, live=False, log_filename='event_log.csv')
+    simulator.plot_events(simulated_events, last_exit_time, plot=False, live=False, log_filename='event_log.csv')

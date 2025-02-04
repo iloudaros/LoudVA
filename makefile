@@ -193,6 +193,9 @@ send_makefile:
 add_specs_to_profiling:
 	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
 
+generate_event_log:
+	cd LoudController/LoudGenerator && python3 LoudGenerator.py
+
 ### To be run on the Jetsons ###
 
 model:
@@ -407,7 +410,7 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
 
-tegrastats_log_name = 2025-01-30_10:26:15_stress_tegrastats
+tegrastats_log_name = 2025-02-04_09:55:53_loud_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"

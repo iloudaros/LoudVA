@@ -1,4 +1,3 @@
-from itertools import cycle
 import time
 import threading
 from DeviceData import initialize_devices
@@ -10,10 +9,10 @@ devices = initialize_devices()
 # Configure logging
 logger = setup_logging()
 
-class RoundRobinScheduler:
+class FixedBatchScheduler:
+
     def __init__(self, fixed_batch_size):
         self.fixed_batch_size = fixed_batch_size
-        self.device_cycle = cycle(devices)
 
     def start(self, queue, response_dict):
         queue_list = []
@@ -25,26 +24,20 @@ class RoundRobinScheduler:
                 while not queue.empty():
                     queue_list.append(queue.get())
 
-                # Ensure there are available devices
-                available_devices = [device for device in devices if device.is_available()]
-                if not available_devices:
-                    logger.warning("No available devices found.")
+                # If queue_list is smaller than the fixed batch size, wait for more requests
+                if len(queue_list) < self.fixed_batch_size:
                     continue
-
-                # Rotate to the next available device
-                device = next(self.device_cycle)
-                while not device.is_available():
-                    device = next(self.device_cycle)
-
-                batch_size = min(self.fixed_batch_size, len(queue_list), device.max_batch_size)
+                
+                # The batch size is the size of the queue list with max batch size as the upper limit
+                batch_size = self.fixed_batch_size
 
                 # Dispatch the batch
-                threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict)).start()
+                threading.Thread(target=self.dispatch_request, args=(devices[0], queue_list[:batch_size], response_dict)).start()
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]
 
-            time.sleep(0.01)
+            time.sleep(0.1)
 
     def dispatch_request(self, device, batch, response_dict):
         device.add_request()

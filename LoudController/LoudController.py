@@ -20,6 +20,17 @@ def selected_scheduler():
     elif settings.scheduler == 'stress':
         from altSchedulers.StressScheduler import StressScheduler
         return StressScheduler()
+    elif settings.scheduler == 'interval':
+        from altSchedulers.IntervalScheduler import IntervalScheduler
+        logger.info(f"Using batching interval {settings.batching_interval}")
+        return IntervalScheduler(settings.batching_interval)
+    elif settings.scheduler == 'transparent':
+        from altSchedulers.TransparentScheduler import TransparentScheduler
+        return TransparentScheduler()
+    elif settings.scheduler == 'fixed_batch':
+        from altSchedulers.FixedBatchScheduler import FixedBatchScheduler
+        logger.info(f"Using fixed batch size {settings.fixed_batch_size}")
+        return FixedBatchScheduler(settings.fixed_batch_size)
     else:
         from LoudScheduler import LoudScheduler
         return LoudScheduler()

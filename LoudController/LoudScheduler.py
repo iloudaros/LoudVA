@@ -88,7 +88,7 @@ class LoudScheduler:
             # Frequency scaling Logic
             if current_time - self.last_frequency_scaling_check >= 2:
                 for device in self.devices:
-                    if device.is_available() and (current_time - device.last_available_time) >= settings.frequency_change_interval:
+                    if device.is_available() and (current_time - device.last_available_time) >= settings.frequency_scaling_idle_limit:
                         device.set_frequency(min(device.frequencies))
                         logger.debug(f"Frequency scaling check for device {device.name}. Set frequency to minimum: {min(device.frequencies)}")
 
@@ -103,6 +103,7 @@ class LoudScheduler:
                 initial_length = len(queue_list)
                 while not queue.empty():
                     queue_list.append(queue.get())
+                    last_added_time = time.time()
 
                 if len(queue_list) > initial_length:
                     logger.debug(f"Added {len(queue_list) - initial_length} new items to the queue.")
@@ -150,7 +151,7 @@ class LoudScheduler:
                     # Should we wait for more images?
                     if (min_remaining_time > expected_latency * settings.batching_wait_looseness 
                         and len(queue_list) < max_batch_size
-                        and time_since_last_add < settings.batching_max_wait_time
+                        #and time_since_last_add < settings.batching_max_wait_time
                         ): # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
 
                         logger.debug(f"Latency constraint allows for waiting, holding for more images.")

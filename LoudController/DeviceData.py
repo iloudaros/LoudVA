@@ -242,12 +242,12 @@ def initialize_devices():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Define the paths to the CSV files
-    agx_path = os.path.join(script_dir, '../measurements/archive/Representative/agx-xavier-00/measurements/agx-xavier-00_filtered_freqs.csv')
+    agx_path = os.path.join(script_dir, '../measurements/archive/Representative/Profiling.csv')
     nx_path = os.path.join(script_dir, '../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv')
     nano_path = os.path.join(script_dir, '../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv')
     specs_path = os.path.join(script_dir, '../data/devices/gpu_specs.csv')
 
-    agx_profile = csv_to_dict(agx_path)
+    agx_profile = csv_to_dict(agx_path, 'agx')
     nx_profile = csv_to_dict(nx_path)
     nano_profile = csv_to_dict(nano_path)
 
@@ -280,35 +280,37 @@ def initialize_devices():
     logger.info("Devices initialized successfully")
     return devices
 
-def csv_to_dict(file_path):
+def csv_to_dict(file_path, model=None):
     # Initialize an empty dictionary to store the results
     result = defaultdict(list)
 
     try:
         # Open the CSV file
         with open(file_path, 'r') as csvfile:
-            # Create a CSV reader object
-            csvreader = csv.reader(csvfile)
-            
-            # Skip the header
-            next(csvreader)
+            # Create a CSV DictReader object
+            csvreader = csv.DictReader(csvfile)
             
             # Iterate through each row in the CSV
             for row in csvreader:
-                # Extract the frequency, label, throughput, and z from the row
-                frequency = int(row[4])
-                batch_size = int(row[3])
-                throughput = float(row[0])
-                energy = float(row[1])
-                latency = float(row[2])
-                
-                # Use (frequency, label) as the key and (throughput, latency, z) as the value
-                result[(frequency, batch_size)] = (throughput, latency, energy)
+                # Check if the "Directory" column exists and if its value is the same as the model
+                if 'Directory' in row and row['Directory'].strip().lower() == model:
+                    # Extract the frequency, batch size, throughput, energy, and latency using column names
+                    frequency = int(row['Frequency'])
+                    batch_size = int(row['Batch Size'])
+                    throughput = float(row['Throughput'])
+                    energy = float(row['Energy'])
+                    latency = float(row['Latency'])
+                    
+                    # Use (frequency, batch size) as the key and (throughput, latency, energy) as the value
+                    result[(frequency, batch_size)] = (throughput, latency, energy)
+        
         logger.info(f"Loaded profile from {file_path}")
     
     except Exception as e:
         logger.error(f"Failed to load profile from {file_path}: {e}")
+    
     return dict(result)
+
     
 
 def load_gpu_specs(file_path):
@@ -342,6 +344,7 @@ def load_gpu_specs(file_path):
 #     for device in devices:
 #         print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
 #         print(f"Profile: {device.profile}")
+#         print(f"Profile size: {len(device.profile)}")
 #         print(f"Current Frequency: {device.get_frequency}, Current Batch Size: {device.current_batch_size}")
 #         print(f"Max Frequency: {device.gpu_max_freq}, Min Frequency: {device.gpu_min_freq}")
 #         print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")

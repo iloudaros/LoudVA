@@ -37,7 +37,8 @@ else:
 # Device class to store the device information
 class Device:
     def __init__(self, name, ip, frequencies, profile, frequency_change_delay, batch_size_change_delay,
-                 gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores, max_batch_size=None, model_instances=1):
+                 gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores,
+                 max_batch_size=None, model_instances=1):
         
         self.name = name
         self.ip = ip
@@ -60,10 +61,9 @@ class Device:
         # Calculate Max Batch Size from profile
         self.max_batch_size = max([batch_size for (freq, batch_size) in profile.keys()]) if max_batch_size is None else max_batch_size
 
-        # Set the current frequency and batch size 
+        # Initialize current frequency and batch size
         self.__current_freq = self.request_frequency()
         logger.info(f"Initial frequency on {self.name}: {self.__current_freq}")
-        self.current_batch_size = 1
 
         # Other delays
         self.frequency_change_delay = frequency_change_delay
@@ -73,10 +73,15 @@ class Device:
         self.__status = 'AVAILABLE'
         self.model_instances = model_instances
         self.current_requests = 0
-        self.lock = threading.Lock()
+
+        # Locks for thread safety
+        self.freq_lock = threading.Lock()
+        self.status_lock = threading.Lock()
+        self.requests_lock = threading.Lock()
+        self.cache_lock = threading.Lock()
 
         # Cache for storing the predicted energy and latency
-        self.prediction_cache = {}        
+        self.prediction_cache = {}
 
         # Fill missing profile data or calculate prediction_cache
         if settings.use_prediction:
@@ -85,46 +90,41 @@ class Device:
             self.fill_missing_profile_data()
 
     def calculate_prediction_cache(self):
-        # Populate the prediction cache with the predicted energy and latency for all batch sizes and frequencies
-        for freq in self.frequencies:
-            for batch_size in range(1, self.max_batch_size + 1):
-                predicted_energy, predicted_latency = self.predict(freq, batch_size)
-                self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
-                logger.debug(f"{self.name} : Predicted energy and latency for profile (f:{freq}, b:{batch_size})")
+        with self.cache_lock:
+            for freq in self.frequencies:
+                for batch_size in range(1, self.max_batch_size + 1):
+                    predicted_energy, predicted_latency = self.predict(freq, batch_size)
+                    self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
+                    logger.debug(f"{self.name} : Predicted energy and latency for profile (f:{freq}, b:{batch_size})")
 
     def fill_missing_profile_data(self):
-        # Fill the missing profile data with the predicted energy and latency
-        for freq in self.frequencies:
-            for batch_size in range(1, self.max_batch_size + 1):
-                if (freq, batch_size) not in self.profile:
-                    predicted_energy, predicted_latency = self.predict(freq, batch_size)
-                    self.profile[(freq, batch_size)] = (self.get_throughput(freq, batch_size), predicted_latency, predicted_energy)
-                    logger.debug(f"{self.name} : Filled missing profile data for (f:{freq}, b:{batch_size})")
-        
-        logger.info(f"{self.name} : Missing profile data filled with predictions.")
-
+        with self.cache_lock:
+            for freq in self.frequencies:
+                for batch_size in range(1, self.max_batch_size + 1):
+                    if (freq, batch_size) not in self.profile:
+                        predicted_energy, predicted_latency = self.predict(freq, batch_size)
+                        self.profile[(freq, batch_size)] = (self.get_throughput(freq, batch_size), predicted_latency, predicted_energy)
+                        logger.debug(f"{self.name} : Filled missing profile data for (f:{freq}, b:{batch_size})")
+            logger.info(f"{self.name} : Missing profile data filled with predictions.")
 
     def predict(self, freq, batch_size):
-        # Check if the prediction is already in the cache
-        if (freq, batch_size) in self.prediction_cache:
-            return self.prediction_cache[(freq, batch_size)]
+        with self.cache_lock:
+            if (freq, batch_size) in self.prediction_cache:
+                return self.prediction_cache[(freq, batch_size)]
 
-        # Use the predictor to predict the energy and latency
-        predicted_energy, predicted_latency = predictor.predict({
-                        'Batch Size': batch_size,
-                        'Frequency': freq,
-                        'GPU Max Frequency (MHz)': self.gpu_max_freq,
-                        'GPU Min Frequency (MHz)': self.gpu_min_freq,
-                        'GPU Number of Cores': self.num_cores,
-                        'Memory Speed (GB/s)': self.memory_speed,
-                        'Memory Size (GB)': self.memory_size,
-                        'Tensor Cores': self.tensor_cores
-                    })
-        
-        # Cache the prediction
-        self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
-        
-        return predicted_energy, predicted_latency
+            predicted_energy, predicted_latency = predictor.predict({
+                'Batch Size': batch_size,
+                'Frequency': freq,
+                'GPU Max Frequency (MHz)': self.gpu_max_freq,
+                'GPU Min Frequency (MHz)': self.gpu_min_freq,
+                'GPU Number of Cores': self.num_cores,
+                'Memory Speed (GB/s)': self.memory_speed,
+                'Memory Size (GB)': self.memory_size,
+                'Tensor Cores': self.tensor_cores
+            })
+
+            self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
+            return predicted_energy, predicted_latency
 
     def get_latency(self, freq, batch_size):
         try:
@@ -148,19 +148,22 @@ class Device:
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
-        if freq != self.__current_freq:    
-            response = worker_client.set_gpu_frequency(self.ip, freq)
-            self.__current_freq = freq
+        with self.freq_lock:
+            if freq != self.__current_freq:    
+                logger.debug(f"Setting frequency on {self.name} to {freq} MHz")
+                response = worker_client.set_gpu_frequency(self.ip, freq)
+                self.__current_freq = freq
 
-            if response['status_code'] == 200:
-                logger.info(f"Frequency set to {freq} MHz on {self.name}")
+                if response['status_code'] == 200:
+                    logger.info(f"Frequency set to {freq} MHz on {self.name}")
+                else:
+                    logger.error(f"Failed to set frequency on {self.name}: {response['message']}")
             else:
-                logger.error(f"Failed to set frequency on {self.name}: {response['message']}")
-        else:
-            logger.debug(f"Frequency already set to {freq} MHz on {self.name}")
+                logger.debug(f"Frequency already set to {freq} MHz on {self.name}")
 
     def get_frequency(self):
-        return self.__current_freq
+        with self.freq_lock:
+            return self.__current_freq
 
     def request_frequency(self):
         response = worker_client.get_gpu_frequency(self.ip)
@@ -173,16 +176,19 @@ class Device:
             return None
         
     def set_status(self, status):
-        self.__status = status
-        logger.debug(f"Device {self.name} status set to {status}")
-        if status == 'AVAILABLE':
-            self.last_available_time = time.time()
+        with self.status_lock:
+            self.__status = status
+            logger.debug(f"Device {self.name} status set to {status}")
+            if status == 'AVAILABLE':
+                self.last_available_time = time.time()
 
     def is_available(self):
-        return self.__status == 'AVAILABLE'
+        with self.status_lock:
+            return self.__status == 'AVAILABLE'
     
     def get_status(self):
-        return self.__status
+        with self.status_lock:
+            return self.__status
     
     def health_check(self):
         response = worker_client.health_check(self.ip)
@@ -194,7 +200,7 @@ class Device:
             return False
         
     def add_request(self):
-        with self.lock:
+        with self.requests_lock:
             self.current_requests += 1
             logger.debug(f"Request added to {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
             if self.current_requests >= self.model_instances:
@@ -202,13 +208,23 @@ class Device:
             else:
                 logger.debug(f"{self.name} is still AVAILABLE")
 
-
     def end_request(self):
-        with self.lock:
+        with self.requests_lock:
             self.current_requests -= 1
             logger.debug(f"Request completed on {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
             if self.current_requests < self.model_instances:
                 self.set_status('AVAILABLE')
+
+    def add_request_for_duration(self, duration):
+        """Starts a new thread to process a request for a specified duration."""
+        def request_thread():
+            self.add_request()  # Add a request
+            time.sleep(duration)  # Wait for the specified duration
+            self.end_request()  # End the request
+
+        # Start a new thread for the request
+        thread = threading.Thread(target=request_thread)
+        thread.start()
 
 
     def inference(self, images, batch_size):
@@ -337,19 +353,28 @@ def load_gpu_specs(file_path):
 
     return specs
 
-# if __name__ == '__main__':
-#     devices = initialize_devices()
-#     print("Device data loaded successfully.")
-#     print("Devices:")
-#     for device in devices:
-#         print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
-#         print(f"Profile: {device.profile}")
-#         print(f"Profile size: {len(device.profile)}")
-#         print(f"Current Frequency: {device.get_frequency}, Current Batch Size: {device.current_batch_size}")
-#         print(f"Max Frequency: {device.gpu_max_freq}, Min Frequency: {device.gpu_min_freq}")
-#         print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
-#         print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
-#         print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")
-#         print(f"Memory Size: {device.memory_size} GB, Tensor Cores: {device.tensor_cores}")
-#         print(f'Health Check: {device.health_check()}')
-#         print("\n")
+if __name__ == '__main__':
+    devices = initialize_devices()
+    print("Device data loaded successfully.")
+    print("Devices:")
+    for device in devices:
+        print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
+        print(f"Profile: {list(device.profile.items())[0]} ... {list(device.profile.items())[-1]}")
+        print(f"Profile size: {len(device.profile)}")
+        print(f"Current GPU Frequency: {device.get_frequency()} Hz")
+        print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")
+        print(f"Architecture: {device.architecture}, Number of Cores: {device.num_cores}")
+        print(f"Memory Speed: {device.memory_speed} GB/s, DRAM: {device.dram}, Shared Memory: {device.shared_memory}")
+        print(f"Memory Size: {device.memory_size} GB, Tensor Cores: {device.tensor_cores}")
+        print(f'Health Check: {device.health_check()}')
+        print("\n")
+
+    print("Checking process_request_for_duration method...")
+    devices[0].add_request_for_duration(5)
+    print("Request started for 5 seconds.")
+    print(f"Device {devices[0].name} currently has {devices[0].current_requests} requests.")
+    print("And as you can see, execution continues while the request is being processed.")
+    time.sleep(6)
+    print("Request completed.")
+    print(f"Device {devices[0].name} currently has {devices[0].current_requests} requests.")
+

@@ -87,12 +87,12 @@ class LoudScheduler:
                         new_latency = latency
                         current_closest_throughput = closest_config['throughput']
                         current_closest_latency = closest_config['latency']
-                        
+                        target_throughput = (queue_size*1.1) / latency_constraint
                         update_closest = False
                         
-                        if new_throughput >= queue_size:
+                        if new_throughput >= target_throughput:
                             # New config meets throughput requirement
-                            if current_closest_throughput < queue_size:
+                            if current_closest_throughput < target_throughput:
                                 # Current config doesn't meet requirement - update
                                 update_closest = True
                             else:
@@ -101,7 +101,7 @@ class LoudScheduler:
                                     update_closest = True
                         else:
                             # New config doesn't meet throughput requirement
-                            if current_closest_throughput < queue_size:
+                            if current_closest_throughput < target_throughput:
                                 # Neither meets requirement - prioritize higher throughput, then lower latency
                                 if (new_throughput > current_closest_throughput or 
                                     (new_throughput == current_closest_throughput and 
@@ -130,6 +130,7 @@ class LoudScheduler:
     def start(self, queue, response_dict):
         queue_list = []
         last_added_time = None
+        logger.info("Starting LoudScheduler")
 
         while True:
             current_time = time.time()

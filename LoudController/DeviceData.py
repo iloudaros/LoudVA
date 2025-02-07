@@ -15,13 +15,13 @@ import threading
 logger = setup_logging()
 
 # Initialize and train the LoudCostPredictor
- 
-predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
-logger.info("Training the LoudCostPredictor...")
-start_time = time.time()
-predictor.train()
-end_time = time.time()
-logger.info(f"LoudCostPredictor training complete. Training time: {end_time - start_time} seconds.")
+if settings.use_prediction or settings.fill_missing_profile_data and settings.scheduler == 'loud':
+    predictor = LoudCostPredictor('/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
+    logger.info("Training the LoudCostPredictor...")
+    start_time = time.time()
+    predictor.train()
+    end_time = time.time()
+    logger.info(f"LoudCostPredictor training complete. Training time: {end_time - start_time} seconds.")
 
 
 if settings.use_prediction:
@@ -85,46 +85,55 @@ class Device:
 
         # Fill missing profile data or calculate prediction_cache
         if settings.use_prediction:
+            logger.info(f"{self.name} : Calculating prediction cache...")
             self.calculate_prediction_cache()
         elif settings.fill_missing_profile_data:
+            logger.info(f"{self.name} : Filling missing profile data...")
             self.fill_missing_profile_data()
 
     def calculate_prediction_cache(self):
-        with self.cache_lock:
-            for freq in self.frequencies:
-                for batch_size in range(1, self.max_batch_size + 1):
-                    predicted_energy, predicted_latency = self.predict(freq, batch_size)
-                    self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
-                    logger.debug(f"{self.name} : Predicted energy and latency for profile (f:{freq}, b:{batch_size})")
+        total_profiles = len(self.frequencies) * self.max_batch_size
+        processed_profiles = 0  
+        for freq in self.frequencies:
+            for batch_size in range(1, self.max_batch_size + 1):
+                predicted_energy, predicted_latency = self.predict(freq, batch_size)
+                processed_profiles += 1
+                if processed_profiles % 50 == 0:
+                    logger.debug(f"{self.name} : Processed {processed_profiles}/{total_profiles} profiles.")  
+        logger.info(f"{self.name} : Prediction cache calculated.")
 
     def fill_missing_profile_data(self):
-        with self.cache_lock:
-            for freq in self.frequencies:
-                for batch_size in range(1, self.max_batch_size + 1):
-                    if (freq, batch_size) not in self.profile:
-                        predicted_energy, predicted_latency = self.predict(freq, batch_size)
-                        self.profile[(freq, batch_size)] = (self.get_throughput(freq, batch_size), predicted_latency, predicted_energy)
-                        logger.debug(f"{self.name} : Filled missing profile data for (f:{freq}, b:{batch_size})")
-            logger.info(f"{self.name} : Missing profile data filled with predictions.")
+        for freq in self.frequencies:
+            for batch_size in range(1, self.max_batch_size + 1):
+                if (freq, batch_size) not in self.profile:
+                    predicted_energy, predicted_latency = self.predict(freq/1000000, batch_size)
+                    self.profile[(freq, batch_size)] = (self.get_throughput(freq, batch_size), predicted_latency, predicted_energy)
+                    logger.debug(f"{self.name} : Filled missing profile data for (f:{freq}, b:{batch_size})")
+        logger.info(f"{self.name} : Missing profile data filled with predictions.")
 
     def predict(self, freq, batch_size):
-        with self.cache_lock:
-            if (freq, batch_size) in self.prediction_cache:
-                return self.prediction_cache[(freq, batch_size)]
+        try:
+            with self.cache_lock:
+                if (freq, batch_size) in self.prediction_cache:
+                    return self.prediction_cache[(freq, batch_size)]
 
-            predicted_energy, predicted_latency = predictor.predict({
-                'Batch Size': batch_size,
-                'Frequency': freq,
-                'GPU Max Frequency (MHz)': self.gpu_max_freq,
-                'GPU Min Frequency (MHz)': self.gpu_min_freq,
-                'GPU Number of Cores': self.num_cores,
-                'Memory Speed (GB/s)': self.memory_speed,
-                'Memory Size (GB)': self.memory_size,
-                'Tensor Cores': self.tensor_cores
-            })
+                predicted_energy, predicted_latency = predictor.predict({
+                    'Batch Size': batch_size,
+                    'Frequency': freq,
+                    'GPU Max Frequency (MHz)': self.gpu_max_freq,
+                    'GPU Min Frequency (MHz)': self.gpu_min_freq,
+                    'GPU Number of Cores': self.num_cores,
+                    'Memory Speed (GB/s)': self.memory_speed,
+                    'Memory Size (GB)': self.memory_size,
+                    'Tensor Cores': self.tensor_cores
+                })
 
-            self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
-            return predicted_energy, predicted_latency
+                self.prediction_cache[(freq, batch_size)] = (predicted_energy, predicted_latency)
+
+                return predicted_energy, predicted_latency
+        except Exception as e:
+            logger.error(f"{self.name} : Failed to predict energy and latency for profile (f:{freq}, b:{batch_size}): {e}")
+            return float('inf'), float('inf')
 
     def get_latency(self, freq, batch_size):
         try:
@@ -360,6 +369,7 @@ if __name__ == '__main__':
     for device in devices:
         print(f"Device: {device.name}, IP: {device.ip}, Frequencies: {device.frequencies}")
         print(f"Profile: {list(device.profile.items())[0]} ... {list(device.profile.items())[-1]}")
+        print(f"Max Batch Size: {device.max_batch_size}")
         print(f"Profile size: {len(device.profile)}")
         print(f"Current GPU Frequency: {device.get_frequency()} Hz")
         print(f"GPU Max Frequency: {device.gpu_max_freq} MHz, GPU Min Frequency: {device.gpu_min_freq} MHz")

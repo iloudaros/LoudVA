@@ -95,7 +95,7 @@ class LoudCostPredictor:
         return predicted_energy[0], predicted_latency[0]
 
 if __name__ == '__main__':
-    data_path = 'data.csv'  # Path to your CSV file
+    data_path = '/home/louduser/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv'  # Path to your CSV file
     model = LoudCostPredictor(data_path)
     
     model.train()

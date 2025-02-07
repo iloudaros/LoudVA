@@ -118,6 +118,7 @@ def LoudServer(queue, response_dict):
     return app
 
 def run_server(queue, response_dict):
+    logger.info("Starting LoudVA server...")
     app = LoudServer(queue, response_dict)
     app.run(debug=False, port=5000, threaded=True)
 

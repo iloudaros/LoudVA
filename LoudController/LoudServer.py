@@ -16,13 +16,24 @@ CSV_LOG_FILE = 'request_log.csv'
 if not os.path.exists(CSV_LOG_FILE):
     with open(CSV_LOG_FILE, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Request ID', 'Image ID', 'Arrival Time', 'Queue Exit Time', 'Completion Time', 'Latency', 'Requested Latency'])
+        writer.writerow(['Request ID', 'Image ID', 'Arrival Time', 'Queue Exit Time', 
+                        'Completion Time', 'Latency', 'Requested Latency', 'Timed Out'])
 
-def log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time, completion_time, requested_latency):
+def log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time, 
+                       completion_time, requested_latency, timed_out):
     actual_latency = completion_time - arrival_time
     with open(CSV_LOG_FILE, mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([request_id, image_id, arrival_time, queue_exit_time, completion_time, actual_latency, requested_latency])
+        writer.writerow([
+            request_id,
+            image_id,
+            arrival_time,
+            queue_exit_time,
+            completion_time,
+            actual_latency,
+            requested_latency,
+            timed_out
+        ])
 
 def LoudServer(queue, response_dict):
     app = Flask(__name__)
@@ -48,9 +59,7 @@ def LoudServer(queue, response_dict):
 
             # Extract latency constraint from the request, default to a reasonable value if not provided
             latency_constraint = request.form.get('latency', type=float, default=settings.default_latency)
-
             logger.info(f"Received inference request with latency constraint: {latency_constraint}")
-            logger.debug(f"Images: {images}")
 
             # Create a unique ID for every image in the request
             image_ids = [f"{request_id}_{i}" for i in range(len(images))]
@@ -68,24 +77,36 @@ def LoudServer(queue, response_dict):
             # Wait for all responses to be available in the response dictionary
             logger.debug(f"Waiting for responses for images: {image_ids}")
             responses = {}
+            timeout = 300  # 5 minutes timeout
+            start_time = time.time()
+
             while len(responses) < len(image_ids):
+                if time.time() - start_time > timeout:
+                    logger.warning(f"Timeout reached for request {request_id}")
+                    break
+                
                 for image_id in image_ids:
                     if image_id in response_dict:
-                        logger.debug(f"Response received for image: {image_id}")
                         responses[image_id] = response_dict.pop(image_id)
-                        logger.debug(f"Responses: {responses}, remaining: {len(image_ids) - len(responses)}")
-                        logger.debug(f"Response dictionary: {response_dict}")
+                        logger.debug(f"Response received for image: {image_id}")
+                
                 time.sleep(0.01)
 
             end_time = time.time()
 
-            # Log each frame to CSV
+            # Log all images, marking timed out ones
             for image_id in image_ids:
-                queue_exit_time = responses[image_id][-1]
-                log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time, end_time, latency_constraint)
+                if image_id in responses:
+                    queue_exit_time = responses[image_id][-1]
+                    log_request_to_csv(request_id, image_id, arrival_time, 
+                                      queue_exit_time, end_time, latency_constraint, False)
+                else:
+                    log_request_to_csv(request_id, image_id, arrival_time, 
+                                      None, end_time, latency_constraint, True)
 
             logger.info(f"Inference completed. Request ID: {request_id}")
             return jsonify({"status": "completed", "response": responses, "latency": end_time - arrival_time}), 200
+        
         except Exception as e:
             logger.error("An error occurred during inference", exc_info=True)
             return jsonify({"status": "error", "message": "Internal server error"}), 500

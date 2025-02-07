@@ -184,9 +184,9 @@ def experiment(scheduler, results_dir, id):
     # Move logs to the scheduler's directory
     rename_logs(results_dir, start_time)
     os.rename(f'{start_time}_{results_dir}_request_log.csv', 
-                f'experiment_results/{results_dir}/{start_time}_{results_dir}_id{id}_request_log.csv')
+                f'experiment_results/{results_dir}/{start_time}_id{id}_{results_dir}_request_log.csv')
     os.rename(f'{start_time}_{results_dir}_LoudController.log', 
-                f'experiment_results/{results_dir}/{start_time}_{results_dir}_id{id}_LoudController.log')
+                f'experiment_results/{results_dir}/{start_time}_id{id}_{results_dir}_LoudController.log')
 
     stop_controller()
     empty_logs()

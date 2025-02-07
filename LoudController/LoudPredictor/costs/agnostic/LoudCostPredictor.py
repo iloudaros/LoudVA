@@ -32,7 +32,6 @@ class LoudCostPredictor:
 
         self.model_latency = XGBRegressor()
         self.model_latency.fit(X_train, y_train_latency)
-        print("Models trained successfully.")
 
     def evaluate_models(self):
         _, X_test, _, y_test_energy, _, y_test_latency = self.split_data()

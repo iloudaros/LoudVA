@@ -132,6 +132,10 @@ def empty_logs():
     if os.path.exists('LoudController.log'):
         os.remove('LoudController.log')
 
+    delete_tegrastats = subprocess.Popen(['make', 'remote_delete_tegrastats'])
+    delete_tegrastats.wait()
+
+
 
 
 # Other functions
@@ -142,6 +146,13 @@ def default_power_mode():
 def generate_scenario():
     generate = subprocess.Popen(['make', 'generate_event_log'])
     return generate
+
+def archive_scenario(name):
+    # Archive /home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv to /home/louduser/LoudVA/LoudController/LoudGenerator/scenarios/[name].csv
+    path = f'/home/louduser/LoudVA/LoudController/LoudGenerator/scenarios/{name}.csv'
+    if not os.path.exists(path):
+        os.makedirs(path)
+    os.rename('/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv', path)
 
 
 # Main function to run the experiment

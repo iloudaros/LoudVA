@@ -64,6 +64,8 @@ def main():
         print(f"Running scenario {scenario} on LoudScheduler with profiling")
         helper.disable_prediction()
         helper.experiment('loud', 'loud_prof', scenario)
+
+        helper.archive_scenario(scenario)
         
 if __name__ == '__main__':
     main()

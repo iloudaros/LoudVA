@@ -18,6 +18,8 @@ class LoudScheduler:
         self.devices = devices
         self.debug_mode = 1 if logger.getEffectiveLevel() == 10 else 0
         self.last_frequency_scaling_check = time.time()
+        self.waiting_flag = False
+        self.available_devices_flag = False
 
     def select_best_device_config(self, latency_constraint, queue_size):
         best_config = {
@@ -45,11 +47,16 @@ class LoudScheduler:
             model_instances = [device.model_instances for device in available_devices]
             current_request_count = [f"{current_request_count[i]}/{model_instances[i]}" for i in range(len(current_request_count))]
             device_request_counts = dict(zip([device.name for device in available_devices], current_request_count))
+            logger.debug(f'There are {len(available_devices)} available devices.')
             logger.debug(f"Device request counts: {device_request_counts}")
 
         if not available_devices:
-            logger.warning("No available devices found.")
+            if self.available_devices_flag:
+                logger.warning("No available devices found. Returning None. Waiting for devices to become available.")
+                self.available_devices_flag = False
             return None, None, 0, float('inf')
+
+        self.available_devices_flag = True
 
         for device in available_devices:
             for freq in device.frequencies:
@@ -71,19 +78,52 @@ class LoudScheduler:
                     # We are within the latency constraint, select the configuration with minimum energy per frame
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
                         best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})
+                        logger.debug(f"Best configuration updated: {best_config}")
 
-                    # We have fallen behind the latency constraint, we need to find the closest configuration and reduce the queue size.
-                    elif throughput <= queue_size: # This filters out unnecessary configurations, remember, the trend is that latency decreases at throughput increases
-                        # Select the configuration with maximum throughput and minimize latency
-                        if throughput > closest_config['throughput']:
-                            if latency <= closest_config['latency']:
-                                closest_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'latency': latency, 'throughput': throughput})
+                    # We have fallen behind the latency constraint, we need to find the closest configuration and process the queue asap
+                    else:
+                        # Handle configurations that don't meet latency constraints
+                        new_throughput = throughput
+                        new_latency = latency
+                        current_closest_throughput = closest_config['throughput']
+                        current_closest_latency = closest_config['latency']
+                        
+                        update_closest = False
+                        
+                        if new_throughput >= queue_size:
+                            # New config meets throughput requirement
+                            if current_closest_throughput < queue_size:
+                                # Current config doesn't meet requirement - update
+                                update_closest = True
+                            else:
+                                # Both meet requirement - prioritize lower latency
+                                if new_latency < current_closest_latency:
+                                    update_closest = True
+                        else:
+                            # New config doesn't meet throughput requirement
+                            if current_closest_throughput < queue_size:
+                                # Neither meets requirement - prioritize higher throughput, then lower latency
+                                if (new_throughput > current_closest_throughput or 
+                                    (new_throughput == current_closest_throughput and 
+                                    new_latency < current_closest_latency)):
+                                    update_closest = True
+                        
+                        if update_closest:
+                            closest_config.update({
+                                'device': device,
+                                'freq': freq,
+                                'batch_size': batch_size,
+                                'latency': new_latency,
+                                'throughput': new_throughput
+                            })
+                            logger.debug(f"Closest configuration updated: {closest_config}")
 
         if best_config['device']:
             logger.debug(f"Selected device: {best_config['device'].name} with frequency: {best_config['freq']} and batch size: {best_config['batch_size']}")
             return best_config['device'], best_config['freq'], best_config['batch_size'], best_config['latency']
         else:
             logger.warning("No suitable device configuration found within constraints. Using closest match.")
+            logger.debug(f"Selected device: {closest_config['device'].name} with frequency: {closest_config['freq']} and batch size: {closest_config['batch_size']}")
             return closest_config['device'], closest_config['freq'], closest_config['batch_size'], closest_config['latency']
 
 
@@ -109,18 +149,21 @@ class LoudScheduler:
             if not (queue.empty() and not queue_list):
                 logger.debug(f"Queue: {queue.qsize()+len(queue_list)}")
 
-                # Did we add new items to the queue?
+                # Add all new requests to the queue list
                 initial_length = len(queue_list)
                 while not queue.empty():
                     queue_list.append(queue.get())
-                    last_added_time = time.time()
+                    last_added_time = time.time() # Capture the time of the last addition
 
+                time_since_last_add = current_time - (last_added_time or 0) # Time since the last image was added to the queue
+
+                # Did we add new items to the queue?
                 if len(queue_list) > initial_length:
                     logger.debug(f"Added {len(queue_list) - initial_length} new items to the queue.")
 
+                # Calculate the remaining time for each request in the queue
                 logger.debug("Calculating remaining time for each request in the queue.")
                 current_time = time.time()
-                time_since_last_add = current_time - (last_added_time or 0) # Time since the last image was added to the queue
                 remaining_time_list = []
 
                 for image_bytes, image_id, latency_constraint, arrival_time in queue_list:
@@ -128,9 +171,9 @@ class LoudScheduler:
                     remaining_time = latency_constraint - time_elapsed
                     remaining_time_list.append((remaining_time, image_bytes, image_id, latency_constraint, arrival_time))
 
+                # Sort the queue based on the remaining time
                 remaining_time_list.sort(key=lambda x: x[0])
                 queue_list = [(image_bytes, image_id, latency_constraint, arrival_time) for _, image_bytes, image_id, latency_constraint, arrival_time in remaining_time_list]
-
 
                 all_remaining_times = []
                 all_images = []
@@ -151,6 +194,7 @@ class LoudScheduler:
 
                 min_remaining_time = min(all_remaining_times)
 
+                # Select the best device configuration
                 best_device, best_freq, best_batch_size, expected_latency = self.select_best_device_config(min_remaining_time, len(all_images))
 
                 if best_device and best_batch_size > 0:
@@ -161,18 +205,24 @@ class LoudScheduler:
                     # Should we wait for more images?
                     if (min_remaining_time > expected_latency * settings.batching_wait_looseness 
                         and len(queue_list) < max_batch_size
-                        #and time_since_last_add < settings.batching_max_wait_time
+                        and time_since_last_add < settings.batching_max_wait_time
                         ): # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
+                        
+                        if not self.waiting_flag:
+                            logger.info(f"Latency constraint allows for waiting, holding for more images.")
+                            self.waiting_flag = True
 
-                        logger.debug(f"Latency constraint allows for waiting, holding for more images.")
+
                         time.sleep(settings.scheduler_wait_time)
                         continue
-
+                    
+                    # We have enough images to dispatch
                     else:
+                        self.waiting_flag = False
                         batch_images = all_images[:best_batch_size]
                         batch_image_ids = all_image_ids[:best_batch_size]
 
-                        threading.Thread(target=self.dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict)).start()
+                        threading.Thread(target=self.dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict, expected_latency)).start()
 
                         queue_list = queue_list[best_batch_size:]
                         logger.debug(f"Batch dispatched. Remaining number of items in the queue: {len(queue_list)}")
@@ -183,8 +233,8 @@ class LoudScheduler:
             else:
                 time.sleep(settings.scheduler_wait_time)
 
-    def dispatch_request(self, device, freq, images, image_ids, response_dict):
-        device.add_request()
+    def dispatch_request(self, device, freq, images, image_ids, response_dict, expected_latency=None):
+        device.add_request_for_duration(expected_latency)
         batch_size = len(images)
 
         logger.info(f"Dispatching to {device.name} with frequency {freq}, batch size {batch_size}")
@@ -207,4 +257,4 @@ class LoudScheduler:
 
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
 
-        device.end_request()
+        

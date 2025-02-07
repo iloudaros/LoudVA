@@ -192,6 +192,6 @@ def experiment(scheduler, results_dir, id):
     empty_logs()
 
     # Wait for the board to cool down
-    time.sleep(120)
+    time.sleep(60)
 
 

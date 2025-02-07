@@ -22,7 +22,7 @@ import time
 
 scenarios = 7
 
-estimated_time = math.ceil((5*7*(1+3+3+1+1)/60)*1.1)
+estimated_time = math.ceil(((5+2)*7*(1+3+3+1+1)/60)*1.1)
 print(f"Estimated time: {estimated_time} hours. End time: {time.ctime(time.time() + estimated_time*3600)}")
 print("Proceed? (y/n)")
 if input() != 'y':

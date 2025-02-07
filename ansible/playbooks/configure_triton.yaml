@@ -28,3 +28,5 @@
       line: "max_batch_size: {{ max_batch_size }}"
       state: present
     ignore_errors: yes
+
+  # todo: Set model instance count

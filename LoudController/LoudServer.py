@@ -98,7 +98,7 @@ def LoudServer(queue, response_dict):
 
 def run_server(queue, response_dict):
     app = LoudServer(queue, response_dict)
-    app.run(debug=settings.debug, port=5000, threaded=True)
+    app.run(debug=False, port=5000, threaded=True)
 
 if __name__ == '__main__':
     pass

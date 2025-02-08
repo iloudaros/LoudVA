@@ -83,9 +83,9 @@ def stop_controller():
 
 
 # Functions to start and stop data collection
-def start_data_collection(scheduler):
+def start_data_collection(scheduler, id):
     # Set tegrastats_log_name to [date]_[scheduler]_tegrastats
-    tegrastats_log_name = f"{time.strftime('%Y-%m-%d_%H:%M:%S')}_{scheduler}_tegrastats"
+    tegrastats_log_name = f"{time.strftime('%Y-%m-%d_%H:%M:%S')}_id{id}_{scheduler}_tegrastats"
 
     # Change the name of the variable in the makefile
     with open('makefile', 'r') as file:
@@ -149,10 +149,11 @@ def generate_scenario():
 
 def archive_scenario(name):
     # Archive /home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv to /home/louduser/LoudVA/LoudController/LoudGenerator/scenarios/[name].csv
-    path = f'/home/louduser/LoudVA/LoudController/LoudGenerator/scenarios/{name}.csv'
+    path = '/home/louduser/LoudVA/LoudController/LoudGenerator/scenarios'
     if not os.path.exists(path):
         os.makedirs(path)
-    os.rename('/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv', path)
+    move = subprocess.Popen(['mv', '/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv', f'{path}/{name}.csv'])
+    move.wait()
 
 
 # Main function to run the experiment
@@ -180,7 +181,7 @@ def experiment(scheduler, results_dir, id):
 
     # Start data collection
     start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
-    data_collection = start_data_collection(scheduler)
+    data_collection = start_data_collection(scheduler,id)
     data_collection.wait()
 
     # Simulate workload

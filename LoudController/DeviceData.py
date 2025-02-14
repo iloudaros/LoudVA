@@ -38,7 +38,7 @@ else:
 class Device:
     def __init__(self, name, ip, frequencies, profile, frequency_change_delay, batch_size_change_delay,
                  gpu_max_freq, gpu_min_freq, architecture, num_cores, memory_speed, dram, shared_memory, memory_size, tensor_cores,
-                 max_batch_size=None, model_instances=1):
+                 max_batch_size=None, model_instances=1, network_cost=None):
         
         self.name = name
         self.ip = ip
@@ -82,6 +82,10 @@ class Device:
 
         # Cache for storing the predicted energy and latency
         self.prediction_cache = {}
+
+        # Network cost
+        self.network_cost = network_cost or []
+        logger.debug(f"Initialized network costs for batch sizes 1-{len(self.network_cost)-1}")
 
         # Fill missing profile data or calculate prediction_cache
         if settings.use_prediction:
@@ -266,7 +270,11 @@ def initialize_devices():
     # Get the path of this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # Define the paths to the CSV files
+    # Add network cost path
+    network_cost_path = os.path.join(script_dir, '../measurements/network/network_cost.csv')
+    network_cost = load_network_cost(network_cost_path)
+
+    # Define the paths to the Profiling
     agx_path = os.path.join(script_dir, '../measurements/archive/Representative/Profiling.csv')
     nx_path = os.path.join(script_dir, '../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv')
     nano_path = os.path.join(script_dir, '../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv')
@@ -295,7 +303,7 @@ def initialize_devices():
 
     # Define the devices
     devices = [
-        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'], max_batch_size=64),
+        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'], max_batch_size=64, network_cost=network_cost),
         #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
         #Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
         #Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
@@ -336,8 +344,22 @@ def csv_to_dict(file_path, model=None):
     
     return dict(result)
 
-    
-
+def load_network_cost(file_path):
+    """Load network costs from CSV into a list where index corresponds to batch size."""
+    network_cost = [0.0]  # index 0 is unused
+    try:
+        with open(file_path, 'r') as csvfile:
+            csvreader = csv.DictReader(csvfile)
+            for row in csvreader:
+                batch_size = int(row['Batch Size'])
+                cost = float(row['Network Cost (μs)'])
+                network_cost.append(cost)
+        logger.info(f"Loaded network costs from {file_path}")
+    except Exception as e:
+        logger.error(f"Failed to load network costs from {file_path}: {e}")
+        network_cost = [0.0]
+    return network_cost
+       
 def load_gpu_specs(file_path):
     specs = {}
     try:

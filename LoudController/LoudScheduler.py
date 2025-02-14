@@ -72,8 +72,11 @@ class LoudScheduler:
                     # Calculate throughput as inversely proportional to latency
                     throughput = batch_size / latency if latency > 0 else 0
 
+                    # Calculate network cost
+                    network_cost = device.network_cost[batch_size] if settings.calculate_network_cost else 0
+                    
                     # Add the safety margin to the latency and the frequency change delay if the frequency is different than the current one
-                    latency = latency + settings.safety_margin + (device.frequency_change_delay if device.get_frequency() != freq else 0)
+                    latency = latency + network_cost + settings.safety_margin + (device.frequency_change_delay if device.get_frequency() != freq else 0)
                     
                     # We are within the latency constraint, select the configuration with minimum energy per frame
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
@@ -206,7 +209,7 @@ class LoudScheduler:
                     # Should we wait for more images?
                     if (min_remaining_time > expected_latency * settings.batching_wait_looseness 
                         and len(queue_list) < max_batch_size
-                        and time_since_last_add < settings.batching_max_wait_time
+                        #and time_since_last_add < settings.batching_max_wait_time
                         ): # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα
                         
                         if not self.waiting_flag:

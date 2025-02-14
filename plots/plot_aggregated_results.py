@@ -53,8 +53,22 @@ def create_individual_plots(aggregated_csv_path):
     ax.set_ylabel("Latency (s)")
     ax.set_xlabel("")
     plt.xticks(rotation=45, ha='right')
+    plt.ylim(0, 20)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "latency.png"))
+    plt.close()
+
+    # Plot 1a: Adjusted Latency
+    plt.figure(figsize=(6, 4))
+    ax = sns.barplot(x='scheduler', y='mean_excess_latency_adj_s', data=df, 
+                     hue='scheduler', palette="viridis", legend=False)
+    ax.set_title("Adjusted Mean Excess Latency by Scheduler")
+    ax.set_ylabel("Latency (s)")
+    ax.set_xlabel("")
+    plt.xticks(rotation=45, ha='right')
+    plt.ylim(0, 20)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "latency_adjusted.png"))
     plt.close()
 
     # Plot 2: Energy Consumption
@@ -92,7 +106,6 @@ def create_individual_plots(aggregated_csv_path):
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "frames_per_joule.png"))
     plt.close()
-
 
     # Plot 5: Temperature Ranges
     plt.figure(figsize=(8, 5))
@@ -136,6 +149,29 @@ def create_individual_plots(aggregated_csv_path):
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "timeouts.png"))
     plt.close()
+
+    # Constraint Plots
+    constraint_metrics = [
+        ('percent_requests_within_constraint', 'Requests within Latency Constraint'),
+        ('percent_frames_within_constraint', 'Frames within Latency Constraint'),
+        ('percent_completed_frames_within_constraint', 'completed Frames within Latency Constraint'),
+        ('percent_requests_within_adj', 'Requests within Adjusted Constraint'),
+        ('percent_frames_within_adj', 'Frames within Adjusted Constraint'),
+        ('percent_completed_frames_within_adj', 'Completed Frames within Adjusted Constraint')
+    ]
+
+    for i, (metric, title) in enumerate(constraint_metrics, 8):
+        plt.figure(figsize=(6, 4))
+        ax = sns.barplot(x='scheduler', y=metric, data=df, 
+                        hue='scheduler', palette="coolwarm", legend=False)
+        ax.set_title(f"{title} by Scheduler")
+        ax.set_ylabel("Percentage (%)")
+        ax.set_xlabel("")
+        plt.xticks(rotation=45, ha='right')
+        plt.ylim(0, 100)
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, f"{metric}.png"))
+        plt.close()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate individual plots from aggregated results')

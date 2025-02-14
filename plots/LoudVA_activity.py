@@ -214,11 +214,17 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
         total_energy = calculate_energy(tegra_df, interval_ms)
         mean_percentage_excess = req_df['Percentage Excess Latency'].mean()
 
+        # Calculate percentages of requests and frames within latency constraint
+        within_latency_requests = (req_df['Excess Latency'] == 0).mean() * 100
+        within_latency_frames = within_latency_requests  # Assuming each request is a frame
+
         # Print stats
         print(f"\n{label} Stats:")
         print(f"Mean Excess Latency: {mean_excess:.2f}s")
         print(f"Mean Percentage Excess Latency: {mean_percentage_excess:.2f}%")
         print(f"Total Energy: {total_energy:.1f} J")
+        print(f"Requests within Latency Constraint: {within_latency_requests:.2f}%")
+        print(f"Frames within Latency Constraint: {within_latency_frames:.2f}%")
 
         # Select current axis
         if subplots:
@@ -275,7 +281,14 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
         ax.legend(handles, labels, loc='upper right')
 
         # Add stats annotation
-        stats_text = f"{label}\nEnergy: {total_energy:.1f} J\nMean Excess: {mean_excess:.2f}s\nMean % Excess: {mean_percentage_excess:.2f}%"
+        stats_text = (
+            f"{label}\n"
+            f"Energy: {total_energy:.1f} J\n"
+            f"Mean Excess: {mean_excess:.2f}s\n"
+            f"Mean % Excess: {mean_percentage_excess:.2f}%\n"
+            f"Requests within Constraint: {within_latency_requests:.2f}%\n"
+            f"Frames within Constraint: {within_latency_frames:.2f}%"
+        )
         ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, 
                 va='top', ha='left', bbox=dict(facecolor='white', alpha=0.8))
 
@@ -286,6 +299,7 @@ def analyze_logs(logs, plot_latency=True, plot_power=True, plot_temperature=True
     if single_plot or subplots:
         plt.tight_layout()
         plt.show()
+
 
 
 def main():

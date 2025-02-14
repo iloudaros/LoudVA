@@ -352,7 +352,7 @@ def load_network_cost(file_path):
             csvreader = csv.DictReader(csvfile)
             for row in csvreader:
                 batch_size = int(row['Batch Size'])
-                cost = float(row['Network Cost (μs)'])
+                cost = float(row['Network Cost (μs)']) / 1_000_000
                 network_cost.append(cost)
         logger.info(f"Loaded network costs from {file_path}")
     except Exception as e:

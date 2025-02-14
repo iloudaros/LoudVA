@@ -58,9 +58,9 @@ triton_client_dependencies:
 	pip3 install --upgrade image six requests flake8
 	pip install protobuf==3.20
 
-	@echo "Creating directories for for each version of Triton client..."
+	@echo "Creating directories for each version of Triton client..."
 	mkdir -p ~/tritonserver2_19
-	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
+	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19 
 	mkdir -p ~/tritonserver2_34
 	tar zxvf ~/tritonserver2_34.tgz -C ~/tritonserver2_34
 
@@ -144,6 +144,11 @@ start_LoudController:
 	@echo "____Starting Control Node in debug mode____"
 	@screen -dmS LoudController bash -c 'python3 LoudController/LoudController.py > LoudController.log 2>&1' 
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
+	@curl \
+		-d "LoudController started" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"
@@ -160,13 +165,17 @@ stop_WorkerController:
 	@echo "____Stopping Worker Controller____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_WorkerController.yaml
 
-start: start_triton start_WorkerController start_LoudController 
-	@echo "LoudVA Started"
+start_workers: start_triton start_WorkerController
+	@echo "Workers Started"
 	@curl \
-		-d "LoudVA Online" \
+		-d "Workers Online. Triton and WorkerController started." \
 		-H "Title: LoudVA" \
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
+
+start: start_workers start_LoudController 
+	@echo "LoudVA Started"
+	
 
 stop: stop_triton stop_WorkerController stop_LoudController 
 	@echo "LoudVA Stopped"
@@ -191,7 +200,7 @@ send_makefile:
 	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
 
 add_specs_to_profiling:
-	python3 scripts/python/add_specs.py measurements/archive/Representative/profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
+	python3 scripts/python/add_specs.py measurements/archive/Representative/Profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
 
 generate_event_log:
 	cd LoudController/LoudGenerator && python3 LoudGenerator.py
@@ -360,7 +369,9 @@ check_WorkerController:
 	) && \
 	echo "🔍 WorkerController checks completed."
 
-
+check_resources_LoudController:
+	@echo "____Checking Resources on the Controller____"
+	@curl -s http://localhost:5000/resources
 
 is_triton_running:
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/is_triton_running.yaml
@@ -409,8 +420,14 @@ eval_agnostic_LoudCostPredictor: add_specs_to_profiling
 	@echo "____Evaluating the Predictor____"
 	@cd LoudController/LoudPredictor/costs/agnostic && python3 LoudCostPredictor.py
 
+notify:
+	@curl \
+		-d "Testing Notification" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-02-04_09:55:53_loud_tegrastats
+tegrastats_log_name = 2025-02-08_07:49:38_loud_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -424,9 +441,14 @@ retrieve_tegrastats:
 	@echo "____Retrieving tegrastats from the Jetsons____"
 	@ansible ${ANSIBLE_OPTS} Workers -m fetch -a "src=/home/iloudaros/${tegrastats_log_name} dest=measurements/power" -u iloudaros --become
 
+remote_delete_tegrastats:
+	@echo "____Deleting tegrastats on the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "rm /home/iloudaros/${tegrastats_log_name}" -u iloudaros --become
+
+
 ### To be run on the Jetsons ###
-CONCURRENCY_FLOOR = 1
-CONCURRENCY_LIMIT = 20
+CONCURRENCY_FLOOR = 50
+CONCURRENCY_LIMIT = 60
 
 MEASUREMENT_MODE = count_windows #time_windows or count_windows
 
@@ -459,14 +481,13 @@ measure_performance_and_power:
 	@bash scripts/shell/mean_median.sh measurements/power/power_measurement
 	@echo "Check measurements/power/power_measurement_stats for the power measurements"
 
+measure_network:
+	@echo "Starting the measurement."
+	@bash scripts/shell/measure_network.sh -i 147.102.37.108:8000 -o ./measurements/network -s 1 -e 64
+	@echo "Finished measuring."
+	@python3 scripts/python/extract_network_cost.py ./measurements/network -o ./measurements/network/network_cost.csv
 
 
-notify:
-	@curl \
-		-d "Testing Notification" \
-		-H "Title: LoudVA" \
-		-H "Tags: white_check_mark" \
-		${NOTIFICATION_URL}
 ################################################
 
 
@@ -493,6 +514,13 @@ experiment_1:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
+
+report:
+	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_01 --exclude-ids 2 5 --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv
+
+aggregate_results:
+	@python3 scripts/python/aggregate_results.py  /home/louduser/LoudVA/experiment_results_01/experiment_report.csv
+
 experiment_2:
 	@echo "____Running Experiment 2____"
 	@python3 LoudController/Experiments/Experiment_2.py
@@ -500,7 +528,7 @@ experiment_2:
 		-d "Experiment 2: Complete" \
 		-H "Title: LoudVA" \
 		-H "Tags: white_check_mark" \
-		${NOTIFICATION_URL}
+		${NOTIFICATION_URL} 
 
 experiments: experiment_1 experiment_2
 	@echo "Experiments Complete"
@@ -522,23 +550,34 @@ experiments: experiment_1 experiment_2
 
 
 ############## Plots ################
+visualize_events:
+	@python3 LoudController/LoudGenerator/visualize.py
 
-LoudScheduler_logs = "2025-01-30_06:19:43_loud_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_06:19:43_loud_tegrastats"
-RoundRobinScheduler_logs = "2025-01-30_04:44:12_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_04:44:12_round_robin_tegrastats"
-RandomScheduler_logs = "2025-01-30_05:26:40_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_05:26:40_random_tegrastats"
+
+
+LoudScheduler_logs = "/home/louduser/LoudVA/experiment_results_copy/loud_prof/2025-02-07_22:51:05_id0_loud_prof_request_log.csv,/home/louduser/LoudVA/experiment_results_copy/loud_prof/2025-02-07_22:51:05_id0_loud_tegrastats"
+
+FixedBatch_logs = "2025-01-30_04:44:12_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_04:44:12_round_robin_tegrastats"
+
+Interval_logs = "2025-01-30_05:26:40_random_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_05:26:40_random_tegrastats"
+
+Trasnparent_logs = ""
 
 StressScheduler_logs = "2025-01-30_10:26:15_stress_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_10:26:15_stress_tegrastats"
 
 
-
 plot_activity:
-	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-latency --plot-power --align-zero --subplots
+	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} --plot-latency --plot-power --align-zero --subplots
 
 plot_freqs:
 	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-gpu-freq --align-zero --subplots
 
 plot_stress:
 	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-latency --plot-temperature --align-zero 
+
+plot_aggregated_results:
+	@python3 plots/plot_aggregated_results.py /home/louduser/LoudVA/experiment_results_01/experiment_report_aggregated.csv
+
 
 ################################################
 

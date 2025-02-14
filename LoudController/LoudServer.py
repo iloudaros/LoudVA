@@ -104,7 +104,7 @@ def LoudServer(queue, response_dict):
                     log_request_to_csv(request_id, image_id, arrival_time, 
                                       None, end_time, latency_constraint, True)
 
-            logger.info(f"Inference completed. Request ID: {request_id}")
+            logger.info(f"Completed. Request ID: {request_id}")
             return jsonify({"status": "completed", "response": responses, "latency": end_time - arrival_time}), 200
         
         except Exception as e:

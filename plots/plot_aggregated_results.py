@@ -154,7 +154,7 @@ def create_individual_plots(aggregated_csv_path):
     constraint_metrics = [
         ('percent_requests_within_constraint', 'Requests within Latency Constraint'),
         ('percent_frames_within_constraint', 'Frames within Latency Constraint'),
-        ('percent_completed_frames_within_constraint', 'completed Frames within Latency Constraint'),
+        ('percent_completed_frames_within_constraint', 'Completed Frames within Latency Constraint'),
         ('percent_requests_within_adj', 'Requests within Adjusted Constraint'),
         ('percent_frames_within_adj', 'Frames within Adjusted Constraint'),
         ('percent_completed_frames_within_adj', 'Completed Frames within Adjusted Constraint')

@@ -72,10 +72,12 @@ def disable_prediction():
 # Functions to start and stop the controller 
 def start_controller():
     controller = subprocess.Popen(['make', 'start_LoudController'])
+    controller.wait()
     return controller
 
 def stop_controller():
     controller = subprocess.Popen(['pkill', 'screen'])
+    controller.wait()
     return controller
 
 
@@ -100,20 +102,24 @@ def start_data_collection(scheduler, id):
 
     # Start data collection
     data_collection = subprocess.Popen(['make', 'remote_start_tegrastats'])
-    return data_collection
+    data_collection.wait()
+    return tegrastats_log_name
 
 def stop_data_collection():
     data_collection = subprocess.Popen(['make', 'remote_stop_tegrastats'])
+    data_collection.wait()
     return data_collection
 
 def retrieve_data():
     data_collection = subprocess.Popen(['make', 'retrieve_tegrastats'])
+    data_collection.wait()
     return data_collection
 
 
 # Functions to simulate workload
 def simulate_workload():
     workload = subprocess.Popen(['make', 'simulate_workload'])
+    workload.wait()
     return workload
 
 
@@ -141,10 +147,12 @@ def empty_logs():
 # Other functions
 def default_power_mode():
     default = subprocess.Popen(['make', 'default_power_mode'])
+    default.wait()
     return default
 
 def generate_scenario():
     generate = subprocess.Popen(['make', 'generate_event_log'])
+    generate.wait()
     return generate
 
 def archive_scenario(name):
@@ -167,31 +175,29 @@ def experiment(scheduler, results_dir, id):
 
     # Clean slate
     empty_logs()
-    default = default_power_mode()
-    default.wait()
+    default_power_mode()
 
     # Start Controller
     print(f"Running experiment with {scheduler} scheduler")
     set_scheduler(scheduler)
-    controller = start_controller()
+    start_controller()
 
     # Wait for the controller to start
     time.sleep(60)
-    controller.wait()
 
     # Start data collection
     start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
-    data_collection = start_data_collection(scheduler,id)
-    data_collection.wait()
+    tegrastats_log_name = start_data_collection(scheduler,id)
+    
 
     # Simulate workload
-    workload = simulate_workload()
-    workload.wait()
+    simulate_workload()
+   
 
     # Stop data collection
     stop_data_collection()
-    data_retrieval = retrieve_data()
-    data_retrieval.wait()
+    retrieve_data()
+    
 
     # Move logs to the scheduler's directory
     rename_logs(results_dir, start_time)
@@ -199,6 +205,8 @@ def experiment(scheduler, results_dir, id):
                 f'experiment_results/{results_dir}/{start_time}_id{id}_{results_dir}_request_log.csv')
     os.rename(f'{start_time}_{results_dir}_LoudController.log', 
                 f'experiment_results/{results_dir}/{start_time}_id{id}_{results_dir}_LoudController.log')
+    os.rename(f'/home/louduser/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/{tegrastats_log_name}',
+                f'experiment_results/{results_dir}/{tegrastats_log_name}')
 
     stop_controller()
     empty_logs()

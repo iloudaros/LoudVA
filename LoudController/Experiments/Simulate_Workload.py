@@ -95,6 +95,7 @@ def load_camera_schedule(csv_filename, random_latency, stable_latency):
     camera_schedules = {}
     updated_rows = []
     file_updated = False
+    network_cost = load_network_cost('/home/louduser/LoudVA/measurements/network/network_cost.csv')
 
     with open(csv_filename, mode='r', newline='') as csvfile:
         csv_reader = csv.DictReader(csvfile)
@@ -114,7 +115,7 @@ def load_camera_schedule(csv_filename, random_latency, stable_latency):
             if has_latency_constraint:
                 latency_constraint = int(row['latency_constraint'])
             else:
-                latency_constraint = random.randint(int(min(max(frames * 0.9, 1), 0.9*15)), int(15 + frames * 0.15)) if random_latency else stable_latency
+                latency_constraint = random.randint(int(min(max(frames * 0.9, 1), 0.9*15)), 20) + network_cost[frames] if random_latency else stable_latency
                 row['latency_constraint'] = latency_constraint  # Add to the row for writing back
                 file_updated = True
 
@@ -132,6 +133,21 @@ def load_camera_schedule(csv_filename, random_latency, stable_latency):
             csv_writer.writerows(updated_rows)
 
     return camera_schedules
+
+
+def load_network_cost(file_path):
+    """Load network costs from CSV into a list where index corresponds to batch size."""
+    network_cost = [0.0]  # index 0 is unused
+    try:
+        with open(file_path, 'r') as csvfile:
+            csvreader = csv.DictReader(csvfile)
+            for row in csvreader:
+                cost = float(row['Network Cost (μs)']) / 1_000_000
+                network_cost.append(cost)
+    except Exception as e:
+        print("oops...")
+        network_cost = [0.0]
+    return network_cost
 
 def main():
     # Parse command-line arguments

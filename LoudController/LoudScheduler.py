@@ -207,7 +207,7 @@ class LoudScheduler:
                     logger.debug(f"Min remaining time: {min_remaining_time}, Expected latency: {expected_latency}, Queue: {len(queue_list)}, Max batch size: {max_batch_size}")
 
                     # Should we wait for more images?
-                    if (min_remaining_time > expected_latency * settings.batching_wait_looseness 
+                    if (min_remaining_time > expected_latency * settings.batching_wait_strictness
                         and len(queue_list) < max_batch_size
                         #and time_since_last_add < settings.batching_max_wait_time
                         ): # Αυτό μπορεί να γίνει πιο έξυπνο αν βάλουμε έναν πρεντικτορα

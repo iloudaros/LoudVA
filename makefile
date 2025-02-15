@@ -427,7 +427,7 @@ notify:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-02-08_07:49:38_loud_tegrastats
+tegrastats_log_name = 2025-02-15_04:38:17_id4_loud_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -516,10 +516,12 @@ experiment_1:
 
 
 report:
-	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_01 --exclude-ids 2 5 --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv
+	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_01 --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv #--exclude-ids 6 5 1
 
 aggregate_results:
 	@python3 scripts/python/aggregate_results.py  /home/louduser/LoudVA/experiment_results_01/experiment_report.csv
+
+report_and_plot: report aggregate_results plot_aggregated_results
 
 experiment_2:
 	@echo "____Running Experiment 2____"
@@ -568,6 +570,9 @@ StressScheduler_logs = "2025-01-30_10:26:15_stress_request_log.csv,measurements/
 
 plot_activity:
 	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} --plot-latency --plot-power --align-zero --subplots
+
+gantt_request_log:
+	@python3 plots/gantt.py /home/louduser/LoudVA/experiment_results/loud_pred/2025-02-15_04:07:40_id0_loud_pred_request_log.csv -o /home/louduser/LoudVA/experiment_results/loud_pred/lala.pdf
 
 plot_freqs:
 	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-gpu-freq --align-zero --subplots

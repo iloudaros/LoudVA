@@ -23,9 +23,9 @@ health_checks_enabled = False
 # Batching 
 max_batch_size = 200
 min_batch_size = 1
-batching_wait_looseness = 3 
+batching_wait_strictness = 4 
 batching_max_wait_time = 5
-fixed_batch_size = 32 # Used for the fixed batch size scheduler
+fixed_batch_size = 8 # Used for the fixed batch size scheduler
 batching_interval = 1 # Used for the fixed interval scheduler
 
 # Debugging
@@ -33,6 +33,6 @@ debug = False
 
 # Scheduler settings
 scheduler_wait_time = 0.01
-scheduler = 'loud' # Options: ['loud', 'random', 'round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
-safety_margin = 0.5
+scheduler = 'fixed_batch' # Options: ['loud', 'random', 'round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
+safety_margin = 0.2
 calculate_network_cost = True

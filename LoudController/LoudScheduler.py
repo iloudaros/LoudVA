@@ -233,7 +233,7 @@ class LoudScheduler:
             
 
             if self.debug_mode:
-                time.sleep(2) 
+                time.sleep(5) 
             else:
                 time.sleep(settings.scheduler_wait_time)
 

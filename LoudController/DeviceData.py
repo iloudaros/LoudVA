@@ -278,11 +278,13 @@ def initialize_devices():
     agx_path = os.path.join(script_dir, '../measurements/archive/Representative/Profiling.csv')
     nx_path = os.path.join(script_dir, '../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv')
     nano_path = os.path.join(script_dir, '../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv')
+
+    profiling_path = os.path.join(script_dir, '../measurements/archive/Representative/Profiling.csv')
     specs_path = os.path.join(script_dir, '../data/devices/gpu_specs.csv')
 
-    agx_profile = csv_to_dict(agx_path, 'agx')
-    nx_profile = csv_to_dict(nx_path)
-    nano_profile = csv_to_dict(nano_path)
+    agx_profile = csv_to_dict(profiling_path, 'agx')
+    nx_profile = csv_to_dict(profiling_path, 'nx')
+    nano_profile = csv_to_dict(profiling_path, 'nano')
 
     specs_dict = load_gpu_specs(specs_path)
 
@@ -304,11 +306,11 @@ def initialize_devices():
     # Define the devices
     devices = [
         Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'], max_batch_size=64, network_cost=network_cost),
-        #Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
+        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
         #Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8),
-        #Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
-        #Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
-        #Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4)
+        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
+        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4),
+        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4)
     ]
     logger.info("Devices initialized successfully")
     return devices

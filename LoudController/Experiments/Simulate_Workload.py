@@ -113,9 +113,9 @@ def load_camera_schedule(csv_filename, random_latency, stable_latency):
 
             # Determine latency constraint
             if has_latency_constraint:
-                latency_constraint = int(row['latency_constraint'])
+                latency_constraint = row['latency_constraint']
             else:
-                latency_constraint = random.randint(int(min(max(frames * 0.9, 1), 0.9*15)), 20) + network_cost[frames] if random_latency else stable_latency
+                latency_constraint = random.randint(int(min(max(frames * 0.9, 1), 0.9*15)), 21) + network_cost[frames] if random_latency else stable_latency
                 row['latency_constraint'] = latency_constraint  # Add to the row for writing back
                 file_updated = True
 

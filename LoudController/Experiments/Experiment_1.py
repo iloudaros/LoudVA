@@ -21,8 +21,8 @@ import math
 import time
 
 scenarios = 7
-scenario_duration = 5 + 2 #mins
-scheduler_configs_to_be_tested = 1 + 3 + 3 + 1 + 1
+scenario_duration = 5 + 2 + 1 #mins
+scheduler_configs_to_be_tested = 1 + 3 + 3 + 2
 
 
 estimated_time = math.ceil((scenarios*scenario_duration*scheduler_configs_to_be_tested)/60*1.1)

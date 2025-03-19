@@ -71,6 +71,19 @@ def create_individual_plots(aggregated_csv_path):
     plt.savefig(os.path.join(output_dir, "latency_adjusted.png"))
     plt.close()
 
+    # Plot 1b : Percentage Latency
+    plt.figure(figsize=(6, 4))
+    ax = sns.barplot(x='scheduler', y='mean_percent_excess', data=df, 
+                     hue='scheduler', palette="Purples", legend=False)
+    ax.set_title("Mean Excess Latency by Scheduler")
+    ax.set_ylabel("Latency (s)")
+    ax.set_xlabel("")
+    plt.xticks(rotation=45, ha='right')
+    plt.ylim(0, 20)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "percent_latency.png"))
+    plt.close()
+
     # Plot 2: Energy Consumption
     plt.figure(figsize=(6, 4))
     ax = sns.barplot(x='scheduler', y='total_energy_j', data=df, 
@@ -119,6 +132,7 @@ def create_individual_plots(aggregated_csv_path):
     ax.set_xlabel("")
     plt.xticks(rotation=45, ha='right')
     plt.legend(title='Metric', frameon=True)
+    plt.ylim(40, 60)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "temperature.png"))
     plt.close()

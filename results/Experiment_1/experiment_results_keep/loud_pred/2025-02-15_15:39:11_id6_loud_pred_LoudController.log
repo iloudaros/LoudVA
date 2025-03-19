@@ -1,0 +1,750 @@
+2025-02-15 15:38:11,542 - LoudVA - INFO - [LoudController] - Starting LoudController...
+2025-02-15 15:38:11,542 - LoudVA - INFO - [LoudController] - Press CTRL+C to stop the controller.
+2025-02-15 15:38:11,542 - LoudVA - INFO - [LoudController] - Debug mode: False
+2025-02-15 15:38:11,564 - LoudVA - INFO - [LoudController] - Selected scheduler: loud
+2025-02-15 15:38:11,572 - LoudVA - INFO - [LoudServer] - Starting LoudVA server...
+ * Serving Flask app 'LoudServer'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+2025-02-15 15:38:12,933 - LoudVA - INFO - [DeviceData] - Training the LoudCostPredictor...
+2025-02-15 15:38:13,128 - LoudVA - INFO - [DeviceData] - LoudCostPredictor training complete. Training time: 0.19492483139038086 seconds.
+2025-02-15 15:38:13,128 - LoudVA - INFO - [DeviceData] - Using prediction model for decision making.
+2025-02-15 15:38:13,128 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
+2025-02-15 15:38:13,129 - LoudVA - INFO - [DeviceData] - Loaded network costs from /home/louduser/LoudVA/LoudController/../measurements/network/network_cost.csv
+2025-02-15 15:38:13,137 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
+2025-02-15 15:38:13,137 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-02-15 15:38:13,137 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-02-15 15:38:13,138 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-02-15 15:38:13,168 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 114750000
+2025-02-15 15:38:13,168 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Calculating prediction cache...
+2025-02-15 15:38:20,649 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Prediction cache calculated.
+2025-02-15 15:38:20,649 - LoudVA - INFO - [DeviceData] - Devices initialized successfully
+2025-02-15 15:38:20,665 - LoudVA - INFO - [LoudScheduler] - Starting LoudScheduler
+2025-02-15 15:38:22,735 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+127.0.0.1 - - [15/Feb/2025 15:39:14] "GET / HTTP/1.1" 200 -
+2025-02-15 15:39:18,677 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.660034
+2025-02-15 15:39:18,700 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:39:23,425 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:39:23,496 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:39:23,645 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.374043
+2025-02-15 15:39:23,655 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:39:26,119 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ac96b516-2941-4dee-b7be-ec7dcd8e18c5
+127.0.0.1 - - [15/Feb/2025 15:39:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:26,171 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 4
+2025-02-15 15:39:26,793 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 01cf3d20-5be3-4cbd-8049-b0383a541087
+127.0.0.1 - - [15/Feb/2025 15:39:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:28,617 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.281418
+2025-02-15 15:39:28,628 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:39:32,925 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-15 15:39:33,689 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.843875
+2025-02-15 15:39:33,759 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 15
+2025-02-15 15:39:33,773 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:39:33,829 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:39:35,798 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 73aa65f9-0214-4956-9660-4f4e4f9e8956
+127.0.0.1 - - [15/Feb/2025 15:39:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:36,191 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:39:38,724 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.943081
+2025-02-15 15:39:38,875 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 23
+2025-02-15 15:39:38,891 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:39:38,944 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-15 15:39:42,092 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:39:42,339 - LoudVA - INFO - [LoudServer] - Completed. Request ID: adeb5af0-6da3-4aa9-aa31-1ad33ec80252
+127.0.0.1 - - [15/Feb/2025 15:39:42] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:43,675 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.200563
+2025-02-15 15:39:44,972 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:39:44,982 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:39:45,044 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:39:47,489 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e23e9cff-4625-4bb0-b39f-42533bedb3fd
+127.0.0.1 - - [15/Feb/2025 15:39:47] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:47,712 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:39:48,650 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.200563
+2025-02-15 15:39:50,467 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 14
+2025-02-15 15:39:50,539 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:39:52,402 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c13638c8-9930-4043-b175-4ed0d3ee1458
+127.0.0.1 - - [15/Feb/2025 15:39:52] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:52,408 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 1164dce0-1f07-4a84-a654-e7c004455d31
+127.0.0.1 - - [15/Feb/2025 15:39:52] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:39:53,623 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.741029
+2025-02-15 15:39:53,638 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:39:57,014 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-15 15:39:58,628 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.64948
+2025-02-15 15:40:01,636 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 15
+2025-02-15 15:40:01,707 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:40:03,646 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 03c8a827-69e2-49a2-8486-5ec553ae5a20
+127.0.0.1 - - [15/Feb/2025 15:40:03] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:03,653 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ff595527-5e43-4ecc-9ee1-2612a40eaf9e
+127.0.0.1 - - [15/Feb/2025 15:40:03] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:09,046 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-15 15:40:20,486 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.934937
+2025-02-15 15:40:20,508 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:25,494 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.660034
+2025-02-15 15:40:25,607 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 27
+2025-02-15 15:40:25,617 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:40:25,681 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:40:29,307 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 00c8e1ef-0d5c-435e-a9a3-ca488ddc9ed6
+127.0.0.1 - - [15/Feb/2025 15:40:29] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:29,326 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:30,475 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.660034
+2025-02-15 15:40:31,741 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:40:31,755 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:40:33,919 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:34,134 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fd49072e-d804-4625-b688-8ff7440b4af0
+127.0.0.1 - - [15/Feb/2025 15:40:34] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:35,548 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.213975
+2025-02-15 15:40:35,730 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 23
+2025-02-15 15:40:35,740 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:40:35,798 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-15 15:40:38,948 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:39,007 - LoudVA - INFO - [LoudServer] - Completed. Request ID: cf9ffcc9-ae91-4694-82f3-0276378834d6
+127.0.0.1 - - [15/Feb/2025 15:40:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:40,551 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.213975
+2025-02-15 15:40:40,766 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 22
+2025-02-15 15:40:40,783 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:40:40,837 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:40:43,934 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:44,134 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 50a32784-5462-4953-a9f9-85dac79728c5
+127.0.0.1 - - [15/Feb/2025 15:40:44] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:45,477 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.477553
+2025-02-15 15:40:45,861 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:40:45,871 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:40:45,932 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:40:48,607 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:48,677 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d986206c-683c-412c-a2db-1a0eb8ad4aa0
+127.0.0.1 - - [15/Feb/2025 15:40:48] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:50,440 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.190029
+2025-02-15 15:40:52,701 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 4
+2025-02-15 15:40:52,768 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:40:53,345 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 2119e922-c921-4609-9eb2-0725bab734ec
+127.0.0.1 - - [15/Feb/2025 15:40:53] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:53,348 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 8c82ccaf-fcc7-41f4-8a1a-284da7f5b0e4
+127.0.0.1 - - [15/Feb/2025 15:40:53] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:40:55,461 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.027485
+2025-02-15 15:40:55,472 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:40:59,195 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-15 15:41:00,440 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.281418
+2025-02-15 15:41:00,463 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 12
+2025-02-15 15:41:00,474 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:00,531 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:41:02,116 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d7e999f8-c037-441d-bb08-0eb63e35ceb2
+127.0.0.1 - - [15/Feb/2025 15:41:02] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:02,569 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:05,379 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 1
+2025-02-15 15:41:05,391 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:05,491 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.660034
+2025-02-15 15:41:05,738 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 6
+2025-02-15 15:41:05,749 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:06,582 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4ee0042d-1e21-4ff5-98fd-c0b31230d62d
+127.0.0.1 - - [15/Feb/2025 15:41:06] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:06,640 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:10,443 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.465794
+2025-02-15 15:41:10,472 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:41:10,540 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:41:13,136 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 406a6e29-43d5-460d-a983-434d517c66a8
+127.0.0.1 - - [15/Feb/2025 15:41:13] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:13,140 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 20615330-bda6-41ba-8407-f0d0b38a1c52
+127.0.0.1 - - [15/Feb/2025 15:41:13] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:15,464 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.752793
+2025-02-15 15:41:15,470 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:19,284 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-15 15:41:20,302 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:41:20,312 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:20,371 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:41:20,526 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.943081
+2025-02-15 15:41:22,041 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
+2025-02-15 15:41:22,970 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.190029
+2025-02-15 15:41:23,061 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 26
+2025-02-15 15:41:23,129 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:41:23,958 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.281418
+2025-02-15 15:41:23,970 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:24,993 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.374043
+2025-02-15 15:41:25,479 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.374043
+2025-02-15 15:41:25,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.190029
+2025-02-15 15:41:26,668 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 3
+2025-02-15 15:41:26,679 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:26,914 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 536ba7fc-e7a7-411a-b23e-52adb0659408
+127.0.0.1 - - [15/Feb/2025 15:41:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:26,915 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fa3f98a2-fdb0-4a09-a64c-d4d97b89545d
+127.0.0.1 - - [15/Feb/2025 15:41:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:26,927 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fbeddce9-396d-48d8-b8fe-2c5faeb90dde
+127.0.0.1 - - [15/Feb/2025 15:41:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:26,933 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c0e451f3-f524-40e7-bb4c-0228c1f830ee
+127.0.0.1 - - [15/Feb/2025 15:41:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:26,971 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.374043
+2025-02-15 15:41:27,129 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c0aadbac-8fd7-47b5-b6aa-a69b8eedd3f5
+127.0.0.1 - - [15/Feb/2025 15:41:27] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:27,254 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 14
+2025-02-15 15:41:27,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.281418
+2025-02-15 15:41:27,961 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:28,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.098841
+2025-02-15 15:41:29,009 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:29,389 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 7045b958-b981-477b-90a8-b52550798976
+127.0.0.1 - - [15/Feb/2025 15:41:29] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:29,396 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 595bbf33-8441-41c0-8833-3e1c8c79a124
+2025-02-15 15:41:29,396 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 1f71599f-98df-4432-9471-e438e44852e8
+127.0.0.1 - - [15/Feb/2025 15:41:29] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [15/Feb/2025 15:41:29] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:29,396 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 319cb1c6-d9b0-43a4-a359-42772f7c0574
+127.0.0.1 - - [15/Feb/2025 15:41:29] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:29,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.190029
+2025-02-15 15:41:30,516 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 6
+2025-02-15 15:41:30,538 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.943081
+2025-02-15 15:41:30,550 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:30,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.098841
+2025-02-15 15:41:31,365 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fa058a5e-e98c-4a86-aecd-61e9ae3a5e92
+127.0.0.1 - - [15/Feb/2025 15:41:31] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:31,369 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c20d658b-5fc7-4123-8059-9669fb980edb
+127.0.0.1 - - [15/Feb/2025 15:41:31] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:31,372 - LoudVA - INFO - [LoudServer] - Completed. Request ID: da6bf8f8-e81c-4f3b-b262-3c0e3e59273d
+127.0.0.1 - - [15/Feb/2025 15:41:31] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:31,424 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:31,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.098841
+2025-02-15 15:41:32,245 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 23
+2025-02-15 15:41:32,314 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-15 15:41:32,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.098841
+2025-02-15 15:41:32,956 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:33,959 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.281418
+2025-02-15 15:41:34,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.098841
+2025-02-15 15:41:35,376 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f2c83e38-6c90-40bd-ad23-de9be809d31c
+127.0.0.1 - - [15/Feb/2025 15:41:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:35,379 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 913990c5-ecb8-425c-bb24-142a119ebb12
+127.0.0.1 - - [15/Feb/2025 15:41:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:35,395 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 8afacd1a-d83f-417b-8942-ada8bd98dee1
+127.0.0.1 - - [15/Feb/2025 15:41:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:35,467 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 5
+2025-02-15 15:41:35,472 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.934937
+2025-02-15 15:41:35,483 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:35,537 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:41:35,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.190029
+2025-02-15 15:41:36,231 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 76cb3ba4-3620-4410-aa2e-2b01f699f75f
+127.0.0.1 - - [15/Feb/2025 15:41:36] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:36,236 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 03a04c9d-6060-4a87-924c-b9ff486d4c7e
+127.0.0.1 - - [15/Feb/2025 15:41:36] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:36,240 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d2dc5298-cd0a-48c7-b094-b3ab4b918a8a
+127.0.0.1 - - [15/Feb/2025 15:41:36] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:36,823 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:36,961 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.281418
+2025-02-15 15:41:37,730 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 15
+2025-02-15 15:41:37,960 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.374043
+2025-02-15 15:41:37,976 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:38,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.098841
+2025-02-15 15:41:39,602 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:39,802 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 60c0ce60-ee98-4e25-a5f7-19cdfca0c1be
+127.0.0.1 - - [15/Feb/2025 15:41:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:39,805 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c104bd60-e0d2-4829-b3c4-157beea772f0
+127.0.0.1 - - [15/Feb/2025 15:41:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:39,809 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 129a1aed-aabd-4172-bdf0-a77fcb40128f
+127.0.0.1 - - [15/Feb/2025 15:41:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:39,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.374043
+2025-02-15 15:41:40,447 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.559861
+2025-02-15 15:41:40,646 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 15
+2025-02-15 15:41:40,958 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.190029
+2025-02-15 15:41:40,973 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:41,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.190029
+2025-02-15 15:41:42,508 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:42,601 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d2a664f5-4777-48dd-85ac-95b329b4c076
+127.0.0.1 - - [15/Feb/2025 15:41:42] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:42,606 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 57027b4a-cfcb-497d-b7ad-48c57b4fa895
+127.0.0.1 - - [15/Feb/2025 15:41:42] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:42,611 - LoudVA - INFO - [LoudServer] - Completed. Request ID: a2fab1aa-ab96-4419-8c1d-03f0325b81fc
+127.0.0.1 - - [15/Feb/2025 15:41:42] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:42,614 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e9fcbed0-039e-4e3b-b200-9d54e4d399d1
+127.0.0.1 - - [15/Feb/2025 15:41:42] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:42,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.098841
+2025-02-15 15:41:43,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.374043
+2025-02-15 15:41:44,962 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.281418
+2025-02-15 15:41:45,034 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 12
+2025-02-15 15:41:45,493 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.567605
+2025-02-15 15:41:45,509 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:45,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.190029
+2025-02-15 15:41:46,590 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:41:46,600 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:46,611 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5cba5b25-caf9-4437-ad31-a4902751058e
+127.0.0.1 - - [15/Feb/2025 15:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:46,617 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f04e62c4-7d2f-42ac-b49f-d0a32e5b0802
+127.0.0.1 - - [15/Feb/2025 15:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:46,622 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4c37342b-e19c-4f99-890d-e0b23e4323f8
+127.0.0.1 - - [15/Feb/2025 15:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:46,624 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d84484c7-7400-4edb-a9d9-e4f4370229c1
+127.0.0.1 - - [15/Feb/2025 15:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:46,626 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e6ae24bf-79d7-468a-94c1-febcf6697860
+127.0.0.1 - - [15/Feb/2025 15:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:46,660 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:41:46,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.281418
+2025-02-15 15:41:47,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.190029
+2025-02-15 15:41:48,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.281418
+2025-02-15 15:41:49,018 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d296ea71-ba78-4a36-965d-bc1f1ae2f2c7
+127.0.0.1 - - [15/Feb/2025 15:41:49] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:49,336 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:41:49,346 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:49,405 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:41:49,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.190029
+2025-02-15 15:41:50,454 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.833391
+2025-02-15 15:41:50,469 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 083b9fa6-7e41-46e6-8d46-5da39b466af6
+127.0.0.1 - - [15/Feb/2025 15:41:50] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:50,476 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d1ca292d-c948-4744-a047-0a200eb674f0
+127.0.0.1 - - [15/Feb/2025 15:41:50] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:50,482 - LoudVA - INFO - [LoudServer] - Completed. Request ID: cb2f7099-cc31-4c88-acd6-8e49304c35d9
+127.0.0.1 - - [15/Feb/2025 15:41:50] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:50,956 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.190029
+2025-02-15 15:41:51,023 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:41:51,037 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:51,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.281418
+2025-02-15 15:41:52,151 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:41:52,162 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:52,169 - LoudVA - INFO - [LoudServer] - Completed. Request ID: a119fba1-63da-4ccd-98b5-004b8bdab5e6
+127.0.0.1 - - [15/Feb/2025 15:41:52] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:52,171 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 65e181cd-4bde-423d-94d3-93648610127b
+127.0.0.1 - - [15/Feb/2025 15:41:52] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:52,175 - LoudVA - INFO - [LoudServer] - Completed. Request ID: a5a90c45-17ef-45f3-aefc-e6ebbb487290
+127.0.0.1 - - [15/Feb/2025 15:41:52] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:52,945 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.098841
+2025-02-15 15:41:53,196 - LoudVA - INFO - [LoudServer] - Completed. Request ID: afca08dc-3a69-4e91-a038-ea250287abb1
+127.0.0.1 - - [15/Feb/2025 15:41:53] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:41:53,276 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:41:53,958 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.281418
+2025-02-15 15:41:54,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.281418
+2025-02-15 15:41:55,479 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.29484
+2025-02-15 15:41:55,956 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.374043
+2025-02-15 15:41:56,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.281418
+2025-02-15 15:41:56,990 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 27
+2025-02-15 15:41:57,001 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:41:57,061 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:41:57,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
+2025-02-15 15:41:58,971 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.190029
+2025-02-15 15:41:59,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.098841
+2025-02-15 15:42:00,519 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.567605
+2025-02-15 15:42:00,626 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 19068bc3-4eb7-4ff9-94f7-167bdb4bbe3b
+127.0.0.1 - - [15/Feb/2025 15:42:00] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:00,633 - LoudVA - INFO - [LoudServer] - Completed. Request ID: da4f2eeb-c0b2-4288-8442-ce62acc5ef83
+127.0.0.1 - - [15/Feb/2025 15:42:00] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:00,643 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4cb060c0-2218-4c1d-9777-a52f13455e7d
+127.0.0.1 - - [15/Feb/2025 15:42:00] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:00,647 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 098fce92-0942-4f16-8ea0-19e8cc79e2f7
+127.0.0.1 - - [15/Feb/2025 15:42:00] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:00,654 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 008a54ba-1f2b-46c4-923d-3a8434e34a96
+2025-02-15 15:42:00,655 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 0545f10f-f6e5-492a-a17d-0571100e2e48
+127.0.0.1 - - [15/Feb/2025 15:42:00] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [15/Feb/2025 15:42:00] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:00,726 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 9
+2025-02-15 15:42:00,737 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:00,965 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.374043
+2025-02-15 15:42:01,966 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.374043
+2025-02-15 15:42:01,970 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:02,247 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f14cd40b-a80a-42cb-a73e-bfc16ff29458
+127.0.0.1 - - [15/Feb/2025 15:42:02] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:02,251 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 237dc33f-08ff-44d2-be1a-e142eea98370
+127.0.0.1 - - [15/Feb/2025 15:42:02] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:02,254 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4c31392b-7539-4ec2-b7a1-a2e8bc3e7da7
+127.0.0.1 - - [15/Feb/2025 15:42:02] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:02,260 - LoudVA - INFO - [LoudServer] - Completed. Request ID: da826f16-98b8-4fc6-a26f-407ade637828
+127.0.0.1 - - [15/Feb/2025 15:42:02] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:02,552 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 23
+2025-02-15 15:42:02,627 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-15 15:42:02,958 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.281418
+2025-02-15 15:42:02,967 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:03,966 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.374043
+2025-02-15 15:42:04,988 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.281418
+2025-02-15 15:42:05,444 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.281418
+2025-02-15 15:42:05,770 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 10
+2025-02-15 15:42:05,784 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:05,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.190029
+2025-02-15 15:42:06,020 - LoudVA - INFO - [LoudServer] - Completed. Request ID: a176efe5-f7cd-4357-85a5-eb27ed00d41b
+127.0.0.1 - - [15/Feb/2025 15:42:06] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:06,027 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 3ea90acc-8c29-48c9-962a-f21508458b4d
+127.0.0.1 - - [15/Feb/2025 15:42:06] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:06,038 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fa76d2eb-f175-48e1-8e16-01ed2002773a
+127.0.0.1 - - [15/Feb/2025 15:42:06] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:06,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.281418
+2025-02-15 15:42:07,090 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:07,178 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 9bb847ff-5241-40a9-bb28-56baee0c79d2
+127.0.0.1 - - [15/Feb/2025 15:42:07] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:07,184 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ead613ec-8f3d-443a-90e8-25d0d67c11dd
+127.0.0.1 - - [15/Feb/2025 15:42:07] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:07,188 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4150547e-27f1-4f2f-abb4-adcab775edae
+127.0.0.1 - - [15/Feb/2025 15:42:07] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:07,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.190029
+2025-02-15 15:42:07,974 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 10
+2025-02-15 15:42:08,044 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:42:08,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.098841
+2025-02-15 15:42:08,957 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:09,333 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ff662cef-7706-402a-8cf4-4ebdb8ba9a0b
+127.0.0.1 - - [15/Feb/2025 15:42:09] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:09,339 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 24bd9ad2-6efa-4ebd-8d7a-2afd8956ac64
+127.0.0.1 - - [15/Feb/2025 15:42:09] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:09,341 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5ed855f2-0bad-407e-a439-8e05f8df12c7
+127.0.0.1 - - [15/Feb/2025 15:42:09] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:09,341 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 91864fe1-8c7b-4025-8a14-2dee797c551c
+127.0.0.1 - - [15/Feb/2025 15:42:09] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:09,885 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:09,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.098841
+2025-02-15 15:42:10,480 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.386889
+2025-02-15 15:42:10,580 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 10
+2025-02-15 15:42:10,598 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:10,944 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.098841
+2025-02-15 15:42:11,926 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:11,931 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 1a85ccf3-f568-4aaf-9a22-99cdbf13bc45
+127.0.0.1 - - [15/Feb/2025 15:42:11] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:11,935 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 15c3486e-8624-4d62-8470-78d69dfb7850
+127.0.0.1 - - [15/Feb/2025 15:42:11] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:11,964 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.098841
+2025-02-15 15:42:12,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
+2025-02-15 15:42:13,722 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 10
+2025-02-15 15:42:13,735 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:13,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.098841
+2025-02-15 15:42:14,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.098841
+2025-02-15 15:42:15,072 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:15,276 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 444835f7-9ef8-417c-ab59-d6b0ed584790
+127.0.0.1 - - [15/Feb/2025 15:42:15] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:15,278 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 3424a1d4-8646-4a8e-9dc1-182380afceb9
+127.0.0.1 - - [15/Feb/2025 15:42:15] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:15,283 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5553eaa3-7610-4966-b791-c92d26164729
+127.0.0.1 - - [15/Feb/2025 15:42:15] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:15,469 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.64948
+2025-02-15 15:42:15,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.374043
+2025-02-15 15:42:16,003 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 14
+2025-02-15 15:42:16,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.098841
+2025-02-15 15:42:16,964 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:17,758 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:17,891 - LoudVA - INFO - [LoudServer] - Completed. Request ID: b172f0b6-cf72-47d5-abd0-1197d303c453
+127.0.0.1 - - [15/Feb/2025 15:42:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:17,899 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e65cf17b-2083-47b2-9001-4def8761daa0
+127.0.0.1 - - [15/Feb/2025 15:42:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:17,900 - LoudVA - INFO - [LoudServer] - Completed. Request ID: efab984b-1c98-42d8-bae7-c4cce75e8ebd
+127.0.0.1 - - [15/Feb/2025 15:42:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:17,906 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 9d59f17d-85d2-43eb-ad51-b834ae44b7ca
+127.0.0.1 - - [15/Feb/2025 15:42:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:17,910 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 48a6b2d5-11a5-44cc-a839-2170f30400a6
+127.0.0.1 - - [15/Feb/2025 15:42:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:17,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.098841
+2025-02-15 15:42:18,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.281418
+2025-02-15 15:42:19,938 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 5
+2025-02-15 15:42:19,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.098841
+2025-02-15 15:42:19,950 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:20,491 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.386889
+2025-02-15 15:42:20,712 - LoudVA - INFO - [LoudServer] - Completed. Request ID: da072a6d-bc4f-4021-a19d-1fadcc6aee54
+127.0.0.1 - - [15/Feb/2025 15:42:20] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:20,719 - LoudVA - INFO - [LoudServer] - Completed. Request ID: eca1b6df-b6bb-4698-bc85-2a82ebf2b247
+127.0.0.1 - - [15/Feb/2025 15:42:20] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:20,721 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 59b96468-3b09-4e5f-b8e2-333803eb1281
+127.0.0.1 - - [15/Feb/2025 15:42:20] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:20,736 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:20,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.190029
+2025-02-15 15:42:20,965 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:42:21,036 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:42:21,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.098841
+2025-02-15 15:42:21,950 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:22,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.190029
+2025-02-15 15:42:23,650 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 86358462-4c19-4e82-8aec-d062f9d9d39f
+127.0.0.1 - - [15/Feb/2025 15:42:23] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:23,655 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 6e0a7027-c181-47fb-811a-2acdfbfb092b
+127.0.0.1 - - [15/Feb/2025 15:42:23] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:23,659 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5dedbebf-cc10-4cca-bdaf-a4b8b3b6f3a1
+127.0.0.1 - - [15/Feb/2025 15:42:23] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:23,706 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:23,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.281418
+2025-02-15 15:42:24,965 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.374043
+2025-02-15 15:42:25,028 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 10
+2025-02-15 15:42:25,097 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:42:25,471 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.833391
+2025-02-15 15:42:25,482 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:25,957 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.281418
+2025-02-15 15:42:26,421 - LoudVA - INFO - [LoudServer] - Completed. Request ID: eb047186-cb05-461c-96f3-f2ff3195295d
+127.0.0.1 - - [15/Feb/2025 15:42:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:26,424 - LoudVA - INFO - [LoudServer] - Completed. Request ID: bc9ddd20-2046-42ae-9d86-9ef5845149e4
+127.0.0.1 - - [15/Feb/2025 15:42:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:26,429 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 1ea2d192-614c-4b8e-af46-55c05a1035a0
+127.0.0.1 - - [15/Feb/2025 15:42:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:26,432 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 009610b6-fafb-4f27-8610-c5ddde05d81d
+127.0.0.1 - - [15/Feb/2025 15:42:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:26,944 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:26,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.098841
+2025-02-15 15:42:26,965 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 13
+2025-02-15 15:42:27,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.374043
+2025-02-15 15:42:27,961 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:28,613 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:28,710 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 28b84fe6-543d-4ac2-a692-2c0332aa7580
+127.0.0.1 - - [15/Feb/2025 15:42:28] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:28,713 - LoudVA - INFO - [LoudServer] - Completed. Request ID: acb56689-7f92-4dc8-a7b3-f983bd97a991
+127.0.0.1 - - [15/Feb/2025 15:42:28] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:28,718 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 786fe289-2fe7-4858-8361-a1fae9ca22f1
+127.0.0.1 - - [15/Feb/2025 15:42:28] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:28,946 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.098841
+2025-02-15 15:42:29,956 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.190029
+2025-02-15 15:42:30,489 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.660034
+2025-02-15 15:42:30,553 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 13
+2025-02-15 15:42:30,573 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:30,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.281418
+2025-02-15 15:42:31,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.098841
+2025-02-15 15:42:32,212 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 15
+2025-02-15 15:42:32,229 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:32,314 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 6bd548b7-7e9c-4048-a148-1f6a4d33b71d
+127.0.0.1 - - [15/Feb/2025 15:42:32] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:32,323 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 383e0de5-4712-4072-bec4-d770cc7833d8
+2025-02-15 15:42:32,324 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 8163239f-46e5-457d-a377-086f455bb321
+127.0.0.1 - - [15/Feb/2025 15:42:32] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [15/Feb/2025 15:42:32] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:32,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.190029
+2025-02-15 15:42:33,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.098841
+2025-02-15 15:42:34,080 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:34,171 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ea35f8dd-74c3-4756-b957-6f2834539aba
+127.0.0.1 - - [15/Feb/2025 15:42:34] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:34,182 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 24362563-0529-4368-bd56-ec1e8059f997
+127.0.0.1 - - [15/Feb/2025 15:42:34] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:34,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.098841
+2025-02-15 15:42:35,021 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 5
+2025-02-15 15:42:35,490 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.567605
+2025-02-15 15:42:35,514 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:35,752 - LoudVA - INFO - [LoudServer] - Completed. Request ID: de3f6eb5-2408-4ffe-8bf9-7cdd77a5a6cc
+127.0.0.1 - - [15/Feb/2025 15:42:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:35,754 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4461d47f-ce2c-4a71-a92f-b9b50b0f83b7
+127.0.0.1 - - [15/Feb/2025 15:42:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:35,756 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 33e5d7a8-14fd-40d6-afb8-3c9fb90de88b
+127.0.0.1 - - [15/Feb/2025 15:42:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:35,761 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 3de445cd-680d-4ad9-9d8f-310b60ebc305
+127.0.0.1 - - [15/Feb/2025 15:42:35] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:35,816 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:35,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.190029
+2025-02-15 15:42:35,973 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:42:35,989 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:36,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.098841
+2025-02-15 15:42:37,060 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 78233866-ad2a-4b7c-bc40-bb410f19addd
+127.0.0.1 - - [15/Feb/2025 15:42:37] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:37,094 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:37,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.190029
+2025-02-15 15:42:37,961 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 14
+2025-02-15 15:42:38,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.098841
+2025-02-15 15:42:38,964 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:39,712 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:39,784 - LoudVA - INFO - [LoudServer] - Completed. Request ID: bc40340d-1049-4b3b-84a3-44b8c0e4be58
+127.0.0.1 - - [15/Feb/2025 15:42:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:39,787 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 917de4d3-ad0f-4f53-90c2-aea68dfdd62c
+127.0.0.1 - - [15/Feb/2025 15:42:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:39,800 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 7723593b-d78d-4f8e-9e9b-f20ecdcc0942
+127.0.0.1 - - [15/Feb/2025 15:42:39] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:39,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.281418
+2025-02-15 15:42:40,469 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.027485
+2025-02-15 15:42:40,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.281418
+2025-02-15 15:42:40,997 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:42:41,068 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:42:41,957 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.281418
+2025-02-15 15:42:41,963 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:42,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.098841
+2025-02-15 15:42:43,467 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 0360a108-bbf3-4b0f-b998-55dd52350746
+127.0.0.1 - - [15/Feb/2025 15:42:43] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:43,471 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 6ad221f5-1b27-4a7d-a394-3d8b7645a227
+127.0.0.1 - - [15/Feb/2025 15:42:43] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:43,475 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5d81f68c-092f-4c79-be0b-d5bbc12345e1
+127.0.0.1 - - [15/Feb/2025 15:42:43] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:43,479 - LoudVA - INFO - [LoudServer] - Completed. Request ID: dc6f5848-3f8f-449f-9d49-bb6d5c14363c
+127.0.0.1 - - [15/Feb/2025 15:42:43] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:43,742 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:43,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
+2025-02-15 15:42:43,970 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 6
+2025-02-15 15:42:44,040 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:42:44,888 - LoudVA - INFO - [LoudServer] - Completed. Request ID: a0da4871-156d-4403-8e68-ab0079679eb7
+127.0.0.1 - - [15/Feb/2025 15:42:44] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:44,890 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f9b17ef7-c0a4-4167-9821-c384e0712528
+127.0.0.1 - - [15/Feb/2025 15:42:44] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:44,893 - LoudVA - INFO - [LoudServer] - Completed. Request ID: adeaf122-b841-4dce-8c2a-1a87ae8b21fb
+127.0.0.1 - - [15/Feb/2025 15:42:44] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:44,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.374043
+2025-02-15 15:42:44,965 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:45,428 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:45,437 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.190029
+2025-02-15 15:42:45,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
+2025-02-15 15:42:46,194 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:42:46,957 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.190029
+2025-02-15 15:42:46,972 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:47,297 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ed56d4f2-aa5d-4463-996a-77c6a0874114
+127.0.0.1 - - [15/Feb/2025 15:42:47] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:47,299 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e6bab0dc-ebed-4462-ba99-34edd8f00b35
+127.0.0.1 - - [15/Feb/2025 15:42:47] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:47,303 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f72e9da5-dbca-444b-b697-cd5006661cd7
+127.0.0.1 - - [15/Feb/2025 15:42:47] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:47,309 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:47,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.098841
+2025-02-15 15:42:48,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.098841
+2025-02-15 15:42:49,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.098841
+2025-02-15 15:42:50,480 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.477553
+2025-02-15 15:42:50,528 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 10
+2025-02-15 15:42:50,544 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:50,957 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.098841
+2025-02-15 15:42:51,886 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:51,940 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 6867a96d-99f5-487b-a8c2-7d3426f0fbe4
+127.0.0.1 - - [15/Feb/2025 15:42:51] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:51,950 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 9db0eb9f-a6b2-4353-8f3c-9714ce093164
+127.0.0.1 - - [15/Feb/2025 15:42:51] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:51,957 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.098841
+2025-02-15 15:42:51,959 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d8c5dd34-c540-40c5-9207-c66d629a6900
+127.0.0.1 - - [15/Feb/2025 15:42:51] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:52,956 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.374043
+2025-02-15 15:42:53,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.190029
+2025-02-15 15:42:53,978 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:42:53,989 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:54,048 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:42:54,961 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.374043
+2025-02-15 15:42:55,478 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.559861
+2025-02-15 15:42:55,979 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.374043
+2025-02-15 15:42:56,429 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 6075b240-b9de-45fa-9f05-6994cb34cf2c
+127.0.0.1 - - [15/Feb/2025 15:42:56] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:56,431 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e965aeda-5c56-4868-9b75-dd8ca84ebc6a
+127.0.0.1 - - [15/Feb/2025 15:42:56] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:56,434 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 78fb9181-e01e-464e-9c97-d2456041f646
+127.0.0.1 - - [15/Feb/2025 15:42:56] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:56,442 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 7448b3fa-5424-45f6-b33c-3d086bafa5ac
+127.0.0.1 - - [15/Feb/2025 15:42:56] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:56,458 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 43009eac-77d2-4541-8132-720bcf5c9f01
+127.0.0.1 - - [15/Feb/2025 15:42:56] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:56,733 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 1
+2025-02-15 15:42:56,745 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:56,934 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e4ba73ce-e2f4-4a5e-bb6a-73fef0bcfdd3
+127.0.0.1 - - [15/Feb/2025 15:42:56] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:56,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.190029
+2025-02-15 15:42:57,091 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 15
+2025-02-15 15:42:57,101 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:42:57,162 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:42:57,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
+2025-02-15 15:42:58,960 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.190029
+2025-02-15 15:42:59,519 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:42:59,698 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ae07364d-522c-489a-b504-e6ad7b6ee5c8
+127.0.0.1 - - [15/Feb/2025 15:42:59] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:59,702 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 30da6603-9942-4dbb-9b82-c6c845056075
+127.0.0.1 - - [15/Feb/2025 15:42:59] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:59,705 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 7ca4471e-e9fc-44b2-8580-3a2ace1aa6ab
+127.0.0.1 - - [15/Feb/2025 15:42:59] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:42:59,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.281418
+2025-02-15 15:43:00,512 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.567605
+2025-02-15 15:43:00,641 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:43:00,656 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:00,711 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:43:00,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.098841
+2025-02-15 15:43:01,958 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.190029
+2025-02-15 15:43:02,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.098841
+2025-02-15 15:43:03,072 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 62435dc5-efea-49ab-8dd0-c5710c20d226
+127.0.0.1 - - [15/Feb/2025 15:43:03] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:03,076 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5efcf340-9eea-47fe-9c43-28b67cb62afa
+127.0.0.1 - - [15/Feb/2025 15:43:03] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:03,079 - LoudVA - INFO - [LoudServer] - Completed. Request ID: e85b0319-c774-40fe-8c15-ae767dd671e7
+127.0.0.1 - - [15/Feb/2025 15:43:03] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:03,080 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 2c6e8a36-5b2d-4751-a76f-7eec03bab467
+127.0.0.1 - - [15/Feb/2025 15:43:03] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:03,394 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 11
+2025-02-15 15:43:03,959 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.281418
+2025-02-15 15:43:03,972 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:04,851 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:04,855 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4c528f41-7f59-4c17-94d2-3740d95853dc
+127.0.0.1 - - [15/Feb/2025 15:43:04] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:04,859 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fa417eff-b1e4-451e-9f12-9c2a32df0212
+127.0.0.1 - - [15/Feb/2025 15:43:04] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:04,861 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 02a43aff-b16d-45d3-8ee1-a8b51ddcc029
+127.0.0.1 - - [15/Feb/2025 15:43:04] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:04,870 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 9b3f7ac3-2563-4213-a3d6-381c9e07c373
+127.0.0.1 - - [15/Feb/2025 15:43:04] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:04,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.281418
+2025-02-15 15:43:05,443 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.281418
+2025-02-15 15:43:05,567 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:43:05,577 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:05,638 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:43:05,961 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.281418
+2025-02-15 15:43:06,833 - LoudVA - INFO - [LoudServer] - Completed. Request ID: bc4a9a1e-a58b-4dc3-98f2-d4d89582b4b0
+127.0.0.1 - - [15/Feb/2025 15:43:06] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:06,839 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 0c7e464a-c725-4cb8-b65e-8ca91405db41
+127.0.0.1 - - [15/Feb/2025 15:43:06] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:06,956 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.374043
+2025-02-15 15:43:07,248 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:07,892 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:43:07,966 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.374043
+2025-02-15 15:43:07,978 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:08,960 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.281418
+2025-02-15 15:43:08,975 - LoudVA - INFO - [LoudServer] - Completed. Request ID: a5fc24a8-1848-41e8-bb99-a929726a887e
+127.0.0.1 - - [15/Feb/2025 15:43:08] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:08,979 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 7ae3820c-ed61-4ea8-b664-b7e54529a62e
+127.0.0.1 - - [15/Feb/2025 15:43:08] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:08,983 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f862f812-3749-47f9-b6e9-845c48b4c5bc
+127.0.0.1 - - [15/Feb/2025 15:43:08] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:09,010 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:09,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.190029
+2025-02-15 15:43:10,474 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.386889
+2025-02-15 15:43:10,554 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 18
+2025-02-15 15:43:10,566 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:10,624 - LoudVA - INFO - [DeviceData] - Frequency set to 828750000 MHz on agx-xavier-00
+2025-02-15 15:43:10,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.098841
+2025-02-15 15:43:11,962 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.098841
+2025-02-15 15:43:12,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.281418
+2025-02-15 15:43:13,060 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ba95b428-6415-4adf-9b5a-715ddbc3476c
+127.0.0.1 - - [15/Feb/2025 15:43:13] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:13,066 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 44043170-0c49-40c3-b88d-fbc1093c5cff
+127.0.0.1 - - [15/Feb/2025 15:43:13] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:13,297 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 828750000, batch size 11
+2025-02-15 15:43:13,970 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.190029
+2025-02-15 15:43:13,981 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:14,759 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:14,772 - LoudVA - INFO - [LoudServer] - Completed. Request ID: fb2b1783-dd0a-482e-ae24-0c361e0b915e
+127.0.0.1 - - [15/Feb/2025 15:43:14] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:14,781 - LoudVA - INFO - [LoudServer] - Completed. Request ID: ad219cbc-2e2c-49a9-b5e2-cf78467ba7ee
+127.0.0.1 - - [15/Feb/2025 15:43:14] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:14,781 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 9a9f1322-31f1-45a5-9e1a-198b0597deb4
+127.0.0.1 - - [15/Feb/2025 15:43:14] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:14,787 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 4c319b89-6f3a-4621-b932-7f52f34fc258
+2025-02-15 15:43:14,789 - LoudVA - INFO - [LoudServer] - Completed. Request ID: d8a8c565-4d4b-471b-93b0-ad1a69f5bf19
+127.0.0.1 - - [15/Feb/2025 15:43:14] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [15/Feb/2025 15:43:14] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:14,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.374043
+2025-02-15 15:43:15,957 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.281418
+2025-02-15 15:43:15,974 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:43:15,984 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:16,045 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:43:16,955 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.098841
+2025-02-15 15:43:17,118 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c0f8710d-ffd5-4ff8-88cc-0c17c43a9bb0
+127.0.0.1 - - [15/Feb/2025 15:43:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:17,122 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 22203aeb-cdf6-4f2e-a2e7-21eb8ac22565
+127.0.0.1 - - [15/Feb/2025 15:43:17] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:17,650 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:17,952 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.281418
+2025-02-15 15:43:18,118 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 5
+2025-02-15 15:43:18,802 - LoudVA - INFO - [LoudServer] - Completed. Request ID: f50522d2-e688-4dc2-b792-5b3e9d631c52
+127.0.0.1 - - [15/Feb/2025 15:43:18] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:18,809 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 8c0db0d5-af00-4283-a8c5-6b33930328df
+127.0.0.1 - - [15/Feb/2025 15:43:18] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:18,811 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 04569f0c-8da9-43b4-87d1-c66918b6c4b2
+127.0.0.1 - - [15/Feb/2025 15:43:18] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:18,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.098841
+2025-02-15 15:43:18,952 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:19,947 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.098841
+2025-02-15 15:43:20,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.098841
+2025-02-15 15:43:21,948 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.190029
+2025-02-15 15:43:22,961 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.281418
+2025-02-15 15:43:23,668 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-15 15:43:23,674 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 8
+2025-02-15 15:43:23,740 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-15 15:43:23,963 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.098841
+2025-02-15 15:43:23,972 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:24,815 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 563f176a-86bf-47cf-bc0c-aa8bdc293b18
+127.0.0.1 - - [15/Feb/2025 15:43:24] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:24,817 - LoudVA - INFO - [LoudServer] - Completed. Request ID: b5c3ca2b-fa10-4964-a0ea-b4d73a26a52f
+127.0.0.1 - - [15/Feb/2025 15:43:24] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:24,818 - LoudVA - INFO - [LoudServer] - Completed. Request ID: bf1ea04e-dd27-4147-b014-cc9d4a000729
+2025-02-15 15:43:24,824 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 6d51353e-4151-4464-b588-ed0f04e6f776
+127.0.0.1 - - [15/Feb/2025 15:43:24] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [15/Feb/2025 15:43:24] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:24,824 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 03d4ccab-bf07-4dc5-b319-45016bbf7fbb
+127.0.0.1 - - [15/Feb/2025 15:43:24] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:24,949 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.190029
+2025-02-15 15:43:25,352 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:25,885 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 3
+2025-02-15 15:43:25,950 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.098841
+2025-02-15 15:43:25,954 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-15 15:43:26,378 - LoudVA - INFO - [LoudServer] - Completed. Request ID: c52cbbab-afa6-48e1-af4f-ee5fc6249403
+127.0.0.1 - - [15/Feb/2025 15:43:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:26,381 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 2f1e6356-3d84-42e9-8966-35e0ec25b175
+127.0.0.1 - - [15/Feb/2025 15:43:26] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:26,461 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-15 15:43:26,953 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.190029
+2025-02-15 15:43:26,966 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 3
+2025-02-15 15:43:27,419 - LoudVA - INFO - [LoudServer] - Completed. Request ID: dc960096-90b3-424d-9e4a-ec0ec21bf3c5
+127.0.0.1 - - [15/Feb/2025 15:43:27] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:27,421 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 56b75e40-e3a9-4905-a1fe-e826c421655c
+127.0.0.1 - - [15/Feb/2025 15:43:27] "POST /inference HTTP/1.1" 200 -
+2025-02-15 15:43:31,683 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00

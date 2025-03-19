@@ -1,0 +1,1535 @@
+2025-02-08 00:09:58,549 - LoudVA - INFO - [LoudController] - Starting LoudController...
+2025-02-08 00:09:58,549 - LoudVA - INFO - [LoudController] - Press CTRL+C to stop the controller.
+2025-02-08 00:09:58,549 - LoudVA - INFO - [LoudController] - Debug mode: False
+2025-02-08 00:09:58,572 - LoudVA - INFO - [LoudController] - Selected scheduler: transparent
+2025-02-08 00:09:58,576 - LoudVA - INFO - [LoudServer] - Starting LoudVA server...
+ * Serving Flask app 'LoudServer'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+2025-02-08 00:09:59,727 - LoudVA - INFO - [DeviceData] - Using profiling data for decision making.
+2025-02-08 00:09:59,727 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
+2025-02-08 00:09:59,735 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
+2025-02-08 00:09:59,736 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-02-08 00:09:59,736 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-02-08 00:09:59,736 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-02-08 00:09:59,765 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 114750000
+2025-02-08 00:09:59,765 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Filling missing profile data...
+2025-02-08 00:09:59,765 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Missing profile data filled with predictions.
+2025-02-08 00:09:59,765 - LoudVA - INFO - [DeviceData] - Devices initialized successfully
+127.0.0.1 - - [08/Feb/2025 00:11:00] "GET / HTTP/1.1" 200 -
+2025-02-08 00:11:02,025 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:11:05,387 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e9bfefe0-2d04-4c83-9de2-6f358d1c900f
+127.0.0.1 - - [08/Feb/2025 00:11:05] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:06,965 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.0
+2025-02-08 00:11:07,714 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d171d1f3-0a81-4d8c-b27e-be9a2e38bf73
+127.0.0.1 - - [08/Feb/2025 00:11:07] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:12,060 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:11:16,884 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9171fec6-b9e1-4ce5-943a-7b5fe8009162
+127.0.0.1 - - [08/Feb/2025 00:11:16] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:17,020 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:11:19,219 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9c037f8a-2b73-42d2-aa50-abf47a0dffcc
+127.0.0.1 - - [08/Feb/2025 00:11:19] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:21,981 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:11:24,539 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d8915748-acd2-4602-88f1-0e4cb4d089e5
+127.0.0.1 - - [08/Feb/2025 00:11:24] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:26,970 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 00:11:28,182 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 979d3279-8629-4678-bf39-0e2d60f3c8df
+127.0.0.1 - - [08/Feb/2025 00:11:28] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:32,038 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:11:36,834 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: fe35b391-7a31-4dcb-9b0b-123f92f6792f
+127.0.0.1 - - [08/Feb/2025 00:11:36] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:37,054 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:11:40,035 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 00:11:41,894 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e80007cd-0c70-43d4-bcc7-325f77b8b08d
+127.0.0.1 - - [08/Feb/2025 00:11:41] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:42,073 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:11:45,038 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:11:45,051 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a75a7947-9b85-4f8d-90d8-445ea4087c5e
+127.0.0.1 - - [08/Feb/2025 00:11:45] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:46,495 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f78945d9-3398-451d-87db-ac042df907da
+127.0.0.1 - - [08/Feb/2025 00:11:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:46,850 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 17c1c75b-601e-4e76-b6e4-043b8848f58a
+127.0.0.1 - - [08/Feb/2025 00:11:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:47,014 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:11:49,840 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 183c5804-7578-4074-a76e-a3c9f337b562
+127.0.0.1 - - [08/Feb/2025 00:11:49] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:50,048 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:11:51,002 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cd054092-6cad-4246-a866-b17ac1e00c8c
+127.0.0.1 - - [08/Feb/2025 00:11:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:11:52,042 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-02-08 00:11:55,174 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:11:56,990 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:12:00,158 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:12:00,893 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e6c0be33-3a8e-48b6-9147-e0fbaa934f2d
+127.0.0.1 - - [08/Feb/2025 00:12:00] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:01,446 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a1956bf7-78b2-4dee-b2fc-fe385af3eaf1
+127.0.0.1 - - [08/Feb/2025 00:12:01] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:02,016 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:12:05,034 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.0
+2025-02-08 00:12:06,986 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:12:07,146 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: af99b068-11c0-4510-8b8f-76236b0e4412
+127.0.0.1 - - [08/Feb/2025 00:12:07] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:09,609 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 4b241415-81da-4df1-a818-a86683dd73db
+127.0.0.1 - - [08/Feb/2025 00:12:09] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:10,200 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-02-08 00:12:10,380 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 04a5dd17-d5f1-4176-86e7-09f5767c84a8
+127.0.0.1 - - [08/Feb/2025 00:12:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:10,505 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 801bbe28-d02a-4420-ba67-e383706cbad7
+127.0.0.1 - - [08/Feb/2025 00:12:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:11,988 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:12:12,109 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3b2fbcbd-98ff-4d0b-937b-60b7d705ca84
+127.0.0.1 - - [08/Feb/2025 00:12:12] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:15,070 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:12:17,002 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:12:20,169 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:12:20,758 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 091132b7-ed96-4220-be96-03ad50a0e1f2
+127.0.0.1 - - [08/Feb/2025 00:12:20] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:21,924 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 206e6524-5209-48f3-a1c3-d0b59b049ec2
+127.0.0.1 - - [08/Feb/2025 00:12:21] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:21,979 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 00:12:22,229 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a4dd9994-c5e0-4bd2-9d86-6d66a2d3fb18
+127.0.0.1 - - [08/Feb/2025 00:12:22] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:23,691 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f2d960c8-d779-4607-a912-27e38bb18578
+127.0.0.1 - - [08/Feb/2025 00:12:23] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:24,380 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f047d9af-201f-4dab-b54e-3470bc08b518
+127.0.0.1 - - [08/Feb/2025 00:12:24] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:25,045 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:12:26,001 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: dd9e1f31-31ee-4a62-92c6-5c5c00619800
+127.0.0.1 - - [08/Feb/2025 00:12:26] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:26,199 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cfda45ca-22d0-4d5d-8224-42a570598ec2
+127.0.0.1 - - [08/Feb/2025 00:12:26] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:26,996 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:12:29,339 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b5b483bd-7e8d-4295-b839-49f98a29b7ce
+127.0.0.1 - - [08/Feb/2025 00:12:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:30,116 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:12:31,979 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 00:12:34,578 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 23947c73-84dc-412f-aaf2-cfc45f41d214
+127.0.0.1 - - [08/Feb/2025 00:12:34] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:35,135 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:12:35,454 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7ea564b7-cd8e-4e53-aaaf-d022e9b7a9f2
+127.0.0.1 - - [08/Feb/2025 00:12:35] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:37,097 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:12:40,132 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:12:42,000 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:12:45,220 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:12:47,124 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:12:50,229 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:12:52,054 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:12:54,096 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:12:55,070 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:12:57,017 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:12:57,692 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 00:12:58,341 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 8e6c738c-4485-48c2-9433-7dcb6cb64cf3
+127.0.0.1 - - [08/Feb/2025 00:12:58] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:12:59,220 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 00:13:00,149 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:02,132 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:13:02,760 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 00:13:04,017 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:05,018 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 00:13:07,077 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 00:13:09,199 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:13:10,220 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:13:10,582 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cb0c1022-855e-4190-bff5-fe31875a2f3f
+127.0.0.1 - - [08/Feb/2025 00:13:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:13:12,106 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-02-08 00:13:14,185 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:13:15,036 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 00:13:17,074 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:13:19,015 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:13:20,075 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:20,282 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7ec48c49-b7a9-432c-8fe3-f700313cfc44
+127.0.0.1 - - [08/Feb/2025 00:13:20] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:13:20,981 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:13:22,095 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:24,307 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:13:25,351 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:13:25,944 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:27,209 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:13:29,173 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 00:13:30,283 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-02-08 00:13:30,982 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:13:32,131 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:34,119 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:13:35,179 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:13:35,937 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:13:37,027 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:13:39,276 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:13:40,263 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:13:41,011 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:13:44,223 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:13:45,322 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:13:45,611 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.0
+2025-02-08 00:13:45,946 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:13:46,567 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.0
+Exception in thread Thread-336:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:13:47,518 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+Exception in thread Thread-350:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:13:48,260 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0f172f6d-2b08-4fcc-aa6a-55e3a73474c2
+127.0.0.1 - - [08/Feb/2025 00:13:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:13:48,522 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+Exception in thread Thread-346:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:13:49,224 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:13:49,556 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 00:13:50,373 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:13:50,544 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 00:13:51,086 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:13:51,605 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+Exception in thread Thread-357:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:13:52,595 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:13:53,598 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.0
+2025-02-08 00:13:54,518 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:13:54,530 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+Exception in thread Thread-374:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:13:55,535 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 00:13:55,561 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:13:56,122 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+Exception in thread Thread-379:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-378:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:13:59,048 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 00:14:00,339 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+Exception in thread Thread-433:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-419:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:01,052 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+Exception in thread Thread-446:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-402:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-468:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-472:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:04,020 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+Exception in thread Thread-479:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-445:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:05,047 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.0
+Exception in thread Thread-450:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:06,244 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 00:14:08,944 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9ff115bf-f792-4f48-8631-5dbdce21f4c4
+127.0.0.1 - - [08/Feb/2025 00:14:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:14:09,327 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+Exception in thread Thread-465:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 331, in __send_chunk
+    data_sent += socket.send(chunk, flags, timeout=timeleft)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 730, in send
+    self._wait(self._write_event)
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+socket.timeout: timed out
+2025-02-08 00:14:10,070 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.0
+Exception in thread Thread-443:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 331, in __send_chunk
+    data_sent += socket.send(chunk, flags, timeout=timeleft)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 730, in send
+    self._wait(self._write_event)
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+socket.timeout: timed out
+Exception in thread Thread-507:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-520:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:11,273 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+Exception in thread Thread-543:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-553:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 331, in __send_chunk
+    data_sent += socket.send(chunk, flags, timeout=timeleft)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 730, in send
+    self._wait(self._write_event)
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+socket.timeout: timed out
+Exception in thread Thread-492:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 331, in __send_chunk
+    data_sent += socket.send(chunk, flags, timeout=timeleft)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 730, in send
+    self._wait(self._write_event)
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+socket.timeout: timed out
+Exception in thread Thread-461:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 331, in __send_chunk
+    data_sent += socket.send(chunk, flags, timeout=timeleft)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 730, in send
+    self._wait(self._write_event)
+  File "src/gevent/_hub_primitives.py", line 317, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 322, in gevent._gevent_c_hub_primitives.wait_on_socket
+  File "src/gevent/_hub_primitives.py", line 313, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 314, in gevent._gevent_c_hub_primitives._primitive_wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 46, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_hub_primitives.py", line 55, in gevent._gevent_c_hub_primitives.WaitOperationsGreenlet.wait
+  File "src/gevent/_waiter.py", line 154, in gevent._gevent_c_waiter.Waiter.get
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 61, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_greenlet_primitives.py", line 65, in gevent._gevent_c_greenlet_primitives.SwitchOutGreenletWithLoop.switch
+  File "src/gevent/_gevent_c_greenlet_primitives.pxd", line 35, in gevent._gevent_c_greenlet_primitives._greenlet_switch
+socket.timeout: timed out
+Exception in thread Thread-525:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-559:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-560:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-546:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-530:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-570:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:14,495 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+Exception in thread Thread-595:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/altSchedulers/TransparentScheduler.py", line 45, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 00:14:18,424 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:14:28,500 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:14:28,763 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:14:29,009 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:14:29,107 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 00:14:29,223 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:14:29,455 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-02-08 00:14:29,664 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-02-08 00:14:29,906 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:14:30,565 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:14:31,056 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:14:34,191 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:14:35,574 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:14:36,073 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:14:39,542 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:14:40,601 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:14:41,012 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:14:44,541 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:14:45,645 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 00:14:46,035 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:14:49,247 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:14:51,113 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 00:14:54,668 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:14:56,062 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 00:14:59,209 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 00:15:01,080 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:15:04,381 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:15:06,406 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:15:09,559 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:15:10,843 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:15:14,319 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 00:15:16,291 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 00:15:19,363 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:15:20,929 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 00:15:26,451 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:15:31,418 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:15:36,407 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:15:40,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:15:46,842 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-02-08 00:15:51,342 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 00:15:56,039 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 00:17:37,221 - LoudVA - WARNING - [LoudServer] - Timeout reached for request fb1cc3ca-c8cb-47a4-8aa9-01c976fa6a83
+2025-02-08 00:17:37,486 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: fb1cc3ca-c8cb-47a4-8aa9-01c976fa6a83
+127.0.0.1 - - [08/Feb/2025 00:17:37] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:40,376 - LoudVA - WARNING - [LoudServer] - Timeout reached for request db256af6-b9da-4e1b-8857-d50f48cba770
+2025-02-08 00:17:40,651 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: db256af6-b9da-4e1b-8857-d50f48cba770
+127.0.0.1 - - [08/Feb/2025 00:17:40] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:45,415 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f17fd99e-abc6-42db-8089-f4236b59575b
+2025-02-08 00:17:46,007 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f17fd99e-abc6-42db-8089-f4236b59575b
+127.0.0.1 - - [08/Feb/2025 00:17:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:47,463 - LoudVA - WARNING - [LoudServer] - Timeout reached for request d9ed3069-eca8-4343-8713-d1b641ab06ce
+2025-02-08 00:17:48,173 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d9ed3069-eca8-4343-8713-d1b641ab06ce
+127.0.0.1 - - [08/Feb/2025 00:17:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:50,473 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f774c4d3-7d1b-441e-9196-21e921582a1f
+2025-02-08 00:17:50,819 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f774c4d3-7d1b-441e-9196-21e921582a1f
+127.0.0.1 - - [08/Feb/2025 00:17:50] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:52,090 - LoudVA - WARNING - [LoudServer] - Timeout reached for request adaf3cea-8522-4c8d-8670-ff3ee2576c6d
+2025-02-08 00:17:52,315 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: adaf3cea-8522-4c8d-8670-ff3ee2576c6d
+127.0.0.1 - - [08/Feb/2025 00:17:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:54,156 - LoudVA - WARNING - [LoudServer] - Timeout reached for request be69105e-0990-45fb-af26-ec1279525850
+2025-02-08 00:17:54,339 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: be69105e-0990-45fb-af26-ec1279525850
+127.0.0.1 - - [08/Feb/2025 00:17:54] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:55,171 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c4bf71ee-1efd-4447-bb1c-baa6d9c74174
+2025-02-08 00:17:55,318 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c4bf71ee-1efd-4447-bb1c-baa6d9c74174
+127.0.0.1 - - [08/Feb/2025 00:17:55] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:57,035 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 157ea1f5-4ec2-431a-8574-064187054904
+2025-02-08 00:17:57,125 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 157ea1f5-4ec2-431a-8574-064187054904
+127.0.0.1 - - [08/Feb/2025 00:17:57] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:17:59,338 - LoudVA - WARNING - [LoudServer] - Timeout reached for request a3b6afe3-0ed7-4b8c-b0c5-17b6913c3f7f
+2025-02-08 00:17:59,903 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a3b6afe3-0ed7-4b8c-b0c5-17b6913c3f7f
+127.0.0.1 - - [08/Feb/2025 00:17:59] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:00,171 - LoudVA - WARNING - [LoudServer] - Timeout reached for request fb0d5bc6-0e71-4d96-be5c-4d88fddd3b7e
+2025-02-08 00:18:00,375 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: fb0d5bc6-0e71-4d96-be5c-4d88fddd3b7e
+127.0.0.1 - - [08/Feb/2025 00:18:00] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:02,181 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 944d734f-3b10-4991-ac2a-4bbeaaee4c7a
+2025-02-08 00:18:02,456 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 944d734f-3b10-4991-ac2a-4bbeaaee4c7a
+127.0.0.1 - - [08/Feb/2025 00:18:02] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:02,827 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 80aa3d41-46b3-4077-9333-4c2af05941ab
+2025-02-08 00:18:02,883 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 80aa3d41-46b3-4077-9333-4c2af05941ab
+127.0.0.1 - - [08/Feb/2025 00:18:02] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:04,079 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c292668c-1c04-4cfe-8d60-5d11bc4a2f14
+2025-02-08 00:18:04,221 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c292668c-1c04-4cfe-8d60-5d11bc4a2f14
+127.0.0.1 - - [08/Feb/2025 00:18:04] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:07,219 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 51f2e22e-4351-4250-b6ef-b4c54d1d1c4c
+2025-02-08 00:18:07,405 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 51f2e22e-4351-4250-b6ef-b4c54d1d1c4c
+127.0.0.1 - - [08/Feb/2025 00:18:07] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:09,277 - LoudVA - WARNING - [LoudServer] - Timeout reached for request b0a9c99c-1dac-4f6f-85b1-9b829e19fa49
+2025-02-08 00:18:09,649 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b0a9c99c-1dac-4f6f-85b1-9b829e19fa49
+127.0.0.1 - - [08/Feb/2025 00:18:09] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:10,331 - LoudVA - WARNING - [LoudServer] - Timeout reached for request bfa70769-a186-48a1-bf5d-f7f8dc85bc9d
+2025-02-08 00:18:10,676 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bfa70769-a186-48a1-bf5d-f7f8dc85bc9d
+127.0.0.1 - - [08/Feb/2025 00:18:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:12,205 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1dfef148-76e7-44ef-9fb7-1e6db54bac07
+2025-02-08 00:18:12,727 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1dfef148-76e7-44ef-9fb7-1e6db54bac07
+127.0.0.1 - - [08/Feb/2025 00:18:12] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:14,242 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 5a05c285-8568-4ba1-abd0-e8ddc3206b87
+2025-02-08 00:18:14,607 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5a05c285-8568-4ba1-abd0-e8ddc3206b87
+127.0.0.1 - - [08/Feb/2025 00:18:14] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:15,049 - LoudVA - WARNING - [LoudServer] - Timeout reached for request e2f76abc-a5d8-4e01-99c5-3349476a5be3
+2025-02-08 00:18:15,082 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e2f76abc-a5d8-4e01-99c5-3349476a5be3
+127.0.0.1 - - [08/Feb/2025 00:18:15] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:17,234 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 174c6d5f-c867-4c27-a697-13db74473028
+2025-02-08 00:18:17,723 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 174c6d5f-c867-4c27-a697-13db74473028
+127.0.0.1 - - [08/Feb/2025 00:18:17] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:19,035 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 298705bf-f724-478e-9832-1b2111aa963b
+2025-02-08 00:18:19,152 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 298705bf-f724-478e-9832-1b2111aa963b
+127.0.0.1 - - [08/Feb/2025 00:18:19] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:20,098 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 6c12757b-e322-448b-9c52-7b0dfc7c62d0
+2025-02-08 00:18:20,217 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6c12757b-e322-448b-9c52-7b0dfc7c62d0
+127.0.0.1 - - [08/Feb/2025 00:18:20] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:21,061 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 71452248-8a0b-4888-9450-1dc0b4f03d9d
+2025-02-08 00:18:21,294 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 71452248-8a0b-4888-9450-1dc0b4f03d9d
+127.0.0.1 - - [08/Feb/2025 00:18:21] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:22,155 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 224f4eb8-6e7e-412f-a399-8072800c532e
+2025-02-08 00:18:22,767 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 224f4eb8-6e7e-412f-a399-8072800c532e
+127.0.0.1 - - [08/Feb/2025 00:18:22] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:24,351 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1a4664e2-70d8-41cb-8a4e-fb2c2fe57580
+2025-02-08 00:18:24,726 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1a4664e2-70d8-41cb-8a4e-fb2c2fe57580
+127.0.0.1 - - [08/Feb/2025 00:18:24] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:25,465 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 917ef62c-a795-4996-9419-d33f69613285
+2025-02-08 00:18:25,787 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 917ef62c-a795-4996-9419-d33f69613285
+127.0.0.1 - - [08/Feb/2025 00:18:25] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:25,993 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 3791eb67-f7cb-4a1c-9281-944a4e617bca
+2025-02-08 00:18:26,098 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3791eb67-f7cb-4a1c-9281-944a4e617bca
+127.0.0.1 - - [08/Feb/2025 00:18:26] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:27,285 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 3733314f-bb65-4185-b6d8-543f17e4034c
+2025-02-08 00:18:27,477 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3733314f-bb65-4185-b6d8-543f17e4034c
+127.0.0.1 - - [08/Feb/2025 00:18:27] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:29,298 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 795dd8db-6ead-489e-bca5-7edc867cabc7
+2025-02-08 00:18:29,513 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 795dd8db-6ead-489e-bca5-7edc867cabc7
+127.0.0.1 - - [08/Feb/2025 00:18:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:30,316 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 6bc230fc-8561-470d-bb82-759553877e1f
+2025-02-08 00:18:30,640 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6bc230fc-8561-470d-bb82-759553877e1f
+127.0.0.1 - - [08/Feb/2025 00:18:30] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:31,023 - LoudVA - WARNING - [LoudServer] - Timeout reached for request dc333bb0-f2f7-4635-991e-3f8b1ddce642
+2025-02-08 00:18:31,129 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: dc333bb0-f2f7-4635-991e-3f8b1ddce642
+127.0.0.1 - - [08/Feb/2025 00:18:31] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:32,239 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c0e602f6-baa7-46f9-8163-60cdc03322e2
+2025-02-08 00:18:32,368 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c0e602f6-baa7-46f9-8163-60cdc03322e2
+127.0.0.1 - - [08/Feb/2025 00:18:32] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:34,191 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 61f8e4a3-e54e-47bf-ad1b-8b22c1573d0e
+2025-02-08 00:18:34,294 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 61f8e4a3-e54e-47bf-ad1b-8b22c1573d0e
+127.0.0.1 - - [08/Feb/2025 00:18:34] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:35,207 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 76043193-45ae-46d1-aa6d-c9b77e208c57
+2025-02-08 00:18:35,399 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 76043193-45ae-46d1-aa6d-c9b77e208c57
+127.0.0.1 - - [08/Feb/2025 00:18:35] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:35,987 - LoudVA - WARNING - [LoudServer] - Timeout reached for request e1fadcc9-9bae-4789-9b07-6c6eec3ea789
+2025-02-08 00:18:36,049 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e1fadcc9-9bae-4789-9b07-6c6eec3ea789
+127.0.0.1 - - [08/Feb/2025 00:18:36] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:37,120 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 3dc9ca4a-243f-4d69-9cb7-92dac82a5b84
+2025-02-08 00:18:37,235 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3dc9ca4a-243f-4d69-9cb7-92dac82a5b84
+127.0.0.1 - - [08/Feb/2025 00:18:37] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:39,322 - LoudVA - WARNING - [LoudServer] - Timeout reached for request a882f927-3d17-4c3d-bd66-503eff3349ed
+2025-02-08 00:18:39,497 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a882f927-3d17-4c3d-bd66-503eff3349ed
+127.0.0.1 - - [08/Feb/2025 00:18:39] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:40,380 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f0692ddb-a7c6-4572-beca-43ab7d0fbd90
+2025-02-08 00:18:40,485 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f0692ddb-a7c6-4572-beca-43ab7d0fbd90
+127.0.0.1 - - [08/Feb/2025 00:18:40] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:41,068 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 2adfcb94-8591-4c96-95b4-4298de64d8bc
+2025-02-08 00:18:41,240 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2adfcb94-8591-4c96-95b4-4298de64d8bc
+127.0.0.1 - - [08/Feb/2025 00:18:41] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:44,286 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 6b1574c5-c653-4de7-b53d-0af22c64dc10
+2025-02-08 00:18:44,609 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6b1574c5-c653-4de7-b53d-0af22c64dc10
+127.0.0.1 - - [08/Feb/2025 00:18:44] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:45,451 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f51c8e07-9dca-4d2f-bb7a-5371ceeef106
+2025-02-08 00:18:45,626 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f1e71f31-ba28-4937-a30c-2e11894fc74a
+2025-02-08 00:18:45,639 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f1e71f31-ba28-4937-a30c-2e11894fc74a
+127.0.0.1 - - [08/Feb/2025 00:18:45] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:45,708 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f51c8e07-9dca-4d2f-bb7a-5371ceeef106
+127.0.0.1 - - [08/Feb/2025 00:18:45] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:45,982 - LoudVA - WARNING - [LoudServer] - Timeout reached for request cf80194e-0847-46ef-a93d-b4f78fe6d572
+2025-02-08 00:18:46,118 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cf80194e-0847-46ef-a93d-b4f78fe6d572
+127.0.0.1 - - [08/Feb/2025 00:18:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:46,578 - LoudVA - WARNING - [LoudServer] - Timeout reached for request be2b1da0-24c1-4777-b93a-4bff0c0d514c
+2025-02-08 00:18:46,599 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: be2b1da0-24c1-4777-b93a-4bff0c0d514c
+127.0.0.1 - - [08/Feb/2025 00:18:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:48,542 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 83a486f7-b083-4efa-a67d-08f497ea7b26
+2025-02-08 00:18:48,552 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 83a486f7-b083-4efa-a67d-08f497ea7b26
+127.0.0.1 - - [08/Feb/2025 00:18:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:49,440 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 4d862bf8-7754-484a-b9d7-6b48b9125c87
+2025-02-08 00:18:49,566 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 0d2a63d2-3455-4f87-9dc2-24383f61b615
+2025-02-08 00:18:49,573 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0d2a63d2-3455-4f87-9dc2-24383f61b615
+127.0.0.1 - - [08/Feb/2025 00:18:49] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:49,640 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 4d862bf8-7754-484a-b9d7-6b48b9125c87
+127.0.0.1 - - [08/Feb/2025 00:18:49] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:50,550 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f76ca4eb-e597-4808-98b4-7be632ee847e
+2025-02-08 00:18:50,572 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f76ca4eb-e597-4808-98b4-7be632ee847e
+127.0.0.1 - - [08/Feb/2025 00:18:50] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:50,584 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f20f6319-6bc5-420c-8649-9aa9b4683590
+2025-02-08 00:18:50,730 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f20f6319-6bc5-420c-8649-9aa9b4683590
+127.0.0.1 - - [08/Feb/2025 00:18:50] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:51,168 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 12daa096-7d8d-4f08-b512-88274661bd7b
+2025-02-08 00:18:51,231 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 12daa096-7d8d-4f08-b512-88274661bd7b
+127.0.0.1 - - [08/Feb/2025 00:18:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:51,652 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 02951053-d4da-4324-a878-a63724c68ad4
+2025-02-08 00:18:51,663 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 02951053-d4da-4324-a878-a63724c68ad4
+127.0.0.1 - - [08/Feb/2025 00:18:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:52,603 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 02206e73-9a05-4b39-b764-14e6dbe551a2
+2025-02-08 00:18:52,625 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 02206e73-9a05-4b39-b764-14e6dbe551a2
+127.0.0.1 - - [08/Feb/2025 00:18:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:53,631 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1e6e88df-cce0-4ba0-b5f4-2387dd25aad0
+2025-02-08 00:18:53,651 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1e6e88df-cce0-4ba0-b5f4-2387dd25aad0
+127.0.0.1 - - [08/Feb/2025 00:18:53] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:54,545 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f022c6c9-3669-4e1d-9e10-78a64e174f3e
+2025-02-08 00:18:54,576 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f022c6c9-3669-4e1d-9e10-78a64e174f3e
+127.0.0.1 - - [08/Feb/2025 00:18:54] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:54,723 - LoudVA - WARNING - [LoudServer] - Timeout reached for request fe93be9d-f596-416c-b293-f1ba161a4a6c
+2025-02-08 00:18:54,885 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: fe93be9d-f596-416c-b293-f1ba161a4a6c
+127.0.0.1 - - [08/Feb/2025 00:18:54] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:55,539 - LoudVA - WARNING - [LoudServer] - Timeout reached for request a51a9406-cdd5-46a8-9e4e-66ab34208a3f
+2025-02-08 00:18:55,553 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a51a9406-cdd5-46a8-9e4e-66ab34208a3f
+127.0.0.1 - - [08/Feb/2025 00:18:55] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:55,657 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 82a170a5-144d-40ba-9413-172e2926ab95
+2025-02-08 00:18:55,814 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 82a170a5-144d-40ba-9413-172e2926ab95
+127.0.0.1 - - [08/Feb/2025 00:18:55] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:56,225 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 40cb901f-a286-4607-ac00-9fd474cc17f8
+2025-02-08 00:18:56,341 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 40cb901f-a286-4607-ac00-9fd474cc17f8
+127.0.0.1 - - [08/Feb/2025 00:18:56] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:18:59,096 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 9eae5f79-2ea5-4138-907f-f0c587de870a
+2025-02-08 00:18:59,126 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9eae5f79-2ea5-4138-907f-f0c587de870a
+127.0.0.1 - - [08/Feb/2025 00:18:59] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:00,422 - LoudVA - WARNING - [LoudServer] - Timeout reached for request b8239bea-f32d-4cae-ad58-a925cc7a550e
+2025-02-08 00:19:00,537 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b8239bea-f32d-4cae-ad58-a925cc7a550e
+127.0.0.1 - - [08/Feb/2025 00:19:00] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:01,080 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 44ce233a-9562-447f-9c4b-39ad56bad3b4
+2025-02-08 00:19:01,179 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 44ce233a-9562-447f-9c4b-39ad56bad3b4
+127.0.0.1 - - [08/Feb/2025 00:19:01] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:04,025 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 67f27eb7-8067-4d47-986b-5795126c9707
+2025-02-08 00:19:04,037 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 67f27eb7-8067-4d47-986b-5795126c9707
+127.0.0.1 - - [08/Feb/2025 00:19:04] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:05,054 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 02198b95-28c2-4829-894b-0ac48846aa6b
+2025-02-08 00:19:05,062 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 02198b95-28c2-4829-894b-0ac48846aa6b
+127.0.0.1 - - [08/Feb/2025 00:19:05] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:06,312 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 00d706ef-aa6a-4ff9-8df1-4301d7f0b238
+2025-02-08 00:19:06,451 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 00d706ef-aa6a-4ff9-8df1-4301d7f0b238
+127.0.0.1 - - [08/Feb/2025 00:19:06] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:09,443 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c5938a7e-e96d-4980-821d-1b2bcd1481ee
+2025-02-08 00:19:09,445 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c5938a7e-e96d-4980-821d-1b2bcd1481ee
+127.0.0.1 - - [08/Feb/2025 00:19:09] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:10,096 - LoudVA - WARNING - [LoudServer] - Timeout reached for request e68187f9-307f-489f-86de-4afe65c7099e
+2025-02-08 00:19:10,103 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e68187f9-307f-489f-86de-4afe65c7099e
+127.0.0.1 - - [08/Feb/2025 00:19:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:11,438 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 9da9bc2b-8f3d-4966-8b67-1c66276edc7f
+2025-02-08 00:19:11,494 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9da9bc2b-8f3d-4966-8b67-1c66276edc7f
+127.0.0.1 - - [08/Feb/2025 00:19:11] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:14,584 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 5bdabece-cdfc-4ef6-ac83-10c07bcfffdc
+2025-02-08 00:19:14,627 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5bdabece-cdfc-4ef6-ac83-10c07bcfffdc
+127.0.0.1 - - [08/Feb/2025 00:19:14] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:18,459 - LoudVA - WARNING - [LoudServer] - Timeout reached for request a2162cab-25f1-4179-ac20-75f9a48f73df
+2025-02-08 00:19:18,480 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a2162cab-25f1-4179-ac20-75f9a48f73df
+127.0.0.1 - - [08/Feb/2025 00:19:18] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:28,620 - LoudVA - WARNING - [LoudServer] - Timeout reached for request d8ba8c47-2da1-411c-b01e-137fb8321dcb
+2025-02-08 00:19:28,750 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d8ba8c47-2da1-411c-b01e-137fb8321dcb
+127.0.0.1 - - [08/Feb/2025 00:19:28] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:28,781 - LoudVA - WARNING - [LoudServer] - Timeout reached for request b8d92312-ba38-4d42-a2e9-2506386df8bf
+2025-02-08 00:19:28,827 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b8d92312-ba38-4d42-a2e9-2506386df8bf
+127.0.0.1 - - [08/Feb/2025 00:19:28] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:29,112 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 44037f4a-73fd-4916-ae1f-3406f3973982
+2025-02-08 00:19:29,149 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 44037f4a-73fd-4916-ae1f-3406f3973982
+127.0.0.1 - - [08/Feb/2025 00:19:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:29,213 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 07d13379-26bd-4969-ac5f-331a60ce10ad
+2025-02-08 00:19:29,346 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 07d13379-26bd-4969-ac5f-331a60ce10ad
+127.0.0.1 - - [08/Feb/2025 00:19:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:29,412 - LoudVA - WARNING - [LoudServer] - Timeout reached for request eaf96f81-c39f-4c95-a3aa-2a0537dc2523
+2025-02-08 00:19:29,517 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: eaf96f81-c39f-4c95-a3aa-2a0537dc2523
+127.0.0.1 - - [08/Feb/2025 00:19:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:29,566 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 17a18c9a-9548-4284-9e90-50aaf9d614b9
+2025-02-08 00:19:29,659 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 17a18c9a-9548-4284-9e90-50aaf9d614b9
+127.0.0.1 - - [08/Feb/2025 00:19:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:29,853 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 8b1f16e3-e4ea-476d-bc59-6298f26528b4
+2025-02-08 00:19:29,973 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 8b1f16e3-e4ea-476d-bc59-6298f26528b4
+127.0.0.1 - - [08/Feb/2025 00:19:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:29,980 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1730a330-aeaf-4ae8-bdfc-2f03a1405aec
+2025-02-08 00:19:30,055 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1730a330-aeaf-4ae8-bdfc-2f03a1405aec
+127.0.0.1 - - [08/Feb/2025 00:19:30] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:30,602 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c9ba37eb-89ab-4f3a-9cc3-c027a67c9cfa
+2025-02-08 00:19:30,699 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c9ba37eb-89ab-4f3a-9cc3-c027a67c9cfa
+127.0.0.1 - - [08/Feb/2025 00:19:30] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:31,078 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 6ab495f5-189c-42d4-861b-d5441f3a2ba2
+2025-02-08 00:19:31,118 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6ab495f5-189c-42d4-861b-d5441f3a2ba2
+127.0.0.1 - - [08/Feb/2025 00:19:31] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:34,206 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 24f54c4c-d04b-403b-b42b-c970c74db4ca
+2025-02-08 00:19:34,257 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 24f54c4c-d04b-403b-b42b-c970c74db4ca
+127.0.0.1 - - [08/Feb/2025 00:19:34] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:35,650 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 99bc4bf6-0bdb-4dc8-b537-a2c5f184bf08
+2025-02-08 00:19:35,735 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 99bc4bf6-0bdb-4dc8-b537-a2c5f184bf08
+127.0.0.1 - - [08/Feb/2025 00:19:35] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:36,107 - LoudVA - WARNING - [LoudServer] - Timeout reached for request fd10e3f1-051f-4503-85a6-584eaff8bd51
+2025-02-08 00:19:36,155 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: fd10e3f1-051f-4503-85a6-584eaff8bd51
+127.0.0.1 - - [08/Feb/2025 00:19:36] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:39,616 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1cb1c433-437b-498a-aa5f-0b5b1d2408a8
+2025-02-08 00:19:39,674 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1cb1c433-437b-498a-aa5f-0b5b1d2408a8
+127.0.0.1 - - [08/Feb/2025 00:19:39] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:40,686 - LoudVA - WARNING - [LoudServer] - Timeout reached for request ea3efced-091f-4a75-b5a2-137728803143
+2025-02-08 00:19:40,760 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ea3efced-091f-4a75-b5a2-137728803143
+127.0.0.1 - - [08/Feb/2025 00:19:40] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:41,049 - LoudVA - WARNING - [LoudServer] - Timeout reached for request bdcab6bd-9564-4b78-afcf-c24798702027
+2025-02-08 00:19:41,064 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bdcab6bd-9564-4b78-afcf-c24798702027
+127.0.0.1 - - [08/Feb/2025 00:19:41] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:44,650 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 391859b3-703b-45be-ae8f-b6b3e7fbec2c
+2025-02-08 00:19:44,702 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 391859b3-703b-45be-ae8f-b6b3e7fbec2c
+127.0.0.1 - - [08/Feb/2025 00:19:44] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:45,706 - LoudVA - WARNING - [LoudServer] - Timeout reached for request a0c3d5a5-55e1-4f07-b11b-d9ec395456dd
+2025-02-08 00:19:45,775 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a0c3d5a5-55e1-4f07-b11b-d9ec395456dd
+127.0.0.1 - - [08/Feb/2025 00:19:45] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:46,058 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c868206f-48a7-4982-a40d-15f139740139
+2025-02-08 00:19:46,079 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c868206f-48a7-4982-a40d-15f139740139
+127.0.0.1 - - [08/Feb/2025 00:19:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:49,286 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 06e169f8-3175-4e28-9b60-8e5ecca5b2e2
+2025-02-08 00:19:49,301 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 06e169f8-3175-4e28-9b60-8e5ecca5b2e2
+127.0.0.1 - - [08/Feb/2025 00:19:49] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:51,140 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 0adac4b6-d15c-42d3-af00-1a556f5bea5e
+2025-02-08 00:19:51,180 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0adac4b6-d15c-42d3-af00-1a556f5bea5e
+127.0.0.1 - - [08/Feb/2025 00:19:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:54,737 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 332c39a8-9ef5-4acb-95a2-5b23736d6708
+2025-02-08 00:19:54,762 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 332c39a8-9ef5-4acb-95a2-5b23736d6708
+127.0.0.1 - - [08/Feb/2025 00:19:54] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:56,083 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 2e6f1266-6e39-45d5-94b6-ae0d3aa493a3
+2025-02-08 00:19:56,097 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2e6f1266-6e39-45d5-94b6-ae0d3aa493a3
+127.0.0.1 - - [08/Feb/2025 00:19:56] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:19:59,231 - LoudVA - WARNING - [LoudServer] - Timeout reached for request bb983cf3-c13b-4de6-bbf7-6e857f912e72
+2025-02-08 00:19:59,244 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bb983cf3-c13b-4de6-bbf7-6e857f912e72
+127.0.0.1 - - [08/Feb/2025 00:19:59] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:01,126 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 77e17c37-a50d-4430-8300-3eb8b5170aed
+2025-02-08 00:20:01,145 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 77e17c37-a50d-4430-8300-3eb8b5170aed
+127.0.0.1 - - [08/Feb/2025 00:20:01] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:04,456 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 435162c6-dbfc-4cbe-be7d-880adced4b13
+2025-02-08 00:20:04,477 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 435162c6-dbfc-4cbe-be7d-880adced4b13
+127.0.0.1 - - [08/Feb/2025 00:20:04] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:06,449 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 0e4eccd9-4ec8-4086-9931-05de096601a3
+2025-02-08 00:20:06,473 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0e4eccd9-4ec8-4086-9931-05de096601a3
+127.0.0.1 - - [08/Feb/2025 00:20:06] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:09,621 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 41709264-e5e5-4d8e-8e0c-3045f58f2ba5
+2025-02-08 00:20:09,641 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 41709264-e5e5-4d8e-8e0c-3045f58f2ba5
+127.0.0.1 - - [08/Feb/2025 00:20:09] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:10,850 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1820dd4b-8cac-4163-8958-887008f45a99
+2025-02-08 00:20:10,860 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1820dd4b-8cac-4163-8958-887008f45a99
+127.0.0.1 - - [08/Feb/2025 00:20:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:14,354 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1389108a-fa1c-4df4-a8df-94cf5d6b0bba
+2025-02-08 00:20:14,376 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1389108a-fa1c-4df4-a8df-94cf5d6b0bba
+127.0.0.1 - - [08/Feb/2025 00:20:14] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:16,380 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f1e8a955-2798-49d1-8eb8-0f9076fbd140
+2025-02-08 00:20:16,384 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f1e8a955-2798-49d1-8eb8-0f9076fbd140
+127.0.0.1 - - [08/Feb/2025 00:20:16] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:19,398 - LoudVA - WARNING - [LoudServer] - Timeout reached for request d91f5e96-8a29-4ddf-8395-0455c5ffad6e
+2025-02-08 00:20:19,401 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d91f5e96-8a29-4ddf-8395-0455c5ffad6e
+127.0.0.1 - - [08/Feb/2025 00:20:19] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:20,952 - LoudVA - WARNING - [LoudServer] - Timeout reached for request cb99ace2-550f-4c88-b954-519645f86363
+2025-02-08 00:20:20,954 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cb99ace2-550f-4c88-b954-519645f86363
+127.0.0.1 - - [08/Feb/2025 00:20:20] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:26,511 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 2dd11cd1-41e0-4371-a824-0f78750b449b
+2025-02-08 00:20:26,514 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2dd11cd1-41e0-4371-a824-0f78750b449b
+127.0.0.1 - - [08/Feb/2025 00:20:26] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:31,491 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 5650052e-c806-4fe5-acea-0d017d91a2d2
+2025-02-08 00:20:31,502 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5650052e-c806-4fe5-acea-0d017d91a2d2
+127.0.0.1 - - [08/Feb/2025 00:20:31] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:36,466 - LoudVA - WARNING - [LoudServer] - Timeout reached for request bbd14d3a-d233-4a21-b2ac-da3ccd9cb84d
+2025-02-08 00:20:36,474 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bbd14d3a-d233-4a21-b2ac-da3ccd9cb84d
+127.0.0.1 - - [08/Feb/2025 00:20:36] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:40,959 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 7d6f4f03-0a7c-4647-b48b-41c5c5cb07f7
+2025-02-08 00:20:40,969 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7d6f4f03-0a7c-4647-b48b-41c5c5cb07f7
+127.0.0.1 - - [08/Feb/2025 00:20:40] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:46,948 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 6d831438-d155-4d79-9d01-569cc4097346
+2025-02-08 00:20:46,955 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6d831438-d155-4d79-9d01-569cc4097346
+127.0.0.1 - - [08/Feb/2025 00:20:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:51,364 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 07da5574-b611-4da4-a0fe-84351723c724
+2025-02-08 00:20:51,368 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 07da5574-b611-4da4-a0fe-84351723c724
+127.0.0.1 - - [08/Feb/2025 00:20:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 00:20:56,061 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 9f119924-9707-4311-935f-1a65e36b29e0
+2025-02-08 00:20:56,062 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9f119924-9707-4311-935f-1a65e36b29e0
+127.0.0.1 - - [08/Feb/2025 00:20:56] "POST /inference HTTP/1.1" 200 -

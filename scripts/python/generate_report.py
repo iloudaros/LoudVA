@@ -150,7 +150,7 @@ def calculate_network_adjusted_metrics(df, network_cost_csv):
             how='left'
         ).fillna({'Network Cost (s)': 0})  # Handle missing batch sizes
 
-        merged_df['Network Cost (s)'] = np.ceil(merged_df['Network Cost (s)'] * 10) / 10
+        merged_df['Network Cost (s)'] = np.ceil(merged_df['Network Cost (s)'] * 10) / 10 + 0.1
         
         merged_df['Latency Without Network'] = merged_df['Latency'] - merged_df['Network Cost (s)']
         merged_df['Excess Latency Without Network'] = (
@@ -389,6 +389,7 @@ def generate_report(top_folder, interval_ms=200, exclude_ids=None, network_cost_
     
     # Create DataFrame and save CSV
     df = pd.DataFrame(all_results)
+    df = df.sort_values(['experiment_id', 'scheduler', 'batch_size', 'interval'])
     columns_order = [
         'experiment_type', 'experiment_id', 'timestamp', 'scheduler',
         'prediction_mode', 'batch_size', 'interval', 

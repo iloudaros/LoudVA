@@ -1,0 +1,1260 @@
+2025-02-08 07:37:08,782 - LoudVA - INFO - [LoudController] - Starting LoudController...
+2025-02-08 07:37:08,783 - LoudVA - INFO - [LoudController] - Press CTRL+C to stop the controller.
+2025-02-08 07:37:08,783 - LoudVA - INFO - [LoudController] - Debug mode: False
+2025-02-08 07:37:08,813 - LoudVA - INFO - [LoudController] - Selected scheduler: loud
+2025-02-08 07:37:08,817 - LoudVA - INFO - [LoudServer] - Starting LoudVA server...
+ * Serving Flask app 'LoudServer'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+2025-02-08 07:37:11,162 - LoudVA - INFO - [DeviceData] - Training the LoudCostPredictor...
+2025-02-08 07:37:11,397 - LoudVA - INFO - [DeviceData] - LoudCostPredictor training complete. Training time: 0.2349259853363037 seconds.
+2025-02-08 07:37:11,397 - LoudVA - INFO - [DeviceData] - Using prediction model for decision making.
+2025-02-08 07:37:11,397 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
+2025-02-08 07:37:11,412 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
+2025-02-08 07:37:11,413 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-02-08 07:37:11,413 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-02-08 07:37:11,413 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-02-08 07:37:11,445 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 114750000
+2025-02-08 07:37:11,446 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Calculating prediction cache...
+2025-02-08 07:37:29,473 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Prediction cache calculated.
+2025-02-08 07:37:29,474 - LoudVA - INFO - [DeviceData] - Devices initialized successfully
+2025-02-08 07:37:29,571 - LoudVA - INFO - [LoudScheduler] - Starting LoudScheduler
+2025-02-08 07:37:31,568 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+127.0.0.1 - - [08/Feb/2025 07:38:11] "GET / HTTP/1.1" 200 -
+2025-02-08 07:38:11,724 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:38:11,763 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:16,101 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:38:16,357 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:38:16,371 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:16,433 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:38:18,169 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:21,539 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-02-08 07:38:21,549 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:21,741 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-08 07:38:21,825 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-02-08 07:38:23,164 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:23,375 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bbeb8e22-6422-4b3c-ac7f-f593a4961bcd
+127.0.0.1 - - [08/Feb/2025 07:38:23] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:38:23,751 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:38:23,762 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:23,850 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:38:25,728 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:26,083 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:38:29,965 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-08 07:38:31,402 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-02-08 07:38:31,412 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:31,507 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-08 07:38:31,824 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:38:32,699 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0e09e9b1-6d08-4246-b18a-7e5cd9006195
+127.0.0.1 - - [08/Feb/2025 07:38:32] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:38:33,023 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:35,731 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:38:35,741 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:35,842 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:38:36,040 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:38:37,552 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:41,385 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:38:41,976 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:38:42,038 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:42,879 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:42,925 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 365d649f-1c5f-4c78-b646-80460f2c5ff6
+127.0.0.1 - - [08/Feb/2025 07:38:42] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:38:42,951 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b0390ebb-331b-441a-bc71-3db899d99c48
+127.0.0.1 - - [08/Feb/2025 07:38:42] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:38:46,111 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:38:46,272 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:38:46,292 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:47,519 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:48,319 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ea546fcd-5c22-49f6-a19e-1860759cf571
+127.0.0.1 - - [08/Feb/2025 07:38:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:38:48,346 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: aa387aff-3248-4a78-a53d-04634d1e12fc
+127.0.0.1 - - [08/Feb/2025 07:38:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:38:51,493 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-02-08 07:38:51,505 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:51,611 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-08 07:38:51,801 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 21.0
+2025-02-08 07:38:53,120 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:55,935 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:38:56,012 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:38:56,022 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:38:56,130 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:38:57,809 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:38:58,409 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bbdf6747-6f33-4fb8-94a1-c13fc1383d12
+127.0.0.1 - - [08/Feb/2025 07:38:58] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:01,002 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 17
+2025-02-08 07:39:01,670 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:39:01,701 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:01,800 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:06,068 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:39:06,099 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-08 07:39:06,173 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 326cfcdd-eb03-40a8-a25e-c6573f17ee8a
+127.0.0.1 - - [08/Feb/2025 07:39:06] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:06,198 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ff09c662-6f88-4e0d-be8b-6a9b08f10155
+127.0.0.1 - - [08/Feb/2025 07:39:06] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:06,225 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 94efa6f0-0dd5-479d-a161-417fec973fc0
+127.0.0.1 - - [08/Feb/2025 07:39:06] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:09,331 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:09,341 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:09,401 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:39:11,130 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:11,560 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 10
+2025-02-08 07:39:11,570 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:11,718 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:39:12,279 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:14,867 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.0
+2025-02-08 07:39:17,268 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 75ad3085-ee2c-485f-9afc-4582cd5e8bf7
+127.0.0.1 - - [08/Feb/2025 07:39:17] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:17,429 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:17,440 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:18,666 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:19,914 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:39:21,769 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:39:22,314 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:22,327 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:23,557 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:24,126 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5b018b11-a5c2-4d90-87ff-1fb1c881c76f
+127.0.0.1 - - [08/Feb/2025 07:39:24] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:24,145 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6a8320db-76b5-4f38-95f8-edad717cd0b9
+127.0.0.1 - - [08/Feb/2025 07:39:24] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:24,871 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 07:39:28,260 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-08 07:39:29,944 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:39:30,533 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:30,544 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:30,604 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:39:31,104 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 46529266-7cc8-4d58-8dea-5bf25c83c730
+127.0.0.1 - - [08/Feb/2025 07:39:31] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:31,138 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 70a8c7d9-c637-48a6-a5a0-7567e4b09aa8
+127.0.0.1 - - [08/Feb/2025 07:39:31] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:31,791 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:39:32,338 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:34,954 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:39:35,138 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:35,161 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:36,387 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:37,632 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 664eeafb-ff60-4ac6-9886-bee2dc4afd18
+127.0.0.1 - - [08/Feb/2025 07:39:37] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:37,664 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 4c0ae6fe-e308-43a6-b082-020f7b33ed4a
+127.0.0.1 - - [08/Feb/2025 07:39:37] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:39,977 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:39:40,491 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:40,504 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:41,740 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:41,870 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:39:42,314 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:42,330 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:42,620 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5922cfdd-0579-4958-8035-440ca5227eb2
+127.0.0.1 - - [08/Feb/2025 07:39:42] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:43,559 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:44,891 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:39:48,377 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-08 07:39:49,979 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 32
+2025-02-08 07:39:49,992 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:50,109 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-08 07:39:50,180 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:39:51,175 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0075b022-cef8-437d-96ce-97df324caf67
+127.0.0.1 - - [08/Feb/2025 07:39:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:51,228 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7b405b78-e2b6-4568-9913-71a519bc575c
+127.0.0.1 - - [08/Feb/2025 07:39:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:51,496 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:51,868 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:39:52,081 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:52,101 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:52,208 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:39:53,895 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:39:54,914 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:39:54,987 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ca181773-862c-4f5b-a1f7-73f52cf458dc
+127.0.0.1 - - [08/Feb/2025 07:39:54] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:57,668 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bfc036c3-a4e3-4497-a0bc-edc19c161dbf
+127.0.0.1 - - [08/Feb/2025 07:39:57] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:39:58,528 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-08 07:39:58,546 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:39:58,555 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:39:58,652 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:40:00,064 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:40:00,365 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:00,996 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 777428a2-2b10-4595-b25c-68ce5c5827ad
+127.0.0.1 - - [08/Feb/2025 07:40:01] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:01,830 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:40:01,915 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:01,926 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:03,359 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:04,937 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:40:05,090 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:05,118 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:06,340 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:09,769 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 26b5906a-f926-40a1-92c0-dc3266bf6e80
+127.0.0.1 - - [08/Feb/2025 07:40:09] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:10,091 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:40:10,576 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+2025-02-08 07:40:10,604 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:10,615 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:10,725 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:40:12,007 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:40:12,425 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:12,480 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:13,679 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:15,271 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:40:15,790 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:15,800 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:17,045 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:18,452 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0102a7c3-c017-417f-9afa-32a3f38d5f05
+127.0.0.1 - - [08/Feb/2025 07:40:18] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:18,474 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: acd05ac0-f1a6-4cd1-82dc-eabc45becdf0
+127.0.0.1 - - [08/Feb/2025 07:40:18] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:19,809 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c9eb3f55-d44f-4bea-aaa6-4e5d7f2556c5
+127.0.0.1 - - [08/Feb/2025 07:40:19] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:19,992 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:40:21,890 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:40:22,046 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:22,057 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:23,295 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:25,181 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:40:25,214 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:40:25,437 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:25,448 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:26,689 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:29,166 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 57644d06-e289-457b-adab-7d3f7742b9d9
+127.0.0.1 - - [08/Feb/2025 07:40:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:29,276 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 39b43ff2-bb7d-4383-8365-9822866e2e94
+127.0.0.1 - - [08/Feb/2025 07:40:29] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:30,230 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:40:30,470 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:30,490 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:31,726 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:32,029 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:40:32,122 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:32,152 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:33,378 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:34,679 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 8cd25aac-a5ed-4a9a-a1b4-0d0de97a3d60
+127.0.0.1 - - [08/Feb/2025 07:40:34] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:34,769 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 76e1015b-4bb5-4c10-8ca6-c13efd9478c6
+127.0.0.1 - - [08/Feb/2025 07:40:34] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:35,364 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:40:35,422 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:40:35,545 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:35,554 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:36,801 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:36,812 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:38,045 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:40,203 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:40:42,204 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:40:42,360 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:42,373 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:43,616 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:44,968 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:40:45,110 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:45,120 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:45,395 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:40:46,005 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3270f789-13f3-41e9-8b66-2bc5a66b977f
+127.0.0.1 - - [08/Feb/2025 07:40:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:46,358 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:50,432 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:40:50,793 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:50,806 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:52,032 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:40:52,049 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:52,461 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:52,473 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:53,699 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:53,951 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 98d86095-bae7-4b42-a0cd-888e2c696381
+127.0.0.1 - - [08/Feb/2025 07:40:53] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:54,144 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bf131579-c322-484d-9f73-e92621a48644
+127.0.0.1 - - [08/Feb/2025 07:40:54] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:40:55,220 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:40:55,323 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-02-08 07:40:55,766 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:40:55,780 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:40:57,023 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:40:58,489 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cd6dd8b9-11cb-44c0-9b84-d050b86d1d5f
+127.0.0.1 - - [08/Feb/2025 07:40:58] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:00,058 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:41:00,229 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:00,244 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:01,678 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:02,327 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:41:03,026 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:03,036 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:04,268 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:05,783 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:41:06,654 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:06,667 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:07,233 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:41:07,890 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cc4a6e90-4afb-4187-8ab4-dce3eb65a65b
+127.0.0.1 - - [08/Feb/2025 07:41:07] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:07,911 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:08,087 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 07:41:08,350 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:08,370 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:09,598 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:10,341 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:41:10,695 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f2ebe6e4-a832-4b18-b28a-0f202280c219
+127.0.0.1 - - [08/Feb/2025 07:41:10] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:12,207 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:41:12,369 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:12,382 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:12,483 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:41:13,256 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:41:13,437 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 81bf35e1-a8e0-4812-9001-b9e09a528fc5
+127.0.0.1 - - [08/Feb/2025 07:41:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:13,638 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:13,648 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:14,117 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 37d26c78-feea-42c6-a288-50182dc9e14b
+127.0.0.1 - - [08/Feb/2025 07:41:14] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:14,892 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:14,909 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.0
+2025-02-08 07:41:16,252 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:16,269 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:17,070 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 07:41:17,494 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:17,951 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:41:20,626 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:41:21,307 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 41
+2025-02-08 07:41:21,319 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:21,441 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-08 07:41:22,164 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:41:23,067 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:41:23,171 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:25,762 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:41:26,104 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:26,122 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:26,223 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:41:27,925 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:28,037 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:41:28,287 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:41:28,335 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:28,357 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:29,609 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:29,618 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:30,014 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c6d25981-3ed6-4f10-b913-881b0125e68a
+127.0.0.1 - - [08/Feb/2025 07:41:30] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:30,851 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:32,396 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:41:32,912 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 07:41:33,270 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:33,282 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:33,372 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 98082d0e-1500-410b-adf0-95ce87db16e9
+127.0.0.1 - - [08/Feb/2025 07:41:33] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:34,511 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:37,229 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:41:38,246 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:41:38,614 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:38,633 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:39,853 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:42,482 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 22.0
+2025-02-08 07:41:42,916 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:41:43,062 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:43,100 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:44,331 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:46,333 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d4e62a4c-f8e1-497b-8dee-739cc1c034ac
+127.0.0.1 - - [08/Feb/2025 07:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:46,379 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 33e4f725-beff-4647-b981-3e8c48928a7f
+127.0.0.1 - - [08/Feb/2025 07:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:46,416 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a11e7254-a9ba-43c6-a05d-9ff733c6026b
+127.0.0.1 - - [08/Feb/2025 07:41:46] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:41:47,098 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:41:48,077 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 07:41:48,234 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:48,251 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:49,479 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:52,310 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:41:52,658 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:52,668 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:41:52,939 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 07:41:53,931 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:41:57,427 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:41:57,742 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:57,752 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+Exception in thread Thread-73:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:41:58,203 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:41:58,988 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:41:58,998 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:00,227 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:42:02,109 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:42:03,160 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:42:03,501 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:03,511 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:04,450 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: de0a049a-e843-4546-bb9b-814b779fd185
+127.0.0.1 - - [08/Feb/2025 07:42:04] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:42:04,645 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0e7fdea9-1a49-47b5-9268-5857051783d5
+127.0.0.1 - - [08/Feb/2025 07:42:04] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:42:04,829 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:42:07,153 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:42:08,038 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:42:08,096 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:08,108 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+Exception in thread Thread-79:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:09,364 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-81:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:12,057 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 07:42:13,238 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 07:42:13,467 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:13,477 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+Exception in thread Thread-83:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:14,710 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-85:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:17,316 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:42:17,727 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:17,738 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:18,031 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+Exception in thread Thread-87:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:18,965 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:42:22,584 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:42:22,891 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:22,902 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:23,058 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.0
+2025-02-08 07:42:23,529 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 07de93ac-9d73-4c74-befb-cc6d6269e710
+127.0.0.1 - - [08/Feb/2025 07:42:23] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:42:23,577 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b085d878-6b45-4a07-95f7-2b37d75e12c8
+127.0.0.1 - - [08/Feb/2025 07:42:23] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:42:24,137 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:24,147 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:25,370 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:42:27,271 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:42:27,782 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:27,792 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+Exception in thread Thread-91:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:28,068 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:42:29,027 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-93:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-95:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:33,074 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:42:33,283 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:42:33,529 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:33,540 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:34,773 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-97:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:37,056 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:42:37,116 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:37,127 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:38,108 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.0
+2025-02-08 07:42:38,361 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-99:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:42,341 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 07:42:42,647 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:42,658 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:43,059 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:42:44,011 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:44,021 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+Exception in thread Thread-101:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:45,323 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+2025-02-08 07:42:47,122 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 07:42:48,192 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 07:42:48,379 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:48,390 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:49,617 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-103:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:52,223 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 07:42:52,610 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 51
+2025-02-08 07:42:52,620 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:52,928 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 07:42:53,855 - LoudVA - INFO - [LoudScheduler] - Latency constraint allows for waiting, holding for more images.
+Exception in thread Thread-105:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:58,039 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 1032750000, batch size 32
+2025-02-08 07:42:58,050 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+2025-02-08 07:42:58,171 - LoudVA - INFO - [DeviceData] - Frequency set to 1032750000 MHz on agx-xavier-00
+2025-02-08 07:42:59,550 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 6
+2025-02-08 07:42:59,560 - LoudVA - WARNING - [LoudScheduler] - No available devices found. Returning None. Waiting for devices to become available.
+Exception in thread Thread-107:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:42:59,670 - LoudVA - INFO - [DeviceData] - Frequency set to 905250000 MHz on agx-xavier-00
+2025-02-08 07:43:00,745 - LoudVA - INFO - [LoudScheduler] - Dispatching to agx-xavier-00 with frequency 905250000, batch size 1
+Exception in thread Thread-109:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-111:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:43:05,905 - LoudVA - INFO - [DeviceData] - Frequency set to 114750000 MHz on agx-xavier-00
+Exception in thread Thread-113:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-115:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-117:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-119:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-121:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+Exception in thread Thread-123:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/louduser/LoudVA/LoudController/LoudScheduler.py", line 249, in dispatch_request
+    [response] = device.inference(images, batch_size)
+  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 258, in inference
+    response = triton_client.inference(**args)
+  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+    triton_client.infer(model_name,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+    response = self._post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+    response = self._client_stub.post(request_uri=request_uri,
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+    return self.request(METHOD_POST, request_uri, body=body, headers=headers)
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+    raise e
+  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+    sock.sendall(_request + body)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+    return _sendall(self, data_memory, flags)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+    timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
+  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+    raise timeout('timed out')
+socket.timeout: timed out
+2025-02-08 07:43:36,263 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 68be8cfc-89c5-4078-bf1b-3fa22b5f0449
+127.0.0.1 - - [08/Feb/2025 07:43:36] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:43:41,365 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f561d0fe-bbf0-4c6c-bfd9-09359cc807d4
+127.0.0.1 - - [08/Feb/2025 07:43:41] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:43:47,097 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 292e33b6-1844-4a62-b6fa-958177c3d030
+127.0.0.1 - - [08/Feb/2025 07:43:47] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:43:51,604 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d798a79d-dcd1-4154-a98c-89452d6923f3
+127.0.0.1 - - [08/Feb/2025 07:43:51] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:43:52,035 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b628fc4a-e967-43dd-b36b-08b53b6620c0
+127.0.0.1 - - [08/Feb/2025 07:43:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:43:52,385 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1fd5021b-a5f7-415f-af06-9bd77462b0ab
+127.0.0.1 - - [08/Feb/2025 07:43:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:43:57,362 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ca82b92f-d8cc-4211-90d6-f39aa4d6469b
+127.0.0.1 - - [08/Feb/2025 07:43:57] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:44:02,966 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b9f71578-abf6-4449-bda1-098d215aab34
+127.0.0.1 - - [08/Feb/2025 07:44:02] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:44:08,223 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: efe0c1dc-a611-44be-b0c6-15db6cfc7eae
+127.0.0.1 - - [08/Feb/2025 07:44:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:44:08,382 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f16e2747-694a-4e70-9529-439a7dc707c3
+127.0.0.1 - - [08/Feb/2025 07:44:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:44:08,487 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1103743b-655d-4899-9cd3-b1e884ec9bbf
+127.0.0.1 - - [08/Feb/2025 07:44:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:45:50,872 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 0f6d9b97-f3b4-43b8-a7ae-e32fff15bf11
+2025-02-08 07:45:50,938 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0f6d9b97-f3b4-43b8-a7ae-e32fff15bf11
+127.0.0.1 - - [08/Feb/2025 07:45:50] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:45:52,241 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 5c7d2d1b-a807-4410-a97c-23cfc8067e80
+2025-02-08 07:45:52,564 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5c7d2d1b-a807-4410-a97c-23cfc8067e80
+127.0.0.1 - - [08/Feb/2025 07:45:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:45:55,446 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 4c88bc85-cad2-41ef-8bd0-afa42c8bf6f3
+2025-02-08 07:45:55,491 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 4c88bc85-cad2-41ef-8bd0-afa42c8bf6f3
+127.0.0.1 - - [08/Feb/2025 07:45:55] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:02,676 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 6b402221-9fa5-48e6-b725-5bd87d3160d2
+2025-02-08 07:46:03,113 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 6b402221-9fa5-48e6-b725-5bd87d3160d2
+127.0.0.1 - - [08/Feb/2025 07:46:03] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:06,380 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 811bd8c6-904d-45fb-936f-45db0f0e7fe1
+2025-02-08 07:46:06,561 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 811bd8c6-904d-45fb-936f-45db0f0e7fe1
+127.0.0.1 - - [08/Feb/2025 07:46:06] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:07,392 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f00e469e-1300-4cd2-a4de-0941af5899ef
+2025-02-08 07:46:07,614 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f00e469e-1300-4cd2-a4de-0941af5899ef
+127.0.0.1 - - [08/Feb/2025 07:46:07] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:08,147 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 2b78a957-a18d-495c-bc6a-2116e36f7fa7
+2025-02-08 07:46:08,283 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2b78a957-a18d-495c-bc6a-2116e36f7fa7
+127.0.0.1 - - [08/Feb/2025 07:46:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:10,410 - LoudVA - WARNING - [LoudServer] - Timeout reached for request ff63e010-5083-47a0-8ff4-d1848a2fca04
+2025-02-08 07:46:11,025 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ff63e010-5083-47a0-8ff4-d1848a2fca04
+127.0.0.1 - - [08/Feb/2025 07:46:11] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:12,363 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c672475e-728c-4719-8f5e-4d3342bf33d0
+2025-02-08 07:46:12,376 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c672475e-728c-4719-8f5e-4d3342bf33d0
+127.0.0.1 - - [08/Feb/2025 07:46:12] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:12,578 - LoudVA - WARNING - [LoudServer] - Timeout reached for request a515cf88-60a0-44fe-82a7-cfed1d3ab71e
+2025-02-08 07:46:13,157 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a515cf88-60a0-44fe-82a7-cfed1d3ab71e
+127.0.0.1 - - [08/Feb/2025 07:46:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:13,507 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 2a2307b3-ba29-49f8-ba2b-bb0fe0dc9365
+2025-02-08 07:46:13,579 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2a2307b3-ba29-49f8-ba2b-bb0fe0dc9365
+127.0.0.1 - - [08/Feb/2025 07:46:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:14,935 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 54ccce59-31d5-4e3e-9916-20ae49280d88
+2025-02-08 07:46:14,989 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 54ccce59-31d5-4e3e-9916-20ae49280d88
+127.0.0.1 - - [08/Feb/2025 07:46:14] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:21,147 - LoudVA - WARNING - [LoudServer] - Timeout reached for request bd48361f-8304-44c1-bb81-9689e656d726
+2025-02-08 07:46:21,772 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bd48361f-8304-44c1-bb81-9689e656d726
+127.0.0.1 - - [08/Feb/2025 07:46:21] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:22,316 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c62b73e7-958a-4270-8145-ede088116be9
+2025-02-08 07:46:22,575 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c62b73e7-958a-4270-8145-ede088116be9
+127.0.0.1 - - [08/Feb/2025 07:46:22] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:23,135 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c4ae4400-1663-46f8-b42c-1007a31fab04
+2025-02-08 07:46:23,435 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c4ae4400-1663-46f8-b42c-1007a31fab04
+127.0.0.1 - - [08/Feb/2025 07:46:23] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:26,140 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1f43979e-e36d-4dca-9c7b-8e8a7a500148
+2025-02-08 07:46:26,275 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1f43979e-e36d-4dca-9c7b-8e8a7a500148
+127.0.0.1 - - [08/Feb/2025 07:46:26] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:28,378 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c2af5339-c093-4123-87f5-c717179df08a
+2025-02-08 07:46:28,392 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 139aef77-1f9e-4baa-9931-6655e40b162c
+2025-02-08 07:46:28,554 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c2af5339-c093-4123-87f5-c717179df08a
+2025-02-08 07:46:28,567 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 139aef77-1f9e-4baa-9931-6655e40b162c
+127.0.0.1 - - [08/Feb/2025 07:46:28] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [08/Feb/2025 07:46:28] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:32,597 - LoudVA - WARNING - [LoudServer] - Timeout reached for request d140633f-c84d-43b6-b113-a23ecfd4ec76
+2025-02-08 07:46:33,033 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d140633f-c84d-43b6-b113-a23ecfd4ec76
+2025-02-08 07:46:33,052 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 0229ca52-7690-4499-9a35-3dd5a8e90159
+2025-02-08 07:46:33,053 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0229ca52-7690-4499-9a35-3dd5a8e90159
+127.0.0.1 - - [08/Feb/2025 07:46:33] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [08/Feb/2025 07:46:33] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:37,376 - LoudVA - WARNING - [LoudServer] - Timeout reached for request e0a1ebfd-2d3d-4030-864b-6ba4162d7b6f
+2025-02-08 07:46:37,538 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e0a1ebfd-2d3d-4030-864b-6ba4162d7b6f
+127.0.0.1 - - [08/Feb/2025 07:46:37] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:38,515 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 7543e352-1654-4e13-9ffc-d33138b04f26
+2025-02-08 07:46:38,749 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7543e352-1654-4e13-9ffc-d33138b04f26
+127.0.0.1 - - [08/Feb/2025 07:46:38] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:42,627 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 46df97d2-a37d-43a3-b35b-a95d9013ed75
+2025-02-08 07:46:42,903 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 46df97d2-a37d-43a3-b35b-a95d9013ed75
+127.0.0.1 - - [08/Feb/2025 07:46:42] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:42,989 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 90bf3277-0ec8-4aec-86ba-24605a742b7e
+2025-02-08 07:46:43,026 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 90bf3277-0ec8-4aec-86ba-24605a742b7e
+127.0.0.1 - - [08/Feb/2025 07:46:43] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:47,227 - LoudVA - WARNING - [LoudServer] - Timeout reached for request bf7f0d52-de47-4122-91a7-5d3ae42ecb80
+2025-02-08 07:46:47,286 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bf7f0d52-de47-4122-91a7-5d3ae42ecb80
+127.0.0.1 - - [08/Feb/2025 07:46:47] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:48,148 - LoudVA - WARNING - [LoudServer] - Timeout reached for request d2b8293d-1fe8-4519-8cb7-726813ac72b0
+2025-02-08 07:46:48,160 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: d2b8293d-1fe8-4519-8cb7-726813ac72b0
+127.0.0.1 - - [08/Feb/2025 07:46:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:52,441 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 7b9c3180-0d58-4918-9558-308f2706419c
+2025-02-08 07:46:52,444 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 7b9c3180-0d58-4918-9558-308f2706419c
+127.0.0.1 - - [08/Feb/2025 07:46:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:52,986 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 31219421-067e-48cb-91cb-3e8d940558d6
+2025-02-08 07:46:52,988 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 31219421-067e-48cb-91cb-3e8d940558d6
+127.0.0.1 - - [08/Feb/2025 07:46:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:57,791 - LoudVA - WARNING - [LoudServer] - Timeout reached for request ad2f56b5-d69f-4673-a24d-dc9ec301b9d6
+2025-02-08 07:46:58,234 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ad2f56b5-d69f-4673-a24d-dc9ec301b9d6
+127.0.0.1 - - [08/Feb/2025 07:46:58] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:46:58,319 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f5b806a5-3a08-45f3-9116-2a34b44403c9
+2025-02-08 07:46:58,359 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f5b806a5-3a08-45f3-9116-2a34b44403c9
+127.0.0.1 - - [08/Feb/2025 07:46:58] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:02,163 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 30f4d831-d7a1-4f54-8da8-0c98213c5e3f
+2025-02-08 07:47:02,319 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 30f4d831-d7a1-4f54-8da8-0c98213c5e3f
+127.0.0.1 - - [08/Feb/2025 07:47:02] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:03,203 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 2012eab4-dea6-49bb-8b91-841488a052dc
+2025-02-08 07:47:03,292 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 2012eab4-dea6-49bb-8b91-841488a052dc
+127.0.0.1 - - [08/Feb/2025 07:47:03] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:07,187 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 0bb2fe91-0769-437e-93c6-3235f2e4dd77
+2025-02-08 07:47:07,202 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0bb2fe91-0769-437e-93c6-3235f2e4dd77
+127.0.0.1 - - [08/Feb/2025 07:47:07] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:08,121 - LoudVA - WARNING - [LoudServer] - Timeout reached for request f44a4bd1-70f2-426c-9024-8fc538161960
+2025-02-08 07:47:08,196 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: f44a4bd1-70f2-426c-9024-8fc538161960
+127.0.0.1 - - [08/Feb/2025 07:47:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:12,076 - LoudVA - WARNING - [LoudServer] - Timeout reached for request c7b1249c-965b-408e-ad48-3260ea7daf6c
+2025-02-08 07:47:12,109 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c7b1249c-965b-408e-ad48-3260ea7daf6c
+127.0.0.1 - - [08/Feb/2025 07:47:12] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:13,345 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 5ab15a81-0155-4fde-afb7-d7eaed85d05b
+2025-02-08 07:47:13,403 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5ab15a81-0155-4fde-afb7-d7eaed85d05b
+127.0.0.1 - - [08/Feb/2025 07:47:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:17,356 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 1791b2b8-170d-4eae-9b2e-ed0682c69ea4
+2025-02-08 07:47:17,362 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1791b2b8-170d-4eae-9b2e-ed0682c69ea4
+127.0.0.1 - - [08/Feb/2025 07:47:17] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:18,058 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 167be8b6-afd7-48b3-8082-f44240d7d43c
+2025-02-08 07:47:18,060 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 167be8b6-afd7-48b3-8082-f44240d7d43c
+127.0.0.1 - - [08/Feb/2025 07:47:18] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:22,680 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 29984f6c-7f64-4de6-aa20-482c904c00c1
+2025-02-08 07:47:22,694 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 29984f6c-7f64-4de6-aa20-482c904c00c1
+127.0.0.1 - - [08/Feb/2025 07:47:22] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:23,076 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 85d9e453-115d-4f81-b562-1375056fb4f9
+2025-02-08 07:47:23,078 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 85d9e453-115d-4f81-b562-1375056fb4f9
+127.0.0.1 - - [08/Feb/2025 07:47:23] "POST /inference HTTP/1.1" 200 -
+2025-02-08 07:47:27,302 - LoudVA - WARNING - [LoudServer] - Timeout reached for request 9dc81a0f-777f-434f-96ab-9e8d11cc0c82
+2025-02-08 07:47:27,307 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9dc81a0f-777f-434f-96ab-9e8d11cc0c82
+127.0.0.1 - - [08/Feb/2025 07:47:27] "POST /inference HTTP/1.1" 200 -

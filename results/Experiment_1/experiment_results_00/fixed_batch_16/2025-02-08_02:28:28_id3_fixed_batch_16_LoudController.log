@@ -1,0 +1,115 @@
+2025-02-08 02:27:28,922 - LoudVA - INFO - [LoudController] - Starting LoudController...
+2025-02-08 02:27:28,922 - LoudVA - INFO - [LoudController] - Press CTRL+C to stop the controller.
+2025-02-08 02:27:28,922 - LoudVA - INFO - [LoudController] - Debug mode: False
+2025-02-08 02:27:28,952 - LoudVA - INFO - [LoudController] - Selected scheduler: fixed_batch
+2025-02-08 02:27:28,960 - LoudVA - INFO - [LoudServer] - Starting LoudVA server...
+ * Serving Flask app 'LoudServer'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+2025-02-08 02:27:30,245 - LoudVA - INFO - [DeviceData] - Using profiling data for decision making.
+2025-02-08 02:27:30,245 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
+2025-02-08 02:27:30,254 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
+2025-02-08 02:27:30,254 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-02-08 02:27:30,254 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-02-08 02:27:30,254 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-02-08 02:27:30,283 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 114750000
+2025-02-08 02:27:30,283 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Filling missing profile data...
+2025-02-08 02:27:30,283 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Missing profile data filled with predictions.
+2025-02-08 02:27:30,284 - LoudVA - INFO - [DeviceData] - Devices initialized successfully
+2025-02-08 02:27:30,284 - LoudVA - INFO - [LoudController] - Using fixed batch size 16
+127.0.0.1 - - [08/Feb/2025 02:28:31] "GET / HTTP/1.1" 200 -
+2025-02-08 02:30:36,174 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 02:30:41,037 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 02:30:43,607 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: e4fd8d0b-78a5-4f95-b7d6-f60ae2381f83
+127.0.0.1 - - [08/Feb/2025 02:30:43] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:30:46,028 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.0
+2025-02-08 02:30:47,751 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 02:30:50,658 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.0
+2025-02-08 02:30:51,037 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.0
+2025-02-08 02:30:52,734 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 91f7713d-4f0a-41da-8df9-6817a0dd7494
+127.0.0.1 - - [08/Feb/2025 02:30:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:30:52,739 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 92d3ba04-a557-4808-b021-d3d209b4dcfe
+127.0.0.1 - - [08/Feb/2025 02:30:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:30:52,744 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ee9c7678-2f67-4133-8ec9-ebc23eab2db3
+127.0.0.1 - - [08/Feb/2025 02:30:52] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:30:53,723 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 02:30:56,006 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 35be0b3a-9352-4a51-9977-22fe974ff345
+127.0.0.1 - - [08/Feb/2025 02:30:56] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:30:56,016 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 99cc87a5-89bf-447f-92da-13e4b3fe94b7
+127.0.0.1 - - [08/Feb/2025 02:30:56] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:30:56,057 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 02:30:56,662 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 02:30:59,728 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 02:31:00,273 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5fe1e77b-f2fc-47a5-af3a-dc363135cc1e
+2025-02-08 02:31:00,276 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 58cd98b2-c48e-47b2-89c0-ef6fd3a6674c
+127.0.0.1 - - [08/Feb/2025 02:31:00] "POST /inference HTTP/1.1" 200 -
+127.0.0.1 - - [08/Feb/2025 02:31:00] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:01,032 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 02:31:02,188 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: c958ac16-aa2b-49da-8a9d-8d199ea4caf6
+127.0.0.1 - - [08/Feb/2025 02:31:02] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:02,765 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.0
+2025-02-08 02:31:05,774 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.0
+2025-02-08 02:31:06,075 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 02:31:08,448 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 1ecbc6f2-1959-4e01-9588-fb8b24a9d0d5
+127.0.0.1 - - [08/Feb/2025 02:31:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:08,469 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3e66ec9b-60b2-4595-b3d2-5a8e620863a9
+127.0.0.1 - - [08/Feb/2025 02:31:08] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:08,736 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.0
+2025-02-08 02:31:11,078 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 02:31:11,684 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 02:31:12,336 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 66b70c7d-89d3-4056-a096-70423325988f
+127.0.0.1 - - [08/Feb/2025 02:31:12] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:13,620 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 50452bc4-8b4b-49d2-a910-453444a7a372
+127.0.0.1 - - [08/Feb/2025 02:31:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:14,651 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.0
+2025-02-08 02:31:15,111 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: bcfaa72d-3f8b-45f9-ad8f-21d36af1aa8a
+127.0.0.1 - - [08/Feb/2025 02:31:15] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:16,048 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 02:31:16,123 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3e3b8afa-5f84-4ae9-a973-062d2885ffdc
+127.0.0.1 - - [08/Feb/2025 02:31:16] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:16,726 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a38867e9-82de-4ac9-a18d-426ba155d97d
+127.0.0.1 - - [08/Feb/2025 02:31:16] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:17,719 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 02:31:18,316 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cfd7e4c8-1dc2-491a-a6cb-a66fb6eee5b8
+127.0.0.1 - - [08/Feb/2025 02:31:18] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:18,336 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 408a5a37-2ddf-4e65-a91f-3121bd6cf0ff
+127.0.0.1 - - [08/Feb/2025 02:31:18] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:20,692 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0b5c3508-d4fb-41a4-84af-929a5831568d
+127.0.0.1 - - [08/Feb/2025 02:31:20] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:21,093 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 02:31:24,183 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: a6005743-8e43-4089-8d1c-68dd9427fa36
+127.0.0.1 - - [08/Feb/2025 02:31:24] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:26,025 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 02:31:28,307 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 5806a591-a4ae-4cdf-9c9f-ab5ad111f5ba
+127.0.0.1 - - [08/Feb/2025 02:31:28] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:28,311 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 386b7c85-c037-458f-9a85-c6043856d936
+127.0.0.1 - - [08/Feb/2025 02:31:28] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:31,076 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.0
+2025-02-08 02:31:36,027 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 02:31:41,029 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.0
+2025-02-08 02:31:43,097 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0501184f-e1a8-4df1-abbd-eb75c5436787
+127.0.0.1 - - [08/Feb/2025 02:31:43] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:43,099 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: b4ee8243-4fc5-4f7c-8792-aed9c3172fb2
+127.0.0.1 - - [08/Feb/2025 02:31:43] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:43,103 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 649a3a2e-8493-4170-ad2d-b6176931ebc7
+127.0.0.1 - - [08/Feb/2025 02:31:43] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:46,071 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.0
+2025-02-08 02:31:48,208 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 3131168f-ba15-4ba5-969b-d73fbd030eea
+127.0.0.1 - - [08/Feb/2025 02:31:48] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:31:51,026 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.0
+2025-02-08 02:31:56,033 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.0
+2025-02-08 02:32:01,079 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.0
+2025-02-08 02:32:03,522 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 0ee03619-ffff-40e7-9307-c79f52ea9191
+127.0.0.1 - - [08/Feb/2025 02:32:03] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:32:03,524 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: cc2f70a7-869e-4c06-bf50-a6e4c6dd4649
+127.0.0.1 - - [08/Feb/2025 02:32:03] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:32:06,035 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.0
+2025-02-08 02:32:11,025 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.0
+2025-02-08 02:32:13,029 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 9f0e93c6-d0d3-4ac3-bdb2-4128c29f5f17
+127.0.0.1 - - [08/Feb/2025 02:32:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:32:13,039 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: 269fd9ff-4a56-42a5-b79c-5a2b7d3636f1
+127.0.0.1 - - [08/Feb/2025 02:32:13] "POST /inference HTTP/1.1" 200 -
+2025-02-08 02:32:26,713 - LoudVA - INFO - [LoudServer] - Inference completed. Request ID: ceb6c1aa-8afd-4066-8dff-06412e19b25d
+127.0.0.1 - - [08/Feb/2025 02:32:26] "POST /inference HTTP/1.1" 200 -

@@ -49,7 +49,7 @@ def test_inference():
         files = [('images', open(os.path.join(IMAGES_DIR, image), 'rb')) for image in selected_images]
 
         # Define a random latency constraint
-        latency_constraint = random.randint(1, 10)
+        latency_constraint = random.randint(1, 20)
 
         # Print the selected images and latency constraint
         print(f"Selected images: {selected_images}")

@@ -21,3 +21,7 @@ LoudVA.log*
 experiment_results*/*
 
 ansible/inventory.ini
+LoudController/LoudGenerator/event_log.csv
+request_log.csv
+
+LoudController.log

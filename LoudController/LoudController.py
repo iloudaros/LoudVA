@@ -11,24 +11,24 @@ logger = setup_logging()
 def selected_scheduler():
     logger.info(f"Selected scheduler: {settings.scheduler}")
     if settings.scheduler == 'round_robin':
-        from altSchedulers.RoundRobinScheduler import RoundRobinScheduler
+        from altSchedulers.SingleDevice.RoundRobinScheduler import RoundRobinScheduler
         logger.info(f"Using fixed batch size {settings.fixed_batch_size}")
         return RoundRobinScheduler(settings.fixed_batch_size)
     elif settings.scheduler == 'random':
-        from altSchedulers.RandomScheduler import RandomScheduler
+        from altSchedulers.SingleDevice.RandomScheduler import RandomScheduler
         return RandomScheduler()
     elif settings.scheduler == 'stress':
-        from altSchedulers.StressScheduler import StressScheduler
+        from altSchedulers.SingleDevice.StressScheduler import StressScheduler
         return StressScheduler()
     elif settings.scheduler == 'interval':
-        from altSchedulers.IntervalScheduler import IntervalScheduler
+        from altSchedulers.SingleDevice.IntervalScheduler import IntervalScheduler
         logger.info(f"Using batching interval {settings.batching_interval}")
         return IntervalScheduler(settings.batching_interval)
     elif settings.scheduler == 'transparent':
-        from altSchedulers.TransparentScheduler import TransparentScheduler
+        from altSchedulers.SingleDevice.TransparentScheduler import TransparentScheduler
         return TransparentScheduler()
     elif settings.scheduler == 'fixed_batch':
-        from altSchedulers.FixedBatchScheduler import FixedBatchScheduler
+        from altSchedulers.SingleDevice.FixedBatchScheduler import FixedBatchScheduler
         logger.info(f"Using fixed batch size {settings.fixed_batch_size}")
         return FixedBatchScheduler(settings.fixed_batch_size, 15)
     else:

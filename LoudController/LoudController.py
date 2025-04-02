@@ -10,7 +10,7 @@ logger = setup_logging()
 # Scheduler selection : Import only the scheduler you want to use and return an instance of it
 def selected_scheduler():
     logger.info(f"Selected scheduler: {settings.scheduler}")
-    if single_device:
+    if settings.single_device:
         if settings.scheduler == 'random':
             from altSchedulers.SingleDevice.RandomScheduler import RandomScheduler
             return RandomScheduler()
@@ -35,7 +35,7 @@ def selected_scheduler():
         if settings.scheduler == 'round_robin':
             from altSchedulers.Cluster.RoundRobinScheduler import RoundRobinScheduler
             return RoundRobinScheduler()
-        elif settings.scheduler == 'kind_round_robin'
+        elif settings.scheduler == 'kind_round_robin':
             from altSchedulers.Cluster.KindRoundRobinScheduler import KindRoundRobinScheduler
             return KindRoundRobinScheduler()
         elif settings.scheduler == 'interval':

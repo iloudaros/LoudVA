@@ -1,6 +1,5 @@
 # LoudController settings
-max_latency = 5.0
-default_latency = 1.0
+default_latency = 20.0 
 
 # Frequency scaling settings
 scaling_logic_period = 2
@@ -13,7 +12,7 @@ model_version = '1'
 scaling = 'INCEPTION'
 
 # Profiling or Predicting
-use_prediction = False
+use_prediction = False 
 fill_missing_profile_data = True
 
 # Health check settings
@@ -29,10 +28,11 @@ fixed_batch_size = 8 # Used for the fixed batch size scheduler
 batching_interval = 1 # Used for the fixed interval scheduler
 
 # Debugging
-debug = False
+debug = True
 
 # Scheduler settings
 scheduler_wait_time = 0.01
-scheduler = 'fixed_batch' # Options: ['loud', 'random', 'round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
-safety_margin = 0.2
+scheduler = 'loud' # Options: ['loud', 'random', 'round_robin', 'kind_round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
+safety_margin = 0.2 # The manual decrease in every latency constraint to account for unpredictable delays.
 calculate_network_cost = True
+single_device = False

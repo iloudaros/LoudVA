@@ -141,14 +141,19 @@ start_LoudController_gunicorn:
 	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
 
 start_LoudController:
-	@echo "____Starting Control Node in debug mode____"
-	@screen -dmS LoudController bash -c 'python3 LoudController/LoudController.py > LoudController.log 2>&1' 
-	@echo "LoudController Started. Use 'screen -r LoudController' to view the logs"
-	@curl \
-		-d "LoudController started" \
-		-H "Title: LoudVA" \
-		-H "Tags: white_check_mark" \
-		${NOTIFICATION_URL}
+	@if screen -list | grep -q "LoudController"; then \
+		echo "LoudController is already running."; \
+	else \
+		echo "____Starting Control Node in debug mode____"; \
+		screen -dmS LoudController bash -c 'python3 LoudController/LoudController.py > LoudController.log 2>&1'; \
+		echo "LoudController Started. Use 'screen -r LoudController' to view the logs"; \
+		curl \
+			-d "LoudController started" \
+			-H "Title: LoudVA" \
+			-H "Tags: white_check_mark" \
+			${NOTIFICATION_URL}; \
+	fi
+
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"
@@ -427,7 +432,7 @@ notify:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-02-15_04:38:17_id4_loud_tegrastats
+tegrastats_log_name = 2025-03-11_04:37:04_id0_fixed_batch_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -516,10 +521,11 @@ experiment_1:
 
 
 report:
-	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_01 --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv #--exclude-ids 6 5 1
+	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_keep --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv 
+#--exclude-ids 0
 
 aggregate_results:
-	@python3 scripts/python/aggregate_results.py  /home/louduser/LoudVA/experiment_results_01/experiment_report.csv
+	@python3 scripts/python/aggregate_results.py  /home/louduser/LoudVA/experiment_results_keep/experiment_report.csv
 
 report_and_plot: report aggregate_results plot_aggregated_results
 
@@ -528,6 +534,15 @@ experiment_2:
 	@python3 LoudController/Experiments/Experiment_2.py
 	@curl \
 		-d "Experiment 2: Complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL} 
+
+experiment_3:
+	@echo "____Running Experiment 3____"
+	@python3 LoudController/Experiments/Experiment_3.py
+	@curl \
+		-d "Experiment 3: Complete" \
 		-H "Title: LoudVA" \
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL} 
@@ -581,7 +596,7 @@ plot_stress:
 	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-latency --plot-temperature --align-zero 
 
 plot_aggregated_results:
-	@python3 plots/plot_aggregated_results.py /home/louduser/LoudVA/experiment_results_01/experiment_report_aggregated.csv
+	@python3 plots/plot_aggregated_results.py /home/louduser/LoudVA/experiment_results_keep/experiment_report_aggregated.csv
 
 
 ################################################

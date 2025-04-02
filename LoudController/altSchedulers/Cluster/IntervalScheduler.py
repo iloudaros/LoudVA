@@ -1,3 +1,4 @@
+from itertools import cycle
 import time
 import threading
 from DeviceData import initialize_devices
@@ -13,6 +14,8 @@ class IntervalScheduler:
 
     def __init__(self, interval):
         self.interval = interval
+        self.device_cycle = cycle(devices)
+
 
     def start(self, queue, response_dict):
         queue_list = []
@@ -23,12 +26,15 @@ class IntervalScheduler:
                 # Gather all requests from the queue
                 while not queue.empty():
                     queue_list.append(queue.get())
+
+                # Rotate to the next device
+                device = next(self.device_cycle)
                 
-                # The batch size is the size of the queue list with max batch size as the upper limit
-                batch_size = min(len(queue_list), devices[0].max_batch_size)
+                # The batch size is the size of the queue list with the device max batch size as the upper limit
+                batch_size = min(len(queue_list), device.max_batch_size)
 
                 # Dispatch the batch
-                threading.Thread(target=self.dispatch_request, args=(devices[0], queue_list[:batch_size], response_dict)).start()
+                threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict)).start()
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]

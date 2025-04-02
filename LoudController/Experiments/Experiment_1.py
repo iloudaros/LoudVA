@@ -1,4 +1,4 @@
-# This is an experiment to test the LoudScheduler against the RoundRobinScheduler and RandomScheduler. The experiment will run the LoudController with each scheduler and compare the results.
+# This is an experiment to test the LoudScheduler against the TransparentScheduler, the IntervalScheduler and the FixedBatchScheduler. The experiment will run the LoudController with each scheduler and compare the results.
 # We will use the simulated workload from LoudGenerator.py to test the schedulers.
 # The outline of the experiment is as follows:
 # 1. Empty the request_log.csv and LoudController.log files if they exist.

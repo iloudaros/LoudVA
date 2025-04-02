@@ -38,7 +38,7 @@ class FixedBatchScheduler:
                         first_item_time = None
                     continue
 
-                # The batch size is the size of the queue list with max batch size as the upper limit
+                
                 batch_size = self.fixed_batch_size
 
                 # Dispatch the batch

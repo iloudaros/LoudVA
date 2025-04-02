@@ -11,8 +11,7 @@ devices = initialize_devices()
 logger = setup_logging()
 
 class RoundRobinScheduler:
-    def __init__(self, fixed_batch_size):
-        self.fixed_batch_size = fixed_batch_size
+    def __init__(self):
         self.device_cycle = cycle(devices)
 
     def start(self, queue, response_dict):
@@ -25,18 +24,11 @@ class RoundRobinScheduler:
                 while not queue.empty():
                     queue_list.append(queue.get())
 
-                # Ensure there are available devices
-                available_devices = [device for device in devices if device.is_available()]
-                if not available_devices:
-                    logger.warning("No available devices found.")
-                    continue
-
-                # Rotate to the next available device
+                # Rotate to the next device
                 device = next(self.device_cycle)
-                while not device.is_available():
-                    device = next(self.device_cycle)
 
-                batch_size = min(self.fixed_batch_size, len(queue_list), device.max_batch_size)
+                # Set the batch size to the maximum possible
+                batch_size = min(len(queue_list), device.max_batch_size)
 
                 # Dispatch the batch
                 threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict)).start()

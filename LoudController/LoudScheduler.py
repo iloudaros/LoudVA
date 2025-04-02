@@ -199,6 +199,7 @@ class LoudScheduler:
                 min_remaining_time = min(all_remaining_times)
 
                 # Select the best device configuration
+                logger.debug(f"What's the best config for \n min_remaining_time : {min_remaining_time}, and \n batch_size : {len(all_images)}")
                 best_device, best_freq, best_batch_size, expected_latency = self.select_best_device_config(min_remaining_time, len(all_images))
 
                 if best_device and best_batch_size > 0:

@@ -1,3 +1,4 @@
+from itertools import cycle
 import time
 import threading
 from DeviceData import initialize_devices
@@ -14,6 +15,8 @@ class FixedBatchScheduler:
     def __init__(self, fixed_batch_size, max_waiting_time):
         self.fixed_batch_size = fixed_batch_size
         self.max_waiting_time = max_waiting_time
+        self.device_cycle = cycle(devices)
+        self.small_queue_flag = False
 
     def start(self, queue, response_dict):
         queue_list = []
@@ -28,21 +31,26 @@ class FixedBatchScheduler:
                     if first_item_time is None:
                         first_item_time = time.time()
 
+                # Rotate to the next device
+                device = next(self.device_cycle)
+
+                target_batch_size = min(self.fixed_batch_size, device.max_batch_size)
+
+
                 # Check if the queue_list is smaller than the fixed batch size
-                if len(queue_list) < self.fixed_batch_size:
+                if len(queue_list) < target_batch_size:
                     # Check if the max waiting time is surpassed
                     if first_item_time and (time.time() - first_item_time >= self.max_waiting_time):
-                        # Dispatch the batch
-                        threading.Thread(target=self.dispatch_request, args=(devices[0], queue_list, response_dict)).start()
-                        queue_list = []
-                        first_item_time = None
-                    continue
+                        self.small_queue_flag = True
+                    else:
+                        continue
 
-                # The batch size is the size of the queue list with max batch size as the upper limit
-                batch_size = self.fixed_batch_size
+                # Set the batch size 
+                batch_size = target_batch_size if not self.small_queue_flag else len(queue_list)
+                self.small_queue_flag = False
 
                 # Dispatch the batch
-                threading.Thread(target=self.dispatch_request, args=(devices[0], queue_list[:batch_size], response_dict)).start()
+                threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict)).start()
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]

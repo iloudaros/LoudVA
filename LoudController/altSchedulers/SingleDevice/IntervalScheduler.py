@@ -24,7 +24,7 @@ class IntervalScheduler:
                 while not queue.empty():
                     queue_list.append(queue.get())
                 
-                # The batch size is the size of the queue list with max batch size as the upper limit
+                # The batch size is the size of the queue list with the device max batch size as the upper limit
                 batch_size = min(len(queue_list), devices[0].max_batch_size)
 
                 # Dispatch the batch

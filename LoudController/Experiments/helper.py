@@ -2,7 +2,7 @@ import os
 import time
 import subprocess
 
-schedulers = ['loud', 'random', 'round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
+schedulers = ['loud', 'random', 'round_robin', 'kind_round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
 
 # Functions to change the scheduler settings
 def set_scheduler(scheduler):

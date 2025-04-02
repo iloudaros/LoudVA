@@ -256,7 +256,7 @@ class LoudScheduler:
 
         for image_id, image_response in zip(image_ids, response):
             # Assuming image_response is a list, append the queue_exit_time
-            image_response.append(queue_exit_time)
+            image_response.extend([device.name, queue_exit_time])
             logger.debug(f"Response: {image_response}")
             response_dict[image_id] = image_response
 

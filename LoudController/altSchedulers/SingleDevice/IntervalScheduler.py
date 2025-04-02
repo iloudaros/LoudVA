@@ -50,7 +50,7 @@ class IntervalScheduler:
         logger.debug(f"Received response ({response}) from device {device.name} for image IDs: {image_ids}")
 
         for image_id, image_response in zip(image_ids, response):
-            image_response.append(queue_exit_time)
+            image_response.extend([device.name, queue_exit_time])
             response_dict[image_id] = image_response
 
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")

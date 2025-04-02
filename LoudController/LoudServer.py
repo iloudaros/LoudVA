@@ -16,10 +16,10 @@ CSV_LOG_FILE = 'request_log.csv'
 if not os.path.exists(CSV_LOG_FILE):
     with open(CSV_LOG_FILE, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Request ID', 'Image ID', 'Arrival Time', 'Queue Exit Time', 
+        writer.writerow(['Request ID', 'Image ID', 'Device', 'Arrival Time', 'Queue Exit Time', 
                         'Completion Time', 'Latency', 'Requested Latency', 'Timed Out'])
 
-def log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time, 
+def log_request_to_csv(request_id, image_id, device, arrival_time, queue_exit_time, 
                        completion_time, requested_latency, timed_out):
     actual_latency = completion_time - arrival_time
     with open(CSV_LOG_FILE, mode='a', newline='') as file:
@@ -27,6 +27,7 @@ def log_request_to_csv(request_id, image_id, arrival_time, queue_exit_time,
         writer.writerow([
             request_id,
             image_id,
+            device,
             arrival_time,
             queue_exit_time,
             completion_time,
@@ -98,10 +99,11 @@ def LoudServer(queue, response_dict):
             for image_id in image_ids:
                 if image_id in responses:
                     queue_exit_time = responses[image_id][-1]
-                    log_request_to_csv(request_id, image_id, arrival_time, 
+                    device = responses[image_id][-2]
+                    log_request_to_csv(request_id, image_id, device, arrival_time, 
                                       queue_exit_time, end_time, latency_constraint, False)
                 else:
-                    log_request_to_csv(request_id, image_id, arrival_time, 
+                    log_request_to_csv(request_id, image_id, "N/A", arrival_time, 
                                       None, end_time, latency_constraint, True)
 
             logger.info(f"Completed. Request ID: {request_id}")

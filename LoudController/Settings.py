@@ -28,7 +28,7 @@ fixed_batch_size = 8 # Used for the fixed batch size scheduler
 batching_interval = 1 # Used for the fixed interval scheduler
 
 # Debugging
-debug = True
+debug = False
 
 # Scheduler settings
 scheduler_wait_time = 0.01

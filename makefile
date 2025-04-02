@@ -432,7 +432,7 @@ notify:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-03-11_04:37:04_id0_fixed_batch_tegrastats
+tegrastats_log_name = 2025-04-02_06:16:32_id0_round_robin_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"

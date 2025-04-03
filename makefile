@@ -157,7 +157,7 @@ start_LoudController:
 
 stop_LoudController:
 	@echo "____Stopping Control Node____"
-	screen -S LoudController -X quit
+	-screen -S LoudController -X quit
 	@echo "LoudController Stopped"
 
 restart_LoudController: stop_LoudController start_LoudController
@@ -432,7 +432,7 @@ notify:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-04-02_06:52:02_id0_round_robin_tegrastats
+tegrastats_log_name = 2025-04-03_15:52:06_id0_interval_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -520,7 +520,7 @@ experiment_1:
 		${NOTIFICATION_URL}
 
 
-report:
+report: stop_LoudController
 	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_keep --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv 
 #--exclude-ids 0
 
@@ -538,7 +538,7 @@ experiment_2:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL} 
 
-experiment_3:
+experiment_3: stop_LoudController
 	@echo "____Running Experiment 3____"
 	@python3 LoudController/Experiments/Experiment_3.py
 	@curl \

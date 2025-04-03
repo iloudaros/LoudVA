@@ -4,6 +4,9 @@ import threading
 from DeviceData import initialize_devices
 from logging_config import setup_logging
 
+response_dict_lock = threading.Lock()
+
+
 # Initialize devices
 devices = initialize_devices()
 
@@ -56,8 +59,9 @@ class IntervalScheduler:
         logger.debug(f"Received response ({response}) from device {device.name} for image IDs: {image_ids}")
 
         for image_id, image_response in zip(image_ids, response):
-            image_response.extend([device.name, queue_exit_time])
-            response_dict[image_id] = image_response
+            with response_dict_lock:
+                image_response.extend([device.name, queue_exit_time])
+                response_dict[image_id] = image_response
 
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
 

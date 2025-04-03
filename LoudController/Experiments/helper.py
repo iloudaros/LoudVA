@@ -178,7 +178,7 @@ def experiment(scheduler, results_dir, id):
     default_power_mode()
 
     # Start Controller
-    print(f"Running experiment with {scheduler} scheduler")
+    print(f"Starting LoudController with {scheduler} scheduler")
     set_scheduler(scheduler)
     start_controller()
 
@@ -188,25 +188,37 @@ def experiment(scheduler, results_dir, id):
     # Start data collection
     start_time = time.strftime('%Y-%m-%d_%H:%M:%S')
     tegrastats_log_name = start_data_collection(scheduler,id)
-    
 
     # Simulate workload
-    simulate_workload()
-   
+    simulate_workload() 
 
     # Stop data collection
     stop_data_collection()
     retrieve_data()
     
 
-    # Move logs to the scheduler's directory
     rename_logs(results_dir, start_time)
+
+    # Organise the logs 
     os.rename(f'{start_time}_{results_dir}_request_log.csv', 
                 f'experiment_results/{results_dir}/{start_time}_id{id}_{results_dir}_request_log.csv')
     os.rename(f'{start_time}_{results_dir}_LoudController.log', 
                 f'experiment_results/{results_dir}/{start_time}_id{id}_{results_dir}_LoudController.log')
+    
+    # Move tegrastats log of every device to the results directory
+
     os.rename(f'/home/louduser/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/{tegrastats_log_name}',
-                f'experiment_results/{results_dir}/{tegrastats_log_name}')
+                f'experiment_results/{results_dir}/agx_{tegrastats_log_name}')
+    os.rename(f'/home/louduser/LoudVA/measurements/power/xavier-nx-00/home/iloudaros/{tegrastats_log_name}',
+                f'experiment_results/{results_dir}/nx0_{tegrastats_log_name}')
+    os.rename(f'/home/louduser/LoudVA/measurements/power/xavier-nx-01/home/iloudaros/{tegrastats_log_name}',
+                f'experiment_results/{results_dir}/nx1_{tegrastats_log_name}')
+    os.rename(f'/home/louduser/LoudVA/measurements/power/LoudJetson0/home/iloudaros/{tegrastats_log_name}',
+                f'experiment_results/{results_dir}/nano0_{tegrastats_log_name}')
+    os.rename(f'/home/louduser/LoudVA/measurements/power/LoudJetson1/home/iloudaros/{tegrastats_log_name}',
+                f'experiment_results/{results_dir}/nano1_{tegrastats_log_name}')
+    os.rename(f'/home/louduser/LoudVA/measurements/power/LoudJetson2/home/iloudaros/{tegrastats_log_name}',
+                f'experiment_results/{results_dir}/nano2_{tegrastats_log_name}')
 
     stop_controller()
     empty_logs()

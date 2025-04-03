@@ -179,7 +179,7 @@ def LoudServer(queue, response_dict):
                 queue.put(data_item)
 
             responses = {}
-            timeout = 180  # 3 minutes
+            timeout = 90  # 1 minutes 30 seconds
             start_time = time.time()
 
             # Wait for responses

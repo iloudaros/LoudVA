@@ -1,4 +1,4 @@
-from multiprocessing import Process, Queue, Manager # Queue and Manager.dict are both thread and process safe
+from multiprocessing import Process, Queue, Manager # Queue is thread and process safe, Manager.dict needs extra precautions.
 from LoudServer import run_server
 import Settings as settings
 from logging_config import setup_logging
@@ -31,7 +31,7 @@ def selected_scheduler():
         else:
             from LoudScheduler import LoudScheduler
             return LoudScheduler()
-    else:
+    else: # Multi-GPU Schedulers
         if settings.scheduler == 'round_robin':
             from altSchedulers.Cluster.RoundRobinScheduler import RoundRobinScheduler
             return RoundRobinScheduler()
@@ -59,13 +59,16 @@ def start_processes():
     manager = Manager()
     response_dict = manager.dict()
 
+    # Create a lock in the manager so it can be shared across server and scheduler
+    response_dict_lock = manager.Lock()
+
     # Start the server process
-    server_process = Process(target=run_server, args=(message_queue, response_dict))
+    server_process = Process(target=run_server, args=(message_queue, response_dict, response_dict_lock))
     server_process.start()
 
     # Start the printer process as a separate deamon process
     scheduler = selected_scheduler()
-    scheduler_process = Process(target=scheduler.start, args=(message_queue, response_dict))
+    scheduler_process = Process(target=scheduler.start, args=(message_queue, response_dict, response_dict_lock))
     scheduler_process.start()
 
     # Join processes to keep them running

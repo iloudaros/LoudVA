@@ -4,8 +4,6 @@ import threading
 from DeviceData import initialize_devices
 from logging_config import setup_logging
 
-response_dict_lock = threading.Lock()
-
 
 # Initialize devices
 devices = initialize_devices()
@@ -21,7 +19,7 @@ class FixedBatchScheduler:
         self.device_cycle = cycle(devices)
         self.small_queue_flag = False
 
-    def start(self, queue, response_dict):
+    def start(self, queue, response_dict, response_dict_lock):
         queue_list = []
         first_item_time = None
 

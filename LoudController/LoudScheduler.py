@@ -4,8 +4,6 @@ from DeviceData import initialize_devices
 from logging_config import setup_logging
 import Settings as settings
 
-response_dict_lock = threading.Lock()
-
 # Initialize devices
 devices = initialize_devices()
 
@@ -132,7 +130,7 @@ class LoudScheduler:
             return closest_config['device'], closest_config['freq'], closest_config['batch_size'], closest_config['latency']
 
 
-    def start(self, queue, response_dict):
+    def start(self, queue, response_dict, response_dict_lock):
         queue_list = []
         last_added_time = None
         logger.info("Starting LoudScheduler")

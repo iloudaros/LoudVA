@@ -2,11 +2,13 @@ import csv
 import os
 import time
 import uuid
-import fcntl  # For file locking on Linux
+import fcntl  # For file locking on Linux, used for the logging in the csv
 
 from flask import Flask, request, jsonify
 import Settings as settings
 from logging_config import setup_logging
+
+
 
 logger = setup_logging()
 
@@ -136,7 +138,7 @@ def log_completion(request_id, image_id, device, queue_exit_time, completion_tim
     write_csv_and_unlock(f, rows)
 
 
-def LoudServer(queue, response_dict):
+def LoudServer(queue, response_dict, response_dict_lock):
     app = Flask(__name__)
     init_csv()  # Ensure CSV is ready at startup
 
@@ -189,8 +191,9 @@ def LoudServer(queue, response_dict):
                     break
 
                 for img_id in image_ids:
-                    if img_id in response_dict:
-                        responses[img_id] = response_dict.pop(img_id)
+                    with response_dict_lock:
+                        if img_id in response_dict:
+                            responses[img_id] = response_dict.pop(img_id)
                 time.sleep(0.01)
 
             completion_time = time.time()
@@ -235,10 +238,11 @@ def LoudServer(queue, response_dict):
 
     @app.route('/resources', methods=['GET'])
     def resources():
-        return jsonify({
-            "queue_size": queue.qsize(),
-            "response_dict": dict(response_dict)
-        }), 200
+        with response_dict_lock:
+            return jsonify({
+                "queue_size": queue.qsize(),
+                "response_dict": dict(response_dict)
+            }), 200
 
     return app
 

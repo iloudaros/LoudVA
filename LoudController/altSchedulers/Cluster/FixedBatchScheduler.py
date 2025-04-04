@@ -51,7 +51,7 @@ class FixedBatchScheduler:
                 self.small_queue_flag = False
 
                 # Dispatch the batch
-                threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict)).start()
+                threading.Thread(target=self.dispatch_request, args=(device, queue_list[:batch_size], response_dict, response_dict_lock)).start()
 
                 # Remove dispatched items from the queue list
                 queue_list = queue_list[batch_size:]
@@ -59,7 +59,7 @@ class FixedBatchScheduler:
 
             time.sleep(0.1)
 
-    def dispatch_request(self, device, batch, response_dict):
+    def dispatch_request(self, device, batch, response_dict, response_dict_lock):
         device.add_request()
         batch_size = len(batch)
         images = [item[0] for item in batch]

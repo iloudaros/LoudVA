@@ -227,7 +227,7 @@ class LoudScheduler:
                         batch_images = all_images[:best_batch_size]
                         batch_image_ids = all_image_ids[:best_batch_size]
 
-                        threading.Thread(target=self.dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict, expected_latency)).start()
+                        threading.Thread(target=self.dispatch_request, args=(best_device, best_freq, batch_images, batch_image_ids, response_dict, response_dict_lock, expected_latency)).start()
 
                         queue_list = queue_list[best_batch_size:]
                         logger.debug(f"Batch dispatched. Remaining number of items in the queue: {len(queue_list)}")
@@ -238,7 +238,7 @@ class LoudScheduler:
             else:
                 time.sleep(settings.scheduler_wait_time)
 
-    def dispatch_request(self, device, freq, images, image_ids, response_dict, expected_latency=None):
+    def dispatch_request(self, device, freq, images, image_ids, response_dict, response_dict_lock, expected_latency=None):
         device.add_request_for_duration(expected_latency)
         batch_size = len(images)
 

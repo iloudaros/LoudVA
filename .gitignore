@@ -19,6 +19,7 @@ scripts/test/*
 playground.ipynb
 LoudVA.log*
 experiment_results*/*
+results/Experiment_3/experiment_results_0
 
 ansible/inventory.ini
 LoudController/LoudGenerator/event_log.csv

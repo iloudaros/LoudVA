@@ -246,9 +246,9 @@ def LoudServer(queue, response_dict, response_dict_lock):
 
     return app
 
-def run_server(queue, response_dict):
+def run_server(queue, response_dict, response_dict_lock):
     logger.info("Starting LoudVA server with concurrency-safe CSV logging...")
-    app = LoudServer(queue, response_dict)
+    app = LoudServer(queue, response_dict, response_dict_lock)
     # This is typically run by gunicorn externally, or you could do:
     # app.run(debug=False, port=5000, threaded=True)
     app.run(debug=False, port=5000, threaded=True)

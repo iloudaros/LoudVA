@@ -6,43 +6,43 @@
 
   tasks: 
     - name: Run the Python script for the performance measurements
-      shell: sudo python3 -u /home/iloudaros/LoudVA/tests/{{ performance_test }} > /home/iloudaros/LoudVA/measurements/log 2>&1
+      shell: sudo python3 -u /home/iloudaros/Desktop/LoudVA/tests/{{ performance_test }} > /home/iloudaros/Desktop/LoudVA/measurements/log 2>&1
       ignore_errors: yes
       tags: profiling
 
 
     - name: Compress measurements
       community.general.archive:
-        path: /home/iloudaros/LoudVA/measurements
-        dest: /home/iloudaros/LoudVA/measurements.tgz
+        path: /home/iloudaros/Desktop/LoudVA/measurements
+        dest: /home/iloudaros/Desktop/LoudVA/measurements.tgz
       tags: measurement_collection
 
     - name: Fetch the archive 
       fetch:
-        src: /home/iloudaros/LoudVA/measurements.tgz
-        dest: /home/louduser/LoudVA/measurements
+        src: /home/iloudaros/Desktop/LoudVA/measurements.tgz
+        dest: /home/iloudaros/Desktop/LoudVA/measurements
       tags: measurement_collection
 
     - name: Remove the archive
       file:
-        path: /home/iloudaros/LoudVA/measurements.tgz
+        path: /home/iloudaros/Desktop/LoudVA/measurements.tgz
         state: absent
       tags: measurement_collection
 
     - name: Unarchive Locally
       delegate_to: localhost
       unarchive:
-        src: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home/iloudaros/LoudVA/measurements.tgz
-        dest: /home/louduser/LoudVA/measurements/{{ inventory_hostname }}
+        src: /home/iloudaros/Desktop/LoudVA/measurements/{{ inventory_hostname }}/home/iloudaros/Desktop/LoudVA/measurements.tgz
+        dest: /home/iloudaros/Desktop/LoudVA/measurements/{{ inventory_hostname }}
       tags: measurement_collection
 
     - name: Remove the archive Locally
       delegate_to: localhost
-      shell: rm -r /home/louduser/LoudVA/measurements/{{ inventory_hostname }}/home
+      shell: rm -r /home/iloudaros/Desktop/LoudVA/measurements/{{ inventory_hostname }}/home
       tags: measurement_collection
 
     - name: Run the script on the local machine to organise the measurements
       delegate_to: localhost
       run_once: yes
-      shell: sudo bash /home/louduser/LoudVA/scripts/shell/organise_measurements.sh
+      shell: sudo bash /home/iloudaros/Desktop/LoudVA/scripts/shell/organise_measurements.sh
       tags: measurement_collection

@@ -30,7 +30,7 @@ if not server_is_active:
 SERVER_URL = active_url + 'inference'
 
 # Define the path to the images directory
-IMAGES_DIR = '/home/louduser/images'
+IMAGES_DIR = '/home/iloudaros/images'
 
 # Lock for synchronizing access to the active_requests counter
 active_requests_lock = threading.Lock()

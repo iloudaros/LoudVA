@@ -156,11 +156,11 @@ def generate_scenario():
     return generate
 
 def archive_scenario(name):
-    # Archive /home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv to /home/louduser/LoudVA/LoudController/LoudGenerator/scenarios/[name].csv
-    path = '/home/louduser/LoudVA/LoudController/LoudGenerator/scenarios'
+    # Archive /home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/event_log.csv to /home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/scenarios/[name].csv
+    path = '/home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/scenarios'
     if not os.path.exists(path):
         os.makedirs(path)
-    move = subprocess.Popen(['mv', '/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv', f'{path}/{name}.csv'])
+    move = subprocess.Popen(['mv', '/home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/event_log.csv', f'{path}/{name}.csv'])
     move.wait()
 
 
@@ -207,17 +207,17 @@ def experiment(scheduler, results_dir, id):
     
     # Move tegrastats log of every device to the results directory
 
-    os.rename(f'/home/louduser/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/{tegrastats_log_name}',
+    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/agx-xavier-00/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/agx_{tegrastats_log_name}')
-    os.rename(f'/home/louduser/LoudVA/measurements/power/xavier-nx-00/home/iloudaros/{tegrastats_log_name}',
+    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/xavier-nx-00/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/nx0_{tegrastats_log_name}')
-    os.rename(f'/home/louduser/LoudVA/measurements/power/xavier-nx-01/home/iloudaros/{tegrastats_log_name}',
+    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/xavier-nx-01/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/nx1_{tegrastats_log_name}')
-    os.rename(f'/home/louduser/LoudVA/measurements/power/LoudJetson0/home/iloudaros/{tegrastats_log_name}',
+    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/LoudJetson0/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/nano0_{tegrastats_log_name}')
-    os.rename(f'/home/louduser/LoudVA/measurements/power/LoudJetson1/home/iloudaros/{tegrastats_log_name}',
+    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/LoudJetson1/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/nano1_{tegrastats_log_name}')
-    os.rename(f'/home/louduser/LoudVA/measurements/power/LoudJetson2/home/iloudaros/{tegrastats_log_name}',
+    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/LoudJetson2/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/nano2_{tegrastats_log_name}')
 
     stop_controller()

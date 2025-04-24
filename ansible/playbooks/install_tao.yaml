@@ -8,7 +8,7 @@
     # Copy the TAO Toolkit to the Jetsons
     - name: Copying TAO Toolkit
       copy:
-        src: /home/louduser/LoudVA/tao-converter
+        src: /home/iloudaros/Desktop/LoudVA/tao-converter
         dest: /home/iloudaros/
       become: yes
 

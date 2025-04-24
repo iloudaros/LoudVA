@@ -227,4 +227,4 @@ if __name__ == '__main__':
     max_overall_throughput = 40
     simulator = LoudGenerator(num_cameras, max_overall_throughput=max_overall_throughput)
     simulated_events, last_exit_time = simulator.simulate_frames()
-    simulator.plot_events(simulated_events, last_exit_time, plot=False, live=False, log_filename='/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv')
+    simulator.plot_events(simulated_events, last_exit_time, plot=False, live=False, log_filename='/home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/event_log.csv')

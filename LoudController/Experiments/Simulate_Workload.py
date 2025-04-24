@@ -32,7 +32,7 @@ if not server_is_active:
 SERVER_URL = active_url + 'inference'
 
 # Define the path to the images directory
-IMAGES_DIR = '/home/louduser/images'
+IMAGES_DIR = '/home/iloudaros/images'
 
 # Function to handle a single request
 def send_request(camera_index, selected_images, latency_constraint):
@@ -95,7 +95,7 @@ def load_camera_schedule(csv_filename, random_latency, stable_latency):
     camera_schedules = {}
     updated_rows = []
     file_updated = False
-    network_cost = load_network_cost('/home/louduser/LoudVA/measurements/network/network_cost.csv')
+    network_cost = load_network_cost('/home/iloudaros/Desktop/LoudVA/measurements/network/network_cost.csv')
 
     with open(csv_filename, mode='r', newline='') as csvfile:
         csv_reader = csv.DictReader(csvfile)
@@ -157,7 +157,7 @@ def main():
     args = parser.parse_args()
 
     # Load the camera schedule from the CSV file
-    camera_schedules = load_camera_schedule('/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv', args.random_latency, args.stable_latency)
+    camera_schedules = load_camera_schedule('/home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/event_log.csv', args.random_latency, args.stable_latency)
 
     # Start a thread for each camera
     threads = []

@@ -23,5 +23,5 @@
     - name: Sending the environment to the worker nodes
       copy:
         src: /home/louduser/LoudVA/.environment
-        dest: /home/iloudaros/LoudVA/.environment
+        dest: /home/iloudaros/Desktop/LoudVA/.environment
 

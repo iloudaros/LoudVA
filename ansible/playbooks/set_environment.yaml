@@ -6,8 +6,8 @@
   tasks:
     - name: Copy the environment to the Workers
       copy:
-        src: /home/louduser/LoudVA/.environment 
-        dest: /home/iloudaros/LoudVA/
+        src: /home/iloudaros/Desktop/LoudVA/.environment 
+        dest: /home/iloudaros/Desktop/LoudVA/
       become: yes
     
     

@@ -10,11 +10,11 @@ WARNING: This is a development server. Do not use it in a production deployment.
 Press CTRL+C to quit
 2025-02-14 22:45:31,135 - LoudVA - INFO - [DeviceData] - Using profiling data for decision making.
 2025-02-14 22:45:31,135 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
-2025-02-14 22:45:31,135 - LoudVA - INFO - [DeviceData] - Loaded network costs from /home/louduser/LoudVA/LoudController/../measurements/network/network_cost.csv
-2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
-2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
-2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
-2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-02-14 22:45:31,135 - LoudVA - INFO - [DeviceData] - Loaded network costs from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/network/network_cost.csv
+2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
+2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-02-14 22:45:31,143 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/iloudaros/Desktop/LoudVA/LoudController/../data/devices/gpu_specs.csv
 2025-02-14 22:45:31,172 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 114750000
 2025-02-14 22:45:31,172 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Filling missing profile data...
 2025-02-14 22:45:31,172 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Missing profile data filled with predictions.
@@ -966,27 +966,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:30,739 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.374043
@@ -1008,27 +1008,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:32,986 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.559861
@@ -1042,27 +1042,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:33,699 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.374043
@@ -1080,27 +1080,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:36,129 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 8.559861
@@ -1116,27 +1116,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:37,791 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.465794
@@ -1152,27 +1152,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:39,434 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.465794
@@ -1189,27 +1189,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:41,447 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.190029
@@ -1223,27 +1223,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:42,465 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.098841
@@ -1256,27 +1256,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:43,548 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 10.281418
@@ -1290,27 +1290,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:45,302 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.465794
@@ -1324,27 +1324,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:46,087 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.465794
@@ -1363,27 +1363,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:48,654 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.374043
@@ -1399,27 +1399,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:50,505 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 18.190029
@@ -1431,27 +1431,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:51,600 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.374043
@@ -1461,27 +1461,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:52,079 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.559861
@@ -1501,27 +1501,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:55,738 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 17.559861
@@ -1532,27 +1532,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:56,502 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 2.190029
@@ -1568,27 +1568,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:48:58,502 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.190029
@@ -1601,27 +1601,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:00,002 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 4.190029
@@ -1636,27 +1636,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:02,013 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.281418
@@ -1668,27 +1668,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:03,028 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.098841
@@ -1701,27 +1701,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:04,369 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 5.559861
@@ -1734,27 +1734,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:05,670 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.374043
@@ -1767,27 +1767,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:07,014 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.098841
@@ -1798,27 +1798,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:07,992 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 6.190029
@@ -1833,27 +1833,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:09,777 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.281418
@@ -1866,27 +1866,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:11,104 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.098841
@@ -1910,27 +1910,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:14,671 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.374043
@@ -1945,27 +1945,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:16,140 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.190029
@@ -1983,27 +1983,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:17,544 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.098841
@@ -2019,27 +2019,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:19,163 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.281418
@@ -2053,27 +2053,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:20,237 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.281418
@@ -2099,27 +2099,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:23,511 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.190029
@@ -2130,27 +2130,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:24,004 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.098841
@@ -2165,27 +2165,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:25,326 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 9.559861
@@ -2206,27 +2206,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:27,619 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 19.098841
@@ -2237,27 +2237,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:28,124 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.559861
@@ -2278,27 +2278,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:30,381 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.281418
@@ -2315,27 +2315,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:31,653 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 7.098841
@@ -2351,27 +2351,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:33,413 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.374043
@@ -2386,27 +2386,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:35,247 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.281418
@@ -2424,27 +2424,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:37,298 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.559861
@@ -2461,27 +2461,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:39,119 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 3.281418
@@ -2496,27 +2496,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:40,990 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 15.465794
@@ -2539,27 +2539,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:44,251 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 20.190029
@@ -2578,27 +2578,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:46,532 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 1.098841
@@ -2614,27 +2614,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:48,810 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 11.465794
@@ -2649,27 +2649,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:50,750 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 13.098841
@@ -2685,27 +2685,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:54,512 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 16.374043
@@ -2721,27 +2721,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:49:57,401 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 14.559861
@@ -2755,27 +2755,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:50:00,190 - LoudVA - INFO - [LoudServer] - Received inference request with latency constraint: 12.190029
@@ -2789,27 +2789,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-73:
@@ -2818,27 +2818,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-74:
@@ -2847,27 +2847,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-75:
@@ -2876,27 +2876,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-76:
@@ -2905,27 +2905,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-77:
@@ -2934,27 +2934,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-78:
@@ -2963,27 +2963,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-79:
@@ -2992,27 +2992,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 Exception in thread Thread-80:
@@ -3021,27 +3021,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:50:25,034 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 5deb50bf-1fe7-4e0b-9215-c50f022230fd
@@ -3068,27 +3068,27 @@ Traceback (most recent call last):
     self.run()
   File "/usr/lib/python3.8/threading.py", line 870, in run
     self._target(*self._args, **self._kwargs)
-  File "/home/louduser/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/altSchedulers/FixedBatchScheduler.py", line 63, in dispatch_request
     [response] = device.inference(images, batch_size)
-  File "/home/louduser/LoudVA/LoudController/DeviceData.py", line 262, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/DeviceData.py", line 262, in inference
     response = triton_client.inference(**args)
-  File "/home/louduser/LoudVA/LoudController/triton_client.py", line 337, in inference
+  File "/home/iloudaros/Desktop/LoudVA/LoudController/triton_client.py", line 337, in inference
     triton_client.infer(model_name,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 1469, in infer
     response = self._post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/tritonclient/http/_client.py", line 284, in _post
     response = self._client_stub.post(request_uri=request_uri,
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 272, in post
     return self.request(METHOD_POST, request_uri, body=body, headers=headers)
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 250, in request
     raise e
-  File "/home/louduser/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/geventhttpclient/client.py", line 231, in request
     sock.sendall(_request + body)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 702, in sendall
     return _sendall(self, data_memory, flags)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 391, in _sendall
     timeleft = __send_chunk(socket, chunk, flags, timeleft, end)
-  File "/home/louduser/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
+  File "/home/iloudaros/.local/lib/python3.8/site-packages/gevent/_socketcommon.py", line 328, in __send_chunk
     raise timeout('timed out')
 socket.timeout: timed out
 2025-02-14 22:50:28,646 - LoudVA - INFO - [LoudServer] - Completed. Request ID: 7da23ddc-1f56-4b3d-91ad-3edb82676320

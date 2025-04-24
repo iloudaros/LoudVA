@@ -51,5 +51,5 @@ def plot_event_log(log_file_path):
 
 if __name__ == '__main__':
     # Replace this path with the path to your event log file
-    log_file_path = '/home/louduser/LoudVA/LoudController/LoudGenerator/event_log.csv'
+    log_file_path = '/home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/event_log.csv'
     plot_event_log(log_file_path)

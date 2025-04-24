@@ -29,7 +29,7 @@ if not server_is_active:
 SERVER_URL = active_url + 'inference'
 
 # Define the path to the images directory
-IMAGES_DIR = '/home/louduser/LoudVA/data/images/'
+IMAGES_DIR = '/home/iloudaros/Desktop/LoudVA/data/images/'
 
 def test_inference():
     # Collect all image files in the directory

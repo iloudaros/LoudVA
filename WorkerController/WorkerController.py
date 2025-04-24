@@ -12,7 +12,7 @@ def set_gpu_freq(freq):
     try:
         # Run the shell script with the provided frequency
         result = subprocess.run(
-            ['/home/iloudaros/LoudVA/scripts/shell/set_frequency.sh', str(freq)],
+            ['/home/iloudaros/Desktop/LoudVA/scripts/shell/set_frequency.sh', str(freq)],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             universal_newlines=True,  # Use this instead of text=True
@@ -27,7 +27,7 @@ def current_gpu_freq():
     try:
         # Run the shell script to get the current GPU frequency
         result = subprocess.run(
-            ['/home/iloudaros/LoudVA/scripts/shell/get_frequency.sh'],
+            ['/home/iloudaros/Desktop/LoudVA/scripts/shell/get_frequency.sh'],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             universal_newlines=True,  # Use this instead of text=True

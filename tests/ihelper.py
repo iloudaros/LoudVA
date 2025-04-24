@@ -138,17 +138,17 @@ def return_to_defaults(model):
 
   # For the Jetson Nano
   if model == "nano":
-    os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/Nano/l4t_dfs.conf')
+    os.system('sudo jetson_clocks --restore /home/iloudaros/Desktop/LoudVA/power_management/Nano/l4t_dfs.conf')
     os.system('sudo nvpmodel -m 0')
 
   # For the Jetson Xavier NX
   elif model == "nx":
-    os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/NX/jetsonclocks_conf.txt')
+    os.system('sudo jetson_clocks --restore /home/iloudaros/Desktop/LoudVA/power_management/NX/jetsonclocks_conf.txt')
     os.system('sudo nvpmodel -m 8')
 
   # For the Jetson Xavier AGX
   elif model == "agx":
-    os.system('sudo jetson_clocks --restore /home/iloudaros/LoudVA/power_management/AGX/jetsonclocks_conf.txt')
+    os.system('sudo jetson_clocks --restore /home/iloudaros/Desktop/LoudVA/power_management/AGX/jetsonclocks_conf.txt')
     os.system('sudo nvpmodel -m 0')
 
   else:
@@ -223,7 +223,7 @@ def calculate_energy_directory(devices = ['agx-xavier-00', 'LoudJetson0', 'xavie
     for device in devices:
             
         # Specify the directory
-        directory = f'/home/louduser/LoudVA/measurements/archive/{measurement_code}/{device}/measurements'
+        directory = f'/home/iloudaros/Desktop/LoudVA/measurements/archive/{measurement_code}/{device}/measurements'
 
         if checkFreqs:
 
@@ -287,20 +287,20 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                   threshold, distrust = choose_threshold(counter)
 
                   print(f"Stability Percentage is set to {threshold}%")
-                  modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  modify_variable('/home/iloudaros/Desktop/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
                      
                   # Run the performance test
                   try:
                       print(f"---Testing Mode:{mode} and Concurrency:{conc} ---")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
+                      modify_variable('/home/iloudaros/Desktop/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
+                      modify_variable('/home/iloudaros/Desktop/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
 
                       # Run the performance test
                       print("Running performance test")
                       os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
                       # Open the log file and check if there are any errors 
-                      with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
+                      with open('/home/iloudaros/Desktop/LoudVA/measurements/log', 'r') as file:
                           lines = file.readlines()
                           for line in lines[-5:]:
                               if "Error" in line or "Failed" in line:
@@ -309,17 +309,17 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
                       # Rename the results according to the power mode
                       print("Renaming the results")
-                      os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
-                      os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
+                      os.system(f'mv /home/iloudaros/Desktop/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/Desktop/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}_conc_{conc}.csv')
+                      os.system(f'mv /home/iloudaros/Desktop/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/Desktop/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}_conc_{conc}.csv')
 
                       # Empty the log of tegra_stats
-                      os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+                      os.system('rm /home/iloudaros/Desktop/LoudVA/measurements/power/tegra_log')
                   except Exception as e:                    
                       print(f"🔄 An error occured:{e} Retrying...")
                       
                       # stop tegrastats and empty the tegra_log
                       os.system('sudo pkill tegrastats')
-                      os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+                      os.system('rm /home/iloudaros/Desktop/LoudVA/measurements/power/tegra_log')
 
                       # Add conc and mode to the retried dictionary
                       key = (mode, conc)
@@ -342,12 +342,12 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
           # combine the results of the different concurrencies
           print("Combining the results")
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/modes && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh performance_measurements_mode_{mode}')
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/power/modes && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh power_measurement_stats_mode_{mode}')
+          os.system(f'cd /home/iloudaros/Desktop/LoudVA/measurements/performance/modes && bash /home/iloudaros/Desktop/LoudVA/scripts/shell/combine_measurements.sh performance_measurements_mode_{mode}')
+          os.system(f'cd /home/iloudaros/Desktop/LoudVA/measurements/power/modes && bash /home/iloudaros/Desktop/LoudVA/scripts/shell/combine_measurements.sh power_measurement_stats_mode_{mode}')
 
           # calculate the energy consumption
           print("Calculating the energy consumption")
-          calculate_energy(f'/home/iloudaros/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}.csv', f'/home/iloudaros/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}.csv', f'/home/iloudaros/LoudVA/measurements/energy/modes/energy_measurement_stats_mode_{mode}.csv')
+          calculate_energy(f'/home/iloudaros/Desktop/LoudVA/measurements/power/modes/power_measurement_stats_mode_{mode}.csv', f'/home/iloudaros/Desktop/LoudVA/measurements/performance/modes/performance_measurements_mode_{mode}.csv', f'/home/iloudaros/Desktop/LoudVA/measurements/energy/modes/energy_measurement_stats_mode_{mode}.csv')
 
 
 
@@ -379,20 +379,20 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
                   threshold, distrust = choose_threshold(counter)
 
                   print(f"Stability Percentage is set to {threshold}%")
-                  modify_variable('/home/iloudaros/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
+                  modify_variable('/home/iloudaros/Desktop/LoudVA/makefile', 'STABILITY_THRESHOLD', '=', threshold)
 
                   # Run the performance test
                   try:
                       print(f"---Testing Freq:{freq} and Concurrency:{conc} ---")
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
-                      modify_variable('/home/iloudaros/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
+                      modify_variable('/home/iloudaros/Desktop/LoudVA/makefile', 'CONCURRENCY_FLOOR', '=', conc)
+                      modify_variable('/home/iloudaros/Desktop/LoudVA/makefile', 'CONCURRENCY_LIMIT', '=', conc)
                       
                       # Run the performance test
                       print("Running performance test")
                       os.system('cd /home/iloudaros/LoudVA && make measure_performance_and_power')
 
                       # Open the log file and check if there are any errors 
-                      with open('/home/iloudaros/LoudVA/measurements/log', 'r') as file:
+                      with open('/home/iloudaros/Desktop/LoudVA/measurements/log', 'r') as file:
                           lines = file.readlines()
                           for line in lines[-5:]:
                               if "Error" in line or "Failed" in line:
@@ -401,17 +401,17 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
                       # Rename the results according to the freq
                       print("Renaming the results")
-                      os.system(f'mv /home/iloudaros/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}_conc_{conc}.csv')
-                      os.system(f'mv /home/iloudaros/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}_conc_{conc}.csv')
+                      os.system(f'mv /home/iloudaros/Desktop/LoudVA/measurements/performance/performance_measurements.csv /home/iloudaros/Desktop/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}_conc_{conc}.csv')
+                      os.system(f'mv /home/iloudaros/Desktop/LoudVA/measurements/power/power_measurement_stats /home/iloudaros/Desktop/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}_conc_{conc}.csv')
 
                       # Empty the log of tegra_stats
-                      os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+                      os.system('rm /home/iloudaros/Desktop/LoudVA/measurements/power/tegra_log')
                   except Exception as e:                    
                       print(f"🔄 An error occured:{e.__str__} Retrying...")
                       
                       # stop tegrastats and empty the tegra_log
                       os.system('sudo pkill tegrastats')
-                      os.system('rm /home/iloudaros/LoudVA/measurements/power/tegra_log')
+                      os.system('rm /home/iloudaros/Desktop/LoudVA/measurements/power/tegra_log')
                       
                       # Add conc and freq to the retried dictionary
                       key = (freq, conc)
@@ -434,22 +434,22 @@ def profiling(check_modes, check_freqs, minimum_concurrency, maximum_concurrency
 
           # combine the results of the different concurrencies
           print("Combining the results")
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/performance/freqs && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh performance_measurements_freq_{freq}')
-          os.system(f'cd /home/iloudaros/LoudVA/measurements/power/freqs && bash /home/iloudaros/LoudVA/scripts/shell/combine_measurements.sh power_measurement_stats_freq_{freq}')
+          os.system(f'cd /home/iloudaros/Desktop/LoudVA/measurements/performance/freqs && bash /home/iloudaros/Desktop/LoudVA/scripts/shell/combine_measurements.sh performance_measurements_freq_{freq}')
+          os.system(f'cd /home/iloudaros/Desktop/LoudVA/measurements/power/freqs && bash /home/iloudaros/Desktop/LoudVA/scripts/shell/combine_measurements.sh power_measurement_stats_freq_{freq}')
 
           # calculate the energy consumption
           print("Calculating the energy consumption")
-          calculate_energy(f'/home/iloudaros/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}.csv', f'/home/iloudaros/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}.csv', f'/home/iloudaros/LoudVA/measurements/energy/freqs/energy_measurement_stats_freq_{freq}.csv')
+          calculate_energy(f'/home/iloudaros/Desktop/LoudVA/measurements/power/freqs/power_measurement_stats_freq_{freq}.csv', f'/home/iloudaros/Desktop/LoudVA/measurements/performance/freqs/performance_measurements_freq_{freq}.csv', f'/home/iloudaros/Desktop/LoudVA/measurements/energy/freqs/energy_measurement_stats_freq_{freq}.csv')
 
   return_to_defaults(board)
 
   # Export the retried modes and frequencies to a file if they are not empty
   if retried_modes:
-      with open('/home/iloudaros/LoudVA/measurements/retried_modes.txt', 'w') as file:
+      with open('/home/iloudaros/Desktop/LoudVA/measurements/retried_modes.txt', 'w') as file:
           for key in sorted(retried_modes.keys()):
                   file.write(str(key) + ' ' + str(retried_modes[key][0]) + ' ' + '!'*retried_modes[key][1] + '\n')
 
   if retried_freqs:
-      with open('/home/iloudaros/LoudVA/measurements/retried_freqs.txt', 'w') as file:
+      with open('/home/iloudaros/Desktop/LoudVA/measurements/retried_freqs.txt', 'w') as file:
           for key in sorted(retried_freqs.keys()):
                   file.write(str(key) + ' ' + str(retried_freqs[key][0]) + ' ' + '!'*retried_freqs[key][1] + '\n')

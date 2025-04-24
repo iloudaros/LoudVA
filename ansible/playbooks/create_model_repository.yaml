@@ -13,7 +13,7 @@
     # Copy Model Repository to all worker nodes
     - name: Sending Initial Model Repository to Jetsons
       copy:
-        src: /home/louduser/LoudVA/model_repository
+        src: /home/iloudaros/Desktop/LoudVA/model_repository
         dest: /home/iloudaros/tritonserver/
       become: yes
       when : not flag.stat.exists

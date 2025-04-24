@@ -47,26 +47,28 @@ initialise_Jetsons: sync_time install_dependecies download_triton clone_LoudVA c
 
 triton_client_dependencies:
 	@echo "Install Triton Client Dependencies..."
-	sudo apt-get install -y --no-install-recommends \
-        curl \
-        pkg-config \
-        python3 \
-        python3-pip \
-        python3-dev
-	pip3 install --upgrade wheel setuptools cython testresources
-	pip3 install --upgrade grpcio-tools numpy future attrdict pillow 
-	pip3 install --upgrade image six requests flake8
-	pip install protobuf==3.20
+
+	# 1) Create and activate a virtual environment
+	python3 -m venv .venv
+
+	# 2) Upgrade pip, wheel, setuptools inside venv
+	#    Then install all required Python packages
+	@echo "Installing Python packages in virtual environment..."
+	. .venv/bin/activate && \
+		pip install --upgrade pip wheel setuptools && \
+		pip install --upgrade cython testresources numpy future attrdict3 pillow \
+			image six requests flake8 protobuf==3.20 werkzeug grpcio-tools
 
 	@echo "Creating directories for each version of Triton client..."
 	mkdir -p ~/tritonserver2_19
-	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19 
+	tar zxvf ~/tritonserver2_19.tgz -C ~/tritonserver2_19
 	mkdir -p ~/tritonserver2_34
 	tar zxvf ~/tritonserver2_34.tgz -C ~/tritonserver2_34
 
-	@echo "Running python wheels for each version of Triton client..."
-	python3 -m pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all]
-	python3 -m pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
+	@echo "Installing Triton Python client wheels in the virtual environment..."
+	. .venv/bin/activate && \
+		pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all] && \
+		pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
 LoudController_dependencies:
 	@echo "Installing Dependencies for LoudController..."
@@ -122,6 +124,11 @@ print_flags:
 
 ################ Quick Access ##################
 ### To be run on the Controller ###
+activate_venv:
+	@echo "____Activating the virtual environment____"
+	@source .venv/bin/activate
+	@echo "Virtual environment activated"
+
 start_triton: #configure_triton
 	@echo "____Starting Triton on the Jetsons____"
 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/start_triton.yaml 
@@ -202,7 +209,7 @@ default_power_mode:
 
 send_makefile:
 	@echo "____Sending Makefile to the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/LoudVA/makefile" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -m copy -a "src=~/LoudVA/makefile dest=/home/iloudaros/Desktop/LoudVA/makefile" -u iloudaros --become
 
 add_specs_to_profiling:
 	python3 scripts/python/add_specs.py measurements/archive/Representative/Profiling.csv data/devices/gpu_specs.csv LoudController/LoudPredictor/costs/agnostic/data.csv
@@ -387,7 +394,7 @@ check_triton_client:
 
 check: check_LoudController check_triton check_triton_client check_WorkerController
 	@echo "\n🔍 Final Test : Test_LoudVA.py"
-	python3 /home/louduser/LoudVA/tests/Test_LoudVA.py
+	python3 /home/iloudaros/Desktop/LoudVA/tests/Test_LoudVA.py
 	@echo "Check Complete"
 
 simulate_workload:
@@ -521,11 +528,11 @@ experiment_1:
 
 
 report: stop_LoudController
-	@python3 scripts/python/generate_report.py --top-folder /home/louduser/LoudVA/experiment_results_keep --network-cost-csv /home/louduser/LoudVA/measurements/network/network_cost.csv 
+	@python3 scripts/python/generate_report.py --top-folder /home/iloudaros/Desktop/LoudVA/experiment_results_keep --network-cost-csv /home/iloudaros/Desktop/LoudVA/measurements/network/network_cost.csv 
 #--exclude-ids 0
 
 aggregate_results:
-	@python3 scripts/python/aggregate_results.py  /home/louduser/LoudVA/experiment_results_keep/experiment_report.csv
+	@python3 scripts/python/aggregate_results.py  /home/iloudaros/Desktop/LoudVA/experiment_results_keep/experiment_report.csv
 
 report_and_plot: report aggregate_results plot_aggregated_results
 
@@ -572,7 +579,7 @@ visualize_events:
 
 
 
-LoudScheduler_logs = "/home/louduser/LoudVA/experiment_results_copy/loud_prof/2025-02-07_22:51:05_id0_loud_prof_request_log.csv,/home/louduser/LoudVA/experiment_results_copy/loud_prof/2025-02-07_22:51:05_id0_loud_tegrastats"
+LoudScheduler_logs = "/home/iloudaros/Desktop/LoudVA/experiment_results_copy/loud_prof/2025-02-07_22:51:05_id0_loud_prof_request_log.csv,/home/iloudaros/Desktop/LoudVA/experiment_results_copy/loud_prof/2025-02-07_22:51:05_id0_loud_tegrastats"
 
 FixedBatch_logs = "2025-01-30_04:44:12_round_robin_request_log.csv,measurements/power/agx-xavier-00/home/iloudaros/2025-01-30_04:44:12_round_robin_tegrastats"
 
@@ -587,7 +594,7 @@ plot_activity:
 	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} --plot-latency --plot-power --align-zero --subplots
 
 gantt_request_log:
-	@python3 plots/gantt.py /home/louduser/LoudVA/experiment_results/loud_pred/2025-02-15_04:07:40_id0_loud_pred_request_log.csv -o /home/louduser/LoudVA/experiment_results/loud_pred/lala.pdf
+	@python3 plots/gantt.py /home/iloudaros/Desktop/LoudVA/experiment_results/loud_pred/2025-02-15_04:07:40_id0_loud_pred_request_log.csv -o /home/iloudaros/Desktop/LoudVA/experiment_results/loud_pred/lala.pdf
 
 plot_freqs:
 	@python3 plots/LoudVA_activity.py --logs ${LoudScheduler_logs} ${RoundRobinScheduler_logs} ${RandomScheduler_logs} --plot-gpu-freq --align-zero --subplots
@@ -596,7 +603,7 @@ plot_stress:
 	@python3 plots/LoudVA_activity.py --logs ${StressScheduler_logs} --plot-latency --plot-temperature --align-zero 
 
 plot_aggregated_results:
-	@python3 plots/plot_aggregated_results.py /home/louduser/LoudVA/experiment_results_keep/experiment_report_aggregated.csv
+	@python3 plots/plot_aggregated_results.py /home/iloudaros/Desktop/LoudVA/experiment_results_keep/experiment_report_aggregated.csv
 
 
 ################################################
@@ -618,7 +625,7 @@ plot_aggregated_results:
 ################## Clean Up ####################
 delete_LoudVA:
 	@echo "____Deleting LoudVA from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} Workers -a "rm -r /home/iloudaros/LoudVA" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -a "rm -r /home/iloudaros/Desktop/LoudVA" -u iloudaros --become
 
 delete_triton:
 	@echo "____Removing Triton from the Jetsons____"

@@ -12,10 +12,10 @@ Press CTRL+C to quit
 2025-02-07 22:50:07,642 - LoudVA - INFO - [DeviceData] - LoudCostPredictor training complete. Training time: 0.18207788467407227 seconds.
 2025-02-07 22:50:07,642 - LoudVA - INFO - [DeviceData] - Using profiling data for decision making.
 2025-02-07 22:50:07,642 - LoudVA - INFO - [DeviceData] - Filling missing profile data with predictions.
-2025-02-07 22:50:07,655 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
-2025-02-07 22:50:07,655 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
-2025-02-07 22:50:07,656 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/louduser/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
-2025-02-07 22:50:07,656 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/louduser/LoudVA/LoudController/../data/devices/gpu_specs.csv
+2025-02-07 22:50:07,655 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/archive/Representative/Profiling.csv
+2025-02-07 22:50:07,655 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/archive/Representative/xavier-nx-00/measurements/xavier-nx-00_filtered_freqs.csv
+2025-02-07 22:50:07,656 - LoudVA - INFO - [DeviceData] - Loaded profile from /home/iloudaros/Desktop/LoudVA/LoudController/../measurements/archive/Representative/LoudJetson0/measurements/LoudJetson0_filtered_freqs.csv
+2025-02-07 22:50:07,656 - LoudVA - INFO - [DeviceData] - Loaded GPU specs from /home/iloudaros/Desktop/LoudVA/LoudController/../data/devices/gpu_specs.csv
 2025-02-07 22:50:07,686 - LoudVA - INFO - [DeviceData] - Initial frequency on agx-xavier-00: 114750000
 2025-02-07 22:50:07,686 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Filling missing profile data...
 2025-02-07 22:50:07,687 - LoudVA - INFO - [DeviceData] - agx-xavier-00 : Missing profile data filled with predictions.

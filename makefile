@@ -9,7 +9,7 @@ model=$(shell tr -d '\0' < /proc/device-tree/model)
 
 
 playground:
-	mkdir -p measurements/performance/$(shell date +'%Y-%m-%d_%H-%M-%S')
+	ansible ${ANSIBLE_OPTS} Workers -m raw -a "python3.9 --version" -u iloudaros
 
 
 
@@ -18,6 +18,11 @@ playground:
 
 ###### System Initialization and Setup #######
 ### To be run on the Controller ###
+install_ansible:
+	sudo apt update
+	sudo apt install software-properties-common
+	sudo add-apt-repository --yes --update ppa:ansible/ansible
+	sudo apt install ansible
 
 sync_time: 
 	@echo "____Setting Correct Time and Date on Jetsons____"
@@ -126,7 +131,7 @@ print_flags:
 ### To be run on the Controller ###
 activate_venv:
 	@echo "____Activating the virtual environment____"
-	@source .venv/bin/activate
+	.venv/bin/activate
 	@echo "Virtual environment activated"
 
 start_triton: #configure_triton

@@ -15,7 +15,7 @@ import threading
 logger = setup_logging()
 
 # Initialize and train the LoudCostPredictor
-if settings.use_prediction or settings.fill_missing_profile_data and settings.scheduler == 'loud':
+if settings.use_prediction or settings.fill_missing_profile_data:
     predictor = LoudCostPredictor('/home/iloudaros/Desktop/LoudVA/LoudController/LoudPredictor/costs/agnostic/data.csv')
     logger.info("Training the LoudCostPredictor...")
     start_time = time.time()

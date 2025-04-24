@@ -32,7 +32,7 @@ if not server_is_active:
 SERVER_URL = active_url + 'inference'
 
 # Define the path to the images directory
-IMAGES_DIR = '/home/iloudaros/images'
+IMAGES_DIR = '/home/iloudaros/Desktop/images'
 
 # Function to handle a single request
 def send_request(camera_index, selected_images, latency_constraint):

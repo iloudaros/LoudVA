@@ -24,23 +24,9 @@ print_time:
 	@echo "____What time is it?____"
 	@ansible ${ANSIBLE_OPTS} Workers -a "date" -u iloudaros
 
-download_triton:
-	@echo "____Downloading and Sending triton to the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/download_triton.yaml -u iloudaros
-
-install_dependencies:
-	@echo "____Installing Dependencies on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/install_dependencies.yaml
-
-create_model_repository:
-	@echo "____Creating Model Directory on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/create_model_repository.yaml
-
-clone_LoudVA:
-	@echo "____Cloning LoudVA to the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/clone_LoudVA.yaml
-
-initialise_Jetsons: sync_time install_dependencies download_triton clone_LoudVA create_model_repository
+controller_download_triton:
+	wget https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
+	mv tritonserver2.34.0-jetpack5.1.tgz ~/tritonserver2_34.tgz
 
 triton_client_dependencies:
 	@echo "Install Triton Client Dependencies..."
@@ -64,12 +50,8 @@ triton_client_dependencies:
 
 	@echo "Installing Triton Python client wheels in the virtual environment..."
 	. .venv/bin/activate && \
-		pip install --upgrade ~/tritonserver2_19/clients/python/tritonclient-2.19.0-py3-none-any.whl[all] && \
 		pip install --upgrade ~/tritonserver2_34/clients/python/tritonclient-2.34.0-py3-none-any.whl[all]
 
-controller_download_triton:
-	wget https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
-	mv tritonserver2.34.0-jetpack5.1.tgz ~/tritonserver2_34.tgz
 ################################################
 
 
@@ -79,9 +61,8 @@ controller_download_triton:
 ################ Quick Access ##################
 ### To be run on the Controller ###
 activate_venv:
-	@echo "____Activating the virtual environment____"
-	. .venv/bin/activate
-	@echo "Virtual environment activated"
+	@echo "To activate the virtual environment, run:"
+	@echo ". .venv/bin/activate"
 
 start_triton: #configure_triton
 	@echo "____Starting Triton on the Jetsons____"
@@ -110,83 +91,6 @@ reboot_workers: stop_triton
 default_power_mode:
 	@echo "____Setting the Jetsons to Default Power Mode____"
 	@ansible ${ANSIBLE_OPTS} Workers -a "nvpmodel -m 0" -u iloudaros --become
-
-
-### To be run on the Jetsons ###
-
-model:
-	@echo ${model}
-
-# Min and Max GPU Frequencies
-GPU_MIN_FREQ = 76800000 
-GPU_MAX_FREQ = 921600000
-
-change_gpu_freq:
-	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
-		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq'; \
-		sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq'; \
-	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
-		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq'; \
-		sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq'; \
-	elif [ "${model}" = "Jetson-AGX" ]; then \
-		sudo sh -c 'echo '${GPU_MIN_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq'; \
-		sudo sh -c 'echo '${GPU_MAX_FREQ}' > /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq'; \
-	else \
-		echo "This is not a Jetson"; \
-	fi
-
-current_gpu_freq:
-	@echo "Model: ${model}"
-	@echo "Current GPU Frequency"
-	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
-		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/cur_freq; \
-	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/cur_freq; \
-	elif [ "${model}" = "Jetson-AGX" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/cur_freq; \
-	else \
-		echo "This is not a Jetson"; \
-	fi
-
-	@echo "Upper Boundary"
-	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
-		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/max_freq; \
-	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq; \
-	elif [ "${model}" = "Jetson-AGX" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/max_freq; \
-	else \
-		echo "This is not a Jetson"; \
-	fi
-	
-	@echo "Lower Boundary"
-	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
-		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/min_freq; \
-	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq; \
-	elif [ "${model}" = "Jetson-AGX" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/min_freq; \
-	else \
-		echo "This is not a Jetson"; \
-	fi
-
-3D_scaling:
-	sudo sh -c 'echo 1 > /sys/devices/57000000.gpu/enable_3d_scaling'
-
-available_frequencies:
-	@echo "Model: ${model}"
-	@if [ "${model}" = "NVIDIA Jetson Nano Developer Kit" ]; then \
-		cat /sys/devices/57000000.gpu/devfreq/57000000.gpu/available_frequencies; \
-	elif [ "${model}" = "NVIDIA Jetson Xavier NX Developer Kit" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/available_frequencies; \
-	elif [ "${model}" = "Jetson-AGX" ]; then \
-		cat /sys/devices/17000000.gv11b/devfreq/17000000.gv11b/available_frequencies; \
-	else \
-		echo "This is not a Jetson"; \
-	fi
-
-watch_triton_log:
-	watch -n 1 cat ../tritonserver/triton.log
 
 ################################################
 
@@ -349,9 +253,9 @@ measure_network:
 
 
 ################## Clean Up ####################
-delete_triton:
-	@echo "____Removing Triton from the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/delete_triton.yaml
+# delete_triton: #BE CAREFUL, this will delete Triton from the Jetsons
+# 	@echo "____Removing Triton from the Jetsons____"
+# 	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/delete_triton.yaml
 
 delete_flags:
 	@echo "____Deleting Flags from the Jetsons____"

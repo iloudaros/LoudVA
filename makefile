@@ -131,8 +131,7 @@ print_flags:
 ### To be run on the Controller ###
 activate_venv:
 	@echo "____Activating the virtual environment____"
-	.venv/bin/activate
-	@echo "Virtual environment activated"
+	@"To activate the virtual environment, run: source .venv/bin/activate"
 
 start_triton: #configure_triton
 	@echo "____Starting Triton on the Jetsons____"

@@ -14,19 +14,19 @@
 
     - name: Ensure the set script is executable
       file:
-        path: /home/iloudaros/Desktop/LoudVA/scripts/shell/set_frequency.sh
+        path: /home/iloudaros/LoudVA/scripts/shell/set_frequency.sh
         mode: '0755'
     
     - name: Ensure the get script is executable
       file:
-        path: /home/iloudaros/Desktop/LoudVA/scripts/shell/get_frequency.sh
+        path: /home/iloudaros/LoudVA/scripts/shell/get_frequency.sh
         mode: '0755'
 
     - name: Start Flask app
       shell: |
-        screen -dmS WorkerController bash -c 'export FLASK_APP=/home/iloudaros/Desktop/LoudVA/WorkerController/WorkerController.py && flask run --host=0.0.0.0 --port=5000'
+        screen -dmS WorkerController bash -c 'export FLASK_APP=/home/iloudaros/LoudVA/WorkerController/WorkerController.py && flask run --host=0.0.0.0 --port=5000'
       args:
-        chdir: /home/iloudaros/Desktop/LoudVA/WorkerController
+        chdir: /home/iloudaros/LoudVA/WorkerController
       environment:
         FLASK_ENV: production
       when: not WorkerController_running.stat.exists

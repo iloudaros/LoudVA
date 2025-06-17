@@ -72,13 +72,15 @@ class Device:
         # Status
         self.__status = 'AVAILABLE'
         self.model_instances = model_instances
+        self.allowed_buffer = settings.allowed_buffer if settings.allowed_buffer is not None else 0
         self.current_requests = 0
 
-        # Locks for thread safety
-        self.freq_lock = threading.Lock()
-        self.status_lock = threading.Lock()
-        self.requests_lock = threading.Lock()
+        # Locks for thread safety. Please maintain the order of locks to avoid deadlocks.
         self.cache_lock = threading.Lock()
+        self.requests_lock = threading.Lock()
+        self.status_lock = threading.Lock()
+        self.freq_lock = threading.Lock()
+
 
         # Cache for storing the predicted energy and latency
         self.prediction_cache = {}
@@ -86,6 +88,16 @@ class Device:
         # Network cost
         self.network_cost = network_cost or []
         logger.debug(f"Initialized network costs for batch sizes 1-{len(self.network_cost)-1}")
+
+        # Log the device initialization parameters
+        logger.info(f"Device {self.name} initialized with IP {self.ip}, Frequencies: {self.frequencies}, "
+                    f"Max Batch Size: {self.max_batch_size}, "
+                    f"GPU Max Frequency: {self.gpu_max_freq} MHz, GPU Min Frequency: {self.gpu_min_freq} MHz, "
+                    f"Architecture: {self.architecture}, Number of Cores: {self.num_cores}, "
+                    f"Memory Speed: {self.memory_speed} GB/s, DRAM: {self.dram}, Shared Memory: {self.shared_memory}, "
+                    f"Memory Size: {self.memory_size} GB, Tensor Cores: {self.tensor_cores}, "
+                    f"Model Instances: {self.model_instances}, Allowed Buffer: {self.allowed_buffer}, "
+                    f"Network Cost: {self.network_cost}")
 
         # Fill missing profile data or calculate prediction_cache
         if settings.use_prediction:
@@ -161,18 +173,27 @@ class Device:
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
-        with self.freq_lock:
-            if freq != self.__current_freq:    
-                logger.debug(f"Setting frequency on {self.name} to {freq} MHz")
-                response = worker_client.set_gpu_frequency(self.ip, freq)
-                self.__current_freq = freq
+    with self.freq_lock:
+        # Determine the target frequency
+        target_freq = freq
+        if self.current_requests > 0:
+            target_freq = max(freq, self.__current_freq)
+            logger.debug(f"{self.name}: Pending requests detected. Setting frequency to max({freq}, {self.__current_freq}) = {target_freq} MHz")
+        else:
+            logger.debug(f"{self.name}: No pending requests. Setting frequency to {freq} MHz")
 
-                if response['status_code'] == 200:
-                    logger.info(f"Frequency set to {freq} MHz on {self.name}")
-                else:
-                    logger.error(f"Failed to set frequency on {self.name}: {response['message']}")
+        # Only set frequency if it is different from the current frequency
+        if target_freq != self.__current_freq:
+            logger.debug(f"Setting frequency on {self.name} to {target_freq} MHz")
+            response = worker_client.set_gpu_frequency(self.ip, target_freq)
+            self.__current_freq = target_freq
+
+            if response.get('status_code') == 200:
+                logger.info(f"Frequency set to {target_freq} MHz on {self.name}")
             else:
-                logger.debug(f"Frequency already set to {freq} MHz on {self.name}")
+                logger.error(f"Failed to set frequency on {self.name}: {response.get('message')}")
+
+
 
     def get_frequency(self):
         with self.freq_lock:
@@ -216,7 +237,7 @@ class Device:
         with self.requests_lock:
             self.current_requests += 1
             logger.debug(f"Request added to {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
-            if self.current_requests >= self.model_instances:
+            if self.current_requests >= self.model_instances + self.allowed_buffer:
                 self.set_status('BUSY')
             else:
                 logger.debug(f"{self.name} is still AVAILABLE")
@@ -304,14 +325,87 @@ def initialize_devices():
     nano_batch_size_change_delay = 0.5
 
     # Define the devices
+
     devices = [
-        Device('agx-xavier-00', '147.102.37.108', agx_freqs, agx_profile, agx_frequency_change_delay, agx_batch_size_change_delay,  **specs_dict['AGX'], max_batch_size=64, network_cost=network_cost),
-        Device('xavier-nx-00', '192.168.0.110', nx_freqs, nx_profile, nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8, network_cost=network_cost),
-        Device('xavier-nx-01', '147.102.37.122', nx_freqs, nx_profile,  nx_frequency_change_delay, nx_batch_size_change_delay, **specs_dict['NX'], max_batch_size=8, network_cost=network_cost),
-        Device('LoudJetson0', '192.168.0.120', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4, network_cost=network_cost),
-        Device('LoudJetson1', '192.168.0.121', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4, network_cost=network_cost),
-        Device('LoudJetson2', '192.168.0.122', nano_freqs, nano_profile, nano_frequency_change_delay, nano_batch_size_change_delay, **specs_dict['Nano'], max_batch_size=4, network_cost=network_cost)
+        # AGX Xavier
+        Device(
+            name='agx-xavier-00',
+            ip='147.102.37.108',
+            frequencies=agx_freqs,
+            profile=agx_profile,
+            frequency_change_delay=agx_frequency_change_delay,
+            batch_size_change_delay=agx_batch_size_change_delay,
+            max_batch_size=64,
+            network_cost=network_cost,
+            **specs_dict['AGX']
+        ),
+
+        # Xavier NX 00
+        Device(
+            name='xavier-nx-00',
+            ip='192.168.0.110',
+            frequencies=nx_freqs,
+            profile=nx_profile,
+            frequency_change_delay=nx_frequency_change_delay,
+            batch_size_change_delay=nx_batch_size_change_delay,
+            max_batch_size=8,
+            network_cost=network_cost,
+            **specs_dict['NX']
+        ),
+
+        # Xavier NX 01
+        Device(
+            name='xavier-nx-01',
+            ip='147.102.37.122',
+            frequencies=nx_freqs,
+            profile=nx_profile,
+            frequency_change_delay=nx_frequency_change_delay,
+            batch_size_change_delay=nx_batch_size_change_delay,
+            max_batch_size=8,
+            network_cost=network_cost,
+            **specs_dict['NX']
+        ),
+
+        # LoudJetson0
+        Device(
+            name='LoudJetson0',
+            ip='192.168.0.120',
+            frequencies=nano_freqs,
+            profile=nano_profile,
+            frequency_change_delay=nano_frequency_change_delay,
+            batch_size_change_delay=nano_batch_size_change_delay,
+            max_batch_size=4,
+            network_cost=network_cost,
+            **specs_dict['Nano']
+        ),
+
+        # LoudJetson1
+        Device(
+            name='LoudJetson1',
+            ip='192.168.0.121',
+            frequencies=nano_freqs,
+            profile=nano_profile,
+            frequency_change_delay=nano_frequency_change_delay,
+            batch_size_change_delay=nano_batch_size_change_delay,
+            max_batch_size=4,
+            network_cost=network_cost,
+            **specs_dict['Nano']
+        ),
+
+        # LoudJetson2
+        Device(
+            name='LoudJetson2',
+            ip='192.168.0.122',
+            frequencies=nano_freqs,
+            profile=nano_profile,
+            frequency_change_delay=nano_frequency_change_delay,
+            batch_size_change_delay=nano_batch_size_change_delay,
+            max_batch_size=4,
+            network_cost=network_cost,
+            **specs_dict['Nano']
+        ),
     ]
+
     logger.info("Devices initialized successfully")
     return devices
 

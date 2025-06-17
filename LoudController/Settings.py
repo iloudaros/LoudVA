@@ -36,4 +36,5 @@ scheduler = 'round_robin' # Options: ['loud', 'random', 'round_robin', 'kind_rou
 safety_margin = 0.2 # The manual decrease in every latency constraint to account for unpredictable delays.
 calculate_network_cost = True
 single_device = False
+allowed_buffer = 1
 

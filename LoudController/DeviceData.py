@@ -173,25 +173,25 @@ class Device:
             return 0  # Return a low throughput value as a fallback
 
     def set_frequency(self, freq):
-    with self.freq_lock:
-        # Determine the target frequency
-        target_freq = freq
-        if self.current_requests > 0:
-            target_freq = max(freq, self.__current_freq)
-            logger.debug(f"{self.name}: Pending requests detected. Setting frequency to max({freq}, {self.__current_freq}) = {target_freq} MHz")
-        else:
-            logger.debug(f"{self.name}: No pending requests. Setting frequency to {freq} MHz")
-
-        # Only set frequency if it is different from the current frequency
-        if target_freq != self.__current_freq:
-            logger.debug(f"Setting frequency on {self.name} to {target_freq} MHz")
-            response = worker_client.set_gpu_frequency(self.ip, target_freq)
-            self.__current_freq = target_freq
-
-            if response.get('status_code') == 200:
-                logger.info(f"Frequency set to {target_freq} MHz on {self.name}")
+        with self.freq_lock:
+            # Determine the target frequency
+            target_freq = freq
+            if self.current_requests > 0:
+                target_freq = max(freq, self.__current_freq)
+                logger.debug(f"{self.name}: Pending requests detected. Setting frequency to max({freq}, {self.__current_freq}) = {target_freq} MHz")
             else:
-                logger.error(f"Failed to set frequency on {self.name}: {response.get('message')}")
+                logger.debug(f"{self.name}: No pending requests. Setting frequency to {freq} MHz")
+
+            # Only set frequency if it is different from the current frequency
+            if target_freq != self.__current_freq:
+                logger.debug(f"Setting frequency on {self.name} to {target_freq} MHz")
+                response = worker_client.set_gpu_frequency(self.ip, target_freq)
+                self.__current_freq = target_freq
+
+                if response.get('status_code') == 200:
+                    logger.info(f"Frequency set to {target_freq} MHz on {self.name}")
+                else:
+                    logger.error(f"Failed to set frequency on {self.name}: {response.get('message')}")
 
 
 

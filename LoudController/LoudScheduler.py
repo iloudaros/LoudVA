@@ -239,7 +239,7 @@ class LoudScheduler:
                 time.sleep(settings.scheduler_wait_time)
 
     def dispatch_request(self, device, freq, images, image_ids, response_dict, response_dict_lock, expected_latency=None):
-        device.add_request_for_duration(expected_latency)
+        device.add_request()
         batch_size = len(images)
 
         logger.info(f"Dispatching to {device.name} with frequency {freq}, batch size {batch_size}")

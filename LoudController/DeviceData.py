@@ -239,6 +239,7 @@ class Device:
             logger.debug(f"Request added to {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
             if self.current_requests >= self.model_instances + self.allowed_buffer:
                 self.set_status('BUSY')
+                logger.debug(f"{self.name} is now BUSY with {self.current_requests} requests.")
             else:
                 logger.debug(f"{self.name} is still AVAILABLE")
 
@@ -246,7 +247,7 @@ class Device:
         with self.requests_lock:
             self.current_requests -= 1
             logger.debug(f"Request completed on {self.name}. Current requests: {self.current_requests}/{self.model_instances}")
-            if self.current_requests < self.model_instances:
+            if self.current_requests < self.model_instances + self.allowed_buffer:
                 self.set_status('AVAILABLE')
 
     def add_request_for_duration(self, duration):

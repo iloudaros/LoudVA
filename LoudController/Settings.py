@@ -28,13 +28,13 @@ fixed_batch_size = 32 # Used for the fixed batch size scheduler
 batching_interval = 1 # Used for the fixed interval scheduler
 
 # Debugging
-debug = True
+debug = False
 
 # Scheduler settings
 scheduler_wait_time = 0.01
-scheduler = 'round_robin' # Options: ['loud', 'random', 'round_robin', 'kind_round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
+scheduler = 'loud' # Options: ['loud', 'random', 'round_robin', 'kind_round_robin', 'stress', 'transparent', 'interval', 'fixed_batch']
 safety_margin = 0.2 # The manual decrease in every latency constraint to account for unpredictable delays.
 calculate_network_cost = True
 single_device = False
-allowed_buffer = 1
+allowed_buffer = 1 
 

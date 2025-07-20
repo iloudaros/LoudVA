@@ -24,6 +24,7 @@ class LoudScheduler:
     def select_best_device_config(self, latency_constraint, queue_size):
         best_config = {
             'device': None,
+            'device_name': None,
             'freq': None,
             'batch_size': 0,
             'energy_per_frame': float('inf'),
@@ -32,6 +33,7 @@ class LoudScheduler:
         
         closest_config = {
             'device': None,
+            'device_name': None,
             'freq': None,
             'batch_size': 0,
             'latency': float('inf'),
@@ -80,7 +82,14 @@ class LoudScheduler:
                     
                     # We are within the latency constraint, select the configuration with minimum energy per frame
                     if latency <= latency_constraint and energy_per_frame < best_config['energy_per_frame']:
-                        best_config.update({'device': device, 'freq': freq, 'batch_size': batch_size, 'energy_per_frame': energy_per_frame, 'latency': latency})
+                        best_config.update({
+                            'device': device, 
+                            'device_name': device.name, 
+                            'freq': freq, 
+                            'batch_size': batch_size, 
+                            'energy_per_frame': energy_per_frame, 
+                            'latency': latency
+                        })
                         logger.debug(f"Best configuration updated: {best_config}")
 
                     # We have fallen behind the latency constraint, we need to find the closest configuration and process the queue asap
@@ -114,6 +123,7 @@ class LoudScheduler:
                         if update_closest:
                             closest_config.update({
                                 'device': device,
+                                'device_name': device.name,
                                 'freq': freq,
                                 'batch_size': batch_size,
                                 'latency': new_latency,
@@ -199,7 +209,7 @@ class LoudScheduler:
                 min_remaining_time = min(all_remaining_times)
 
                 # Select the best device configuration
-                logger.debug(f"What's the best config for \n min_remaining_time : {min_remaining_time}, and \n batch_size : {len(all_images)}")
+                logger.debug(f"What's the best config for \n min_remaining_time : {min_remaining_time}, and \n queue size : {len(all_images)}")
                 best_device, best_freq, best_batch_size, expected_latency = self.select_best_device_config(min_remaining_time, len(all_images))
 
                 if best_device and best_batch_size > 0:
@@ -239,12 +249,14 @@ class LoudScheduler:
                 time.sleep(settings.scheduler_wait_time)
 
     def dispatch_request(self, device, freq, images, image_ids, response_dict, response_dict_lock, expected_latency=None):
+        device.set_frequency(freq)
+
         device.add_request()
+
         batch_size = len(images)
 
         logger.info(f"Dispatching to {device.name} with frequency {freq}, batch size {batch_size}")
 
-        device.set_frequency(freq)
 
         # Capture the queue exit time
         queue_exit_time = time.time()
@@ -261,5 +273,7 @@ class LoudScheduler:
                 response_dict[image_id] = image_response
 
         logger.debug(f"Response stored in the response dictionary for image IDs: {image_ids}")
+        
+        device.end_request()
 
         

@@ -9,9 +9,11 @@ import Settings as settings
 from logging_config import setup_logging
 
 
-
+# For Debugging purposes
 logger = setup_logging()
 
+
+# For logging requests and responses, we use a CSV file.
 CSV_LOG_FILE = 'request_log.csv'
 
 # Columns we expect in our CSV:

@@ -105,8 +105,8 @@ if __name__ == '__main__':
     input_features = {
         'Batch Size': 32,
         'Frequency': 1000000000,
-        'GPU Max Frequency (MHz)': 1377000000,
-        'GPU Min Frequency (MHz)': 76800000,
+        'GPU Max Frequency (MHz)': 1377,
+        'GPU Min Frequency (MHz)': 768,
         'GPU Number of Cores': 64,
         'Memory Speed (GB/s)': 25.6,
         'Memory Size (GB)': 8,

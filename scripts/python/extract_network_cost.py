@@ -1,6 +1,5 @@
 import numpy as np
-np.bool = bool  # Workaround for old pandas versions
-
+#np.bool = bool  # Workaround for old pandas versions
 import pandas as pd
 import glob
 import re

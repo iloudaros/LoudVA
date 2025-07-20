@@ -82,8 +82,8 @@ LoudController_dependencies:
 controller_setup: triton_client_dependencies LoudController_dependencies
 
 controller_download_triton:
-	wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
-	mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver2_19.tgz	
+	#wget https://github.com/triton-inference-server/server/releases/download/v2.19.0/tritonserver2.19.0-jetpack4.6.1.tgz
+	#mv tritonserver2.19.0-jetpack4.6.1.tgz ~/tritonserver2_19.tgz	
 	wget https://github.com/triton-inference-server/server/releases/download/v2.34.0/tritonserver2.34.0-jetpack5.1.tgz
 	mv tritonserver2.34.0-jetpack5.1.tgz ~/tritonserver2_34.tgz
 
@@ -220,6 +220,12 @@ add_specs_to_profiling:
 
 generate_event_log:
 	cd LoudController/LoudGenerator && python3 LoudGenerator.py
+
+screen_wipe:
+	@echo "____Wiping all screens on the Jetson in case they are stuck____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "screen -wipe" -u iloudaros --become
+
+
 
 ### To be run on the Jetsons ###
 
@@ -443,7 +449,7 @@ notify:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-04-04_12:15:29_id9_loud_tegrastats
+tegrastats_log_name = 2025-07-19_18:22:21_id9_loud_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"

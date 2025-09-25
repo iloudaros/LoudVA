@@ -394,17 +394,17 @@ def initialize_devices():
         ),
 
         # LoudJetson2
-        Device(
-            name='LoudJetson2',
-            ip='192.168.0.122',
-            frequencies=nano_freqs,
-            profile=nano_profile,
-            frequency_change_delay=nano_frequency_change_delay,
-            batch_size_change_delay=nano_batch_size_change_delay,
-            max_batch_size=4,
-            network_cost=network_cost,
-            **specs_dict['Nano']
-        ),
+        # Device(
+        #     name='LoudJetson2',
+        #     ip='192.168.0.122',
+        #     frequencies=nano_freqs,
+        #     profile=nano_profile,
+        #     frequency_change_delay=nano_frequency_change_delay,
+        #     batch_size_change_delay=nano_batch_size_change_delay,
+        #     max_batch_size=4,
+        #     network_cost=network_cost,
+        #     **specs_dict['Nano']
+        # ),
     ]
 
     logger.info("Devices initialized successfully")

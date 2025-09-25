@@ -12,7 +12,7 @@ model_version = '1'
 scaling = 'INCEPTION'
 
 # Profiling or Predicting
-use_prediction = False
+use_prediction = True
 fill_missing_profile_data = True
 
 # Health check settings

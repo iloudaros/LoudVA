@@ -217,8 +217,8 @@ def experiment(scheduler, results_dir, id):
                 f'experiment_results/{results_dir}/nano0_{tegrastats_log_name}')
     os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/LoudJetson1/home/iloudaros/{tegrastats_log_name}',
                 f'experiment_results/{results_dir}/nano1_{tegrastats_log_name}')
-    os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/LoudJetson2/home/iloudaros/{tegrastats_log_name}',
-                f'experiment_results/{results_dir}/nano2_{tegrastats_log_name}')
+    # os.rename(f'/home/iloudaros/Desktop/LoudVA/measurements/power/LoudJetson2/home/iloudaros/{tegrastats_log_name}',
+    #            f'experiment_results/{results_dir}/nano2_{tegrastats_log_name}')
 
     stop_controller()
     empty_logs()

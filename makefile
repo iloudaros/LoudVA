@@ -144,7 +144,7 @@ start_triton_gpumetrics:
 
 stop_triton:
 	@echo "____Stopping Triton on the Jetsons____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_triton.yaml
+	@-ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_triton.yaml
 
 start_LoudController_gunicorn:
 	@echo "____Starting Control Node____"
@@ -179,7 +179,7 @@ start_WorkerController:
 
 stop_WorkerController:
 	@echo "____Stopping Worker Controller____"
-	@ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_WorkerController.yaml
+	@-ansible-playbook ${ANSIBLE_OPTS} ${ANSIBLE_PLAYBOOK_DIR}/stop_WorkerController.yaml
 
 start_workers: start_triton start_WorkerController
 	@echo "Workers Started"
@@ -223,7 +223,11 @@ generate_event_log:
 
 screen_wipe:
 	@echo "____Wiping all screens on the Jetson in case they are stuck____"
-	@ansible ${ANSIBLE_OPTS} Workers -a "screen -wipe" -u iloudaros --become
+	@ansible ${ANSIBLE_OPTS} Workers -a "sudo screen -wipe" -u iloudaros --become
+	
+screen_ls:
+	@echo "____Listing all screens on the Jetsons____"
+	@ansible ${ANSIBLE_OPTS} Workers -a "sudo screen -ls" -u iloudaros --become
 
 
 
@@ -449,7 +453,7 @@ notify:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
-tegrastats_log_name = 2025-07-19_18:22:21_id9_loud_tegrastats
+tegrastats_log_name = 2025-09-25_18:01:21_idt40_s0_loud_tegrastats
 
 remote_start_tegrastats:
 	@echo "____Starting tegrastats on the Jetsons____"
@@ -461,7 +465,7 @@ remote_stop_tegrastats:
 
 retrieve_tegrastats:
 	@echo "____Retrieving tegrastats from the Jetsons____"
-	@ansible ${ANSIBLE_OPTS} Workers -m fetch -a "src=/home/iloudaros/${tegrastats_log_name} dest=measurements/power" -u iloudaros --become
+	@-ansible ${ANSIBLE_OPTS} Workers -m fetch -a "src=/home/iloudaros/${tegrastats_log_name} dest=measurements/power" -u iloudaros --become
 
 remote_delete_tegrastats:
 	@echo "____Deleting tegrastats on the Jetsons____"
@@ -555,6 +559,9 @@ experiment_2:
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL} 
 
+experiments: experiment_1 experiment_2
+	@echo "Experiments Complete"
+
 experiment_3: stop_LoudController
 	@echo "____Running Experiment 3____"
 	@python3 LoudController/Experiments/Experiment_3.py
@@ -564,8 +571,29 @@ experiment_3: stop_LoudController
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL} 
 
-experiments: experiment_1 experiment_2
-	@echo "Experiments Complete"
+report3:
+	@python3 scripts/python/generate_report3.py --top-folder /home/iloudaros/Desktop/LoudVA/results/Experiment_3/experiment_results_00
+
+aggregate_results3:
+	@python3 scripts/python/aggregate_results3.py  /home/iloudaros/Desktop/LoudVA/results/Experiment_3/experiment_results_00/experiment_report.csv
+
+experiment_4: stop_LoudController
+	@echo "____Running Experiment 4____"
+	@python3 LoudController/Experiments/Experiment_4.py
+	@curl \
+		-d "Experiment 4: Complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
+
+experiment_5: stop_LoudController
+	@echo "____Running Experiment 5____"
+	@python3 LoudController/Experiments/Experiment_5.py
+	@curl \
+		-d "Experiment 5: Complete" \
+		-H "Title: LoudVA" \
+		-H "Tags: white_check_mark" \
+		${NOTIFICATION_URL}
 
 ################################################
 
@@ -615,6 +643,8 @@ plot_stress:
 plot_aggregated_results:
 	@python3 plots/plot_aggregated_results.py /home/iloudaros/Desktop/LoudVA/experiment_results_keep/experiment_report_aggregated.csv
 
+plot_aggregated_results3:
+	@python3 plots/plot_aggregated_results3.py /home/iloudaros/Desktop/LoudVA/results/Experiment_3/experiment_results_00/experiment_report_aggregated_overall.csv
 
 ################################################
 

@@ -1,6 +1,8 @@
-# LoudVA
+# LoudVA : Energy Efficient Video Analytics on Heterogeneous Edge Clusters
 
 This repository contains the source code for the LoudVA thesis project, a system for orchestrating distributed inference workloads across a heterogeneous cluster of NVIDIA Jetson devices. The system is designed to intelligently schedule tasks to optimize for performance, energy consumption, and latency constraints.
+
+More information about the thesis can be found [here](https://u.pcloud.link/publink/show?code=kZl9ljVZUfNa3DkBrvyKj9wtGgCMuppHqxLy#/filemanager?folder=19001781888)
 
 ## Key Contributions
 
@@ -45,7 +47,6 @@ This project appears in the following publications:
 
 ### [Leveraging DVFS for Energy-Efficient and QoS-aware Edge Video Analytics](https://dl.acm.org/doi/abs/10.1145/3721889.3721925)
 We present a novel scheduling framework for energy-efficient video analytics at the edge. The proposed approach dynamically adjusts GPU frequency and batch size to optimize inference execution while ensuring QoS compliance. It integrates a priority queue for QoS-aware scheduling and leverages offline profiling and ML-based estimation to select energy-optimal configurations. Based on these configurations, it employs a priority-based scheduler with greedy batching and adaptive waiting strategies to efficiently dispatch inference requests. Experimental evaluation conducted on an NVIDIA Jetson Xavier AGX device demonstrates a ~ 28% improvement in frames served per joule compared to a baseline with no scheduler. This outperforms a static batch scheduler (32 frames per batch) by ~ 15% and a time-triggered scheduler (batch formation every 200 ms) by ~ 29%, while introducing minimal increase in QoS violations (5%) relative to the best-performing policy.
-
 
 ## License
 

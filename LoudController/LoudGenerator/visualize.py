@@ -47,8 +47,9 @@ def plot_event_log(log_file_path):
     ax2.grid(True)
     
     plt.tight_layout()
-    plt.show()
+    plt.savefig('event_log_plot.png')
 
+    plt.close(fig)
 if __name__ == '__main__':
     # Replace this path with the path to your event log file
     log_file_path = '/home/iloudaros/Desktop/LoudVA/LoudController/LoudGenerator/event_log.csv'

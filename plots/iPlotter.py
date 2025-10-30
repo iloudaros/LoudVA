@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 import csv
 import os
 import re
 from adjustText import adjust_text
+import pandas as pd
 
 def human_readable_frequency(frequency):
     """Convert frequency to a human-readable format."""
@@ -55,7 +57,8 @@ def plot(folder_paths, row_number_x, row_number_y, row_name_x, row_name_y, title
          pareto_boundary=False, maximize_x=False, maximize_y=False, row_number_z=None,
          row_name_z='Z', maximize_z=False, debug_mode=False, distrust_file_paths=None,
          distrust_threshold=None, export_file_path=None, directory_labels=None, filter_only=False):
-    """Main plotting function."""
+    """Main plotting function with seaborn styling for publication-quality figures."""
+    
     folder_paths = [folder_paths] if isinstance(folder_paths, str) else folder_paths
     directory_labels = directory_labels or [str(i) for i in range(len(folder_paths))]
 
@@ -85,9 +88,6 @@ def plot(folder_paths, row_number_x, row_number_y, row_name_x, row_name_y, title
             print(f"Distrust data for {dirname}:")
             for key, value in distrust_data.items():
                 print(f"{key}: {value}")
-
-    colors = plt.get_cmap('tab20c')
-    plt.figure(figsize=(16, 10))
 
     all_data = []
 
@@ -163,8 +163,31 @@ def plot(folder_paths, row_number_x, row_number_y, row_name_x, row_name_y, title
     if filter_only:
         return all_data
 
+    # ============ SEABORN PLOTTING SECTION ============
+    
+    # Set seaborn style optimized for publication
+    sns.set_theme(style="ticks", context="paper")
+    sns.set_context("paper", font_scale=15, rc={"lines.linewidth": 2.0})
+    
+    # Create figure with high DPI for publication quality
+    fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
+    
+    # Use tab20/tab20b/tab20c colormap similar to original
+    # Combining tab20, tab20b, and tab20c for maximum color variety
+    num_unique_combinations = sum(len(frequencies_by_folder[d]) for d in directory_labels)
+    
+    # Create extended color palette using tab20 variants (similar to original tab20c)
+    if num_unique_combinations <= 20:
+        colors = sns.color_palette("tab20", n_colors=20)
+    else:
+        # Combine multiple tab palettes for more colors
+        colors = (sns.color_palette("tab20", n_colors=20) + 
+                 sns.color_palette("tab20b", n_colors=20) + 
+                 sns.color_palette("tab20c", n_colors=20))
+    
     texts = []
     num_files_processed = 0
+    
     for directory_label in directory_labels:
         for frequency in sorted(frequencies_by_folder[directory_label], reverse=True):
             points = [point for point in all_data if point[-2] == frequency and point[-1] == directory_label]
@@ -175,27 +198,83 @@ def plot(folder_paths, row_number_x, row_number_y, row_name_x, row_name_y, title
             y = [point[1] for point in points]
             labels = [f"{directory_label} | {point[3]}" if not single_directory else point[3] for point in points]
 
-            linestyle = '-' if connect_points else ''
             readable_frequency = human_readable_frequency(frequency)
             legend_label = f"{readable_frequency} ({directory_label})" if not single_directory else readable_frequency
-            plt.plot(x, y, label=legend_label, marker='o', linestyle=linestyle, color=colors(num_files_processed % 20))
+            
+            current_color = colors[num_files_processed % len(colors)]
+            
+            # Plot with enhanced styling for publication
+            if connect_points:
+                ax.plot(x, y, label=legend_label, marker='o', linestyle='-', 
+                       color=current_color,
+                       linewidth=2.0, markersize=7, 
+                       markeredgewidth=1.0, 
+                       markeredgecolor='white', 
+                       alpha=0.85,
+                       zorder=3)
+            else:
+                ax.scatter(x, y, label=legend_label, 
+                          color=current_color,
+                          s=100, edgecolors='white', 
+                          linewidth=1.0, alpha=0.85,
+                          zorder=3)
+            
             num_files_processed += 1
 
             if label_points:
                 for j, txt in enumerate(labels):
-                    texts.append(plt.text(x[j] + offset[0], y[j] + offset[1], txt, ha='center', va='center', fontsize=9, color='black'))
+                    texts.append(ax.text(x[j] + offset[0], y[j] + offset[1], txt, 
+                                        ha='center', va='center', 
+                                        fontsize=8, 
+                                        color='black',
+                                        bbox=dict(boxstyle='round,pad=0.4', 
+                                                facecolor='white', 
+                                                edgecolor='lightgray', 
+                                                alpha=0.8,
+                                                linewidth=0.5)))
 
-    plt.xlabel(row_name_x)
-    plt.ylabel(row_name_y)
-    plt.title(title)
-    plt.legend()
-    plt.grid(True)
+    # Enhanced axis labels and formatting for publication
+    ax.set_xlabel(row_name_x, fontsize=14, fontweight='bold', labelpad=8)
+    ax.set_ylabel(row_name_y, fontsize=14, fontweight='bold', labelpad=8)
+    
+    # Title removed for publication
+    
+    # Professional legend styling
+    legend = ax.legend(fontsize=10, 
+                      frameon=True, 
+                      shadow=False,
+                      fancybox=False,
+                      edgecolor='black',
+                      framealpha=0.95,
+                      loc='best', 
+                      ncol=1 if num_files_processed <= 8 else 2)
+    legend.get_frame().set_linewidth(0.8)
+    
+    # Subtle grid for easier reading
+    ax.grid(True, alpha=0.25, linestyle='--', linewidth=0.6, zorder=0)
+    
+    # Professional tick styling
+    ax.tick_params(axis='both', which='major', labelsize=11, 
+                   direction='out', length=4, width=0.8)
+    
+    # Clean up spines for publication
+    sns.despine(ax=ax, top=True, right=True, trim=True)
+    ax.spines['left'].set_linewidth(0.8)
+    ax.spines['bottom'].set_linewidth(0.8)
+    
+    # Tight layout to prevent label cutoff
+    plt.tight_layout()
 
     if texts:
         if debug_mode:
             print("Texts to adjust:")
             for text in texts:
                 print(text)
-        adjust_text(texts, arrowprops=dict(arrowstyle='->', color='purple'))
+        adjust_text(texts, 
+                   arrowprops=dict(arrowstyle='->', color='gray', lw=1.0, alpha=0.7),
+                   expand_points=(1.2, 1.2),
+                   force_points=0.5)
 
     plt.show()
+    
+    return fig, ax  # Return figure and axis for further customization or saving

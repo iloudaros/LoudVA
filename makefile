@@ -586,6 +586,13 @@ experiment_4: stop_LoudController
 		-H "Tags: white_check_mark" \
 		${NOTIFICATION_URL}
 
+report4:
+	@python3 scripts/python/generate_report4.py --top-folder /home/iloudaros/Desktop/LoudVA/results/Experiment_4/
+
+aggregate_results4:
+	@python3 scripts/python/aggregate_results4.py  /home/iloudaros/Desktop/LoudVA/results/Experiment_4/experiment_report4.csv
+
+
 experiment_5: stop_LoudController
 	@echo "____Running Experiment 5____"
 	@python3 LoudController/Experiments/Experiment_5.py
@@ -646,6 +653,8 @@ plot_aggregated_results:
 plot_aggregated_results3:
 	@python3 plots/plot_aggregated_results3.py /home/iloudaros/Desktop/LoudVA/results/Experiment_3/experiment_results_00/experiment_report_aggregated_overall.csv
 
+plot_aggregated_results4:
+	@python3 plots/plot_aggregated_results4.py /home/iloudaros/Desktop/LoudVA/results/Experiment_4/experiment_report4_aggregated_overall.csv
 ################################################
 
 

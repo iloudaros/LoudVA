@@ -167,10 +167,10 @@ def plot(folder_paths, row_number_x, row_number_y, row_name_x, row_name_y, title
     
     # Set seaborn style optimized for publication
     sns.set_theme(style="ticks", context="paper")
-    sns.set_context("paper", font_scale=15, rc={"lines.linewidth": 2.0})
+    sns.set_context("paper", font_scale=7.5, rc={"lines.linewidth": 2.0})
     
     # Create figure with high DPI for publication quality
-    fig, ax = plt.subplots(figsize=(10, 10), dpi=300)
+    fig, ax = plt.subplots(figsize=(10, 7), dpi=300)
     
     # Use tab20/tab20b/tab20c colormap similar to original
     # Combining tab20, tab20b, and tab20c for maximum color variety
@@ -271,7 +271,7 @@ def plot(folder_paths, row_number_x, row_number_y, row_name_x, row_name_y, title
             for text in texts:
                 print(text)
         adjust_text(texts, 
-                   arrowprops=dict(arrowstyle='->', color='gray', lw=1.0, alpha=0.7),
+                  # arrowprops=dict(arrowstyle='->', color='gray', lw=1.0, alpha=0.7),
                    expand_points=(1.2, 1.2),
                    force_points=0.5)
 
